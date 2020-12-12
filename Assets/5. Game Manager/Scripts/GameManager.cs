@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,17 +8,26 @@ public class GameManager : Manager<GameManager>
 {
     public enum GameState
     {
-        RUNNING
+        PREGAME,
+        RUNNING,
     }
 
-    public GameObject[] SystemPrefabs;
+    public GameState CurrentGameState
+    {
+        get { return _currentGameState; }
+        set { _currentGameState = value; }
+    }
 
-    List<GameObject> _instancedSystemPrefabs;
-    GameState _currentGameState = GameState.RUNNING;
+    GameState _currentGameState = GameState.PREGAME;
     string _currentLevelName = string.Empty;
 
-    private PlayerMovement playerMovement;
+    public GameObject[] SystemPrefabs;
+    List<GameObject> _instancedSystemPrefabs;
 
+    public Events.EventGameState OnGameStateChanged;
+
+    
+    private PlayerMovement playerMovement;
     private PlayerMovement player
     {
         get
@@ -29,27 +39,62 @@ public class GameManager : Manager<GameManager>
             return playerMovement;
         }
     }
-
-    public GameState CurrentGameState
-    {
-        get { return _currentGameState; }
-        set { _currentGameState = value; }
-    }
+    
 
     private void Start()
     {
         _instancedSystemPrefabs = new List<GameObject>();
         InstantiateSystemPrefabs();
+
+        UIManager.Instance.OnMainMenuLoadComplete.AddListener(HandleMainMenuLoadComplete);
     }
 
-    private void InstantiateSystemPrefabs()
+    private void Update()
     {
-        GameObject prefabInstance;
-        for (int i = 0; i < SystemPrefabs.Length; ++i)
+        if (_currentGameState == GameState.PREGAME)
         {
-            prefabInstance = Instantiate(SystemPrefabs[i]);
-            _instancedSystemPrefabs.Add(prefabInstance);
+            return;
         }
+    }
+
+    private void HandleMainMenuLoadComplete(bool loadGame)
+    {
+        if (!loadGame)
+        {
+            // UnloadLevel(_currentLevelName);
+        }
+    }
+
+    void UpdateState(GameState state)
+    {
+        GameState previousGameState = _currentGameState;
+        _currentGameState = state;
+
+        switch (_currentGameState)
+        {
+            case GameState.PREGAME:
+                Time.timeScale = 1.0f;
+                break;
+
+            case GameState.RUNNING:
+                Time.timeScale = 1.0f;
+                break;
+
+            default:
+                break;
+        }
+
+        OnGameStateChanged.Invoke(_currentGameState, previousGameState);
+    }
+
+    private void OnLoadOperationComplete(AsyncOperation ao)
+    {
+        if (_currentLevelName == "Main")
+        {
+            UpdateState(GameState.RUNNING);
+        }
+
+        Debug.Log("Load Complete.");
     }
 
     public void LoadLevel(string levelName)
@@ -61,12 +106,35 @@ public class GameManager : Manager<GameManager>
             return;
         }
 
+        ao.completed += OnLoadOperationComplete;
 
         _currentLevelName = levelName;
+    }
+
+    protected void OnDestroy()
+    {
+        if (_instancedSystemPrefabs == null)
+            return;
+
+        for (int i = 0; i < _instancedSystemPrefabs.Count; ++i)
+        {
+            Destroy(_instancedSystemPrefabs[i]);
+        }
+        _instancedSystemPrefabs.Clear();
     }
 
     public void StartGame()
     {
         LoadLevel("Main");
+    }
+
+    private void InstantiateSystemPrefabs()
+    {
+        GameObject prefabInstance;
+        for (int i = 0; i < SystemPrefabs.Length; ++i)
+        {
+            prefabInstance = Instantiate(SystemPrefabs[i]);
+            _instancedSystemPrefabs.Add(prefabInstance);
+        }
     }
 }
