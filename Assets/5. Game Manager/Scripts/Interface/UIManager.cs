@@ -14,6 +14,7 @@ public class UIManager : Manager<UIManager>
     [Header("Main Menu")]
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Text _tagline;
+    [SerializeField] private TimeMenu timeMenu;
 
     public Events.EventLoadComplete OnMainMenuLoadComplete;
 
@@ -21,6 +22,7 @@ public class UIManager : Manager<UIManager>
     {
         _mainMenu.OnMainMenuLoadComplete.AddListener(HandleMainMenuLoadComplete);
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        //DisplayUI(false);
     }
 
     private void HandleMainMenuLoadComplete(bool loadGame)
@@ -33,7 +35,19 @@ public class UIManager : Manager<UIManager>
 
     void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        //what happen when game state changed
+        switch (currentState)
+        {
+            case GameManager.GameState.PREGAME:
+                //DisplayUI(false);
+                break;
+
+            case GameManager.GameState.RUNNING:
+                //DisplayUI(true);
+                break;
+
+            default:
+                break;
+        }
     }
 
     void Update()
@@ -52,5 +66,10 @@ public class UIManager : Manager<UIManager>
     public void SetCameraActive(bool active)
     {
         _uiCamera.gameObject.SetActive(active);
+    }
+
+    private void DisplayUI(bool active)
+    {
+        timeMenu.gameObject.SetActive(active);
     }
 }
