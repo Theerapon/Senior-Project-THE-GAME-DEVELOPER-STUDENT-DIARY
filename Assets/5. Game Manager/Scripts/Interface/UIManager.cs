@@ -9,11 +9,13 @@ public class UIManager : Manager<UIManager>
     [Header("Camera")]
     [SerializeField] private Camera _uiCamera;
 
-    [Space]
 
     [Header("Main Menu")]
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Text _tagline;
+    
+    [Header("Time Menu")]
+    [SerializeField] private Image _timeImage;
 
     public Events.EventLoadComplete OnMainMenuLoadComplete;
 
@@ -33,7 +35,19 @@ public class UIManager : Manager<UIManager>
 
     void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        //what happen when game state changed
+        switch (currentState)
+        {
+            case GameManager.GameState.PREGAME:
+                DisplayTimeImage(false);
+                break;
+
+            case GameManager.GameState.RUNNING:
+                DisplayTimeImage(true);
+                break;
+
+            default:
+                break;
+        }
     }
 
     void Update()
@@ -52,5 +66,10 @@ public class UIManager : Manager<UIManager>
     public void SetCameraActive(bool active)
     {
         _uiCamera.gameObject.SetActive(active);
+    }
+
+    private void DisplayTimeImage(bool active)
+    {
+        _timeImage.gameObject.SetActive(active);
     }
 }
