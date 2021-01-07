@@ -15,13 +15,11 @@ public class StatsDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textArt;
     [SerializeField] private TMP_Text textAudio;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;   
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
