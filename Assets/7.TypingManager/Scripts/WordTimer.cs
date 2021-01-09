@@ -19,12 +19,11 @@ public class WordTimer : MonoBehaviour
     {
         time += Time.deltaTime * TIMESCALE;
 
-        Debug.Log(wordDelay);
 
         if (time >= wordDelay)
         {
             time = 0;
-            wordDelay *= 0.99f;
+            wordDelay *= 0.5f;
             wordManager.AddWord();
         }
     }
