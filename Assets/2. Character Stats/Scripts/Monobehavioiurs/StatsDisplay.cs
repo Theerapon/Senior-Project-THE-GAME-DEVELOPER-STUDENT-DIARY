@@ -22,7 +22,7 @@ public class StatsDisplay : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             DisplayStats();
         }
