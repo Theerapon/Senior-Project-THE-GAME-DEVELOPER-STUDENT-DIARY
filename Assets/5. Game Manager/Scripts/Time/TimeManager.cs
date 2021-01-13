@@ -86,12 +86,7 @@ public class TimeManager : Manager<TimeManager>
                 break;
 
             case GameManager.GameState.RUNNING:
-                CalculateMonth();
-                CalculateSeason();
-                setText();
-                OnDateCalendar.Invoke(onDate);
-                OnTimeCalendar.Invoke(onTime);
-                OnSeasonCalendar.Invoke(onSeason);
+                Reset();
                 break;
             case GameManager.GameState.PAUSE:
                 break;
@@ -110,8 +105,6 @@ public class TimeManager : Manager<TimeManager>
                 CalculateTime();
                 break;
             case GameManager.GameState.PAUSE:
-                break;
-            case GameManager.GameState.INTERRUPTED:
                 break;
             default:
                 break;
@@ -244,6 +237,16 @@ public class TimeManager : Manager<TimeManager>
                 _currentDays = SetsOfDays.SUN;
                 break;
         }
+    }
+
+    private void Reset()
+    {
+        CalculateMonth();
+        CalculateSeason();
+        setText();
+        OnDateCalendar.Invoke(onDate);
+        OnTimeCalendar.Invoke(onTime);
+        OnSeasonCalendar.Invoke(onSeason);
     }
 
 

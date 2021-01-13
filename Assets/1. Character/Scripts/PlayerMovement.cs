@@ -71,8 +71,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case GameManager.GameState.PAUSE:
                 break;
-            case GameManager.GameState.INTERRUPTED:
-                break;
             default:
                 break;
         }

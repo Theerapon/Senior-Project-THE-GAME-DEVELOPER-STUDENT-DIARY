@@ -11,7 +11,6 @@ public class GameManager : Manager<GameManager>
         PREGAME,
         RUNNING,
         PAUSE,
-        INTERRUPTED,
     }
 
     public GameState CurrentGameState
@@ -83,10 +82,7 @@ public class GameManager : Manager<GameManager>
                 Time.timeScale = 1.0f;
                 break;
             case GameState.PAUSE:
-                Time.timeScale = 0f;
-                break;
-            case GameState.INTERRUPTED:
-                Time.timeScale = 1f;
+                Time.timeScale = 1.0f;
                 break;
             default:
                 break;
@@ -136,28 +132,15 @@ public class GameManager : Manager<GameManager>
         LoadLevel("Main");
     }
 
-    public void InterrupedGame()
-    {
-        if(_currentGameState == GameState.RUNNING)
-        {
-            UpdateState(GameState.INTERRUPTED);
-        }
-        else if(_currentGameState == GameState.INTERRUPTED && _previousGameState == GameState.RUNNING)
-        {
-            UpdateState(GameState.RUNNING);
-        }
-
-    }
-
     public void PuaseGame()
     {
-        if (_currentGameState == GameState.PAUSE)
-        {
-            UpdateState(GameState.RUNNING);
-        }
-        else
+        if (_currentGameState == GameState.RUNNING)
         {
             UpdateState(GameState.PAUSE);
+        }
+        else if(_currentGameState == GameState.PAUSE && _previousGameState == GameState.RUNNING)
+        {
+            UpdateState(GameState.RUNNING);
         }
 
     }

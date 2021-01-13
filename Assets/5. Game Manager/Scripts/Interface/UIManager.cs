@@ -18,9 +18,6 @@ public class UIManager : Manager<UIManager>
     [Header("Time Menu")]
     [SerializeField] private Image _timeImage;
 
-    [Header("Puase Menu")]
-    [SerializeField] private TMP_Text _puaseText;
-
     public Events.EventLoadComplete OnMainMenuLoadComplete;
 
     void Start()
@@ -43,18 +40,11 @@ public class UIManager : Manager<UIManager>
         {
             case GameManager.GameState.PREGAME:
                 DisplayTimeImage(false);
-                DisplayPuaseText(false);
                 break;
             case GameManager.GameState.RUNNING:
                 DisplayTimeImage(true);
-                DisplayPuaseText(false);
                 break;
             case GameManager.GameState.PAUSE:
-                DisplayPuaseText(true);
-                DisplayTimeImage(false);
-                break;
-            case GameManager.GameState.INTERRUPTED:
-                DisplayPuaseText(false);
                 break;
             default:
                 break;
@@ -84,8 +74,4 @@ public class UIManager : Manager<UIManager>
         _timeImage.gameObject.SetActive(active);
     }
 
-    private void DisplayPuaseText(bool active)
-    {
-        _puaseText.gameObject.SetActive(active);
-    }
 }

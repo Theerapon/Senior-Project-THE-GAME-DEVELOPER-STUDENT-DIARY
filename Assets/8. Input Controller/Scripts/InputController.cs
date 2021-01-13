@@ -20,14 +20,9 @@ public class InputController : MonoBehaviour
     [SerializeField] private TMP_Text project_textNameProject = null;
     [SerializeField] private Image project_imageFillProject = null;
 
-    [Header("Stats")]
-    [SerializeField] private CharacterStats _characterStats = null;
-    [SerializeField] private GameObject _StatsDisplayHolder = null;
-    [SerializeField] private TMP_Text stats_textCoding = null;
-    [SerializeField] private TMP_Text stats_textDesign = null;
-    [SerializeField] private TMP_Text stats_textTesting = null;
-    [SerializeField] private TMP_Text stats_textArt = null;
-    [SerializeField] private TMP_Text stats_textAudio = null;
+
+    [Header("Menu")]
+    [SerializeField] private GameObject _MenuHandler = null;
     #endregion
 
 
@@ -46,16 +41,6 @@ public class InputController : MonoBehaviour
             case GameManager.GameState.RUNNING:
                 break;
             case GameManager.GameState.PAUSE:
-                if (_ProjectDisplayHolder.activeSelf == true)
-                {
-                    DisplayProject();
-                }
-                if (_StatsDisplayHolder.activeSelf == true)
-                {
-                    DisplayStats();
-                }
-                break;
-            case GameManager.GameState.INTERRUPTED:
                 break;
             default:
                 break;
@@ -72,16 +57,9 @@ public class InputController : MonoBehaviour
             #endregion
             #region Running
             case GameManager.GameState.RUNNING:
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    DisplayProject();
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    DisplayStats();
-                }
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
+                    DisplayMenu();
                     GameManager.Instance.PuaseGame();
 
                 }
@@ -91,26 +69,9 @@ public class InputController : MonoBehaviour
             case GameManager.GameState.PAUSE:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
+                    DisplayMenu();
                     GameManager.Instance.PuaseGame();
                 }
-                break;
-            #endregion
-            #region Interrupted
-            case GameManager.GameState.INTERRUPTED:
-
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    DisplayProject();
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    DisplayStats();
-                }
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    GameManager.Instance.PuaseGame();
-                }
-
                 break;
             #endregion
             default:
@@ -131,7 +92,6 @@ public class InputController : MonoBehaviour
             SetDisplayProject();
             _ProjectDisplayHolder.SetActive(true);
         }
-        ChangedGameState();
     }
 
 
@@ -154,55 +114,19 @@ public class InputController : MonoBehaviour
     }
     #endregion
 
-    #region Stats
-    private void SetText()
-    {
-        stats_textCoding.text = _characterStats.GetStatusCoding().ToString();
-        stats_textDesign.text = _characterStats.GetStatusDesign().ToString();
-        stats_textTesting.text = _characterStats.GetStatusTest().ToString();
-        stats_textArt.text = _characterStats.GetStatusArt().ToString();
-        stats_textAudio.text = _characterStats.GetStatusAudio().ToString();
-    }
 
-    void DisplayStats()
+
+
+    private void DisplayMenu()
     {
-        if (_StatsDisplayHolder.activeSelf == true)
+        if (_MenuHandler.activeSelf == true)
         {
-            _StatsDisplayHolder.SetActive(false);
+            _MenuHandler.SetActive(false);
         }
         else
         {
-            SetText();
-            _StatsDisplayHolder.SetActive(true);
+            _MenuHandler.SetActive(true);
+            _MenuHandler.GetComponent<MenuManager>().Reset();
         }
-        ChangedGameState();
-    }
-    #endregion
-
-    private void ChangedGameState()
-    {
-        switch (GameManager.Instance.CurrentGameState)
-        {
-            case GameManager.GameState.RUNNING:
-                GameManager.Instance.InterrupedGame();
-                break;
-            case GameManager.GameState.INTERRUPTED:
-                if(_StatsDisplayHolder.activeSelf == true || _ProjectDisplayHolder.activeSelf == true)
-                {
-                    return;
-                }
-                else
-                {
-                    GameManager.Instance.InterrupedGame();
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void InterrupedGame()
-    {
-
     }
 }
