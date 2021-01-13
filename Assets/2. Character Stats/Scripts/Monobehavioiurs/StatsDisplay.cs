@@ -15,16 +15,45 @@ public class StatsDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textArt;
     [SerializeField] private TMP_Text textAudio;
 
+    private GameManager.GameState _currentGameState;
+
     void Start()
     {
-        instance = this;   
+        instance = this;
+        _currentGameState = GameManager.GameState.RUNNING;
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+    }
+
+    private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
+    {
+        switch (currentState)
+        {
+            case GameManager.GameState.PREGAME:
+                _currentGameState = GameManager.GameState.RUNNING;
+                break;
+            case GameManager.GameState.RUNNING:
+                _currentGameState = currentState;
+                break;
+            case GameManager.GameState.PAUSE:
+                _currentGameState = currentState;
+                break;
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        switch (_currentGameState)
         {
-            DisplayStats();
+            case GameManager.GameState.PREGAME:
+                break;
+            case GameManager.GameState.RUNNING:
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    DisplayStats();
+                }
+                break;
+            case GameManager.GameState.PAUSE:
+                break;
         }
     }
 

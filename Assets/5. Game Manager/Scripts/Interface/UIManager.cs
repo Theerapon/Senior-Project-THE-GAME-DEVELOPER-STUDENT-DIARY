@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : Manager<UIManager>
 {
@@ -16,6 +17,9 @@ public class UIManager : Manager<UIManager>
     
     [Header("Time Menu")]
     [SerializeField] private Image _timeImage;
+
+    [Header("Puase Menu")]
+    [SerializeField] private TMP_Text _puaseText;
 
     public Events.EventLoadComplete OnMainMenuLoadComplete;
 
@@ -39,12 +43,19 @@ public class UIManager : Manager<UIManager>
         {
             case GameManager.GameState.PREGAME:
                 DisplayTimeImage(false);
+                DisplayPuaseText(false);
                 break;
-
             case GameManager.GameState.RUNNING:
                 DisplayTimeImage(true);
+                DisplayPuaseText(false);
                 break;
-
+            case GameManager.GameState.PAUSE:
+                DisplayPuaseText(true);
+                DisplayTimeImage(false);
+                break;
+            case GameManager.GameState.INTERRUPTED:
+                DisplayPuaseText(false);
+                break;
             default:
                 break;
         }
@@ -71,5 +82,10 @@ public class UIManager : Manager<UIManager>
     private void DisplayTimeImage(bool active)
     {
         _timeImage.gameObject.SetActive(active);
+    }
+
+    private void DisplayPuaseText(bool active)
+    {
+        _puaseText.gameObject.SetActive(active);
     }
 }

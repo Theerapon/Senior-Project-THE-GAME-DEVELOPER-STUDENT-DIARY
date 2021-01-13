@@ -17,7 +17,7 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    [SerializeField] private const int TIMESCALE = 7200;
+    [SerializeField] private const int TIMESCALE = 60;
 
     private const double DEFAULT_SECOND = 60;
     private const double DEFAULT_MINUTE = 60;
@@ -73,7 +73,7 @@ public class TimeManager : Manager<TimeManager>
         minute = 0;
         hour = 0;
         date = 1;
-        _currentDays = SetsOfDays.NONE;
+        _currentDays = SetsOfDays.SUN;
         month = 1;
         year = 2021;
     }
@@ -86,15 +86,15 @@ public class TimeManager : Manager<TimeManager>
                 break;
 
             case GameManager.GameState.RUNNING:
-                CalculateDay();
                 CalculateMonth();
                 CalculateSeason();
                 setText();
-                OnTimeCalendar.Invoke(onTime);
                 OnDateCalendar.Invoke(onDate);
+                OnTimeCalendar.Invoke(onTime);
                 OnSeasonCalendar.Invoke(onSeason);
                 break;
-
+            case GameManager.GameState.PAUSE:
+                break;
             default:
                 break;
         }
@@ -108,6 +108,10 @@ public class TimeManager : Manager<TimeManager>
                 break;
             case GameManager.GameState.RUNNING:
                 CalculateTime();
+                break;
+            case GameManager.GameState.PAUSE:
+                break;
+            case GameManager.GameState.INTERRUPTED:
                 break;
             default:
                 break;
