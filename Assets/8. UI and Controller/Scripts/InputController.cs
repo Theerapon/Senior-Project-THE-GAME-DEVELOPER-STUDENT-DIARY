@@ -23,6 +23,9 @@ public class InputController : MonoBehaviour
 
     [Header("Menu")]
     [SerializeField] private GameObject _MenuHandler = null;
+
+    [Header("Hotbar")]
+    [SerializeField] private GameObject _HotbarHandler = null;
     #endregion
 
 
@@ -39,8 +42,16 @@ public class InputController : MonoBehaviour
             case GameManager.GameState.PREGAME:
                 break;
             case GameManager.GameState.RUNNING:
+                if(_HotbarHandler.activeSelf == false)
+                {
+                    _HotbarHandler.SetActive(true);
+                }
                 break;
             case GameManager.GameState.PAUSE:
+                if (_HotbarHandler.activeSelf == true)
+                {
+                    _HotbarHandler.SetActive(false);
+                }
                 break;
             default:
                 break;
@@ -115,8 +126,6 @@ public class InputController : MonoBehaviour
     #endregion
 
 
-
-
     private void DisplayMenu()
     {
         if (_MenuHandler.activeSelf == true)
@@ -127,6 +136,18 @@ public class InputController : MonoBehaviour
         {
             _MenuHandler.SetActive(true);
             _MenuHandler.GetComponent<MenuManager>().Reset();
+        }
+    }
+
+    private void DisplayHotbar()
+    {
+        if (_HotbarHandler.activeSelf == true)
+        {
+            _HotbarHandler.SetActive(false);
+        }
+        else
+        {
+            _HotbarHandler.SetActive(true);
         }
     }
 }
