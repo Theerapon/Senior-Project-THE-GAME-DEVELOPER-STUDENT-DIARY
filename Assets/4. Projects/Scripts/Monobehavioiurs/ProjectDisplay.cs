@@ -18,19 +18,48 @@ public class ProjectDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textBug;
     [SerializeField] private TMP_Text textNameProject;
     [SerializeField] private Image imageFillProject;
+
     void Start()
     {
         instance = this;
         SetDisplayProject();
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+    }
+
+    private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
+    {
+        switch (currentState)
+        {
+            case GameManager.GameState.PREGAME:
+                break;
+            case GameManager.GameState.RUNNING:
+                break;
+            case GameManager.GameState.PAUSE:
+                if (ProjectDisplayHolder.activeSelf == true)
+                {
+                    DisplayProject();
+                }
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        switch (GameManager.Instance.CurrentGameState)
         {
-            DisplayProject();
+            case GameManager.GameState.PREGAME:
+                break;
+            case GameManager.GameState.RUNNING:
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    DisplayProject();
+                }
+                break;
+            case GameManager.GameState.PAUSE:
+                break;
         }
+
     }
 
     private void DisplayProject()

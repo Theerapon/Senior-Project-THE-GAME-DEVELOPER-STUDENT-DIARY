@@ -46,24 +46,34 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = new Vector3(horizontal, 0.0f, vertical);
         moveDirection *= (speed * Time.deltaTime);
-        
-        
-        // movement wasd
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            spriteRenderer.flipX = true;
-        }
 
-        //animation
-        animator.SetBool(WALK_PROPERTY,
-                         Math.Abs(moveDirection.sqrMagnitude) > Mathf.Epsilon);
+        switch (GameManager.Instance.CurrentGameState)
+        {
+            case GameManager.GameState.PREGAME:
+                break;
+            case GameManager.GameState.RUNNING:
+                // movement wasd
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    spriteRenderer.flipX = true;
+                }
 
-        //transform position
-        rgBody.MovePosition(transform.position + moveDirection);
+                //animation
+                animator.SetBool(WALK_PROPERTY,
+                                 Math.Abs(moveDirection.sqrMagnitude) > Mathf.Epsilon);
+
+                //transform position
+                rgBody.MovePosition(transform.position + moveDirection);
+                break;
+            case GameManager.GameState.PAUSE:
+                break;
+            default:
+                break;
+        }
     }
 
     #endregion

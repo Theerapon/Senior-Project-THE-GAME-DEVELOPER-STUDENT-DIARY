@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TimeMenu : MonoBehaviour
 {
-    [SerializeField] private Text dateCalendar;
-    [SerializeField] private Text timeCalendar;
-    [SerializeField] private Text seasonCalendar;
+    [SerializeField] private TMP_Text dateCalendar;
+    [SerializeField] private TMP_Text timeCalendar;
+    [SerializeField] private TMP_Text seasonCalendar;
 
     void Start()
     {

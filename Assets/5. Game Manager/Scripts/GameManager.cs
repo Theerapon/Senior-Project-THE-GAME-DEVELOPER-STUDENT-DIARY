@@ -10,6 +10,7 @@ public class GameManager : Manager<GameManager>
     {
         PREGAME,
         RUNNING,
+        PAUSE,
     }
 
     public GameState CurrentGameState
@@ -19,6 +20,7 @@ public class GameManager : Manager<GameManager>
     }
 
     GameState _currentGameState = GameState.PREGAME;
+    GameState _previousGameState;
     string _currentLevelName = string.Empty;
 
     public GameObject[] SystemPrefabs;
@@ -67,7 +69,7 @@ public class GameManager : Manager<GameManager>
 
     void UpdateState(GameState state)
     {
-        GameState previousGameState = _currentGameState;
+        _previousGameState = _currentGameState;
         _currentGameState = state;
 
         switch (_currentGameState)
@@ -79,12 +81,14 @@ public class GameManager : Manager<GameManager>
             case GameState.RUNNING:
                 Time.timeScale = 1.0f;
                 break;
-
+            case GameState.PAUSE:
+                Time.timeScale = 1.0f;
+                break;
             default:
                 break;
         }
 
-        OnGameStateChanged.Invoke(_currentGameState, previousGameState);
+        OnGameStateChanged.Invoke(_currentGameState, _previousGameState);
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)
@@ -127,6 +131,20 @@ public class GameManager : Manager<GameManager>
     {
         LoadLevel("Main");
     }
+
+    public void PuaseGame()
+    {
+        if (_currentGameState == GameState.RUNNING)
+        {
+            UpdateState(GameState.PAUSE);
+        }
+        else if(_currentGameState == GameState.PAUSE && _previousGameState == GameState.RUNNING)
+        {
+            UpdateState(GameState.RUNNING);
+        }
+
+    }
+
 
     private void InstantiateSystemPrefabs()
     {

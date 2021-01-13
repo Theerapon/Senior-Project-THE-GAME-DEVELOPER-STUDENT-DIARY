@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : Manager<UIManager>
 {
@@ -40,11 +41,11 @@ public class UIManager : Manager<UIManager>
             case GameManager.GameState.PREGAME:
                 DisplayTimeImage(false);
                 break;
-
             case GameManager.GameState.RUNNING:
                 DisplayTimeImage(true);
                 break;
-
+            case GameManager.GameState.PAUSE:
+                break;
             default:
                 break;
         }
@@ -72,4 +73,5 @@ public class UIManager : Manager<UIManager>
     {
         _timeImage.gameObject.SetActive(active);
     }
+
 }
