@@ -82,16 +82,10 @@ public class TimeManager : Manager<TimeManager>
     {
         switch (currentState)
         {
-            case GameManager.GameState.PREGAME:
-                break;
-
             case GameManager.GameState.RUNNING:
                 Reset();
                 break;
-            case GameManager.GameState.PAUSE:
-                break;
-            default:
-                break;
+
         }
     }
 
@@ -99,15 +93,10 @@ public class TimeManager : Manager<TimeManager>
     {
         switch (GameManager.Instance.CurrentGameState)
         {
-            case GameManager.GameState.PREGAME:
-                break;
             case GameManager.GameState.RUNNING:
                 CalculateTime();
                 break;
-            case GameManager.GameState.PAUSE:
-                break;
-            default:
-                break;
+
         }
     }
 

@@ -31,14 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     #region MonoBehaviour
 
-    private void Awake()
-    {
-    }
-
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
