@@ -1,19 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public void RightClickAction(GameObject objClicked)
     {
-        //when right click on obj also computer, item, idea
-        switch (objClicked.tag)
+        //distance
+        float dist = Vector3.Distance(objClicked.transform.position, transform.position);
+        
+        if(dist < 2.5f)
         {
-            case "Object":
-                objClicked.GetComponent<ObjectClicked>().OnClick();
-                break;
+            //when right click on obj also computer, item, idea
+            switch (objClicked.tag)
+            {
+                case "Object":
+                    objClicked.GetComponent<TestClickable>().OnClick();
+                    break;
+                case "Bed":
+                    objClicked.GetComponent<BedClickable>().OnClick();
+                    break;
+            }
         }
+
+
     }
     
 }

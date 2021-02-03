@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectClicked : MonoBehaviour, IClickable
+public class TestClickable : MonoBehaviour, IClickable
 {
     private void Start()
     { 
@@ -13,7 +13,6 @@ public class ObjectClicked : MonoBehaviour, IClickable
     {
         SpawnItem item = GetComponentInChildren<SpawnItem>();
         item.CreateSpawn();
-        Debug.Log("Clicked");
     }
 
 
