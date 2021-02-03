@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class TimeManager : Manager<TimeManager>
 {
@@ -76,6 +72,7 @@ public class TimeManager : Manager<TimeManager>
         _currentDays = SetsOfDays.SUN;
         month = 1;
         year = 2021;
+        Reset();
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)

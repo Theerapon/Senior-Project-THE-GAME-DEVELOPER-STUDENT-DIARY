@@ -10,15 +10,7 @@ public class CharacterStats : MonoBehaviour
     public CharacterStats_SO characterDefinition_Template;
     public CharacterStats_SO characterDeginition_Current;
     public CharacterSkill characterSkill;
-    public StatsDisplay displayStats;
 
-    #endregion
-
-    #region Constuctors
-    public CharacterStats()
-    {
-        displayStats = StatsDisplay.instance;
-    }
     #endregion
 
     #region Initializations

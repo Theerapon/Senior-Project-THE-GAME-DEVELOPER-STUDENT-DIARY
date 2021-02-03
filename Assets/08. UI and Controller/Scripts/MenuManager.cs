@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        //GameManager.Instance.
     }
 
     void Update()
@@ -41,7 +42,7 @@ public class MenuManager : MonoBehaviour
     {
         if(GameManager.Instance.CurrentGameState == GameManager.GameState.PAUSE)
         {
-            if (_inventory.activeSelf == false)
+            if (_inventory.activeSelf == false && _inventory != null)
             {
                 preDisplay.SetActive(false);
                 _inventory.SetActive(true);
@@ -56,7 +57,7 @@ public class MenuManager : MonoBehaviour
     {
         if (GameManager.Instance.CurrentGameState == GameManager.GameState.PAUSE)
         {
-            if (_StatsDisplayHolder.activeSelf == false)
+            if (_StatsDisplayHolder.activeSelf == false && _StatsDisplayHolder != null)
             {
                 preDisplay.SetActive(false);
                 _StatsDisplayHolder.SetActive(true);
@@ -68,11 +69,15 @@ public class MenuManager : MonoBehaviour
 
     private void SetText()
     {
-        stats_textCoding.text = _characterStats.GetStatusCoding().ToString();
-        stats_textDesign.text = _characterStats.GetStatusDesign().ToString();
-        stats_textTesting.text = _characterStats.GetStatusTest().ToString();
-        stats_textArt.text = _characterStats.GetStatusArt().ToString();
-        stats_textAudio.text = _characterStats.GetStatusAudio().ToString();
+        if(_characterStats != null)
+        {
+            stats_textCoding.text = _characterStats.GetStatusCoding().ToString();
+            stats_textDesign.text = _characterStats.GetStatusDesign().ToString();
+            stats_textTesting.text = _characterStats.GetStatusTest().ToString();
+            stats_textArt.text = _characterStats.GetStatusArt().ToString();
+            stats_textAudio.text = _characterStats.GetStatusAudio().ToString();
+        }
+
     }
     #endregion
 
@@ -81,7 +86,7 @@ public class MenuManager : MonoBehaviour
     {
         if (GameManager.Instance.CurrentGameState == GameManager.GameState.PAUSE)
         {
-            if (_skills.activeSelf == false)
+            if (_skills.activeSelf == false && _skills != null)
             {
                 preDisplay.SetActive(false);
                 _skills.SetActive(true);
@@ -94,10 +99,13 @@ public class MenuManager : MonoBehaviour
 
     public void Reset()
     {
-        _inventory.SetActive(true);
-        _StatsDisplayHolder.SetActive(false);
-        _skills.SetActive(false);
-        preDisplay = _inventory;
-        DisplayInventory();
+        if(_inventory != null && _StatsDisplayHolder != null && _skills != null)
+        {
+            _inventory.SetActive(true);
+            _StatsDisplayHolder.SetActive(false);
+            _skills.SetActive(false);
+            preDisplay = _inventory;
+            DisplayInventory();
+        }
     }
 }

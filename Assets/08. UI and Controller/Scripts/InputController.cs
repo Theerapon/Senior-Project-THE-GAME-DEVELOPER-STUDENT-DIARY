@@ -31,7 +31,10 @@ public class InputController : MonoBehaviour
 
     void Start()
     {
-        SetDisplayProject();
+        if(_projects != null)
+        {
+            SetDisplayProject();
+        }
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
     }
 

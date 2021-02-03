@@ -15,8 +15,6 @@ public class UIManager : Manager<UIManager>
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private Text _tagline;
     
-    [Header("Time Menu")]
-    [SerializeField] private Image _timeImage;
 
     public Events.EventLoadComplete OnMainMenuLoadComplete;
 
@@ -36,19 +34,7 @@ public class UIManager : Manager<UIManager>
 
     void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        switch (currentState)
-        {
-            case GameManager.GameState.PREGAME:
-                DisplayTimeImage(false);
-                break;
-            case GameManager.GameState.RUNNING:
-                DisplayTimeImage(true);
-                break;
-            case GameManager.GameState.PAUSE:
-                break;
-            default:
-                break;
-        }
+
     }
 
     void Update()
@@ -69,9 +55,5 @@ public class UIManager : Manager<UIManager>
         _uiCamera.gameObject.SetActive(active);
     }
 
-    private void DisplayTimeImage(bool active)
-    {
-        _timeImage.gameObject.SetActive(active);
-    }
 
 }

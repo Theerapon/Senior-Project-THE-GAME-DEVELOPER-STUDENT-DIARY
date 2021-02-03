@@ -34,6 +34,7 @@ public class CharacterInventory : MonoBehaviour
         itemEntry = new InventoryEntry(0, null, null);
         itemsInInventory.Clear();
 
+
         inventoryDisplaySlots = InventoryDisplayHolder.GetComponentsInChildren<Image>();
 
         foundStats = GameObject.FindGameObjectWithTag("Player");
