@@ -6,12 +6,14 @@ public class WordTimer : MonoBehaviour
 {
     public WordManager wordManager;
 
-    private float wordDelay = 3f;
+    private float wordDelay = 5f;
     private float time;
     private const int TIMESCALE = 1;
+    private int test;
 
     private void Start()
     {
+        test = 0;
         wordManager.AddWord();
     }
 
