@@ -7,6 +7,7 @@ public class WordTimer : MonoBehaviour
     public WordManager wordManager;
 
     private float wordDelay = 4f;
+    private float time;
     private const int TIMESCALE = 1;
 
     private void Start()
