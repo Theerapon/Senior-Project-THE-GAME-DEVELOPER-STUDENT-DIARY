@@ -22,13 +22,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        if (GetIsPlayer())
-        {
-
-        }
-    }
+ 
     #endregion
 
     #region Stat Increasers

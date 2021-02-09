@@ -88,7 +88,7 @@ public class GameManager : Manager<GameManager>
                 break;
         }
 
-        OnGameStateChanged.Invoke(_currentGameState, _previousGameState);
+        OnGameStateChanged?.Invoke(_currentGameState, _previousGameState);
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)

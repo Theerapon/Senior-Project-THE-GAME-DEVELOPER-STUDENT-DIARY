@@ -5,7 +5,10 @@ public class BedClickable : MonoBehaviour, IClickable
 {
     public void OnClick()
     {
-        Debug.Log("Clicked");
+        if(SaveManager.Instance != null)
+        {
+            SaveManager.Instance.OnSave();
+        }
     }
 
     
