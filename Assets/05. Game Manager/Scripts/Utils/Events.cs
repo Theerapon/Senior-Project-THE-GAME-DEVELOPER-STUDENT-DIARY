@@ -11,4 +11,6 @@ public class Events
     [System.Serializable] public class EventTimeCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventSeasonCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventGameObject : UnityEvent<GameObject> { }
+    [System.Serializable] public class EventSaveInitiated : UnityEvent { }
+
 }

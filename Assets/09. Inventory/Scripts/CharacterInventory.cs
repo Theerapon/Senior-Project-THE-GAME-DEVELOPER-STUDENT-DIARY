@@ -4,9 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterInventory : MonoBehaviour
+public class CharacterInventory : MonoBehaviour, ISaveable
 {
+    #region Save
+    private const string KEY = "CharacterInventory";
+    #endregion
+
     #region Variable Declarations
+    public Events.EventSaveInitiated OnSaveInitiated;
+
     public static CharacterInventory instance;
 
     public CharacterStats charStats;
@@ -39,6 +45,8 @@ public class CharacterInventory : MonoBehaviour
 
         foundStats = GameObject.FindGameObjectWithTag("Player");
         charStats = foundStats.GetComponent<CharacterStats>();
+
+
     }
     #endregion
 
@@ -322,5 +330,15 @@ public class CharacterInventory : MonoBehaviour
         }
 
         FillInventoryDisplay();
+    }
+
+    public void OnSaved()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnLoaded()
+    {
+        throw new NotImplementedException();
     }
 }
