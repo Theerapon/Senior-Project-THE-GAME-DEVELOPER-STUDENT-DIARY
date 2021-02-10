@@ -9,7 +9,6 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     public CharacterStats_SO characterDefinition_Template;
     public CharacterStats_SO characterDeginition_Current;
-    public CharacterSkill characterSkill;
 
     #endregion
 

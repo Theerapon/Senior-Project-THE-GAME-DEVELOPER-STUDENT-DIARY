@@ -4,28 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterInventory : MonoBehaviour, ISaveable
+public class CharacterInventory : MonoBehaviour
 {
-    #region Save
-    private const string KEY = "CharacterInventory";
-    #endregion
 
     #region Variable Declarations
-    public Events.EventSaveInitiated OnSaveInitiated;
-
     public static CharacterInventory instance;
 
-    public CharacterStats charStats;
-    GameObject foundStats;
+    //public CharacterStats charStats;
+    //GameObject foundStats;
 
     [Header("Hotbar")]
     public Image[] hotBarDisplayHolders = new Image[12];
 
     [Header("Inventory")]
     public GameObject InventoryDisplayHolder;
-    public Image[] inventoryDisplaySlots = new Image[30];
+    public Image[] inventoryDisplaySlots = new Image[60];
 
-    private int inventoryItemCap = 20;
+    private int inventoryItemCap = 60;
     private int idCount = 1;
     bool addedItem = true;
 
@@ -34,17 +29,18 @@ public class CharacterInventory : MonoBehaviour, ISaveable
     #endregion
 
     #region Initializations
-    void Start()
+    void Awake()
     {
+
         instance = this;
-        itemEntry = new InventoryEntry(0, null, null);
-        itemsInInventory.Clear();
+        ResetItemEntry();
+        ResetInInventory();
 
 
         inventoryDisplaySlots = InventoryDisplayHolder.GetComponentsInChildren<Image>();
-
-        foundStats = GameObject.FindGameObjectWithTag("Player");
-        charStats = foundStats.GetComponent<CharacterStats>();
+        FillInventoryDisplay();
+        //foundStats = GameObject.FindGameObjectWithTag("Player");
+        //charStats = foundStats.GetComponent<CharacterStats>();
 
 
     }
@@ -105,7 +101,6 @@ public class CharacterInventory : MonoBehaviour, ISaveable
         {
             TryPickUp();
         }
-
 
     }
 
@@ -259,8 +254,15 @@ public class CharacterInventory : MonoBehaviour, ISaveable
         foreach (KeyValuePair<int, InventoryEntry> ie in itemsInInventory)
         {
             slotCounter += 1;
-            inventoryDisplaySlots[slotCounter].sprite = ie.Value.hbSprite;
-            ie.Value.inventorySlot = slotCounter;
+            if(ie.Value.inventorySlot == 0)
+            {
+                inventoryDisplaySlots[slotCounter].sprite = ie.Value.hbSprite;
+                ie.Value.inventorySlot = slotCounter;
+            } else
+            {
+                inventoryDisplaySlots[ie.Value.inventorySlot].sprite = ie.Value.hbSprite;
+            }
+
         }
 
         while (slotCounter < 60)
@@ -332,13 +334,14 @@ public class CharacterInventory : MonoBehaviour, ISaveable
         FillInventoryDisplay();
     }
 
-    public void OnSaved()
+    public void ResetInInventory()
     {
-        throw new NotImplementedException();
+        itemsInInventory.Clear();
     }
 
-    public void OnLoaded()
+    public void ResetItemEntry()
     {
-        throw new NotImplementedException();
+        itemEntry = new InventoryEntry(0, null, null);
     }
+
 }

@@ -27,20 +27,6 @@ public class GameManager : Manager<GameManager>
     List<GameObject> _instancedSystemPrefabs;
 
     public Events.EventGameState OnGameStateChanged;
-
-    
-    private PlayerMovement playerMovement;
-    private PlayerMovement player
-    {
-        get
-        {
-            if(null == playerMovement)
-            {
-                playerMovement = FindObjectOfType<PlayerMovement>();
-            }
-            return playerMovement;
-        }
-    }
     
 
     private void Start()

@@ -55,7 +55,6 @@ public class MouseManager : Manager<MouseManager>
     {
         RaycastHit hit;
         bool clickObj = false;
-        //Camera.main.ScreenPointToRay(Input.mousePosition)
         //check mouse holder
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50, clickableLayer.value))
         {
