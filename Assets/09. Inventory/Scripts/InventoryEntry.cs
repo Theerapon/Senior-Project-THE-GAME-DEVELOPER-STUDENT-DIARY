@@ -19,4 +19,14 @@ public class InventoryEntry
         this.inventorySlot = 0;
         this.hbSprite = hbSprite;
     }
+
+    public InventoryEntry(int stackSize, ItemPickUp invEntry, Sprite hbSprite, int invSlot, int hotSlot)
+    {
+        this.invEntry = invEntry;
+
+        this.stackSize = stackSize;
+        this.hotBarSlot = hotSlot;
+        this.inventorySlot = invSlot;
+        this.hbSprite = hbSprite;
+    }
 }

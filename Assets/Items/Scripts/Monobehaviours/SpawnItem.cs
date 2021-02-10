@@ -4,9 +4,9 @@ public class SpawnItem : MonoBehaviour, ISpawns
 {
     public ItemPickUps_SO[] itemDefinitions;
 
-    private int whichToSpawn = 0;
-    private int totalSpawnWeight = 0;
-    private int chosen = 0;
+    public int whichToSpawn = 0;
+    public int totalSpawnWeight = 0;
+    public int chosen = 0;
 
     public Rigidbody itemSpawned { get; set; }
     public ItemPickUp itemType { get; set; }

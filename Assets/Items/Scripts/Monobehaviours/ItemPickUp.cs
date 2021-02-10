@@ -59,4 +59,5 @@ public class ItemPickUp : MonoBehaviour
     {
         charInventory.StoreItem(this);
     }
+
 }

@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public enum ItemTypeDefinitions { ENERGY, COIN, COMBAT, EMPTY};
 public enum ItemCombatSubType { NONE, WEAPON}
@@ -6,6 +9,9 @@ public enum ItemCombatSubType { NONE, WEAPON}
 [CreateAssetMenu(fileName = "New Item", menuName = "Spawnable Item/New Item")]
 public class ItemPickUps_SO : ScriptableObject
 {
+    [SerializeField] string id;
+
+    public string ID { get { return id; } }
     public string itemName = "New Item";
     public ItemTypeDefinitions itemType = ItemTypeDefinitions.EMPTY;
     public ItemCombatSubType subType = ItemCombatSubType.NONE;
@@ -26,4 +32,16 @@ public class ItemPickUps_SO : ScriptableObject
     public bool isStackable = false;
     public bool destroyOnUse = false;
 
+    public virtual ItemPickUps_SO GetCopy()
+    {
+        return this;
+    }
+
+#if UNITY_EDITOR
+    protected virtual void OnValidate()
+    {
+        string path = AssetDatabase.GetAssetPath(this);
+        id = AssetDatabase.AssetPathToGUID(path);
+    }
+    #endif
 }

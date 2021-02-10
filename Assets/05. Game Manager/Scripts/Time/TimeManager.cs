@@ -117,7 +117,7 @@ public class TimeManager : Manager<TimeManager>
             hour = 0;
             CalculateDay();
             setText();
-            OnDateCalendar.Invoke(onDate);
+            OnDateCalendar?.Invoke(onDate);
         }
         else if(date >= DEFAULT_DATE)
         {
