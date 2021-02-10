@@ -13,7 +13,7 @@ public class UIManager : Manager<UIManager>
 
     [Header("Main Menu")]
     [SerializeField] private MainMenu _mainMenu;
-    [SerializeField] private Text _tagline;
+    [SerializeField] private TMP_Text _tagline;
     
 
     public Events.EventLoadComplete OnMainMenuLoadComplete;
