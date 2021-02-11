@@ -55,12 +55,11 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
 
             for (int countID = 0; countID < savedSlots.SavedSlots.Length; countID++)
             {
-                //itemsInInventory.Add(idCount, new InventoryEntry(itemEntry.stackSize, Instantiate(itemEntry.invEntry), itemEntry.hbSprite));
-
+                
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[countID];
                 if (savedSlot == null)
                 {
-
+                    return;
                 }
                 else
                 {
@@ -77,7 +76,7 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
                     itemType.itemDefinition = itemsSO;
 
                     characterInventory.itemsInInventory.Add(countID, new InventoryEntry(savedSlot.stackSize, Instantiate(itemType), itemsSO.itemIcon, savedSlot.inventorySlot, savedSlot.hotBarSlot));
-                    DestroyObject(itemType.gameObject);
+                    Destroy(itemType.gameObject);
 
 
                 }

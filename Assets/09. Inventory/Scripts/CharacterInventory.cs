@@ -26,6 +26,9 @@ public class CharacterInventory : MonoBehaviour
 
     public Dictionary<int, InventoryEntry> itemsInInventory = new Dictionary<int, InventoryEntry>();
     public InventoryEntry itemEntry;
+
+    Queue<ItemPickUp> queueItemsToAdd;
+
     #endregion
 
     #region Initializations
@@ -35,6 +38,7 @@ public class CharacterInventory : MonoBehaviour
         instance = this;
         ResetItemEntry();
         ResetInInventory();
+        queueItemsToAdd = new Queue<ItemPickUp>();
 
 
         inventoryDisplaySlots = InventoryDisplayHolder.GetComponentsInChildren<Image>();
@@ -97,28 +101,39 @@ public class CharacterInventory : MonoBehaviour
             TriggerItemUse(112);
         }
 
-        if (!addedItem)
+        if(queueItemsToAdd.Count > 0)
         {
-            TryPickUp();
+            DequueItemsToAdd();
+            if (!addedItem)
+            {
+                addedItem =  TryPickUp();
+            }
         }
+
+        
 
     }
 
     public void StoreItem(ItemPickUp itemToStore)
     {
-        addedItem = false;
-
-        itemEntry.invEntry = itemToStore;
-        itemEntry.stackSize = 1;
-        itemEntry.hbSprite = itemToStore.itemDefinition.itemIcon;
-
-        //addedItem = false;
-        itemToStore.gameObject.SetActive(false);
+        queueItemsToAdd.Enqueue(itemToStore);
     }
 
-    private void TryPickUp()
+    private void DequueItemsToAdd()
     {
+        addedItem = false;
+        itemEntry.invEntry = queueItemsToAdd.Dequeue();
+        itemEntry.stackSize = 1;
+        itemEntry.hbSprite = itemEntry.invEntry.itemDefinition.itemIcon;
+        itemEntry.invEntry.gameObject.SetActive(false);
+    }
+
+    private bool TryPickUp()
+    {
+        //dequeue
+
         bool itsInInv = true;
+        bool added = false;
 
         //Check to see if the item to be stored was properly submitted to the inventory - Continue if Yes otherwise do nothing
         if (itemEntry.invEntry)
@@ -126,9 +141,8 @@ public class CharacterInventory : MonoBehaviour
             //Check to see if any items exist in the inventory already - if not, add this item
             if (itemsInInventory.Count == 0)
             {
-                addedItem = AddItemToInv(addedItem);
-            }
-            //If items exist in inventory
+                added = AddItemToInv(addedItem);
+            }//If items exist in inventory
             else
             {
                 //Check to see if the item is stackable - Continue if stackable
@@ -143,7 +157,7 @@ public class CharacterInventory : MonoBehaviour
                             ie.Value.stackSize += 1;
                             AddItemToHotBar(ie.Value);
                             itsInInv = true;
-                            DestroyObject(itemEntry.invEntry.gameObject);
+                            Destroy(itemEntry.invEntry.gameObject);
                             break;
                         }
                         //If item does not exist already in inventory then continue here
@@ -169,28 +183,27 @@ public class CharacterInventory : MonoBehaviour
                 //Check if there is space in inventory - if yes, continue here
                 if (!itsInInv)
                 {
-                    addedItem = AddItemToInv(addedItem);
+                    added = AddItemToInv(addedItem);
                     itsInInv = true;
                 }
             }
         }
+        return added;
     }
     private bool AddItemToInv(bool finishedAdding)
     {
         itemsInInventory.Add(idCount, new InventoryEntry(itemEntry.stackSize, Instantiate(itemEntry.invEntry), itemEntry.hbSprite));
 
-        DestroyObject(itemEntry.invEntry.gameObject);
+        
+        Destroy(itemEntry.invEntry.gameObject);
 
         FillInventoryDisplay();
         AddItemToHotBar(itemsInInventory[idCount]);
 
         idCount = IncreaseID(idCount);
 
-        #region Reset itemEntry
-        itemEntry.invEntry = null;
-        itemEntry.stackSize = 0;
-        itemEntry.hbSprite = null;
-        #endregion
+        ResetItemEntry();
+
 
         finishedAdding = true;
 
@@ -323,7 +336,7 @@ public class CharacterInventory : MonoBehaviour
                 }
                 else
                 {
-                    ie.Value.invEntry.UseItem();
+                    Instantiate(ie.Value.invEntry).UseItem();
                     ie.Value.stackSize -= 1;
                     hotBarDisplayHolders[ie.Value.hotBarSlot - 1].GetComponentInChildren<TMP_Text>().text = ie.Value.stackSize.ToString();
                     break;
