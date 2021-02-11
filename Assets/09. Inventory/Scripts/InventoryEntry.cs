@@ -28,5 +28,6 @@ public class InventoryEntry
         this.hotBarSlot = hotSlot;
         this.inventorySlot = invSlot;
         this.hbSprite = hbSprite;
+        invEntry.gameObject.SetActive(false);
     }
 }

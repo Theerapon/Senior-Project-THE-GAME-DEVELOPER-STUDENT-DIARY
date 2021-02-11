@@ -53,11 +53,17 @@ public class ItemPickUp : MonoBehaviour
             case ItemTypeDefinitions.EMPTY:
                 break;
         }
+
+        if (!itemDefinition.isDestructible)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void StoreItem()
     {
         charInventory.StoreItem(this);
+        
     }
 
 }
