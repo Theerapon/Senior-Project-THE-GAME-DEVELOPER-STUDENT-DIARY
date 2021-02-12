@@ -154,6 +154,8 @@ public class CharacterInventory : ItemContainer
                         //Does this item already exist in inventory? - Continue if Yes
                         if (itemEntry.invEntry.itemDefinition == ie.Value.invEntry.itemDefinition)
                         {
+                            AddItem(itemEntry.invEntry.itemDefinition.GetCopy());
+
                             //Add 1 to stack and destroy the new instance
                             ie.Value.stackSize += 1;
                             AddItemToHotBar(ie.Value);
