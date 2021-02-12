@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CharacterInventory : MonoBehaviour
+public class CharacterInventory : ItemContainer
 {
 
     #region Variable Declarations
@@ -42,7 +42,7 @@ public class CharacterInventory : MonoBehaviour
 
 
         inventoryDisplaySlots = InventoryDisplayHolder.GetComponentsInChildren<Image>();
-        FillInventoryDisplay();
+        //FillInventoryDisplay();
         //foundStats = GameObject.FindGameObjectWithTag("Player");
         //charStats = foundStats.GetComponent<CharacterStats>();
 
@@ -110,6 +110,7 @@ public class CharacterInventory : MonoBehaviour
             }
         }
 
+        //Debug.Log(itemsInInventory[0].inventorySlot);
         
 
     }
@@ -192,13 +193,14 @@ public class CharacterInventory : MonoBehaviour
     }
     private bool AddItemToInv(bool finishedAdding)
     {
-        itemsInInventory.Add(idCount, new InventoryEntry(itemEntry.stackSize, Instantiate(itemEntry.invEntry), itemEntry.hbSprite));
-
         
+        itemsInInventory.Add(idCount, new InventoryEntry(itemEntry.stackSize, Instantiate(itemEntry.invEntry), itemEntry.hbSprite));
+        AddItem(itemEntry.invEntry.itemDefinition.GetCopy());
+
         Destroy(itemEntry.invEntry.gameObject);
 
-        FillInventoryDisplay();
-        AddItemToHotBar(itemsInInventory[idCount]);
+        //FillInventoryDisplay();
+        //AddItemToHotBar(itemsInInventory[idCount]);
 
         idCount = IncreaseID(idCount);
 
@@ -225,6 +227,7 @@ public class CharacterInventory : MonoBehaviour
 
         return newID;
     }
+    
     private void AddItemToHotBar(InventoryEntry itemForHotBar)
     {
         int hotBarCounter = 0;
@@ -260,14 +263,14 @@ public class CharacterInventory : MonoBehaviour
 
         increaseCount = false;
     }
-    private void FillInventoryDisplay()
+    public void FillInventoryDisplay()
     {
         int slotCounter = 0;
 
         foreach (KeyValuePair<int, InventoryEntry> ie in itemsInInventory)
         {
-            slotCounter += 1;
-            if(ie.Value.inventorySlot == 0)
+            slotCounter++;
+            if (ie.Value.inventorySlot == 0)
             {
                 inventoryDisplaySlots[slotCounter].sprite = ie.Value.hbSprite;
                 ie.Value.inventorySlot = slotCounter;
@@ -277,7 +280,7 @@ public class CharacterInventory : MonoBehaviour
             }
 
         }
-
+        
         while (slotCounter < 60)
         {
             slotCounter++;
@@ -344,7 +347,7 @@ public class CharacterInventory : MonoBehaviour
             }
         }
 
-        FillInventoryDisplay();
+        //FillInventoryDisplay();
     }
 
     public void ResetInInventory()
@@ -357,4 +360,12 @@ public class CharacterInventory : MonoBehaviour
         itemEntry = new InventoryEntry(0, null, null);
     }
 
+    [SerializeField] protected Transform itemsParent;
+    protected override void OnValidate()
+    {
+        if (itemsParent != null)
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: ItemSlots);
+
+
+    }
 }

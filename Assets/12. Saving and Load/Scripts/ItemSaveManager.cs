@@ -76,6 +76,7 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
                     itemType.itemDefinition = itemsSO;
 
                     characterInventory.itemsInInventory.Add(countID, new InventoryEntry(savedSlot.stackSize, Instantiate(itemType), itemsSO.itemIcon, savedSlot.inventorySlot, savedSlot.hotBarSlot));
+                    //characterInventory.FillInventoryDisplay();
                     Destroy(itemType.gameObject);
 
 

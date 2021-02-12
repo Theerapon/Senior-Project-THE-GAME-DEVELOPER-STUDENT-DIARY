@@ -17,6 +17,8 @@ public class ItemPickUps_SO : ScriptableObject
     public ItemCombatSubType subType = ItemCombatSubType.NONE;
     public int itemAmount = 0;
     public int spawnChanceWeight = 0;
+    [Range(1, 999)]
+    public int MaximumStacks = 1;
 
     public Material itemMaterial = null;
     public Sprite itemIcon = null;
@@ -37,11 +39,16 @@ public class ItemPickUps_SO : ScriptableObject
         return this;
     }
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     protected virtual void OnValidate()
     {
         string path = AssetDatabase.GetAssetPath(this);
         id = AssetDatabase.AssetPathToGUID(path);
     }
     #endif
+
+    public virtual void Destroy()
+    {
+
+    }
 }
