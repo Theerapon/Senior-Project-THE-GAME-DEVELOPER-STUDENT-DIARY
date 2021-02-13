@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+using System;
 
-public class BaseItemSlot : MonoBehaviour
+public class BaseItemSlot : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] protected Image image;
     [SerializeField] protected TMP_Text amountText;
+
+    public event Action<BaseItemSlot> OnRightClickEvent;
 
 
     protected Color normalColor = Color.white;
     protected Color disabledColor = new Color(1, 1, 1, 0);
 
-    protected ItemPickUps_SO _itemPickUpSO;
-    public ItemPickUps_SO ITEM
+    protected ItemPickUp _itemPickUp;
+    public ItemPickUp ITEM
     {
-        get { return _itemPickUpSO; }
+        get { return _itemPickUp; }
         set
         {
-            _itemPickUpSO = value;
-            if (_itemPickUpSO == null && Amount != 0)
+            _itemPickUp = value;
+            if (_itemPickUp == null && Amount != 0)
                 Amount = 0;
 
-            if (_itemPickUpSO == null)
+            if (_itemPickUp == null)
             {
                 image.sprite = null;
-                image.color = disabledColor;
+                image.color = normalColor;
             } else
             {
-                image.sprite = _itemPickUpSO.itemIcon;
+                image.sprite = _itemPickUp.itemDefinition.itemIcon;
                 image.color = normalColor;
             }
                 
@@ -47,7 +51,7 @@ public class BaseItemSlot : MonoBehaviour
 
             if (amountText != null)
             {
-                amountText.enabled = _itemPickUpSO != null && _amount > 1;
+                amountText.enabled = _itemPickUp != null && _amount > 1;
                 if (amountText.enabled)
                 {
                     amountText.text = _amount.ToString();
@@ -56,8 +60,30 @@ public class BaseItemSlot : MonoBehaviour
         }
     }
 
-    public virtual bool CanAddStack(ItemPickUps_SO item, int amount = 1)
+    public virtual bool CanAddStack(ItemPickUp item, int amount = 1)
     {
-        return ITEM != null && ITEM.ID == item.ID;
+        return ITEM != null && ITEM.itemDefinition.ID == item.itemDefinition.ID;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (OnRightClickEvent != null)
+                OnRightClickEvent(this);
+        }
+    }
+
+    protected virtual void OnValidate()
+    {
+        
+        if (image == null)
+            image = GetComponent<Image>();
+
+        if (amountText == null)
+            amountText = GetComponentInChildren<TMP_Text>();
+        
+        ITEM = _itemPickUp;
+        Amount = _amount;
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ItemSlot : BaseItemSlot
 {
-	public override bool CanAddStack(ItemPickUps_SO item, int amount = 1)
+	public override bool CanAddStack(ItemPickUp item, int amount = 1)
 	{
-		return base.CanAddStack(item, amount) && Amount + amount <= item.MaximumStacks;
+		return base.CanAddStack(item, amount) && Amount + amount <= item.itemDefinition.MaximumStacks;
 	}
 }
