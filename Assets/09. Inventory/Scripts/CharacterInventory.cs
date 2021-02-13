@@ -166,33 +166,6 @@ public class CharacterInventory : ItemContainer
         
     }
 
-    public override bool AddItem(ItemPickUp item)
-    {
-
-        for (int i = 0; i < ItemSlots.Count; i++)
-        {
-
-            if (ItemSlots[i].CanAddStack(item))
-            {
-                Debug.Log("top");
-                ItemSlots[i].ITEM = item;
-                ItemSlots[i].Amount++;
-                return true;
-            }
-        }
-
-        for (int i = 0; i < ItemSlots.Count; i++)
-        {
-            Debug.Log("down");
-            if (ItemSlots[i].ITEM == null)
-            {
-                ItemSlots[i].ITEM = item;
-                ItemSlots[i].Amount++;
-                return true;
-            }
-        }
-        return false;
-    }
 
     [SerializeField] protected Transform itemsParent;
     protected override void OnValidate()
