@@ -35,7 +35,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         {
             if (ItemSlots[i].CanAddStack(item))
             {
-                ItemSlots[i].ITEM = item;
+                //ItemSlots[i].ITEM = item;
                 ItemSlots[i].Amount++;
                 Destroy(item.gameObject);
                 return true;
