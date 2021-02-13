@@ -1,9 +1,9 @@
 ﻿public interface IItemContainer
 {
-    bool CanAddItem(ItemPickUps_SO item, int amount = 1);
-    bool AddItem(ItemPickUps_SO itemPickUp);
-    ItemPickUps_SO RemoveItem(string itemID);
-    bool RemoveItem(ItemPickUps_SO item);
+    bool CanAddItem(ItemPickUp item, int amount = 1);
+    bool AddItem(ItemPickUp itemPickUp);
+    ItemPickUp RemoveItem(string itemID);
+    bool RemoveItem(ItemPickUp item);
     int ItemAmount(string itemId);
     void ClearItemSlots();
 

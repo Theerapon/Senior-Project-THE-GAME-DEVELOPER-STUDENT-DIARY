@@ -1,29 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemContainer : MonoBehaviour, IItemContainer
 {
     public List<ItemSlot> ItemSlots;
+    public event Action<BaseItemSlot> OnRightClickEvent;
+    private void Start()
+    {
+        for (int i = 0; i < ItemSlots.Count; i++)
+        {
+            ItemSlots[i].OnRightClickEvent += slot => EventHelper(slot, OnRightClickEvent);
+        }
+    }
+
+    protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
+    {
+        if (action != null)
+            action(slot);
+    }
 
     protected virtual void OnValidate()
     {
         GetComponentsInChildren(includeInactive: true, result: ItemSlots);
     }
 
-    private void Update()
-    {
-        Debug.Log("items " + ItemSlots.Count);
-    }
+    
 
-    public virtual bool AddItem(ItemPickUps_SO item)
+    public virtual bool AddItem(ItemPickUp item)
     {
+        
         for (int i = 0; i < ItemSlots.Count; i++)
         {
             if (ItemSlots[i].CanAddStack(item))
             {
                 ItemSlots[i].ITEM = item;
                 ItemSlots[i].Amount++;
+                Destroy(item.gameObject);
                 return true;
             }
         }
@@ -40,15 +54,15 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         return false;
     }
 
-    public virtual bool CanAddItem(ItemPickUps_SO item, int amount = 1)
+    public virtual bool CanAddItem(ItemPickUp item, int amount = 1)
     {
         int freeSpaces = 0;
 
         foreach (ItemSlot itemSlot in ItemSlots)
         {
-            if (itemSlot.ITEM == null || itemSlot.ITEM.ID == item.ID)
+            if (itemSlot.ITEM == null || itemSlot.ITEM.itemDefinition.ID == item.itemDefinition.ID)
             {
-                freeSpaces += item.MaximumStacks - itemSlot.Amount;
+                freeSpaces += item.itemDefinition.MaximumStacks - itemSlot.Amount;
             }
         }
         return freeSpaces >= amount;
@@ -60,7 +74,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         {
             if (ItemSlots[i].ITEM != null && Application.isPlaying)
             {
-                ItemSlots[i].ITEM.Destroy();
+                ItemSlots[i].ITEM.itemDefinition.Destroy();
             }
             ItemSlots[i].ITEM = null;
             ItemSlots[i].Amount = 0;
@@ -73,8 +87,8 @@ public class ItemContainer : MonoBehaviour, IItemContainer
 
         for (int i = 0; i < ItemSlots.Count; i++)
         {
-            ItemPickUps_SO item = ItemSlots[i].ITEM;
-            if (item != null && item.ID == itemId)
+            ItemPickUp item = ItemSlots[i].ITEM;
+            if (item != null && item.itemDefinition.ID == itemId)
             {
                 number += ItemSlots[i].Amount;
             }
@@ -82,12 +96,12 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         return number;
     }
 
-    public virtual ItemPickUps_SO RemoveItem(string itemID)
+    public virtual ItemPickUp RemoveItem(string itemID)
     {
         for (int i = 0; i < ItemSlots.Count; i++)
         {
-            ItemPickUps_SO item = ItemSlots[i].ITEM;
-            if (item != null && item.ID == itemID)
+            ItemPickUp item = ItemSlots[i].ITEM;
+            if (item != null && item.itemDefinition.ID == itemID)
             {
                 ItemSlots[i].Amount--;
                 return item;
@@ -96,7 +110,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         return null;
     }
 
-    public virtual bool RemoveItem(ItemPickUps_SO item)
+    public virtual bool RemoveItem(ItemPickUp item)
     {
         for (int i = 0; i < ItemSlots.Count; i++)
         {

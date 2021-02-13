@@ -3,8 +3,8 @@
 using UnityEditor;
 #endif
 
-public enum ItemTypeDefinitions { ENERGY, COIN, COMBAT, EMPTY};
-public enum ItemCombatSubType { NONE, WEAPON}
+public enum ItemTypeDefinitions { ENERGY, COIN, EQUIPMENT, EMPTY};
+public enum ItemSubType { NONE, HAT, ACCESSORY_LEFT, ACCESSORY_RIGHT, NOTEBOOK_BAG, DRESS, GAME_WEAPON, SHOES}
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Spawnable Item/New Item")]
 public class ItemPickUps_SO : ScriptableObject
@@ -14,7 +14,7 @@ public class ItemPickUps_SO : ScriptableObject
     public string ID { get { return id; } }
     public string itemName = "New Item";
     public ItemTypeDefinitions itemType = ItemTypeDefinitions.EMPTY;
-    public ItemCombatSubType subType = ItemCombatSubType.NONE;
+    public ItemSubType subType = ItemSubType.NONE;
     public int itemAmount = 0;
     public int spawnChanceWeight = 0;
     [Range(1, 999)]
@@ -50,5 +50,15 @@ public class ItemPickUps_SO : ScriptableObject
     public virtual void Destroy()
     {
 
+    }
+
+    public void Equip(Player player)
+    {
+       
+    }
+
+    public void Unequip(Player player)
+    {
+        
     }
 }

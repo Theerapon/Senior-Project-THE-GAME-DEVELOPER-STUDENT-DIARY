@@ -42,7 +42,7 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(CharacterInventory.instance.itemsInInventory, InventoryFileName);
+        //SaveItems(CharacterInventory.instance.itemsInInventory, InventoryFileName);
     }
 
     private void LoadInventory()
@@ -51,7 +51,6 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(InventoryFileName);
             if (savedSlots == null) return;
-            characterInventory.ResetInInventory();
 
             for (int countID = 0; countID < savedSlots.SavedSlots.Length; countID++)
             {
@@ -75,7 +74,7 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
                     itemType = itemSpawned.GetComponent<ItemPickUp>();
                     itemType.itemDefinition = itemsSO;
 
-                    characterInventory.itemsInInventory.Add(countID, new InventoryEntry(savedSlot.stackSize, Instantiate(itemType), itemsSO.itemIcon, savedSlot.inventorySlot, savedSlot.hotBarSlot));
+                    //characterInventory.itemsInInventory.Add(countID, new InventoryEntry(savedSlot.stackSize, Instantiate(itemType), itemsSO.itemIcon, savedSlot.inventorySlot, savedSlot.hotBarSlot));
                     //characterInventory.FillInventoryDisplay();
                     Destroy(itemType.gameObject);
 
@@ -86,11 +85,11 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
 
     }
 
-    private void SaveItems(Dictionary<int, InventoryEntry> itemsInInventory, string fileName)
+    private void SaveItems(Dictionary<string, InventoryEntry> itemsInInventory, string fileName)
     {
         var saveData = new ItemContainerSaveData(itemsInInventory.Count);
         int count = 0;
-        foreach (KeyValuePair<int, InventoryEntry> ie in itemsInInventory)
+        foreach (KeyValuePair<string, InventoryEntry> ie in itemsInInventory)
         {
             InventoryEntry inventory = ie.Value;
 

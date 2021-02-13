@@ -38,6 +38,7 @@ public class SpawnItem : MonoBehaviour, ISpawns
 
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = ip;
+                whichToSpawn = 0;
                 break;
             }
         }

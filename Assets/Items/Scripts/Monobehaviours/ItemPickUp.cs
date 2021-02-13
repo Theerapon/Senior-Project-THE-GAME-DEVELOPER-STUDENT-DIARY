@@ -42,18 +42,7 @@ public class ItemPickUp : MonoBehaviour
 
     public void UseItem()
     {
-        switch (itemDefinition.itemType)
-        {
-            case ItemTypeDefinitions.ENERGY:
-                break;
-            case ItemTypeDefinitions.COIN:
-                break;
-            case ItemTypeDefinitions.COMBAT:
-                break;
-            case ItemTypeDefinitions.EMPTY:
-                break;
-        }
-
+        
         if (!itemDefinition.isDestructible)
         {
             Destroy(this.gameObject);
@@ -66,5 +55,14 @@ public class ItemPickUp : MonoBehaviour
         
     }
 
+    public void Equip(Player player)
+    {
+        itemDefinition.Equip(player);
+    }
+
+    public void Unequip(Player player)
+    {
+        itemDefinition.Unequip(player);
+    }
 
 }
