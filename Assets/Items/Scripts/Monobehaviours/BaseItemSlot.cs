@@ -4,15 +4,19 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System;
 
-public class BaseItemSlot : MonoBehaviour, IPointerClickHandler
+public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] protected Image image;
     [SerializeField] protected TMP_Text amountText;
 
+    public event Action<BaseItemSlot> OnPointerEnterEvent;
+    public event Action<BaseItemSlot> OnPointerExitEvent;
     public event Action<BaseItemSlot> OnRightClickEvent;
 
+    protected bool isPointerOver;
 
     protected Color normalColor = Color.white;
+    protected Color grayColor = Color.gray;
     protected Color disabledColor = new Color(1, 1, 1, 0);
 
     protected ItemPickUp _itemPickUp;
@@ -28,7 +32,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler
             if (_itemPickUp == null)
             {
                 image.sprite = null;
-                image.color = normalColor;
+                image.color = grayColor;
             } else
             {
                 image.sprite = _itemPickUp.itemDefinition.itemIcon;
@@ -65,6 +69,11 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler
         return ITEM != null && ITEM.itemDefinition.ID == item.itemDefinition.ID;
     }
 
+    public virtual bool CanReceiveItem(ItemPickUp item)
+    {
+        return false;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
@@ -85,5 +94,29 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler
         
         ITEM = _itemPickUp;
         Amount = _amount;
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (isPointerOver)
+        {
+            OnPointerExit(null);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isPointerOver = true;
+
+        if (OnPointerEnterEvent != null)
+            OnPointerEnterEvent(this);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerOver = false;
+
+        if (OnPointerExitEvent != null)
+            OnPointerExitEvent(this);
     }
 }
