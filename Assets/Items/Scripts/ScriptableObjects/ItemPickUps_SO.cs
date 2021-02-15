@@ -44,6 +44,9 @@ public class ItemPickUps_SO : ScriptableObject
     {
         string path = AssetDatabase.GetAssetPath(this);
         id = AssetDatabase.AssetPathToGUID(path);
+
+        if (destroyOnUse)
+            isDestructible = !destroyOnUse;
     }
     #endif
 
@@ -60,5 +63,10 @@ public class ItemPickUps_SO : ScriptableObject
     public void Unequip(Player player)
     {
         
+    }
+
+    public void UseItem()
+    {
+
     }
 }

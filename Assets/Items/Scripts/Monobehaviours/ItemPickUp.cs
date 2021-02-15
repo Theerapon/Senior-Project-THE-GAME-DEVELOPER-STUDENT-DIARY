@@ -42,11 +42,7 @@ public class ItemPickUp : MonoBehaviour
 
     public void UseItem()
     {
-        
-        if (!itemDefinition.isDestructible)
-        {
-            Destroy(this.gameObject);
-        }
+        DestroyItemPickUp();
     }
 
     private void StoreItem()
@@ -65,4 +61,9 @@ public class ItemPickUp : MonoBehaviour
         itemDefinition.Unequip(player);
     }
 
+    public virtual void DestroyItemPickUp()
+    {
+        if(!itemDefinition.isDestructible)
+            Destroy(this.gameObject);
+    }
 }
