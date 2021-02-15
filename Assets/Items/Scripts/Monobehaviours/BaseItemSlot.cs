@@ -50,8 +50,12 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             _amount = value;
             if (_amount < 0) _amount = 0;
-            if (_amount == 0 && ITEM != null) 
+            if (_amount == 0 && ITEM != null)
+            {
+                if(ITEM.itemDefinition.destroyOnUse)
+                    ITEM.DestroyItemPickUp();
                 ITEM = null;
+            }
 
             if (amountText != null)
             {

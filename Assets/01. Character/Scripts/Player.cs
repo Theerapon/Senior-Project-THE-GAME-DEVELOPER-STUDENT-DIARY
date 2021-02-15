@@ -141,11 +141,12 @@ public class Player : MonoBehaviour
 
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
-		if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.isEquipped)
+		if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.isEquipped)
 		{
 			Equip((ItemPickUp)itemSlot.ITEM);
-		} else if (itemSlot.ITEM is ItemPickUp && itemSlot.Amount != 0)
+		} else if (itemSlot.ITEM != null && itemSlot.Amount != 0)
         {
+			Instantiate(itemSlot.ITEM).UseItem();
 			Inventory.RemoveItem(itemSlot.ITEM);
         }
 		

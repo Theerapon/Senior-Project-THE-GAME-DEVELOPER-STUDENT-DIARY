@@ -122,6 +122,10 @@ public class CharacterInventory : ItemContainer
         if (itemEntry)
         {
             added = AddItem(itemEntry);
+            if (!added)
+            {
+                itemEntry.gameObject.SetActive(true);
+            }
         }
         return added;
     }
