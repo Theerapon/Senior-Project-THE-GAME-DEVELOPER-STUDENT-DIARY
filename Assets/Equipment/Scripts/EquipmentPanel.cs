@@ -9,7 +9,7 @@ public class EquipmentPanel : MonoBehaviour
 
 
 	[SerializeField] Transform equipmentSlotsParent;
-    [SerializeField] EquipmentSlot[] EquipmentSlots;
+    public EquipmentSlot[] EquipmentSlots;
 
 	public event Action<BaseItemSlot> OnPointerEnterEvent;
 	public event Action<BaseItemSlot> OnPointerExitEvent;
@@ -19,7 +19,12 @@ public class EquipmentPanel : MonoBehaviour
 	public event Action<BaseItemSlot> OnDragEvent;
 	public event Action<BaseItemSlot> OnDropEvent;
 
-	private void Start()
+	protected void Awake()
+    {
+		instance = this;
+    }
+
+	protected void Start()
 	{
 		instance = this;
 

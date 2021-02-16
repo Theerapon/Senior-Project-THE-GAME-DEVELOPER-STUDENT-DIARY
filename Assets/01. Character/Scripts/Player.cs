@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+	public static Player instance;
+
     [Header("Public")]
     public CharacterInventory Inventory;
 	public EquipmentPanel Equipment;
@@ -12,10 +14,19 @@ public class Player : MonoBehaviour
 
 	private BaseItemSlot dragItemSlot;
 
-	private void Start()
+	protected void Awake()
     {
-        Inventory = CharacterInventory.instance;
-		Equipment = EquipmentPanel.instance;
+		instance = this;
+		if (CharacterInventory.instance != null)
+			Inventory = CharacterInventory.instance;
+
+		if (EquipmentPanel.instance != null)
+			Equipment = EquipmentPanel.instance;
+	}
+
+	protected void Start()
+    {
+
 
 
 		// Setup Events:
@@ -66,7 +77,6 @@ public class Player : MonoBehaviour
 
 	private void Drop(BaseItemSlot dropItemSlot)
     {
-		Debug.Log("Drop");
 		if (dragItemSlot == null) return;
 
 		if (dropItemSlot.CanAddStack(dragItemSlot.ITEM))
@@ -81,7 +91,6 @@ public class Player : MonoBehaviour
 
 	private void SwapItems(BaseItemSlot dropItemSlot)
 	{
-		Debug.Log("SwapItems");
 		ItemPickUp dragEquipItem = dragItemSlot.ITEM as ItemPickUp;
 		ItemPickUp dropEquipItem = dropItemSlot.ITEM as ItemPickUp;
 
@@ -108,20 +117,17 @@ public class Player : MonoBehaviour
 
 	private void Drag(BaseItemSlot itemSlot)
     {
-		Debug.Log("Drag");
 		draggableItem.transform.position = Input.mousePosition;
 	}
 
     private void EndDrag(BaseItemSlot itemSlot)
     {
-		Debug.Log("EndDrag");
 		dragItemSlot = null;
 		draggableItem.gameObject.SetActive(false);
 	}
 
     private void BeginDrag(BaseItemSlot itemSlot)
     {
-		Debug.Log("BeginDrag");
 		if (itemSlot.ITEM != null)
 		{
 			dragItemSlot = itemSlot;

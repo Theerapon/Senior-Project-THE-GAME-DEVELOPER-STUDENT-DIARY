@@ -6,15 +6,19 @@ using UnityEngine;
 public class ItemSaveManager : MonoBehaviour, ISaveable
 {
     [SerializeField] ItemDatabase itemDatabase;
-    private CharacterInventory characterInventory = null;
-    private const string InventoryFileName = "Inventory";
 
-    void Awake()
+    private Player player = null;
+    private const string InventoryFileName = "Inventory";
+    private const string EquipmentFileName = "Equipment";
+
+    protected void Awake()
     {
-        if(CharacterInventory.instance != null)
+
+        if(Player.instance != null)
         {
-            characterInventory = CharacterInventory.instance;
+            player = Player.instance;
         }
+
 
         if (SaveManager.Instance != null)
         {
@@ -33,16 +37,23 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
     public void OnSaved()
     {
         SaveInventory();
+        SaveEquipment();
     }
 
     public void OnLoaded()
     {
         LoadInventory();
+        LoadEquipment();
     }
 
     private void SaveInventory()
     {
-        //SaveItems(CharacterInventory.instance.itemsInInventory, InventoryFileName);
+        SaveItems(Player.instance.Inventory.ItemSlots, InventoryFileName);
+    }
+
+    private void SaveEquipment()
+    {
+        SaveItems(Player.instance.Equipment.EquipmentSlots, EquipmentFileName);
     }
 
     private void LoadInventory()
@@ -51,17 +62,21 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(InventoryFileName);
             if (savedSlots == null) return;
+            player.Inventory.ClearItemSlots();
 
-            for (int countID = 0; countID < savedSlots.SavedSlots.Length; countID++)
+            for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                
-                ItemSlotSaveData savedSlot = savedSlots.SavedSlots[countID];
+                ItemSlot itemSlot = player.Inventory.ItemSlots[i];
+                ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
+
                 if (savedSlot == null)
                 {
-                    return;
+                    itemSlot.ITEM = null;
+                    itemSlot.Amount = 0;
                 }
                 else
                 {
+
                     Rigidbody itemSpawned = null;
                     ItemPickUp itemType = null;
                     Renderer itemMaterial = null;
@@ -74,34 +89,65 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
                     itemType = itemSpawned.GetComponent<ItemPickUp>();
                     itemType.itemDefinition = itemsSO;
 
-                    //characterInventory.itemsInInventory.Add(countID, new InventoryEntry(savedSlot.stackSize, Instantiate(itemType), itemsSO.itemIcon, savedSlot.inventorySlot, savedSlot.hotBarSlot));
-                    //characterInventory.FillInventoryDisplay();
-                    Destroy(itemType.gameObject);
-
-
+                    itemSlot.ITEM = itemType;
+                    itemSlot.Amount = savedSlot.Amount;
+                    itemSlot.ITEM.SetGameObjectToFalse();
                 }
             }
+
+            
         }
 
     }
 
-    private void SaveItems(Dictionary<string, InventoryEntry> itemsInInventory, string fileName)
+    public void LoadEquipment()
     {
-        var saveData = new ItemContainerSaveData(itemsInInventory.Count);
-        int count = 0;
-        foreach (KeyValuePair<string, InventoryEntry> ie in itemsInInventory)
+        if (SaveLoad.SaveExists(InventoryFileName))
         {
-            InventoryEntry inventory = ie.Value;
+            ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(EquipmentFileName);
+            if (savedSlots == null) return;
 
-            if(inventory.invEntry == null)
+            foreach (ItemSlotSaveData savedSlot in savedSlots.SavedSlots)
             {
-                saveData.SavedSlots[count] = null;
-            }else
-            {
-                saveData.SavedSlots[count] = new ItemSlotSaveData(inventory.invEntry.itemDefinition.ID, inventory.stackSize, inventory.inventorySlot, inventory.hotBarSlot);
+                if (savedSlot == null)
+                {
+                    continue;
+                }
+
+                Rigidbody itemSpawned = null;
+                ItemPickUp itemType = null;
+                Renderer itemMaterial = null;
+
+                ItemPickUps_SO itemsSO = itemDatabase.GetItemCopy(savedSlot.ItemID);
+                itemSpawned = Instantiate(itemsSO.itemSpawnObject);
+                itemMaterial = itemSpawned.GetComponent<Renderer>();
+                if (itemMaterial != null)
+                    itemMaterial.material = itemsSO.itemMaterial;
+                itemType = itemSpawned.GetComponent<ItemPickUp>();
+                itemType.itemDefinition = itemsSO;
+
+                player.Inventory.AddItem(itemType);
+                player.Equip(itemType);
             }
+        }       
+    }
 
-            count++;
+    private void SaveItems(IList<ItemSlot> itemSlots, string fileName)
+    {
+        var saveData = new ItemContainerSaveData(itemSlots.Count);
+
+        for (int i = 0; i < saveData.SavedSlots.Length; i++)
+        {
+            ItemSlot itemSlot = itemSlots[i];
+
+            if (itemSlot.ITEM == null)
+            {
+                saveData.SavedSlots[i] = null;
+            }
+            else
+            {
+                saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID, itemSlot.Amount);
+            }
         }
         SaveData(saveData, fileName);
     }
