@@ -13,11 +13,6 @@ public class CharacterInventory : ItemContainer
     //public CharacterStats charStats;
     //GameObject foundStats;
 
-    [Header("Hotbar")]
-    public Image[] hotBarDisplayHolders = new Image[12];
-
-
-    private int inventoryItemCap = 60;
     bool addedItem = true;
     ItemPickUp itemEntry;
 
@@ -125,41 +120,6 @@ public class CharacterInventory : ItemContainer
         return added;
     }
 
-    private void AddItemToHotBar(InventoryEntry itemForHotBar)
-    {
-        int hotBarCounter = 0;
-        bool increaseCount = false;
-
-        //Check for open hotbar slot
-        foreach (Image images in hotBarDisplayHolders)
-        {
-            hotBarCounter += 1;
-
-            if (itemForHotBar.hotBarSlot == 0)
-            {
-                if (images.sprite == null)
-                {
-                    //Add item to open hotbar slot
-                    itemForHotBar.hotBarSlot = hotBarCounter;
-                    //Change hotbar sprite to show item
-                    images.sprite = itemForHotBar.hbSprite;
-                    increaseCount = true;
-                    break;
-                }
-            }
-            else if (itemForHotBar.invEntry.itemDefinition.isStackable)
-            {
-                increaseCount = true;
-            }
-        }
-
-        if (increaseCount)
-        {
-            hotBarDisplayHolders[itemForHotBar.hotBarSlot - 1].GetComponentInChildren<TMP_Text>().text = itemForHotBar.stackSize.ToString();
-        }
-
-        increaseCount = false;
-    }
     public void TriggerItemUse(int itemToUseID)
     {
         

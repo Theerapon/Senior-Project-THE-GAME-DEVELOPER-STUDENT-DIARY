@@ -40,7 +40,7 @@ public class EquipmentPanel : MonoBehaviour
 		}
 	}
 
-    private void OnValidate()
+    protected void OnValidate()
     {
         EquipmentSlots = equipmentSlotsParent.GetComponentsInChildren<EquipmentSlot>();
     }
