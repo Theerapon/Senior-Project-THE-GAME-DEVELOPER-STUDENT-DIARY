@@ -38,7 +38,7 @@ public class CharacterInventory : ItemContainer
     }
     #endregion
 
-    private void Update()
+    protected void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -110,7 +110,6 @@ public class CharacterInventory : ItemContainer
     {
         addedItem = false;
         itemEntry = queueItemsToAdd.Dequeue();
-        itemEntry.gameObject.SetActive(false);
     }
 
     private bool TryPickUp()
@@ -122,10 +121,6 @@ public class CharacterInventory : ItemContainer
         if (itemEntry)
         {
             added = AddItem(itemEntry);
-            if (!added)
-            {
-                itemEntry.gameObject.SetActive(true);
-            }
         }
         return added;
     }

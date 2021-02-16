@@ -69,4 +69,5 @@ public class ItemPickUps_SO : ScriptableObject
     {
 
     }
+
 }

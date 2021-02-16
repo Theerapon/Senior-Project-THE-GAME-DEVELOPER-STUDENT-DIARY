@@ -83,8 +83,6 @@ public class GameManager : Manager<GameManager>
         {
             UpdateState(GameState.RUNNING);
         }
-
-        Debug.Log("Load Complete.");
     }
 
     public void LoadLevel(string levelName)

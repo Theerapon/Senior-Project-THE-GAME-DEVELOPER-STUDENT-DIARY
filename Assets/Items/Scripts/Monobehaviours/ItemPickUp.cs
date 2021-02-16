@@ -66,4 +66,14 @@ public class ItemPickUp : MonoBehaviour
         if(!itemDefinition.isDestructible)
             Destroy(this.gameObject);
     }
+
+    public void SetGameObjectToTrue()
+    {
+        this.gameObject.SetActive(true);
+    }
+
+    public void SetGameObjectToFalse()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

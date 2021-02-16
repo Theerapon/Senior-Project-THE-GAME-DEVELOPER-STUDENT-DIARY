@@ -15,7 +15,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
 
-    private void Start()
+    protected void Start()
     {
         for (int i = 0; i < ItemSlots.Count; i++)
         {
@@ -47,10 +47,9 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         {
             if (ItemSlots[i].CanAddStack(item))
             {
-                //ItemSlots[i].ITEM = item;
                 ItemSlots[i].Amount++;
                 Destroy(item.gameObject);
-                return true;
+                return true; //add pass but same item in inventory so that destroy for don't have gameobject too much
             }
         }
 
@@ -60,10 +59,11 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             {
                 ItemSlots[i].ITEM = item;
                 ItemSlots[i].Amount++;
-                return true;
+                ItemSlots[i].ITEM.SetGameObjectToFalse();
+                return true; //add pass and set gameobject active to false for don't show item in game scene
             }
         }
-        return false;
+        return false; //add fail
     }
 
     public virtual bool CanAddItem(ItemPickUp item, int amount = 1)

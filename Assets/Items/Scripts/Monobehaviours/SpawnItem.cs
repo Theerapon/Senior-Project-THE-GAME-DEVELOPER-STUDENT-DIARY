@@ -12,7 +12,7 @@ public class SpawnItem : MonoBehaviour, ISpawns
     public ItemPickUp itemType { get; set; }
     public Renderer itemMaterial { get; set; }
 
-    void Start()
+    protected void Start()
     {
         foreach (ItemPickUps_SO ip in itemDefinitions)
         {
