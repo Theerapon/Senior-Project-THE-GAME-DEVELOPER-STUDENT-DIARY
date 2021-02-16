@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
 		{
 			SwapItems(dropItemSlot);
 		}
+		Inventory.UpdatedItemToHotBar();
 	}
 
 	private void SwapItems(BaseItemSlot dropItemSlot)

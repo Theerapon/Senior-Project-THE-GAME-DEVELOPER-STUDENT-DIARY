@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemContainer : MonoBehaviour, IItemContainer
 {
     public List<ItemSlot> ItemSlots;
+
+    [Header("Hotbar")]
+    [SerializeField] Transform hotBarSlotsParent;
+    public Image[] hotBarDisplayHolders;
 
     public event Action<BaseItemSlot> OnPointerEnterEvent;
     public event Action<BaseItemSlot> OnPointerExitEvent;
@@ -14,6 +20,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
     public event Action<BaseItemSlot> OnEndDragEvent;
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
+
 
     protected void Start()
     {
@@ -25,6 +32,8 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             ItemSlots[i].OnDragEvent += slot => EventHelper(slot, OnDragEvent);
             ItemSlots[i].OnDropEvent += slot => EventHelper(slot, OnDropEvent);
         }
+        hotBarDisplayHolders = hotBarSlotsParent.GetComponentsInChildren<Image>();
+        UpdatedItemToHotBar();
     }
 
     protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
@@ -38,7 +47,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         GetComponentsInChildren(includeInactive: true, result: ItemSlots);
     }
 
-    
+
 
     public virtual bool AddItem(ItemPickUp item)
     {
@@ -49,6 +58,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             {
                 ItemSlots[i].Amount++;
                 Destroy(item.gameObject);
+                UpdatedItemToHotBar();
                 return true; //add pass but same item in inventory so that destroy for don't have gameobject too much
             }
         }
@@ -60,10 +70,29 @@ public class ItemContainer : MonoBehaviour, IItemContainer
                 ItemSlots[i].ITEM = item;
                 ItemSlots[i].Amount++;
                 ItemSlots[i].ITEM.SetGameObjectToFalse();
+                UpdatedItemToHotBar();
                 return true; //add pass and set gameobject active to false for don't show item in game scene
             }
         }
         return false; //add fail
+    }
+
+    public virtual void UpdatedItemToHotBar()
+    {
+        Debug.Log("update hotbar");
+        for (int i = 0; i < hotBarDisplayHolders.Length; i++)
+        {
+            if (ItemSlots[i].ITEM != null)
+            {
+                hotBarDisplayHolders[i].sprite = ItemSlots[i].ITEM.itemDefinition.itemIcon;
+                hotBarDisplayHolders[i].GetComponentInChildren<TMP_Text>().text = ItemSlots[i].Amount.ToString();
+            }
+            else
+            {
+                hotBarDisplayHolders[i].sprite = null;
+                hotBarDisplayHolders[i].GetComponentInChildren<TMP_Text>().text = ItemSlots[i].Amount.ToString();
+            }
+        }
     }
 
     public virtual bool CanAddItem(ItemPickUp item, int amount = 1)
@@ -91,6 +120,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             ItemSlots[i].ITEM = null;
             ItemSlots[i].Amount = 0;
         }
+        UpdatedItemToHotBar();
     }
 
     public virtual int ItemAmount(string itemId)
@@ -116,6 +146,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             if (item != null && item.itemDefinition.ID == itemID)
             {
                 ItemSlots[i].Amount--;
+                UpdatedItemToHotBar();
                 return item;
             }
         }
@@ -129,6 +160,7 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             if (ItemSlots[i].ITEM == item)
             {
                 ItemSlots[i].Amount--;
+                UpdatedItemToHotBar();
                 return true;
             }
         }
