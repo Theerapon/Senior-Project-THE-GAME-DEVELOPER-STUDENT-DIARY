@@ -6,6 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Manager<GameManager>
 {
+    private class LoadingMonoBehaviour : MonoBehaviour { }
+
+    public enum Scene
+    {
+        Boot,
+        Loading,
+        Main,
+    }
+    public static Scene _currentLevelScene;
+
     public enum GameState
     {
         PREGAME,
@@ -21,20 +31,22 @@ public class GameManager : Manager<GameManager>
 
     GameState _currentGameState = GameState.PREGAME;
     GameState _previousGameState;
-    string _currentLevelName = string.Empty;
+    
 
     public GameObject[] SystemPrefabs;
     List<GameObject> _instancedSystemPrefabs;
 
     public Events.EventGameState OnGameStateChanged;
-    
+
+    private static Action onLoaderCallback;
+    private static AsyncOperation ao;
+    private static AsyncOperation aoLoading;
 
     private void Start()
     {
         _instancedSystemPrefabs = new List<GameObject>();
         InstantiateSystemPrefabs();
 
-        UIManager.Instance.OnMainMenuLoadComplete.AddListener(HandleMainMenuLoadComplete);
     }
 
     private void Update()
@@ -45,13 +57,6 @@ public class GameManager : Manager<GameManager>
         }
     }
 
-    private void HandleMainMenuLoadComplete(bool loadGame)
-    {
-        if (!loadGame)
-        {
-            // UnloadLevel(_currentLevelName);
-        }
-    }
 
     void UpdateState(GameState state)
     {
@@ -79,24 +84,84 @@ public class GameManager : Manager<GameManager>
 
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
-        if (_currentLevelName == "Main")
+        if (_currentLevelScene == Scene.Main)
         {
             UpdateState(GameState.RUNNING);
         }
+
+        if (aoLoading.isDone)
+        {
+            aoLoading = SceneManager.UnloadSceneAsync(Scene.Loading.ToString());
+        }
     }
 
-    public void LoadLevel(string levelName)
+    public void LoadLevel(Scene sceneName)
     {
-        AsyncOperation ao = SceneManager.LoadSceneAsync(levelName, LoadSceneMode.Single);
+        onLoaderCallback = () => {
+            StartCoroutine(Loading(sceneName));
+        };
+
+        // Load the loading scene
+        aoLoading = SceneManager.LoadSceneAsync(Scene.Loading.ToString(), LoadSceneMode.Additive);
+    }
+
+    IEnumerator Loading(Scene sceneName)
+    {
+        yield return null;
+
+        ao = SceneManager.LoadSceneAsync(sceneName.ToString(), LoadSceneMode.Additive);
         if (ao == null)
         {
-            Debug.LogError("[GameManager] Unable to load level " + levelName);
-            return;
+            Debug.LogError("[GameManager] Unable to load level " + sceneName.ToString());
+            yield return null;
         }
 
+        while (!ao.isDone)
+        {
+            
+            yield return null;
+        }
+
+        _currentLevelScene = sceneName;
         ao.completed += OnLoadOperationComplete;
 
-        _currentLevelName = levelName;
+
+    }
+
+    public void UnLoadLevel(Scene sceneName)
+    {
+        SceneManager.UnloadSceneAsync(sceneName.ToString());
+        if (ao == null)
+        {
+            Debug.LogError("[GameManager] Unable to unload level " + sceneName.ToString());
+            return;
+        }
+    }
+
+    public static float GetLoadingProgress()
+    {
+        if (ao != null)
+        {
+            return ao.progress;
+        }
+        else if(ao != null &&  ao.progress > 1f)
+        {
+            return 1f;
+        } else
+        {
+            return 0f;
+        }
+    }
+
+    public static void LoaderCallback()
+    {
+        // Triggered after the first Update which lets the screen refresh
+        // Execute the loader callback action which will load the target scene
+        if (onLoaderCallback != null)
+        {
+            onLoaderCallback();
+            onLoaderCallback = null;
+        }
     }
 
     protected void OnDestroy()
@@ -111,9 +176,14 @@ public class GameManager : Manager<GameManager>
         _instancedSystemPrefabs.Clear();
     }
 
-    public void StartGame()
+    public void NewGame()
     {
-        LoadLevel("Main");
+        LoadLevel(Scene.Main);
+    }
+
+    public void ContiniueGame()
+    {
+        LoadLevel(Scene.Main);
     }
 
     public void PuaseGame()
