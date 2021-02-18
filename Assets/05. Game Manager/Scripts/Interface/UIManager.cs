@@ -13,10 +13,10 @@ public class UIManager : Manager<UIManager>
 
     [Header("Main Menu")]
     [SerializeField] private MainMenu _mainMenu;
-    [SerializeField] private TMP_Text _tagline;
+    [SerializeField] private GameObject mainMenuDisplayHandler;
+
     
 
-    public Events.EventLoadComplete OnMainMenuLoadComplete;
 
     void Start()
     {
@@ -26,10 +26,16 @@ public class UIManager : Manager<UIManager>
 
     private void HandleMainMenuLoadComplete(bool loadGame)
     {
-        //what happen when load scene game from main menu
-        _tagline.gameObject.SetActive(!loadGame);
 
-        OnMainMenuLoadComplete.Invoke(loadGame);   
+        if (loadGame)
+        {
+            mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
+        } else
+        {
+            mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
+        }
+
+ 
     }
 
     void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
@@ -46,7 +52,7 @@ public class UIManager : Manager<UIManager>
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameManager.Instance.StartGame();
+            GameManager.Instance.NewGame();
         }
     }
 

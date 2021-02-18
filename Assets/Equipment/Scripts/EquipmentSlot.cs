@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EquipmentSlot : ItemSlot
 {
-	public ItemSubType EquipmentType;
+	public ItemEquipmentType EquipmentType;
 
 	protected override void OnValidate()
 	{

@@ -79,7 +79,6 @@ public class ItemContainer : MonoBehaviour, IItemContainer
 
     public virtual void UpdatedItemToHotBar()
     {
-        Debug.Log("update hotbar");
         for (int i = 0; i < hotBarDisplayHolders.Length; i++)
         {
             if (ItemSlots[i].ITEM != null)

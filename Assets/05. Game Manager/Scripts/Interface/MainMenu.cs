@@ -14,39 +14,34 @@ public class MainMenu : MonoBehaviour
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        if (previousState == GameManager.GameState.PREGAME && currentState == GameManager.GameState.RUNNING)
-        {
-            LoadGame();
-            //Onloadgamecomplete event raised when take animation but now i dont have animation yet
-            OnLoadGameComplete();
-        }
 
         if (previousState != GameManager.GameState.PREGAME && currentState == GameManager.GameState.PREGAME)
         {
             UnLoadGame();
-            OnUnLoadGameComplete(); //Onloadgamecomplete event raised when take animation 
         }
     }
 
-    public void OnLoadGameComplete()
+
+    private void LoadGame()
     {
+        UIManager.Instance.SetCameraActive(false);
         OnMainMenuLoadComplete.Invoke(true);
     }
 
-    public void OnUnLoadGameComplete()
+    private void UnLoadGame()
     {
-        OnMainMenuLoadComplete.Invoke(false);
         UIManager.Instance.SetCameraActive(true);
+        OnMainMenuLoadComplete.Invoke(false);
     }
 
-    public void LoadGame()
+    public void NewGame()
     {
-        //animation for load game scene
-        UIManager.Instance.SetCameraActive(false);
+        LoadGame();
+        GameManager.Instance.NewGame();
     }
 
-    public void UnLoadGame()
+    public void Continiue()
     {
-        //animation for unload game scene
+        GameManager.Instance.ContiniueGame();
     }
 }
