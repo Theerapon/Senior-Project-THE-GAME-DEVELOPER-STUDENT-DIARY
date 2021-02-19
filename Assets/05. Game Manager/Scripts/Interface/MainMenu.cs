@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+
     public Events.EventLoadComplete OnMainMenuLoadComplete;
 
     private void Start()
@@ -15,23 +16,20 @@ public class MainMenu : MonoBehaviour
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
 
-        if (previousState != GameManager.GameState.PREGAME && currentState == GameManager.GameState.PREGAME)
-        {
-            UnLoadGame();
-        }
     }
+
 
 
     private void LoadGame()
     {
-        UIManager.Instance.SetCameraActive(false);
         OnMainMenuLoadComplete.Invoke(true);
+        UIManager.Instance.SetCameraActive(false);
     }
 
     private void UnLoadGame()
     {
-        UIManager.Instance.SetCameraActive(true);
         OnMainMenuLoadComplete.Invoke(false);
+        UIManager.Instance.SetCameraActive(true);
     }
 
     public void NewGame()
@@ -42,6 +40,7 @@ public class MainMenu : MonoBehaviour
 
     public void Continiue()
     {
+        LoadGame();
         GameManager.Instance.ContiniueGame();
     }
 }

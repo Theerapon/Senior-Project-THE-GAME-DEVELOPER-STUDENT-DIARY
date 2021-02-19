@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSaveManager : MonoBehaviour, ISaveable
+public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
     [SerializeField] ItemDatabase itemDatabase;
 
@@ -11,9 +11,9 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
 
-    protected void Awake()
+    protected override void Awake()
     {
-
+        base.Awake();
         if(Player.instance != null)
         {
             player = Player.instance;
@@ -24,8 +24,10 @@ public class ItemSaveManager : MonoBehaviour, ISaveable
         {
             SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         }
+    }
 
-
+    protected void Start()
+    {
         OnLoaded();
     }
 

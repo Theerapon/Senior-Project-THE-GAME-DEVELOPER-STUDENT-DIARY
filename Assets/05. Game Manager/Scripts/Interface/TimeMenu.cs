@@ -11,11 +11,16 @@ public class TimeMenu : MonoBehaviour
     [SerializeField] private TMP_Text timeCalendar;
     [SerializeField] private TMP_Text seasonCalendar;
 
-    void Start()
+    protected void Start()
     {
-        TimeManager.Instance.OnDateCalendar.AddListener(HandleOnDateCalendar);
-        TimeManager.Instance.OnTimeCalendar.AddListener(HandleOnTimeCalendar);
-        TimeManager.Instance.OnSeasonCalendar.AddListener(HandleOnSeasonCalender);
+        Debug.Log("Timemenu + " + Time.realtimeSinceStartup);
+        if(TimeManager.Instance != null)
+        {
+            TimeManager.Instance.OnDateCalendar.AddListener(HandleOnDateCalendar);
+            TimeManager.Instance.OnTimeCalendar.AddListener(HandleOnTimeCalendar);
+            TimeManager.Instance.OnSeasonCalendar.AddListener(HandleOnSeasonCalender);
+        }
+
     }
 
     private void HandleOnSeasonCalender(string season)

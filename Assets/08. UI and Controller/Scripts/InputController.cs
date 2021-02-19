@@ -9,32 +9,29 @@ public class InputController : MonoBehaviour
 {
     #region Defination
     [Header("Project")]
-    [SerializeField] private Projects _projects;
+    //[SerializeField] private Projects _projects;
     [SerializeField] private GameObject _ProjectDisplayHolder;
-    [SerializeField] private TMP_Text project_textCoding = null;
-    [SerializeField] private TMP_Text project_textDesign = null;
-    [SerializeField] private TMP_Text project_textTesting = null;
-    [SerializeField] private TMP_Text project_textArt = null;
-    [SerializeField] private TMP_Text project_textAudio = null;
-    [SerializeField] private TMP_Text project_textBug = null;
-    [SerializeField] private TMP_Text project_textNameProject = null;
-    [SerializeField] private Image project_imageFillProject = null;
+    //[SerializeField] private TMP_Text project_textCoding = null;
+    //[SerializeField] private TMP_Text project_textDesign = null;
+    //[SerializeField] private TMP_Text project_textTesting = null;
+    //[SerializeField] private TMP_Text project_textArt = null;
+    //[SerializeField] private TMP_Text project_textAudio = null;
+    //[SerializeField] private TMP_Text project_textBug = null;
+    //[SerializeField] private TMP_Text project_textNameProject = null;
+    //[SerializeField] private Image project_imageFillProject = null;
 
 
     [Header("Menu")]
-    [SerializeField] private GameObject _MenuHandler = null;
+    [SerializeField] private GameObject _MenuHandler;
 
     [Header("Hotbar")]
-    [SerializeField] private GameObject _HotbarHandler = null;
+    [SerializeField] private GameObject _HotbarHandler;
     #endregion
 
 
-    void Start()
+    protected void Start()
     {
-        if(_projects != null)
-        {
-            SetDisplayProject();
-        }
+
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
     }
 
@@ -97,18 +94,18 @@ public class InputController : MonoBehaviour
     #region Projects
     private void DisplayProject()
     {
-        if (_ProjectDisplayHolder.activeSelf == true)
+        if (_ProjectDisplayHolder.activeSelf == true && _ProjectDisplayHolder != null)
         {
             _ProjectDisplayHolder.SetActive(false);
         }
         else
         {
-            SetDisplayProject();
+            //SetDisplayProject();
             _ProjectDisplayHolder.SetActive(true);
         }
     }
 
-
+    /*
     private void SetDisplayProject()
     {
         project_textCoding.text = _projects.GetCodingQuality().ToString();
@@ -125,13 +122,13 @@ public class InputController : MonoBehaviour
     private float CalculateFillAmountProject(int xp)
     {
         return (float)xp / _projects.project_Current.GetRequireXpProject(0);
-    }
+    } */
     #endregion
 
 
     private void DisplayMenu()
     {
-        if (_MenuHandler.activeSelf == true)
+        if (_MenuHandler.activeSelf == true && _MenuHandler != null)
         {
             _MenuHandler.SetActive(false);
         }
@@ -144,7 +141,7 @@ public class InputController : MonoBehaviour
 
     private void DisplayHotbar()
     {
-        if (_HotbarHandler.activeSelf == true)
+        if (_HotbarHandler.activeSelf == true && _HotbarHandler != null)
         {
             _HotbarHandler.SetActive(false);
         }
