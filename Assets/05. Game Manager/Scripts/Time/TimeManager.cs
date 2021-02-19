@@ -62,7 +62,7 @@ public class TimeManager : Manager<TimeManager>
     private static string onDate, onTime, onSeason;
 
 
-    void Start()
+    protected void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
         second = 0;
@@ -73,6 +73,7 @@ public class TimeManager : Manager<TimeManager>
         month = 1;
         year = 2021;
         Reset();
+        Debug.Log("Time Manager + " + Time.realtimeSinceStartup);
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)

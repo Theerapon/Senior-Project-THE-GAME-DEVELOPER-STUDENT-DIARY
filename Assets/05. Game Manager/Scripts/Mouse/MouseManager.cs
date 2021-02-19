@@ -12,6 +12,8 @@ public class MouseManager : Manager<MouseManager>
     public LayerMask clickableLayer;
     public Events.EventGameObject OnClickTarget;
 
+    private PlayerController playerController;
+
     private bool _useDefaultCursor = false;
 
 
@@ -19,6 +21,8 @@ public class MouseManager : Manager<MouseManager>
     {
         if (GameManager.Instance != null)
             GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+
+        playerController = GameObject.FindObjectOfType<PlayerController>();
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
@@ -82,5 +86,12 @@ public class MouseManager : Manager<MouseManager>
         }
 
     }
+
+    public void OnRightClick(GameObject objClicked)
+    {
+        playerController.RightClickAction(objClicked);
+    }
+
+
 }
     

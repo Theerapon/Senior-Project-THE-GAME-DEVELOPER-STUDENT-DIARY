@@ -21,7 +21,7 @@ public abstract class Manager<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    public virtual void Awake()
+    protected virtual void Awake()
     {
         Instance = this as T;
     }

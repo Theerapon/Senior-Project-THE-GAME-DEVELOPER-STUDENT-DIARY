@@ -15,8 +15,6 @@ public class UIManager : Manager<UIManager>
     [SerializeField] private MainMenu _mainMenu;
     [SerializeField] private GameObject mainMenuDisplayHandler;
 
-    
-
 
     void Start()
     {
@@ -26,17 +24,10 @@ public class UIManager : Manager<UIManager>
 
     private void HandleMainMenuLoadComplete(bool loadGame)
     {
+        mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
 
-        if (loadGame)
-        {
-            mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
-        } else
-        {
-            mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
-        }
-
- 
     }
+
 
     void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {

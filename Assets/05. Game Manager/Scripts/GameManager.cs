@@ -13,6 +13,7 @@ public class GameManager : Manager<GameManager>
         Boot,
         Loading,
         Main,
+        Level1
     }
     public static Scene _currentLevelScene;
 
@@ -41,13 +42,16 @@ public class GameManager : Manager<GameManager>
     private static Action onLoaderCallback;
     private static AsyncOperation ao;
     private static AsyncOperation aoLoading;
+    private static AsyncOperation aoSub;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         _instancedSystemPrefabs = new List<GameObject>();
         InstantiateSystemPrefabs();
 
     }
+
 
     private void Update()
     {
@@ -84,7 +88,13 @@ public class GameManager : Manager<GameManager>
 
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
+
         if (_currentLevelScene == Scene.Main)
+        {
+            LoadLevelSceneWithOutLoadingScene(Scene.Level1);
+        }
+
+        if (_currentLevelScene == Scene.Level1)
         {
             UpdateState(GameState.RUNNING);
         }
@@ -95,17 +105,28 @@ public class GameManager : Manager<GameManager>
         }
     }
 
-    public void LoadLevel(Scene sceneName)
+    public void LoadLevelSceneWithOutLoadingScene(Scene sceneName)
+    {
+        SceneManager.LoadSceneAsync(sceneName.ToString(), LoadSceneMode.Additive);
+        if (ao == null)
+        {
+            Debug.LogError("[GameManager] Unable to load level " + sceneName.ToString());
+        }
+        _currentLevelScene = sceneName;
+        ao.completed += OnLoadOperationComplete;
+    }
+
+    public void LoadLevelWithLoadingScene(Scene sceneName)
     {
         onLoaderCallback = () => {
-            StartCoroutine(Loading(sceneName));
+            StartCoroutine(LoadingScene(sceneName));
         };
 
         // Load the loading scene
         aoLoading = SceneManager.LoadSceneAsync(Scene.Loading.ToString(), LoadSceneMode.Additive);
     }
 
-    IEnumerator Loading(Scene sceneName)
+    IEnumerator LoadingScene(Scene sceneName)
     {
         yield return null;
 
@@ -178,12 +199,12 @@ public class GameManager : Manager<GameManager>
 
     public void NewGame()
     {
-        LoadLevel(Scene.Main);
+        LoadLevelWithLoadingScene(Scene.Main);
     }
 
     public void ContiniueGame()
     {
-        LoadLevel(Scene.Main);
+        LoadLevelWithLoadingScene(Scene.Main);
     }
 
     public void PuaseGame()
