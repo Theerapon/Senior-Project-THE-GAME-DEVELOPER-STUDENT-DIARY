@@ -3,18 +3,6 @@
 [CreateAssetMenu(fileName = "NewStats", menuName = "Character/Stats", order = 1)]
 public class CharacterStats_SO : ScriptableObject
 {
-    [System.Serializable]
-    #region jobs
-    private enum Jobs
-    {
-        STUDENT,
-        PROGRAMMER,
-        DESIGNER,
-        ARTIST,
-        SOUNDENGINEER,
-        TESTER
-    }
-    #endregion
 
     #region Fields
     [SerializeField] private string nameCharacter = "";
@@ -24,13 +12,14 @@ public class CharacterStats_SO : ScriptableObject
     [SerializeField] private int maxEnergy = 0;
     [SerializeField] private int currentEnergy = 0;
 
+    [SerializeField] private int currentMoney = 0;
+
     [SerializeField] private int codingStatus = 0;
     [SerializeField] private int designStatus = 0;
     [SerializeField] private int artStatus = 0;
     [SerializeField] private int audioStatus = 0;
     [SerializeField] private int testStatus = 0;
 
-    [SerializeField] private Jobs currentJobs = Jobs.STUDENT;
     #endregion
 
     

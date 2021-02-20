@@ -39,7 +39,7 @@ public class InputController : MonoBehaviour
                     _HotbarHandler.SetActive(true);
                 }
                 break;
-            case GameManager.GameState.PAUSE:
+            case GameManager.GameState.DISPLAYMENU:
                 if (_HotbarHandler.activeSelf == true)
                 {
                     _HotbarHandler.SetActive(false);
@@ -63,17 +63,17 @@ public class InputController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     DisplayMenu();
-                    GameManager.Instance.PuaseGame();
+                    GameManager.Instance.DisplayMenuUpdatedState();
 
                 }
                 break;
             #endregion
             #region Pause
-            case GameManager.GameState.PAUSE:
+            case GameManager.GameState.DISPLAYMENU:
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     DisplayMenu();
-                    GameManager.Instance.PuaseGame();
+                    GameManager.Instance.DisplayMenuUpdatedState();
                 }
                 break;
             #endregion

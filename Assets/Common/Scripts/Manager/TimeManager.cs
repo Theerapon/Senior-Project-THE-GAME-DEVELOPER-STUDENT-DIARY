@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class TimeManager : Manager<TimeManager>
 {
@@ -13,7 +14,11 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    [SerializeField] private const int TIMESCALE = 60;
+    [SerializeField] private const double DEFAULT_TIMESCALE = 48;
+
+    private double TIMESCALE = DEFAULT_TIMESCALE;
+
+    private const double TIMEWORLD = 3;
 
     private const double DEFAULT_SECOND = 60;
     private const double DEFAULT_MINUTE = 60;
@@ -60,7 +65,8 @@ public class TimeManager : Manager<TimeManager>
 
     private static double minute, hour, date, second, month, year;
     private static string onDate, onTime, onSeason;
-
+    private double totalSecond = 0;
+    private double memorySecond;
 
     protected void Start()
     {
@@ -72,18 +78,13 @@ public class TimeManager : Manager<TimeManager>
         _currentDays = SetsOfDays.SUN;
         month = 1;
         year = 2021;
-        Reset();
+        ValidationDisplay();
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        switch (currentState)
-        {
-            case GameManager.GameState.RUNNING:
-                Reset();
-                break;
-
-        }
+        ValidateCalculateTime();
+        ValidationDisplay();
     }
 
     void Update()
@@ -97,58 +98,105 @@ public class TimeManager : Manager<TimeManager>
         }
     }
 
+    private void IncreaseTime(int hour, int minute)
+    {
+        totalSecond += (double) (hour * DEFAULT_MINUTE * DEFAULT_SECOND);
+        totalSecond += (double) (minute * DEFAULT_SECOND);
+        TIMESCALE = totalSecond / TIMEWORLD;
+        StartCoroutine("TimeIncreaseCalculate");
+
+    }
+
+    IEnumerator TimeIncreaseCalculate()
+    {
+        while (totalSecond > 0)
+        {
+            CalculateTime();
+            totalSecond -= memorySecond;
+            yield return null;
+        }
+
+        yield return null;
+        TIMESCALE = DEFAULT_TIMESCALE;
+        StartCoroutine("Validation");
+
+    }
+
+    IEnumerator Validation()
+    {
+        while(second > DEFAULT_SECOND)
+        {
+            ValidateCalculateTime();
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(1);
+        GameManager.Instance.ContiniueGameInNextDays();
+
+    }
+
     private void CalculateTime()
     {
-        second += Time.deltaTime * TIMESCALE;
-        if(second >= DEFAULT_SECOND)
+        memorySecond = Time.deltaTime * (TIMESCALE);
+        second += memorySecond;
+        ValidateCalculateTime();
+    }
+
+    private void ValidateCalculateTime()
+    {
+        
+        if (second >= DEFAULT_SECOND)
         {
             minute++;
-            second = 0;
+            second = second - DEFAULT_SECOND;
 
         }
-        else if(minute >= DEFAULT_MINUTE)
+        
+        if (minute >= DEFAULT_MINUTE)
         {
             hour++;
-            minute = 0;
+            minute = minute - DEFAULT_MINUTE;
         }
-        else if(hour >= DEFAULT_HOUR)
+        
+        if (hour >= DEFAULT_HOUR)
         {
             date++;
-            hour = 0;
+            hour = hour - DEFAULT_HOUR;
             CalculateDay();
             setText();
             OnDateCalendar?.Invoke(onDate);
         }
-        else if(date >= DEFAULT_DATE)
+        
+        if (date > DEFAULT_DATE)
         {
             month++;
-            date = 1;
+            date = date - DEFAULT_DATE;
             CalculateDay();
             CalculateMonth();
             CalculateSeason();
             setText();
-            OnDateCalendar.Invoke(onDate);
-            OnSeasonCalendar.Invoke(onSeason);
+            OnDateCalendar?.Invoke(onDate);
+            OnSeasonCalendar?.Invoke(onSeason);
         }
-        else if(month >= DEFAULT_MONTH)
+        
+        if (month > DEFAULT_MONTH)
         {
             year++;
-            month = 1;
+            month = month - DEFAULT_MONTH;
             CalculateMonth();
             CalculateSeason();
             setText();
-            OnDateCalendar.Invoke(onDate);
-            OnSeasonCalendar.Invoke(onSeason);
+            OnDateCalendar?.Invoke(onDate);
+            OnSeasonCalendar?.Invoke(onSeason);
         }
         setText();
-        OnTimeCalendar.Invoke(onTime);
-
+        OnTimeCalendar?.Invoke(onTime);
     }
 
     private void setText()
     {
         onDate = string.Format("{0} " + "{1}" + " {2} " + "{3}", _currentDays, date, _currentMonth, year);
-        onTime = string.Format("{0:00}:{1:00}:{2:00}", hour, minute, second);
+        onTime = string.Format("{0:00}:{1:00}" + " Miniue", hour, minute);
         onSeason = string.Format("{0}", _currentSeason);
     }
 
@@ -225,15 +273,19 @@ public class TimeManager : Manager<TimeManager>
         }
     }
 
-    private void Reset()
+    public void ValidationDisplay()
     {
         CalculateMonth();
         CalculateSeason();
         setText();
-        OnDateCalendar.Invoke(onDate);
-        OnTimeCalendar.Invoke(onTime);
-        OnSeasonCalendar.Invoke(onSeason);
+        OnDateCalendar?.Invoke(onDate);
+        OnTimeCalendar?.Invoke(onTime);
+        OnSeasonCalendar?.Invoke(onSeason);
     }
 
+    public void ContiniueGame()
+    {
+        IncreaseTime(9, 30);
+    }
 
 }

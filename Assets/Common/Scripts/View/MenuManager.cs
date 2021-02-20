@@ -27,16 +27,11 @@ public class MenuManager : Manager<MenuManager>
 
     private GameObject preDisplay;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        Debug.Log("Menu Manager");
-    }
 
     #region Display
     public void DisplayInventory()
     {
-        if(GameManager.Instance.CurrentGameState == GameManager.GameState.PAUSE)
+        if(GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
         {
             if (_inventory.activeSelf == false && _inventory != null)
             {
@@ -49,7 +44,7 @@ public class MenuManager : Manager<MenuManager>
     }
     public void DisplayStats()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.PAUSE)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
         {
             if (_StatsDisplayHolder.activeSelf == false && _StatsDisplayHolder != null)
             {
@@ -63,7 +58,7 @@ public class MenuManager : Manager<MenuManager>
     }
     public void DisplaySkills()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.PAUSE)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
         {
             if (_skills.activeSelf == false && _skills != null)
             {
