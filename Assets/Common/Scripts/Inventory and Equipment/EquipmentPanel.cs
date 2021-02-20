@@ -8,7 +8,7 @@ public class EquipmentPanel : MonoBehaviour
 	public static EquipmentPanel instance;
 
 
-	[SerializeField] Transform equipmentSlotsParent;
+	public Transform equipmentSlotsParent;
     public EquipmentSlot[] EquipmentSlots;
 
 	public event Action<BaseItemSlot> OnPointerEnterEvent;
@@ -26,7 +26,6 @@ public class EquipmentPanel : MonoBehaviour
 
 	protected void Start()
 	{
-		instance = this;
 
 		for (int i = 0; i < EquipmentSlots.Length; i++)
 		{

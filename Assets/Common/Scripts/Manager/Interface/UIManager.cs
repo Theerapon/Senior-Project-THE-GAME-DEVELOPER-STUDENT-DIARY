@@ -31,21 +31,9 @@ public class UIManager : Manager<UIManager>
 
     void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-
+        
     }
 
-    void Update()
-    {
-        if (GameManager.Instance.CurrentGameState != GameManager.GameState.PREGAME)
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GameManager.Instance.NewGame();
-        }
-    }
 
     public void SetCameraActive(bool active)
     {
