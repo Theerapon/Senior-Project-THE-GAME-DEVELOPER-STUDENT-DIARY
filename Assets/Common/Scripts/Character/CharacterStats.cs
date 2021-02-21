@@ -18,10 +18,11 @@ public class CharacterStats : MonoBehaviour
         if(characterDefinition_Template != null)
         {
             characterDeginition_Current = Instantiate(characterDefinition_Template);
+            characterDeginition_Current.GiveXP(0);
         }
     }
 
- 
+
     #endregion
 
     #region Stat Increasers
@@ -33,6 +34,21 @@ public class CharacterStats : MonoBehaviour
     public void ApplyCurrentEnergy(int energyAmount)
     {
         characterDeginition_Current.ApplyCurrentEnergy(energyAmount);
+    }
+    public void GiveXP(int xp)
+    {
+        characterDeginition_Current.GiveXP(xp);
+    }
+
+    public void ApplyCurrentMotivation(float currentMotivation)
+    {
+        characterDeginition_Current.ApplyCurrentMotivation(currentMotivation);
+
+    }
+
+    public void ApplyCurrentMoney(int currentMoney)
+    {
+        characterDeginition_Current.ApplyCurrentMoney(currentMoney);
     }
 
     public void ApplyCodingStatus(int codingAmount)
@@ -67,6 +83,22 @@ public class CharacterStats : MonoBehaviour
         characterDeginition_Current.TakeEnergy(energyAmount);
     }
 
+    public void UseStatusPoint()
+    {
+        characterDeginition_Current.UseStatusPoint();
+    }
+
+    public void UseSoftSkillPoint()
+    {
+        characterDeginition_Current.UseSoftSkillPoint();
+    }
+
+    public void ReduceCurrentMotivation(float currentMotivation)
+    {
+        characterDeginition_Current.ReduceCurrentMotivation(currentMotivation);
+    }
+
+
     public void ReducedCoding(int codingAmount)
     {
         characterDeginition_Current.ReducedCoding(codingAmount);
@@ -84,12 +116,17 @@ public class CharacterStats : MonoBehaviour
 
     public void ReducedAudio(int audioAmount)
     {
-        characterDeginition_Current.ApplyAudioStatus(audioAmount);
+        characterDeginition_Current.ReducedAudio(audioAmount);
     }
 
     public void ReducedTest(int testAmount)
     {
-        characterDeginition_Current.ApplyTestStatus(testAmount);
+        characterDeginition_Current.ReducedTest(testAmount);
+    }
+
+    public void TakeMoney(int currentMoney)
+    {
+        characterDeginition_Current.TakeMoney(currentMoney);
     }
     #endregion
 
@@ -104,39 +141,130 @@ public class CharacterStats : MonoBehaviour
         return characterDeginition_Current.GetIsPlayer();
     }
 
-    public int GetMaxEnergy()
+    public float GetMaxEnergy()
     {
         return characterDeginition_Current.GetMaxEnergy();
     }
 
-    public int GetCurrentEnergy()
+    public float GetCurrentEnergy()
     {
         return characterDeginition_Current.GetCurrentEnergy();
     }
 
-    public int GetStatusCoding()
+    public float GetCurrentMotivation()
     {
-        return characterDeginition_Current.GetStatusCoding();
+        return characterDeginition_Current.GetCurrentMotivation();
+    }
+    public int GetCurrentMoney()
+    {
+        return characterDeginition_Current.GetCurrentMoney();
     }
 
-    public int GetStatusDesign()
+    public float GetDEFAULT_MaxMotivation()
     {
-        return characterDeginition_Current.GetStatusDesign();
+        return characterDeginition_Current.GetDEFAULT_MaxMotivation();
     }
 
-    public int GetStatusArt()
+    public float GetDEFAULT_baseReduceEnergyConsumption()
     {
-        return characterDeginition_Current.GetStatusArt();
+        return characterDeginition_Current.GetDEFAULT_baseReduceEnergyConsumption();
+    }
+    public float GetDEFAULT_goldenTimeReduceEnergyConsuption()
+    {
+        return characterDeginition_Current.GetDEFAULT_goldenTimeReduceEnergyConsuption();
     }
 
-    public int GetStatusTest()
+    public float GetDEFAULT_baseBootUpMotivation()
     {
-        return characterDeginition_Current.GetStatusTest();
+        return characterDeginition_Current.GetDEFAULT_baseBootUpMotivation();
     }
-
-    public int GetStatusAudio()
+    public float GetDEFAULT_goldenTimeBootUpMotivation()
     {
-        return characterDeginition_Current.GetStatusAudio();
+        return characterDeginition_Current.GetDEFAULT_goldenTimeBootUpMotivation();
+    }
+    public int GetCodingStatus()
+    {
+        return characterDeginition_Current.GetCodingStatus();
+    }
+    public int GetDesignStatus()
+    {
+        return characterDeginition_Current.GetDesignStatus();
+    }
+    public int GetArtStatus()
+    {
+        return characterDeginition_Current.GetArtStatus();
+    }
+    public int GetAudioStatus()
+    {
+        return characterDeginition_Current.GetAudioStatus();
+    }
+    public int GetTestStatus()
+    {
+        return characterDeginition_Current.GetTestStatus();
+    }
+    public float GetDEFAULT_baseBootUpProject()
+    {
+        return characterDeginition_Current.GetDEFAULT_baseBootUpProject();
+    }
+    public float GetDEFAULT_goldenTimeBootUpProject()
+    {
+        return characterDeginition_Current.GetDEFAULT_goldenTimeBootUpProject();
+    }
+    public float GetDEFAULT_reduceBugChance()
+    {
+        return characterDeginition_Current.GetDEFAULT_reduceBugChance();
+    }
+    public float GetDEFAULT_charm()
+    {
+        return characterDeginition_Current.GetDEFAULT_charm();
+    }
+    public float GetDEFAULT_negativeEventsChance()
+    {
+        return characterDeginition_Current.GetDEFAULT_negativeEventsChance();
+    }
+    public float GetDEFAULT_negativeEventsEffect()
+    {
+        return characterDeginition_Current.GetDEFAULT_negativeEventsEffect();
+    }
+    public float GetDEFAULT_positiveEventsEffect()
+    {
+        return characterDeginition_Current.GetDEFAULT_positiveEventsEffect();
+    }
+    public float GetDEFAULT_fullTimeOfSleepingSecond()
+    {
+        return characterDeginition_Current.GetDEFAULT_fullTimeOfSleepingSecond();
+    }
+    public float GetDEFAULT_twoThirdTimeOfSleepingSeond()
+    {
+        return characterDeginition_Current.GetDEFAULT_twoThirdTimeOfSleepingSeond();
+    }
+    public float GetDEFAULT_reduceTimeSleeping()
+    {
+        return characterDeginition_Current.GetDEFAULT_reduceTimeSleeping();
+    }
+    public float GetDEFAULT_reduceTimeReadBook()
+    {
+        return characterDeginition_Current.GetDEFAULT_reduceTimeReadBook();
+    }
+    public float GetDEFAULT_reduceTimeTrainCourse()
+    {
+        return characterDeginition_Current.GetDEFAULT_reduceTimeTrainCourse();
+    }
+    public int GetCurrentCharacterLevel()
+    {
+        return characterDeginition_Current.GetCurrentCharacterLevel();
+    }
+    public int GetCurrentExp()
+    {
+        return characterDeginition_Current.GetCurrentExp();
+    }
+    public int GetPointStatus()
+    {
+        return characterDeginition_Current.GetPointStatus();
+    }
+    public int GetSoftSkillPoints()
+    {
+        return characterDeginition_Current.GetSoftSkillPoints();
     }
     #endregion
 
