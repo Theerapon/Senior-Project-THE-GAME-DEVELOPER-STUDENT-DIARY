@@ -37,11 +37,11 @@ public class StatsDisplay : MonoBehaviour
 
     private void SetText()
     {
-        textCoding.text = characterStats.GetStatusCoding().ToString();
-        textDesign.text = characterStats.GetStatusDesign().ToString();
-        textTesting.text = characterStats.GetStatusTest().ToString();
-        textArt.text = characterStats.GetStatusArt().ToString();
-        textAudio.text = characterStats.GetStatusAudio().ToString();
+        textCoding.text = characterStats.GetCodingStatus().ToString();
+        textDesign.text = characterStats.GetDesignStatus().ToString();
+        textTesting.text = characterStats.GetTestStatus().ToString();
+        textArt.text = characterStats.GetArtStatus().ToString();
+        textAudio.text = characterStats.GetAudioStatus().ToString();
     }
 
 }

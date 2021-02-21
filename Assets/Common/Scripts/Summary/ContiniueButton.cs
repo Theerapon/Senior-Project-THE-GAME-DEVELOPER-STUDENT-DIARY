@@ -8,6 +8,6 @@ public class ContiniueButton : MonoBehaviour
     public void OnContiniue()
     {
         gameObject.SetActive(false);
-        TimeManager.Instance.ContiniueGame();
+        TimeManager.Instance.ContiniueGameInSummaryScene();
     }
 }

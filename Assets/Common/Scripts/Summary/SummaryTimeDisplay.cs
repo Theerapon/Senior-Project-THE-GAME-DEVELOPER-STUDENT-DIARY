@@ -8,6 +8,9 @@ public class SummaryTimeDisplay : MonoBehaviour
     [SerializeField] private TMP_Text dateCalendar;
     [SerializeField] private TMP_Text timeCalendar;
     [SerializeField] private TMP_Text seasonCalendar;
+    [SerializeField] private TMP_Text totalTime;
+
+    private CharacterStats characterStats;
 
     protected void Start()
     {
@@ -17,6 +20,12 @@ public class SummaryTimeDisplay : MonoBehaviour
             TimeManager.Instance.OnTimeCalendar.AddListener(HandleOnTimeCalendar);
             TimeManager.Instance.OnSeasonCalendar.AddListener(HandleOnSeasonCalender);
             TimeManager.Instance.ValidationDisplay();
+        }
+
+        if(CharacterStats.Instance != null)
+        {
+            characterStats = CharacterStats.Instance;
+            SetTotalTime();
         }
 
     }
@@ -34,5 +43,16 @@ public class SummaryTimeDisplay : MonoBehaviour
     private void HandleOnDateCalendar(string date)
     {
         dateCalendar.text = date.ToUpper();
+    }
+
+    private void SetTotalTime()
+    {
+        if (characterStats.GetSleepFullTimeSelected())
+        {
+            totalTime.text = characterStats.GetFullTimeSleepText();
+        } else
+        {
+            totalTime.text = characterStats.GetTwoThirdSleepText();
+        }
     }
 }

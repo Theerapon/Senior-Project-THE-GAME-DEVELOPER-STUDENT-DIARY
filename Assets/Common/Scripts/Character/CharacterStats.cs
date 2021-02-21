@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStats : Manager<CharacterStats>
 {
     #region Fields
 
@@ -13,8 +13,9 @@ public class CharacterStats : MonoBehaviour
     #endregion
 
     #region Initializations
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if(characterDefinition_Template != null)
         {
             characterDeginition_Current = Instantiate(characterDefinition_Template);
@@ -26,6 +27,10 @@ public class CharacterStats : MonoBehaviour
     #endregion
 
     #region Stat Increasers
+    public void ApplySleepFullTimeSelected(bool fullTime)
+    {
+        characterDeginition_Current.ApplySleepFullTimeSelected(fullTime);
+    }
     public void ApplyMaxEnergy(int newEnergyAmount)
     {
         characterDeginition_Current.ApplyMaxEnergy(newEnergyAmount);
@@ -40,7 +45,7 @@ public class CharacterStats : MonoBehaviour
         characterDeginition_Current.GiveXP(xp);
     }
 
-    public void ApplyCurrentMotivation(float currentMotivation)
+    public void ApplyCurrentMotivation(int currentMotivation)
     {
         characterDeginition_Current.ApplyCurrentMotivation(currentMotivation);
 
@@ -93,7 +98,7 @@ public class CharacterStats : MonoBehaviour
         characterDeginition_Current.UseSoftSkillPoint();
     }
 
-    public void ReduceCurrentMotivation(float currentMotivation)
+    public void ReduceCurrentMotivation(int currentMotivation)
     {
         characterDeginition_Current.ReduceCurrentMotivation(currentMotivation);
     }
@@ -131,6 +136,10 @@ public class CharacterStats : MonoBehaviour
     #endregion
 
     #region Reporter
+    public bool GetSleepFullTimeSelected()
+    {
+        return characterDeginition_Current.GetSleepFullTimeSelected();
+    }
     public string GetNameCharacter()
     {
         return characterDeginition_Current.GetNameCharacter();
@@ -151,7 +160,7 @@ public class CharacterStats : MonoBehaviour
         return characterDeginition_Current.GetCurrentEnergy();
     }
 
-    public float GetCurrentMotivation()
+    public int GetCurrentMotivation()
     {
         return characterDeginition_Current.GetCurrentMotivation();
     }
@@ -160,7 +169,7 @@ public class CharacterStats : MonoBehaviour
         return characterDeginition_Current.GetCurrentMoney();
     }
 
-    public float GetDEFAULT_MaxMotivation()
+    public int GetDEFAULT_MaxMotivation()
     {
         return characterDeginition_Current.GetDEFAULT_MaxMotivation();
     }
@@ -230,11 +239,11 @@ public class CharacterStats : MonoBehaviour
     {
         return characterDeginition_Current.GetDEFAULT_positiveEventsEffect();
     }
-    public float GetDEFAULT_fullTimeOfSleepingSecond()
+    public int GetDEFAULT_fullTimeOfSleepingSecond()
     {
         return characterDeginition_Current.GetDEFAULT_fullTimeOfSleepingSecond();
     }
-    public float GetDEFAULT_twoThirdTimeOfSleepingSeond()
+    public int GetDEFAULT_twoThirdTimeOfSleepingSeond()
     {
         return characterDeginition_Current.GetDEFAULT_twoThirdTimeOfSleepingSeond();
     }
@@ -265,6 +274,16 @@ public class CharacterStats : MonoBehaviour
     public int GetSoftSkillPoints()
     {
         return characterDeginition_Current.GetSoftSkillPoints();
+    }
+
+    public string GetFullTimeSleepText()
+    {
+        return characterDeginition_Current.GetFullTimeSleepText();
+    }
+
+    public string GetTwoThirdSleepText()
+    {
+        return characterDeginition_Current.GetTwoThirdSleepText();
     }
     #endregion
 

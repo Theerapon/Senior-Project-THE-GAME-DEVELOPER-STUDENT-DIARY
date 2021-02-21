@@ -32,10 +32,10 @@ public class CharacterStats_SO : ScriptableObject
     private int currentEnergy;
 
     [Header("Motivation")]
-    private float DEFAULT_maxMotivation = 100f;
+    private int DEFAULT_maxMotivation = 100;
     [SerializeField] private float DEFAULT_baseBootUpMotivation = 0f; // 0%
     [SerializeField] private float DEFAULT_goldenTimeBootUpMotivation = 0.05f; // 5%
-    private float currentMotivation;
+    private int currentMotivation;
 
     [Header("Money")]
     [SerializeField] private int currentMoney = 0;
@@ -64,6 +64,7 @@ public class CharacterStats_SO : ScriptableObject
     [SerializeField] private int DEFAULT_fullTimeOfSleepingSecond = 28800; // 9 hour
     [SerializeField] private int DEFAULT_twoThirdTimeOfSleepingSeond; // 5 hour 20 miniue
     [SerializeField] private float DEFAULT_reduceTimeSleeping = 0f;
+    private bool sleepFullTimeSelected = true;
 
     [SerializeField] private float DEFAULT_reduceTimeReadBook = 0f;
     [SerializeField] private float DEFAULT_reduceTimeTrainCourse = 0f;
@@ -72,6 +73,10 @@ public class CharacterStats_SO : ScriptableObject
 
 
     #region Stat Increasers
+    public void ApplySleepFullTimeSelected(bool fullTime)
+    {
+        sleepFullTimeSelected = fullTime;
+    }
     public void ApplyMaxEnergy(int newEnergyAmount)
     {
         maxEnergy = newEnergyAmount;
@@ -103,7 +108,7 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ApplyCurrentMotivation(float currentMotivation)
+    public void ApplyCurrentMotivation(int currentMotivation)
     {
         if ((this.currentMotivation + currentMotivation) > DEFAULT_maxMotivation)
         {
@@ -184,7 +189,7 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ReduceCurrentMotivation(float currentMotivation)
+    public void ReduceCurrentMotivation(int currentMotivation)
     {
         if (this.currentMotivation - currentMotivation <= 0)
         {
@@ -264,6 +269,11 @@ public class CharacterStats_SO : ScriptableObject
     #endregion
 
     #region Reporter
+    public bool GetSleepFullTimeSelected()
+    {
+        return sleepFullTimeSelected;
+    }
+
     public string GetNameCharacter()
     {
         return nameCharacter;
@@ -284,7 +294,7 @@ public class CharacterStats_SO : ScriptableObject
         return currentEnergy;
     }
 
-    public float GetCurrentMotivation()
+    public int GetCurrentMotivation()
     {
         return currentMotivation;
     }
@@ -293,7 +303,7 @@ public class CharacterStats_SO : ScriptableObject
         return currentMoney;
     }
 
-    public float GetDEFAULT_MaxMotivation()
+    public int GetDEFAULT_MaxMotivation()
     {
         return DEFAULT_maxMotivation;
     }
@@ -363,11 +373,11 @@ public class CharacterStats_SO : ScriptableObject
     {
         return DEFAULT_positiveEventsEffect;
     }
-    public float GetDEFAULT_fullTimeOfSleepingSecond()
+    public int GetDEFAULT_fullTimeOfSleepingSecond()
     {
         return DEFAULT_fullTimeOfSleepingSecond;
     }
-    public float GetDEFAULT_twoThirdTimeOfSleepingSeond()
+    public int GetDEFAULT_twoThirdTimeOfSleepingSeond()
     {
         return DEFAULT_twoThirdTimeOfSleepingSeond;
     }
@@ -400,8 +410,35 @@ public class CharacterStats_SO : ScriptableObject
         return hasSoftSkillPoints;
     }
 
+    public string GetFullTimeSleepText()
+    {
+        int fullTimeSecond = DEFAULT_fullTimeOfSleepingSecond;
+        int hourFullTime;
+        int miniueFullTime;
+        int secondFullTime;
 
+        secondFullTime = fullTimeSecond % 60;
+        fullTimeSecond = fullTimeSecond / 60;
+        miniueFullTime = fullTimeSecond % 60;
+        hourFullTime = fullTimeSecond / 60;
 
+        return string.Format("Full time of sleeping time = " + "{0} Hour " + "{1} Miniue " + "{2} Second", hourFullTime, miniueFullTime, secondFullTime);
+    }
+
+    public string GetTwoThirdSleepText()
+    {
+        int twoThirdSecond = DEFAULT_twoThirdTimeOfSleepingSeond;
+        int hourTwoThirdSecond;
+        int miniueTwoThirdSecond;
+        int secondTwoThirdSecond;
+
+        secondTwoThirdSecond = twoThirdSecond % 60;
+        twoThirdSecond = twoThirdSecond / 60;
+        miniueTwoThirdSecond = twoThirdSecond % 60;
+        hourTwoThirdSecond = twoThirdSecond / 60;
+
+        return string.Format("Two thirds of sleeping time = " + "{0} Hour " + "{1} Miniue " + "{2} Second", hourTwoThirdSecond, miniueTwoThirdSecond, secondTwoThirdSecond);
+    }
     #endregion
 
     #region Character Level Up
@@ -418,35 +455,36 @@ public class CharacterStats_SO : ScriptableObject
         currentEnergy = maxEnergy;
         currentMotivation = DEFAULT_maxMotivation;
 
-        DEFAULT_baseReduceEnergyConsumption += 0.01f;
-        DEFAULT_goldenTimeReduceEnergyConsuption += 0.01f;
-
-        DEFAULT_baseBootUpMotivation += 0.01f;
-        DEFAULT_goldenTimeBootUpMotivation += 0.01f;
-
-        DEFAULT_baseBootUpProject += 0.01f;
-        DEFAULT_goldenTimeBootUpProject += 0.01f;
-        DEFAULT_reduceBugChance += 0.01f;
-
-        DEFAULT_charm += 0.1f;
-
-        DEFAULT_negativeEventsChance -= 0.01f;
-        DEFAULT_negativeEventsEffect -= 0.005f;
-
-        DEFAULT_positiveEventsEffect += 0.005f;
-
-        DEFAULT_fullTimeOfSleepingSecond -= 60;
-        DEFAULT_twoThirdTimeOfSleepingSeond = (int) Mathf.RoundToInt(DEFAULT_fullTimeOfSleepingSecond * (0.6f));
-
-        DEFAULT_reduceTimeSleeping += 0.005f;
-        DEFAULT_reduceTimeReadBook += 0.005f;
-        DEFAULT_reduceTimeTrainCourse += 0.005f;
-
         if (characterLevel > 1)
         {
-            //OnLevelUp.Invoke(charLevel);
-        }
+            DEFAULT_baseReduceEnergyConsumption += 0.01f;
+            DEFAULT_goldenTimeReduceEnergyConsuption += 0.01f;
 
+            DEFAULT_baseBootUpMotivation += 0.01f;
+            DEFAULT_goldenTimeBootUpMotivation += 0.01f;
+
+            DEFAULT_baseBootUpProject += 0.01f;
+            DEFAULT_goldenTimeBootUpProject += 0.01f;
+            DEFAULT_reduceBugChance += 0.01f;
+
+            DEFAULT_charm += 0.1f;
+
+            DEFAULT_negativeEventsChance -= 0.01f;
+            DEFAULT_negativeEventsEffect -= 0.005f;
+
+            DEFAULT_positiveEventsEffect += 0.005f;
+
+            DEFAULT_fullTimeOfSleepingSecond -= 60;
+            DEFAULT_twoThirdTimeOfSleepingSeond = (int)Mathf.RoundToInt(DEFAULT_fullTimeOfSleepingSecond * (0.6f));
+
+            DEFAULT_reduceTimeSleeping += 0.005f;
+            DEFAULT_reduceTimeReadBook += 0.005f;
+            DEFAULT_reduceTimeTrainCourse += 0.005f;
+            //OnLevelUp.Invoke(charLevel);
+        } else
+        {
+            DEFAULT_twoThirdTimeOfSleepingSeond = (int)Mathf.RoundToInt(DEFAULT_fullTimeOfSleepingSecond * (0.6f));
+        }
     }
     #endregion
 }

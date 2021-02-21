@@ -68,8 +68,11 @@ public class TimeManager : Manager<TimeManager>
     private double totalSecond = 0;
     private double memorySecond;
 
+    private CharacterStats characterStats;
+
     protected void Start()
     {
+        characterStats = CharacterStats.Instance;
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
         second = 0;
         minute = 0;
@@ -98,10 +101,11 @@ public class TimeManager : Manager<TimeManager>
         }
     }
 
-    private void IncreaseTime(int hour, int minute)
+    private void IncreaseTime(int hour, int minute, int second)
     {
         totalSecond += (double) (hour * DEFAULT_MINUTE * DEFAULT_SECOND);
         totalSecond += (double) (minute * DEFAULT_SECOND);
+        totalSecond += second;
         TIMESCALE = totalSecond / TIMEWORLD;
         StartCoroutine("TimeIncreaseCalculate");
 
@@ -283,9 +287,29 @@ public class TimeManager : Manager<TimeManager>
         OnSeasonCalendar?.Invoke(onSeason);
     }
 
-    public void ContiniueGame()
+    public void ContiniueGameInSummaryScene()
     {
-        IncreaseTime(9, 30);
+        int totalSecond;
+
+        if (characterStats.GetSleepFullTimeSelected())
+        {
+            totalSecond = characterStats.GetDEFAULT_fullTimeOfSleepingSecond();
+        } else
+        {
+            totalSecond = characterStats.GetDEFAULT_twoThirdTimeOfSleepingSeond();
+        }
+
+        int hour;
+        int miniue;
+        int second;
+
+        second = totalSecond % 60;
+        totalSecond = totalSecond / 60;
+        miniue = totalSecond % 60;
+        hour = totalSecond / 60;
+
+
+        IncreaseTime(hour, miniue, second);
     }
 
 }
