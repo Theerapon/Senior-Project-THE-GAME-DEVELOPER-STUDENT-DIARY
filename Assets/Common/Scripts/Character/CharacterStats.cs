@@ -6,9 +6,8 @@ public class CharacterStats : Manager<CharacterStats>
 {
     #region Fields
 
-    [SerializeField]
-    public CharacterStats_SO characterDefinition_Template;
-    public CharacterStats_SO characterDeginition_Current;
+    [SerializeField] private CharacterStats_SO characterDefinition_Template;
+    private CharacterStats_SO characterDeginition_Current;
 
     #endregion
 
