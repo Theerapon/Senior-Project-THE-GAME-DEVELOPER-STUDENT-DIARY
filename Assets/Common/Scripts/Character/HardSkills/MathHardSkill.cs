@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MathHardSkill : MonoBehaviour
+public class MathHardSkill : HardSkill
 {
     [SerializeField] private HardSkill_SO math_HardSkill_Template;
-    private HardSkill_SO math_HardSkill_Current;
 
     void Start()
     {
         if (math_HardSkill_Template != null)
         {
-            math_HardSkill_Current = Instantiate(math_HardSkill_Template);
+            hardSkill_current = Instantiate(math_HardSkill_Template);
         }
     }
 
