@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 public enum HardSkillType { NONE, MATH, PROGRAMMING, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, AUDIO}
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Character/Skills/HardSkill", order = 0)]
 public class HardSkill_SO : ScriptableObject
