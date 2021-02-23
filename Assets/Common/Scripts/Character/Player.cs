@@ -27,8 +27,6 @@ public class Player : MonoBehaviour
 	protected void Start()
     {
 
-
-
 		// Setup Events:
 		// Right Click
 		Inventory.OnRightClickEvent += InventoryRightClick;

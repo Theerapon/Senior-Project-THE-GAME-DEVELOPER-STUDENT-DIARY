@@ -5,6 +5,15 @@ using UnityEngine;
 public class HardSkill : MonoBehaviour
 {
     protected HardSkill_SO hardSkill_current;
+    [SerializeField] private HardSkill_SO hardSkill_Template;
+
+    void Start()
+    {
+        if (hardSkill_Template != null)
+        {
+            hardSkill_current = Instantiate(hardSkill_Template);
+        }
+    }
 
     #region Stat Increasers
     public virtual void GiveXP(int xp)

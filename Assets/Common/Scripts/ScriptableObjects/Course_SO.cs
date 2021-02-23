@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 public enum CourseType { NONE, MATH, PROGRAMMING, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, AUDIO }
@@ -6,6 +7,9 @@ public enum LevelRecommended { BEGINNER, INTERMEDIATE, EXPERT }
 [CreateAssetMenu(fileName = "NewCourse", menuName = "Course", order = 0)]
 public class Course_SO : ScriptableObject
 {
+    [SerializeField] private string id;
+    public string ID { get { return id; } }
+
     [SerializeField] private string nameCourse = "";
     [SerializeField] private int priceCourse = 0;
 
@@ -101,6 +105,10 @@ public class Course_SO : ScriptableObject
     {
         return defaultAudioStatReward;
     }
+    public int GetPrice()
+    {
+        return priceCourse;
+    }
     #endregion
 
     private void OnValidate()
@@ -118,5 +126,16 @@ public class Course_SO : ScriptableObject
         }
 
         priceCourse = (courseTypeNum.Length * 399) + (basePrice * 1000);
+
+        string path = AssetDatabase.GetAssetPath(this);
+        id = AssetDatabase.AssetPathToGUID(path);
+
     }
+
+    public virtual Course_SO GetCopy()
+    {
+        return this;
+    }
+
+
 }
