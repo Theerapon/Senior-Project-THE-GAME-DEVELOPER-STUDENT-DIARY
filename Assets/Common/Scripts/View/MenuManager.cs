@@ -25,6 +25,11 @@ public class MenuManager : Manager<MenuManager>
     [SerializeField] private GameObject _skills = null;
     #endregion
 
+    #region Bonus
+    [Header("Bonus")]
+    [SerializeField] private GameObject _bonus = null;
+    #endregion
+
     private GameObject preDisplay;
 
 
@@ -70,15 +75,30 @@ public class MenuManager : Manager<MenuManager>
 
 
     }
+    public void DisplayBonus()
+    {
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
+        {
+            if (_bonus.activeSelf == false && _bonus != null)
+            {
+                preDisplay.SetActive(false);
+                _bonus.SetActive(true);
+                preDisplay = _bonus;
+            }
+        }
+
+
+    }
     #endregion
 
     public void Reset()
     {
-        if(_inventory != null && _StatsDisplayHolder != null && _skills != null)
+        if(_inventory != null && _StatsDisplayHolder != null && _skills != null && _bonus != null)
         {
             _inventory.SetActive(true);
             _StatsDisplayHolder.SetActive(false);
             _skills.SetActive(false);
+            _bonus.SetActive(false);
             preDisplay = _inventory;
             DisplayInventory();
         }
