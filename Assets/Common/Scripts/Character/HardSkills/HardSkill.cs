@@ -50,13 +50,17 @@ public class HardSkill : MonoBehaviour
     {
         return hardSkill_current.GetTotalBonusTesting();
     }
-    public virtual int GetTotalBonusAudio()
+    public virtual int GetTotalBonusSound()
     {
-        return hardSkill_current.GetTotalBonusAudio();
+        return hardSkill_current.GetTotalBonusSound();
     }
     public virtual HardSkillType GetHardSkillType()
     {
         return hardSkill_current.GetHardSkillType();
+    }
+    public int GetExpRequire()
+    {
+        return hardSkill_current.GetExpRequire();
     }
     #endregion
 }

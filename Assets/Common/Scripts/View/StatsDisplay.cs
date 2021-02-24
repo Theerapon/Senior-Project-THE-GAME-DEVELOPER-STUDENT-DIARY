@@ -11,7 +11,7 @@ public class StatsDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textDesign;
     [SerializeField] private TMP_Text textTesting;
     [SerializeField] private TMP_Text textArt;
-    [SerializeField] private TMP_Text textAudio;
+    [SerializeField] private TMP_Text textSound;
 
 
     protected void Start()
@@ -41,7 +41,7 @@ public class StatsDisplay : MonoBehaviour
         textDesign.text = characterStats.GetDesignStatus().ToString();
         textTesting.text = characterStats.GetTestStatus().ToString();
         textArt.text = characterStats.GetArtStatus().ToString();
-        textAudio.text = characterStats.GetAudioStatus().ToString();
+        textSound.text = characterStats.GetSoundStatus().ToString();
     }
 
 }

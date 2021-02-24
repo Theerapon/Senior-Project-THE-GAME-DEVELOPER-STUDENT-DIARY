@@ -70,9 +70,9 @@ public class CharacterStats : Manager<CharacterStats>
         characterDeginition_Current.ApplyArtStatus(artAmount);
     }
 
-    public void ApplyAudioStatus(int audioAmount)
+    public void ApplySoundStatus(int audioAmount)
     {
-        characterDeginition_Current.ApplyAudioStatus(audioAmount);
+        characterDeginition_Current.ApplySoundStatus(audioAmount);
     }
 
     public void ApplyTestStatus(int testAmount)
@@ -118,9 +118,9 @@ public class CharacterStats : Manager<CharacterStats>
         characterDeginition_Current.ReducedArt(artAmount);
     }
 
-    public void ReducedAudio(int audioAmount)
+    public void ReducedSound(int audioAmount)
     {
-        characterDeginition_Current.ReducedAudio(audioAmount);
+        characterDeginition_Current.ReducedSound(audioAmount);
     }
 
     public void ReducedTest(int testAmount)
@@ -202,9 +202,9 @@ public class CharacterStats : Manager<CharacterStats>
     {
         return characterDeginition_Current.GetArtStatus();
     }
-    public int GetAudioStatus()
+    public int GetSoundStatus()
     {
-        return characterDeginition_Current.GetAudioStatus();
+        return characterDeginition_Current.GetSoundStatus();
     }
     public int GetTestStatus()
     {

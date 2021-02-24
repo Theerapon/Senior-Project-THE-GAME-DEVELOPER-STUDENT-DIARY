@@ -44,7 +44,7 @@ public class CharacterStats_SO : ScriptableObject
     [SerializeField] private int codingStatus = 10;
     [SerializeField] private int designStatus = 10;
     [SerializeField] private int artStatus = 10;
-    [SerializeField] private int audioStatus = 10;
+    [SerializeField] private int soundStatus = 10;
     [SerializeField] private int testStatus = 10;
 
     [Header("BootUp Project")]
@@ -141,9 +141,9 @@ public class CharacterStats_SO : ScriptableObject
         artStatus += artAmount;
     }
 
-    public void ApplyAudioStatus(int audioAmount)
+    public void ApplySoundStatus(int soundAmount)
     {
-        audioStatus += audioAmount;
+        soundStatus += soundAmount;
     }
 
     public void ApplyTestStatus(int testAmount)
@@ -238,15 +238,15 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ReducedAudio(int audioAmount)
+    public void ReducedSound(int soundAmount)
     {
-        if (audioStatus - audioAmount <= 0)
+        if (soundStatus - soundAmount <= 0)
         {
-            audioStatus = 0;
+            soundStatus = 0;
         }
         else
         {
-            audioStatus -= audioAmount;
+            soundStatus -= soundAmount;
         }
     }
 
@@ -337,9 +337,9 @@ public class CharacterStats_SO : ScriptableObject
     {
         return artStatus;
     }
-    public int GetAudioStatus()
+    public int GetSoundStatus()
     {
-        return audioStatus;
+        return soundStatus;
     }
     public int GetTestStatus()
     {

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public enum HardSkillType { NONE, MATH, PROGRAMMING, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, AUDIO}
+public enum HardSkillType { NONE, MATH, PROGRAMMING, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, SOUND}
 [CreateAssetMenu(fileName = "NewSkill", menuName = "Character/Skills/HardSkill", order = 0)]
 public class HardSkill_SO : ScriptableObject
 {
@@ -11,7 +11,7 @@ public class HardSkill_SO : ScriptableObject
         public int bonusDesign;
         public int bonusTesting;
         public int bonusArt;
-        public int bonusAudio;
+        public int bonusSound;
     }
 
     [SerializeField] private string nameHardSkill = "";
@@ -22,7 +22,7 @@ public class HardSkill_SO : ScriptableObject
     private int totalBonus_DesignStats;
     private int totalBonus_TestingStats;
     private int totalBonus_ArtStats;
-    private int totalBonus_AudioStats;
+    private int totalBonus_SoundStats;
 
     [SerializeField] private HardSkillType hardSkillType = HardSkillType.NONE;
     [SerializeField] private HardSkillLevel[] hardSkillLevels;
@@ -74,13 +74,17 @@ public class HardSkill_SO : ScriptableObject
     {
         return totalBonus_TestingStats;
     }
-    public int GetTotalBonusAudio()
+    public int GetTotalBonusSound()
     {
-        return totalBonus_AudioStats;
+        return totalBonus_SoundStats;
     }
     public HardSkillType GetHardSkillType()
     {
         return hardSkillType;
+    }
+    public int GetExpRequire()
+    {
+        return hardSkillLevels[currentHardSkillLevel + 1].requiredXP;
     }
     #endregion
 
@@ -97,7 +101,7 @@ public class HardSkill_SO : ScriptableObject
             totalBonus_DesignStats += hardSkillLevels[currentHardSkillLevel].bonusDesign;
             totalBonus_TestingStats += hardSkillLevels[currentHardSkillLevel].bonusTesting;
             totalBonus_ArtStats += hardSkillLevels[currentHardSkillLevel].bonusArt;
-            totalBonus_AudioStats += hardSkillLevels[currentHardSkillLevel].bonusAudio;
+            totalBonus_SoundStats += hardSkillLevels[currentHardSkillLevel].bonusSound;
             //OnLevelUp.Invoke(charLevel);
         }
 

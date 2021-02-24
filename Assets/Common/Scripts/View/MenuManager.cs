@@ -9,6 +9,7 @@ public class MenuManager : Manager<MenuManager>
     #region Events
     public Events.EventStatsValueShowed OnStatsShowed;
     public Events.EventSoftSkillsValueShowed OnSoftSKillsShowed;
+    public Events.EventHardSkillsValueShowed OnHardSkillsShowed;
     #endregion
 
     #region Inventory
@@ -68,6 +69,7 @@ public class MenuManager : Manager<MenuManager>
         {
             if (_skills.activeSelf == false && _skills != null)
             {
+                OnHardSkillsShowed?.Invoke();
                 preDisplay.SetActive(false);
                 _skills.SetActive(true);
                 preDisplay = _skills;
