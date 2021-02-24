@@ -14,5 +14,6 @@ public class Events
     [System.Serializable] public class EventSaveInitiated : UnityEvent { }
     [System.Serializable] public class EventProjectValueUpdated : UnityEvent { }
     [System.Serializable] public class EventStatsValueShowed : UnityEvent { }
+    [System.Serializable] public class EventSoftSkillsValueShowed : UnityEvent { }
 
 }
