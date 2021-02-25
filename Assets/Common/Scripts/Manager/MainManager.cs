@@ -13,6 +13,7 @@ public class MainManager : Manager<MainManager>
     public GameObject preCharacterInteractiveDisplay;
     public GameObject mainCamera;
     public GameObject timeDisplay;
+    public GameObject energyDisplay;
 
     protected override void Awake()
     {
@@ -36,7 +37,7 @@ public class MainManager : Manager<MainManager>
         //computer dialogue to course (selected course)
         if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.COURSE)
         {
-            TurnOffMainDisplay();
+            TurnOffMainForCourse();
         }
         //computer dialogue to workproject (selected course)
         if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.WORKPROJECT)
@@ -79,6 +80,7 @@ public class MainManager : Manager<MainManager>
         preCharacterInteractiveDisplay.gameObject.SetActive(true);
         mainCamera.gameObject.SetActive(true);
         timeDisplay.gameObject.SetActive(true);
+        energyDisplay.gameObject.SetActive(true);
     }
 
     private void TurnOffMainDisplay()
@@ -86,6 +88,15 @@ public class MainManager : Manager<MainManager>
         preCharacterInteractiveDisplay.gameObject.SetActive(false);
         mainCamera.gameObject.SetActive(false);
         timeDisplay.gameObject.SetActive(false);
+        energyDisplay.gameObject.SetActive(false);
+    }
+
+    private void TurnOffMainForCourse()
+    {
+        preCharacterInteractiveDisplay.gameObject.SetActive(false);
+        mainCamera.gameObject.SetActive(true);
+        timeDisplay.gameObject.SetActive(false);
+        energyDisplay.gameObject.SetActive(true);
     }
 
 }
