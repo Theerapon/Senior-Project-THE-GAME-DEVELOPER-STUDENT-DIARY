@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class MainMenuPreGame : MonoBehaviour
 {
 
     public Events.EventLoadComplete OnMainMenuLoadComplete;
@@ -17,8 +17,6 @@ public class MainMenu : MonoBehaviour
     {
 
     }
-
-
 
     private void LoadGame()
     {

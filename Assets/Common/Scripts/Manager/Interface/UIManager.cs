@@ -12,7 +12,7 @@ public class UIManager : Manager<UIManager>
 
 
     [Header("Main Menu")]
-    [SerializeField] private MainMenu _mainMenu;
+    [SerializeField] private MainMenuPreGame _mainMenu;
     [SerializeField] private GameObject mainMenuDisplayHandler;
 
 
