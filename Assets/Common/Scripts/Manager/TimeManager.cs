@@ -135,7 +135,7 @@ public class TimeManager : Manager<TimeManager>
         }
 
         yield return new WaitForSecondsRealtime(1);
-        GameManager.Instance.ContiniueGameInNextDays();
+        GameManager.Instance.GotoMainWithContiniueGameInNextDays();
 
     }
 

@@ -17,6 +17,9 @@ public class GameManager : Manager<GameManager>
         Summary,
         Level1,
         UI_BED,
+        UI_COMPUTER,
+        Course,
+        WorkProject,
 
     }
     public static Scene _currentLevelScene;
@@ -29,6 +32,8 @@ public class GameManager : Manager<GameManager>
         DISPLAYMENU,
         DIALOGUE,
         SUMMARY,
+        COURSE,
+        WORKPROJECT,
     }
 
     public GameState CurrentGameState
@@ -94,6 +99,9 @@ public class GameManager : Manager<GameManager>
                 Time.timeScale = 0f;
                 break;
             case GameState.SUMMARY:
+                Time.timeScale = 1f;
+                break;
+            case GameState.COURSE:
                 Time.timeScale = 1f;
                 break;
             default:
@@ -234,31 +242,45 @@ public class GameManager : Manager<GameManager>
 
 
     #region Scenes
-    public void NewGame()
+    public void StartGameWithNewGame()
     {
         SwitchSceneToMain(true);
     }
 
-    public void ContiniueGame()
+    public void StartGameWithContiniueGame()
     {
         SwitchSceneToMain(true);
     }
 
-    public void SummaryDiary()
+    public void GotoSummaryDiary()
     {
         LoadLevelSceneWithOutLoadingScene(Scene.Summary);
         UpdateState(GameState.SUMMARY);
     }
+    public void GotoCourse()
+    {
+        LoadLevelSceneWithOutLoadingScene(Scene.Course);
+        UpdateState(GameState.COURSE);
+    }
+    public void GotoWorkProject()
+    {
+        LoadLevelSceneWithOutLoadingScene(Scene.WorkProject);
+        UpdateState(GameState.WORKPROJECT);
+    }
 
-    public void ContiniueGameInNextDays()
+    public void GotoMainWithContiniueGameInNextDays()
     {
         UnLoadLevel(Scene.Summary);
         CloseDialogueToMain();
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.OnSave();
+        }
     }
 
-    public void OpenBedDialogue()
+    public void OpenDialogue(Scene scene)
     {
-        LoadLevelSceneWithOutLoadingScene(Scene.UI_BED);
+        LoadLevelSceneWithOutLoadingScene(scene);
         UpdateState(GameState.DIALOGUE);
     }
 

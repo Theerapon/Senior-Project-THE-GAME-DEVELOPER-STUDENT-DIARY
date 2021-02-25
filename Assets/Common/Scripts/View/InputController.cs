@@ -108,7 +108,7 @@ public class InputController : MonoBehaviour
         else
         {
             _MenuHandler.SetActive(true);
-            MenuManager.Instance.Reset();
+            MenuInGameManager.Instance.Reset();
         }
     }
 

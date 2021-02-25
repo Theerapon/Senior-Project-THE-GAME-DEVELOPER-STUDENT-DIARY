@@ -35,12 +35,12 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         LoadGame();
-        GameManager.Instance.NewGame();
+        GameManager.Instance.StartGameWithNewGame();
     }
 
     public void Continiue()
     {
         LoadGame();
-        GameManager.Instance.ContiniueGame();
+        GameManager.Instance.StartGameWithContiniueGame();
     }
 }

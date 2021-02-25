@@ -5,12 +5,7 @@ public class BedClickable : MonoBehaviour, IClickable
 {
     public void OnClick()
     {
-        GameManager.Instance.OpenBedDialogue();
-
-        if(SaveManager.Instance != null)
-        {
-            SaveManager.Instance.OnSave();
-        }
+        GameManager.Instance.OpenDialogue(GameManager.Scene.UI_BED);
     }
 
     

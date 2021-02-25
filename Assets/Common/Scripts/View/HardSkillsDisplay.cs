@@ -126,7 +126,7 @@ public class HardSkillsDisplay : MonoBehaviour
 
     void Start()
     {
-        MenuManager.Instance.OnHardSkillsShowed.AddListener(HandleHardSkillsShowed);
+        MenuInGameManager.Instance.OnHardSkillsShowed.AddListener(HandleHardSkillsShowed);
     }
 
     private void HandleHardSkillsShowed()

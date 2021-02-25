@@ -47,7 +47,7 @@ public class SoftSkillsDisplay : MonoBehaviour
 
     protected void Start()
     {
-        MenuManager.Instance.OnSoftSKillsShowed.AddListener(HandleSkillsShowed);
+        MenuInGameManager.Instance.OnSoftSKillsShowed.AddListener(HandleSkillsShowed);
         communicationDisplay = communicationDetail.GetComponentsInChildren<Image>();
         criticalThinkingDisplay = criticalThinkingDetail.GetComponentsInChildren<Image>();
         leadershipDisplay = leadershipDetail.GetComponentsInChildren<Image>();

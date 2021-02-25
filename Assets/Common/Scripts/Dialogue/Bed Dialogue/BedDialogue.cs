@@ -14,11 +14,11 @@ public class BedDialogue : MonoBehaviour, IDialogue
         {
             case 1:
                 characterStats.ApplySleepFullTimeSelected(true);
-                GameManager.Instance.SummaryDiary();
+                GameManager.Instance.GotoSummaryDiary();
                 break;
             case 2:
                 characterStats.ApplySleepFullTimeSelected(false);
-                GameManager.Instance.SummaryDiary();
+                GameManager.Instance.GotoSummaryDiary();
                 break;
         }
     }

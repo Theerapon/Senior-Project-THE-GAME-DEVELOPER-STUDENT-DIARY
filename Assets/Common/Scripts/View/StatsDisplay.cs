@@ -17,7 +17,7 @@ public class StatsDisplay : MonoBehaviour
     protected void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-        MenuManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
+        MenuInGameManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
     }
 
     private void HandleStatsShowed()

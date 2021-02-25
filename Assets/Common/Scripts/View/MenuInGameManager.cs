@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MenuManager : Manager<MenuManager>
+public class MenuInGameManager : Manager<MenuInGameManager>
 {
     #region Events
     public Events.EventStatsValueShowed OnStatsShowed;

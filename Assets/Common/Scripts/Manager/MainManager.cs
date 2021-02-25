@@ -27,16 +27,29 @@ public class MainManager : Manager<MainManager>
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        
+        //bed dialogue to summary
         if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.SUMMARY)
         {
             TurnOffMainDisplay();
         }
 
-        if (previousState == GameManager.GameState.SUMMARY && currentState == GameManager.GameState.RUNNING)
+        //computer dialogue to course (selected course)
+        if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.COURSE)
+        {
+            TurnOffMainDisplay();
+        }
+        //computer dialogue to workproject (selected course)
+        if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.WORKPROJECT)
+        {
+            TurnOffMainDisplay();
+        }
+
+        //other to main
+        if (currentState == GameManager.GameState.RUNNING)
         {
             TurnOnMainDisplay();
         }
+
     }
 
     public void InstantiateSystemPrefabs()
