@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class CourseManager : MonoBehaviour
 {
-    public void OnGoBack()
+    [SerializeField] private Transform allCourse;
+    public List<Course> courses;
+
+    private void Start()
     {
-        
+        if (allCourse != null)
+            courses = allCourse.transform.GetComponent<CourseDatabase>().courses;
+
     }
+
 }

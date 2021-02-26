@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New database", menuName = "Database/Course Database/New database", order = 1)]
-public class CourseDatabase : Database_SO
+public class CourseDatabase_SO : Database_SO
 {
-	[SerializeField] Course_SO[] course_SOs;
+	[SerializeField] private Course_SO[] course_SoLists;
 
 	public Course_SO GetItemReference(string courseID)
 	{
-		foreach (Course_SO course in course_SOs)
+		foreach (Course_SO course in course_SoLists)
 		{
 			if (course.ID == courseID)
 			{
@@ -34,6 +34,15 @@ public class CourseDatabase : Database_SO
 
 	protected override void LoadItems()
 	{
-		course_SOs = FindAssetsByType<Course_SO>("Assets/Common/Resources/Courses");
+		course_SoLists = FindAssetsByType<Course_SO>("Assets/Common/Resources/Courses");
 	}
+
+	public Course_SO[] GetCourses()
+    {
+		return course_SoLists;
+    }
+	public void CourseLoadItems()
+    {
+		LoadItems();
+    }
 }

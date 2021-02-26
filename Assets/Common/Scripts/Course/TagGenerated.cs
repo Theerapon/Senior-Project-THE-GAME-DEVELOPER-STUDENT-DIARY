@@ -3,17 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+[RequireComponent(typeof(CourseManager))]
 public class TagGenerated : MonoBehaviour
 {
-    private void Start()
+    [SerializeField] private CourseManager courseManager;
+    GameObject tagTemplate;
+    private void Awake()
     {
-        GameObject tagTemplate = transform.GetChild(0).gameObject;
+        tagTemplate = transform.GetChild(0).gameObject;
+    }
+
+    public void CreateTag(int index)
+    {
         GameObject copy;
-        for (int i = 0; i < 5; i++)
+        CourseType[] types = courseManager.courses[index].GetCourseType();
+        for (int i = 0; i < courseManager.courses[index].GetCountCourseType(); i++)
         {
             copy = Instantiate(tagTemplate, transform);
             copy.transform.GetComponent<Image>().sprite = null; //image
-            copy.transform.GetChild(0).GetComponent<TMP_Text>().text = "Math";
+            copy.transform.GetChild(0).GetComponent<TMP_Text>().text = types[i].ToString();
         }
         Destroy(tagTemplate);
     }

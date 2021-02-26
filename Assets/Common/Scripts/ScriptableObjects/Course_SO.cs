@@ -2,8 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
-public enum CourseType { NONE, MATH, PROGRAMMING, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, AUDIO }
-public enum LevelRecommended { BEGINNER, INTERMEDIATE, EXPERT }
+public enum CourseType { NONE, MATH, PROGRAM, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, AUDIO }
+public enum LevelRecommended { All_LEVELS, BEGINNER, INTERMEDIATE, EXPERT }
 [CreateAssetMenu(fileName = "NewCourse", menuName = "Course", order = 0)]
 public class Course_SO : ScriptableObject
 {
@@ -11,6 +11,8 @@ public class Course_SO : ScriptableObject
     public string ID { get { return id; } }
 
     [SerializeField] private string nameCourse = "";
+    [SerializeField] private string nameAuthor = "";
+    [SerializeField] private string description = "";
     [SerializeField] private int priceCourse = 0;
 
     private bool isUnlock = false;
@@ -109,6 +111,30 @@ public class Course_SO : ScriptableObject
     {
         return priceCourse;
     }
+    public string GetNameAuthor()
+    {
+        return nameAuthor;
+    }
+    public string GetDescription()
+    {
+        return description;
+    }
+    public CourseType[] GetCourseType()
+    {
+        return courseTypeNum;
+    }
+    public LevelRecommended GetLevelRecommended()
+    {
+        return courseRecommended;
+    }
+    public int GetCountCourseType()
+    {
+        return courseTypeNum.Length;
+    }
+    public string GetNameCourse()
+    {
+        return nameCourse;
+    }
     #endregion
 
     private void OnValidate()
@@ -116,11 +142,14 @@ public class Course_SO : ScriptableObject
         int basePrice = 0;
         int recomment = (int)courseRecommended;
 
-        if (recomment == 1)
+        if (recomment == 0)
+        {
+            basePrice = 1;        } 
+        else if (recomment == 2)
         {
             basePrice = 4;
-        } 
-        else if (recomment == 2)
+        }
+        else if (recomment == 3)
         {
             basePrice = 10;
         }
