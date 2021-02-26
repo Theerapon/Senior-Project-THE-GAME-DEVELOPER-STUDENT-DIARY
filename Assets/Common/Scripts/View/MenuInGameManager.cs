@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class MenuInGameManager : Manager<MenuInGameManager>
 {
@@ -32,8 +33,27 @@ public class MenuInGameManager : Manager<MenuInGameManager>
     [SerializeField] private GameObject _bonus = null;
     #endregion
 
+    [SerializeField] private GameObject _panel;
     private GameObject preDisplay;
 
+
+    private void Start()
+    {
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+    }
+
+    private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
+    {
+        if (currentState == GameManager.GameState.DISPLAYMENU && previousState == GameManager.GameState.RUNNING)
+        {
+            Reset();
+        }
+
+        if (currentState == GameManager.GameState.RUNNING)
+        {
+            _panel.SetActive(false);
+        }
+    }
 
     #region Display
     public void DisplayInventory()
@@ -99,6 +119,7 @@ public class MenuInGameManager : Manager<MenuInGameManager>
     {
         if(_inventory != null && _StatsDisplayHolder != null && _skills != null && _bonus != null)
         {
+            _panel.SetActive(true);
             _inventory.SetActive(true);
             _StatsDisplayHolder.SetActive(false);
             _skills.SetActive(false);

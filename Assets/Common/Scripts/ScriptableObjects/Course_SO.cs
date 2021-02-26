@@ -38,6 +38,16 @@ public class Course_SO : ScriptableObject
     [SerializeField] private CourseType[] courseTypeNum;
     [SerializeField] private LevelRecommended courseRecommended;
 
+
+    public void IsCollected()
+    {
+        isCollected = true;
+    }
+    public void UnIsCollected()
+    {
+        isCollected = false;
+    }
+
     #region Reporter
     public bool GetCourseCollected()
     {

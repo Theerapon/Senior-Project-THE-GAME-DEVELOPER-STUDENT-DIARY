@@ -12,6 +12,15 @@ public class Course : MonoBehaviour
         }
     }
 
+    public void IsCollected()
+    {
+        course_current.IsCollected();
+    }
+    public void UnIsCollected()
+    {
+        course_current.UnIsCollected();
+    }
+
     #region Reporter
     public bool GetCourseCollected()
     {

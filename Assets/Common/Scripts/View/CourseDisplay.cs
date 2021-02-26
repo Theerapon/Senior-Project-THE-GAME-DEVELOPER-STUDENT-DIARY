@@ -9,7 +9,8 @@ public class CourseDisplay : Manager<CourseDisplay>
     private CharacterStats characterStats;
 
     [Header("Course Generator")]
-    [SerializeField] private CourseGenerated _courseGenerated; 
+    [SerializeField] private AllCourseGenerated _courseGenerated;
+    [SerializeField] private CollectionGenerator _courseCollection;
 
 
     [Header("Displays")]
@@ -41,10 +42,10 @@ public class CourseDisplay : Manager<CourseDisplay>
         {
             if (_allCourses.activeSelf == false && _allCourses != null)
             {
-                CreateAllCourses();
                 preDisplay.SetActive(false);
                 _allCourses.SetActive(true);
                 preDisplay = _allCourses;
+                CreateAllCourses();
             }
         }
 
@@ -58,6 +59,7 @@ public class CourseDisplay : Manager<CourseDisplay>
                 preDisplay.SetActive(false);
                 _collectionCourses.SetActive(true);
                 preDisplay = _collectionCourses;
+                CreateCollectionCourses();
             }
         }
     }
@@ -66,6 +68,11 @@ public class CourseDisplay : Manager<CourseDisplay>
     private void CreateAllCourses()
     {
         _courseGenerated.CreateTemplate();
+    }
+
+    private void CreateCollectionCourses()
+    {
+        _courseCollection.CreateTemplate();
     }
 
     private void UpdatePlayerData()

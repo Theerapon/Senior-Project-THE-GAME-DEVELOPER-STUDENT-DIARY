@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 [RequireComponent(typeof(CourseManager))]
-public class TagGenerated : MonoBehaviour
+public class CourseTagGenerated : MonoBehaviour
 {
     [SerializeField] private CourseManager courseManager;
     GameObject tagTemplate;
@@ -27,7 +27,7 @@ public class TagGenerated : MonoBehaviour
     {
         ClearTmeplate();
         tagTemplate = transform.GetChild(0).gameObject;
-        tagTemplate.transform.name = "Tag Template";
+        tagTemplate.transform.name = "Template";
         CreateTag(index);
     }
 
