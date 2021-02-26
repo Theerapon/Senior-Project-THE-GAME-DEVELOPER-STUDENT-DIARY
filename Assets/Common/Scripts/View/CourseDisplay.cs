@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CourseDisplay : Manager<CourseDisplay>
 {
+    [Header("Course Manager")]
+    private CharacterStats characterStats;
+
     [Header("Course Generator")]
     [SerializeField] private CourseGenerated _courseGenerated; 
 
@@ -13,13 +17,19 @@ public class CourseDisplay : Manager<CourseDisplay>
     [SerializeField] private GameObject _collectionCourses;
     private GameObject preDisplay;
 
+    [Header("Player")]
+    [SerializeField] private TMP_Text namePlayer;
+    [SerializeField] private TMP_Text moneyPlayer;
+
     private void Start()
     {
+        characterStats = CharacterStats.Instance;
         ResetDisplay();
     }
 
     private void ResetDisplay()
     {
+        UpdatePlayerData();
         _allCourses.SetActive(true);
         _collectionCourses.SetActive(false);
         preDisplay = _allCourses;
@@ -58,4 +68,9 @@ public class CourseDisplay : Manager<CourseDisplay>
         _courseGenerated.CreateTemplate();
     }
 
+    private void UpdatePlayerData()
+    {
+        namePlayer.text = characterStats.GetNameCharacter();
+        moneyPlayer.text = string.Format("{0:n0}", characterStats.GetCurrentMoney());
+    }
 }

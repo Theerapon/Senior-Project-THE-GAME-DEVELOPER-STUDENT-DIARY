@@ -26,9 +26,9 @@ public class CourseGenerated : MonoBehaviour
             copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetDescription(); //Description > Description text
             copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetNameAuthor(); //Author > Author Text
             copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetLevelRecommended().ToString(); //Tag > Recommended > Recommended text
-            copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetPrice().ToString(); //On sell
-            copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = courseManager.courses[i].GetPrice().ToString(); //Normal price
-            copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<TagGenerated>().CreateTemplate(i);
+            copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0:n0}", courseManager.courses[i].GetPrice()); //On sell
+            copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:n0}", courseManager.courses[i].GetPrice());  //Normal price
+            copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<TagGenerated>().CreateTemplate(i); //Tag
         }
         Destroy(courseTemplate);
     }
