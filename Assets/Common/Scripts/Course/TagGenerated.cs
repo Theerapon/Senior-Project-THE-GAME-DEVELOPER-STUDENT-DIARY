@@ -9,12 +9,8 @@ public class TagGenerated : MonoBehaviour
 {
     [SerializeField] private CourseManager courseManager;
     GameObject tagTemplate;
-    private void Awake()
-    {
-        tagTemplate = transform.GetChild(0).gameObject;
-    }
 
-    public void CreateTag(int index)
+    private void CreateTag(int index)
     {
         GameObject copy;
         CourseType[] types = courseManager.courses[index].GetCourseType();
@@ -25,5 +21,30 @@ public class TagGenerated : MonoBehaviour
             copy.transform.GetChild(0).GetComponent<TMP_Text>().text = types[i].ToString();
         }
         Destroy(tagTemplate);
+    }
+
+    public void CreateTemplate(int index)
+    {
+        ClearTmeplate();
+        tagTemplate = transform.GetChild(0).gameObject;
+        tagTemplate.transform.name = "Tag Template";
+        CreateTag(index);
+    }
+
+    private void ClearTmeplate()
+    {
+        int count = transform.childCount;
+        if (count <= 1)
+        {
+            return;
+        }
+        else
+        {
+            //destroy all else first object for template
+            for (int i = 1; i < count; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
     }
 }

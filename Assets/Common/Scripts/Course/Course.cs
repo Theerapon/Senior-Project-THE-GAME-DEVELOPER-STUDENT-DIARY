@@ -13,9 +13,9 @@ public class Course : MonoBehaviour
     }
 
     #region Reporter
-    public bool GetCourseUnlock()
+    public bool GetCourseCollected()
     {
-        return course_current.GetCourseUnlock();
+        return course_current.GetCourseCollected();
     }
 
     public int GetSecondToConsume()

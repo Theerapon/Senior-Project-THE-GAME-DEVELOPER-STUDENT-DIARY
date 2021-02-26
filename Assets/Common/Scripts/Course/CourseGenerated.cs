@@ -12,8 +12,7 @@ public class CourseGenerated : MonoBehaviour
 
     private void Start()
     {
-        courseTemplate = transform.GetChild(0).gameObject;
-        CreateCourse();
+        CreateTemplate();
     }
 
     private void CreateCourse()
@@ -29,8 +28,32 @@ public class CourseGenerated : MonoBehaviour
             copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetLevelRecommended().ToString(); //Tag > Recommended > Recommended text
             copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetPrice().ToString(); //On sell
             copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = courseManager.courses[i].GetPrice().ToString(); //Normal price
-            copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<TagGenerated>().CreateTag(i);
+            copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<TagGenerated>().CreateTemplate(i);
         }
         Destroy(courseTemplate);
+    }
+
+    public void CreateTemplate()
+    {
+        ClearTmeplate();
+        courseTemplate = transform.GetChild(0).gameObject;
+        courseTemplate.transform.name = "Course Template";
+        CreateCourse();
+    }
+
+    private void ClearTmeplate()
+    {
+        int count = transform.childCount;
+        if (count <= 1) 
+        {
+            return;
+        } else
+        {
+            //destroy all else first object for template
+            for (int i = 1; i < count; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
     }
 }

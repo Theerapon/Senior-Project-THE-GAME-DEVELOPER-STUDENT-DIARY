@@ -15,7 +15,7 @@ public class Course_SO : ScriptableObject
     [SerializeField] private string description = "";
     [SerializeField] private int priceCourse = 0;
 
-    private bool isUnlock = false;
+    private bool isCollected = false;
     private int secondToConsume;
     private int energyToConsume;
 
@@ -39,9 +39,9 @@ public class Course_SO : ScriptableObject
     [SerializeField] private LevelRecommended courseRecommended;
 
     #region Reporter
-    public bool GetCourseUnlock()
+    public bool GetCourseCollected()
     {
-        return isUnlock;
+        return isCollected;
     }
     public int GetSecondToConsume()
     {

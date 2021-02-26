@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 377049150}
   - component: {fileID: 377049153}
   m_Layer: 0
-  m_Name: All Course
+  m_Name: Course Database
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1531,6 +1531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 602825298}
   - component: {fileID: 602825299}
+  - component: {fileID: 602825300}
   m_Layer: 0
   m_Name: Course Manager
   m_TagString: Untagged
@@ -1567,6 +1568,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allCourse: {fileID: 377049150}
   courses: []
+--- !u!114 &602825300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602825297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a238ab15975714a8e92e3b11e44992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _courseGenerated: {fileID: 879098032}
+  _allCourses: {fileID: 373664004}
+  _collectionCourses: {fileID: 916903858}
 --- !u!1 &634739296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2152,7 +2168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &916903859
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2817,7 +2833,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1460485245}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 602825300}
+        m_TargetAssemblyTypeName: CourseDisplay, Assembly-CSharp
+        m_MethodName: DisplayAllCourses
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1460485245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3932,7 +3960,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1968276324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 602825300}
+        m_TargetAssemblyTypeName: CourseDisplay, Assembly-CSharp
+        m_MethodName: DisplayCollections
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1968276324
 MonoBehaviour:
   m_ObjectHideFlags: 0
