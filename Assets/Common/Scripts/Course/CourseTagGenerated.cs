@@ -25,26 +25,9 @@ public class CourseTagGenerated : MonoBehaviour
 
     public void CreateTemplate(int index)
     {
-        ClearTmeplate();
         tagTemplate = transform.GetChild(0).gameObject;
         tagTemplate.transform.name = "Template";
         CreateTag(index);
     }
 
-    private void ClearTmeplate()
-    {
-        int count = transform.childCount;
-        if (count <= 1)
-        {
-            return;
-        }
-        else
-        {
-            //destroy all else first object for template
-            for (int i = 1; i < count; i++)
-            {
-                Destroy(transform.GetChild(i).gameObject);
-            }
-        }
-    }
 }

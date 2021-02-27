@@ -10,30 +10,32 @@ public class Course_SO : ScriptableObject
     [SerializeField] private string id;
     public string ID { get { return id; } }
 
+    [Header("Detail")]
     [SerializeField] private string nameCourse = "";
     [SerializeField] private string nameAuthor = "";
     [SerializeField] private string description = "";
     [SerializeField] private int priceCourse = 0;
+    [SerializeField] private bool isCollected = false;
+    [SerializeField] private int secondToConsume;
+    [SerializeField] private int energyToConsume;
 
-    private bool isCollected = false;
-    private int secondToConsume;
-    private int energyToConsume;
+    [Header("Exp Rewards")]
+    [SerializeField] private int defaultMathExpReward;
+    [SerializeField] private int defaultProgrammingExpReward;
+    [SerializeField] private int defaultEngineExpReward;
+    [SerializeField] private int defaultAiExpReward;
+    [SerializeField] private int defaultNetwordExpReward;
+    [SerializeField] private int defaultDesignExpReward;
+    [SerializeField] private int defaultArtExpReward;
+    [SerializeField] private int defaultSoundExpReward;
+    [SerializeField] private int defaultTestingExpReward;
 
-    private int defaultMathExpReward;
-    private int defaultProgrammingExpReward;
-    private int defaultEngineExpReward;
-    private int defaultAiExpReward;
-    private int defaultNetwordExpReward;
-    private int defaultDesignExpReward;
-    private int defaultArtExpReward;
-    private int defaultAudioExpReward;
-    private int defaultTestingExpReward;
-
-    private int defaultCodingStatReward;
-    private int defaultDesignStatReward;
-    private int defaultArtStatReward;
-    private int defaultTestingStatReward;
-    private int defaultAudioStatReward;
+    [Header("Stat Rewards")]
+    [SerializeField] private int defaultCodingStatReward;
+    [SerializeField] private int defaultDesignStatReward;
+    [SerializeField] private int defaultArtStatReward;
+    [SerializeField] private int defaultTestingStatReward;
+    [SerializeField] private int defaultSoundStatReward;
 
     [SerializeField] private CourseType[] courseTypeNum;
     [SerializeField] private LevelRecommended courseRecommended;
@@ -89,9 +91,9 @@ public class Course_SO : ScriptableObject
     {
         return defaultArtExpReward;
     }
-    public int GetdefaultAudioExpReward()
+    public int GetdefaultSoundExpReward()
     {
-        return defaultAudioExpReward;
+        return defaultSoundExpReward;
     }
     public int GetdefaultTestingExpReward()
     {
@@ -113,9 +115,9 @@ public class Course_SO : ScriptableObject
     {
         return defaultTestingStatReward;
     }
-    public int GetdefaultAudioStatReward()
+    public int GetdefaultSoundStatReward()
     {
-        return defaultAudioStatReward;
+        return defaultSoundStatReward;
     }
     public int GetPrice()
     {

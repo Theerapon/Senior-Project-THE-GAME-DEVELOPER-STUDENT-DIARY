@@ -72,9 +72,9 @@ public class Course : MonoBehaviour
         return course_current.GetdefaultArtExpReward();
     }
 
-    public int GetdefaultAudioExpReward()
+    public int GetdefaultSoundExpReward()
     {
-        return course_current.GetdefaultAudioExpReward();
+        return course_current.GetdefaultSoundExpReward();
     }
 
 
@@ -103,9 +103,9 @@ public class Course : MonoBehaviour
         return course_current.GetdefaultTestingStatReward();
     }
 
-    public int GetdefaultAudioStatReward()
+    public int GetdefaultSoundStatReward()
     {
-        return course_current.GetdefaultAudioStatReward();
+        return course_current.GetdefaultSoundStatReward();
     }
 
     public int GetPrice()
