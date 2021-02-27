@@ -271,11 +271,18 @@ public class GameManager : Manager<GameManager>
     public void GotoMainWithContiniueGameInNextDays()
     {
         UnLoadLevel(Scene.Summary);
-        CloseDialogueToMain();
+        CloseToMain();
         if (SaveManager.Instance != null)
         {
             SaveManager.Instance.OnSave();
         }
+    }
+
+    public void CourseBackToMain()
+    {
+        UnLoadLevel(Scene.Course);
+        CloseToMain();
+
     }
 
     public void OpenDialogue(Scene scene)
@@ -293,10 +300,10 @@ public class GameManager : Manager<GameManager>
     public void CloseDialogue(Scene nameScene)
     {
         UnLoadLevel(nameScene);
-        CloseDialogueToMain();
+        CloseToMain();
     }
 
-    private void CloseDialogueToMain()
+    private void CloseToMain()
     {
         _currentLevelScene = Scene.Main;
         UpdateState(GameState.RUNNING);
