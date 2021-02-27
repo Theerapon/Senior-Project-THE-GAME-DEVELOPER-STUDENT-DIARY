@@ -312,4 +312,18 @@ public class TimeManager : Manager<TimeManager>
         IncreaseTime(hour, miniue, second);
     }
 
+    public string GetOnDate()
+    {
+        return onDate;
+    }
+
+    public string GetOnTime()
+    {
+        return onTime;
+    }
+
+    public string GetOnSeason()
+    {
+        return onSeason;
+    }
 }

@@ -2,10 +2,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Manager<Player>
 {
-	public static Player instance;
-
     [Header("Public")]
     public CharacterInventory Inventory;
 	public EquipmentPanel Equipment;
@@ -14,17 +12,14 @@ public class Player : MonoBehaviour
 
 	private BaseItemSlot dragItemSlot;
 
-	protected void Awake()
+    protected override void Awake()
     {
-		instance = this;
-		if (CharacterInventory.instance != null)
-			Inventory = CharacterInventory.instance;
-
-		if (EquipmentPanel.instance != null)
-			Equipment = EquipmentPanel.instance;
+		base.Awake();
+		Inventory = CharacterInventory.instance;
+		Equipment = EquipmentPanel.instance;
 	}
 
-	protected void Start()
+    protected void Start()
     {
 
 		// Setup Events:

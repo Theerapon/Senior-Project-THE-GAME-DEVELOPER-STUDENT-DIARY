@@ -124,32 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &30630325 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4554964494187781814, guid: b8593b995b90e0e43b447e821104f9e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 4554964494199504643}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &30630326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30630325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c56c06ccdd7174fa0f6498dc5beed4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SystemPrefabs:
-  - {fileID: 1067538176202271485, guid: 1fdefa8f4f96de44a99f67bc493c35d6, type: 3}
-  - {fileID: 1407529456992742640, guid: fe2c3fc015152ee499db36b2b5ac9615, type: 3}
-  - {fileID: 1278448335193161755, guid: 72de10d923aca4449a8ebe37a1596f4c, type: 3}
-  preCharacterInteractiveDisplay: {fileID: 4752588252973860498}
-  mainCamera: {fileID: 2018984536343820423}
-  timeDisplay: {fileID: 380116368582213888}
-  energyDisplay: {fileID: 9107288308088132894}
 --- !u!1 &1000549624
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,30 +197,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 380116367795409768, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116367795409770, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_Name
-      value: TimeDisplay
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116367795409770, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 380116369040809472, guid: d08a6d29546aa2f4291e67ce4f3bb294,
         type: 3}
       propertyPath: m_Name
       value: preTimeDisplay
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116369040809472, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 380116369040809979, guid: d08a6d29546aa2f4291e67ce4f3bb294,
         type: 3}
@@ -352,26 +306,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116369040809979, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116369040809979, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116369040809979, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 380116369040809980, guid: d08a6d29546aa2f4291e67ce4f3bb294,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d08a6d29546aa2f4291e67ce4f3bb294, type: 3}
@@ -604,11 +538,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6398012680118302506, guid: 843d70f323a34ff4498200ac844f724c,
-        type: 3}
-      propertyPath: _panel
-      value: 
-      objectReference: {fileID: 1904566816889609472}
     - target: {fileID: 6619554655557942441, guid: 843d70f323a34ff4498200ac844f724c,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -701,12 +630,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 843d70f323a34ff4498200ac844f724c, type: 3}
---- !u!1 &1904566816889609472 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7274519690864689425, guid: 843d70f323a34ff4498200ac844f724c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1904566816889609471}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2018984536343820422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -773,11 +696,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 2018984536781890062, guid: 8cd757235fdb4a643b5b72142328e876,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd757235fdb4a643b5b72142328e876, type: 3}
@@ -876,11 +794,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CM vcam1
       objectReference: {fileID: 0}
-    - target: {fileID: 4111452657220774647, guid: e87c8667e3d6fc8459e481c830ad4d4b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e87c8667e3d6fc8459e481c830ad4d4b, type: 3}
 --- !u!1001 &4554964494199504643
@@ -890,6 +803,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 30630326, guid: b8593b995b90e0e43b447e821104f9e2, type: 3}
+      propertyPath: preCharacterInteractiveDisplay
+      value: 
+      objectReference: {fileID: 4752588252973860498}
+    - target: {fileID: 30630326, guid: b8593b995b90e0e43b447e821104f9e2, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 2018984536343820423}
+    - target: {fileID: 30630326, guid: b8593b995b90e0e43b447e821104f9e2, type: 3}
+      propertyPath: timeDisplay
+      value: 
+      objectReference: {fileID: 380116368582213888}
+    - target: {fileID: 30630326, guid: b8593b995b90e0e43b447e821104f9e2, type: 3}
+      propertyPath: energyDisplay
+      value: 
+      objectReference: {fileID: 9107288308088132894}
     - target: {fileID: 4554964494187781813, guid: b8593b995b90e0e43b447e821104f9e2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -949,11 +878,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 4554964494187781814, guid: b8593b995b90e0e43b447e821104f9e2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8593b995b90e0e43b447e821104f9e2, type: 3}
@@ -1169,21 +1093,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2206003183304202006, guid: 618349ba7585de1429a8951b85e7111b,
-        type: 3}
-      propertyPath: m_ScreenMatchMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2206003183304202006, guid: 618349ba7585de1429a8951b85e7111b,
-        type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 3140879580874034108, guid: 618349ba7585de1429a8951b85e7111b,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 618349ba7585de1429a8951b85e7111b, type: 3}

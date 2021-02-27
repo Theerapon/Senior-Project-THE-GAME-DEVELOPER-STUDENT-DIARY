@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(CourseManager))]
 public class AllCourseGenerated : MonoBehaviour
 {
-    [SerializeField] private CourseManager courseManager;
+    private CourseManager courseManager;
     GameObject courseTemplate;
 
     private void Start()
     {
+        courseManager = CourseManager.Instance;
         CreateTemplate();
     }
 

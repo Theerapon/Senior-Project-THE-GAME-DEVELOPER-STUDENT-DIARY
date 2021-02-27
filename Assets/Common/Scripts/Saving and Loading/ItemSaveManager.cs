@@ -7,27 +7,14 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
     [SerializeField] ItemDatabase itemDatabase;
 
-    private Player player = null;
+    private Player player;
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
 
-    protected override void Awake()
-    {
-        base.Awake();
-        if(Player.instance != null)
-        {
-            player = Player.instance;
-        }
-
-
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
-        }
-    }
-
     protected void Start()
     {
+        player = Player.Instance;
+        SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         OnLoaded();
     }
 
@@ -50,12 +37,12 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(Player.instance.Inventory.ItemSlots, InventoryFileName);
+        SaveItems(Player.Instance.Inventory.ItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()
     {
-        SaveItems(Player.instance.Equipment.EquipmentSlots, EquipmentFileName);
+        SaveItems(Player.Instance.Equipment.EquipmentSlots, EquipmentFileName);
     }
 
     private void LoadInventory()

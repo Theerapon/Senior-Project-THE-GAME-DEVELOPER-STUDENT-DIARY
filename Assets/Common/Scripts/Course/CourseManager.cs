@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CourseManager : MonoBehaviour
+public class CourseManager : Manager<CourseManager>
 {
     [SerializeField] private Transform allCourse;
     public List<Course> courses;

@@ -22,14 +22,21 @@ public class CourseDisplay : Manager<CourseDisplay>
     [SerializeField] private TMP_Text namePlayer;
     [SerializeField] private TMP_Text moneyPlayer;
 
+    [Header("Time")]
+    [SerializeField] private TMP_Text time;
+    [SerializeField] private TMP_Text date;
+    private TimeManager timeManager;
+
     private void Start()
     {
         characterStats = CharacterStats.Instance;
+        timeManager = TimeManager.Instance;
         ResetDisplay();
     }
 
     private void ResetDisplay()
     {
+        UpdateTime();
         UpdatePlayerData();
         _allCourses.SetActive(true);
         _collectionCourses.SetActive(false);
@@ -79,5 +86,11 @@ public class CourseDisplay : Manager<CourseDisplay>
     {
         namePlayer.text = characterStats.GetNameCharacter();
         moneyPlayer.text = string.Format("{0:n0}", characterStats.GetCurrentMoney());
+    }
+
+    private void UpdateTime()
+    {
+        time.text = timeManager.GetOnTime();
+        date.text = timeManager.GetOnDate();
     }
 }

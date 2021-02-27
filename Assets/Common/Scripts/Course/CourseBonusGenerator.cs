@@ -6,14 +6,16 @@ using TMPro;
 
 public class CourseBonusGenerator : MonoBehaviour
 {
-    [SerializeField] private CourseManager courseManager;
+    private CourseManager courseManager;
     GameObject bonusTemplate;
     private Dictionary<string, int> dicBonus;
 
     private void Awake()
     {
         dicBonus = new Dictionary<string, int>();
+        courseManager = CourseManager.Instance;
     }
+
 
     private void CreateTag(int index)
     {

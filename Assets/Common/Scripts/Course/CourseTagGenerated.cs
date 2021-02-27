@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[RequireComponent(typeof(CourseManager))]
 public class CourseTagGenerated : MonoBehaviour
 {
-    [SerializeField] private CourseManager courseManager;
+    private CourseManager courseManager;
     GameObject tagTemplate;
+
+    private void Awake()
+    {
+        courseManager = CourseManager.Instance;
+    }
 
     private void CreateTag(int index)
     {
