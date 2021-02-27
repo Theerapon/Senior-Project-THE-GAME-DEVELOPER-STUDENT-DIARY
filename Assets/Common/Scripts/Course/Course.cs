@@ -141,6 +141,10 @@ public class Course : MonoBehaviour
     {
         return course_current.GetCountCourseType();
     }
+    public int GetMotivationConsume()
+    {
+        return course_current.GetMotivationConsume();
+    }
     #endregion
     public Course_SO GetCopy()
     {

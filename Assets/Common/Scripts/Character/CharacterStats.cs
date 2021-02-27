@@ -284,6 +284,10 @@ public class CharacterStats : Manager<CharacterStats>
     {
         return characterDeginition_Current.GetTwoThirdSleepText();
     }
+    public float GetMotivationCalculated()
+    {
+        return characterDeginition_Current.GetMotivationCalculated();
+    }
     #endregion
 
 

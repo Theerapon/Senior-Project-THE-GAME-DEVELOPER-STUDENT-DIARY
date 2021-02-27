@@ -9,9 +9,13 @@ public class AllCourseGenerated : MonoBehaviour
     private CourseManager courseManager;
     GameObject courseTemplate;
 
-    private void Start()
+    private void Awake()
     {
         courseManager = CourseManager.Instance;
+    }
+
+    private void Start()
+    {
         CreateTemplate();
     }
 
@@ -32,6 +36,7 @@ public class AllCourseGenerated : MonoBehaviour
                 copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value.GetPrice()); //On sell
                 copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value.GetPrice());  //Normal price
                 copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<CourseTagGenerated>().CreateTemplate(dic.Key); //Tag
+                copy.transform.GetChild(2).GetComponent<CourseID>().SetID(dic.Key); //set ID
             }
         }
 

@@ -36,6 +36,7 @@ public class CharacterStats_SO : ScriptableObject
     [SerializeField] private float DEFAULT_baseBootUpMotivation = 0f; // 0%
     [SerializeField] private float DEFAULT_goldenTimeBootUpMotivation = 0.05f; // 5%
     private int currentMotivation;
+    private float motivationCalculated;
 
     [Header("Money")]
     [SerializeField] private int currentMoney = 0;
@@ -118,7 +119,7 @@ public class CharacterStats_SO : ScriptableObject
         {
             this.currentMotivation += currentMotivation;
         }
-
+        MotivationCalculated();
     }
 
     public void ApplyCurrentMoney(int currentMoney)
@@ -199,6 +200,7 @@ public class CharacterStats_SO : ScriptableObject
         {
             this.currentMotivation -= currentMotivation;
         }
+        MotivationCalculated();
     }
 
 
@@ -409,6 +411,10 @@ public class CharacterStats_SO : ScriptableObject
     {
         return hasSoftSkillPoints;
     }
+    public float GetMotivationCalculated()
+    {
+        return motivationCalculated;
+    }
 
     public string GetFullTimeSleepText()
     {
@@ -485,6 +491,30 @@ public class CharacterStats_SO : ScriptableObject
         {
             DEFAULT_twoThirdTimeOfSleepingSeond = (int)Mathf.RoundToInt(DEFAULT_fullTimeOfSleepingSecond * (0.6f));
         }
+    }
+    #endregion
+
+    #region Calculated Motivation
+    private void MotivationCalculated()
+    {
+        float motivation;
+        if(currentMotivation > 79)
+        {
+            motivation = 1f;
+        } else if (currentMotivation > 59)
+        {
+            motivation = 0.9f;
+        } else if (currentMotivation > 39)
+        {
+            motivation = 0.7f;
+        } else if (currentMotivation > 19)
+        {
+            motivation = 0.5f;
+        } else
+        {
+            motivation = 0.3f;
+        }
+        motivationCalculated = motivation;
     }
     #endregion
 }

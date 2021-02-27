@@ -12,7 +12,6 @@ public class CollectionGenerator : MonoBehaviour
     private void Awake()
     {
         courseManager = CourseManager.Instance;
-        
     }
 
     private void Start()
@@ -38,6 +37,7 @@ public class CollectionGenerator : MonoBehaviour
                 copy.transform.GetChild(1).GetChild(1).GetChild(2).GetComponent<CourseBonusGenerator>().CreateTemplate(dic.Key);
 
                 copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<CourseTagGenerated>().CreateTemplate(dic.Key); //Tag
+                copy.transform.GetChild(2).GetComponent<CourseID>().SetID(dic.Key); //set ID
             }
         }
 

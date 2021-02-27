@@ -18,6 +18,7 @@ public class Course_SO : ScriptableObject
     [SerializeField] private bool isCollected = false;
     [SerializeField] private int secondToConsume;
     [SerializeField] private int energyToConsume;
+    [SerializeField] private int motivationToConsume;
 
     [Header("Exp Rewards")]
     [SerializeField] private int defaultMathExpReward;
@@ -147,6 +148,11 @@ public class Course_SO : ScriptableObject
     {
         return nameCourse;
     }
+
+    public int GetMotivationConsume()
+    {
+        return motivationToConsume;
+    }
     #endregion
 
     private void OnValidate()
@@ -156,14 +162,22 @@ public class Course_SO : ScriptableObject
 
         if (recomment == 0)
         {
-            basePrice = 1;        } 
+            basePrice = 1;
+            motivationToConsume = 5;
+        } else if (recomment == 1)
+        {
+            basePrice = 0;
+            motivationToConsume = 3;
+        } 
         else if (recomment == 2)
         {
             basePrice = 4;
+            motivationToConsume = 7;
         }
         else if (recomment == 3)
         {
             basePrice = 10;
+            motivationToConsume = 10;
         }
 
         priceCourse = (courseTypeNum.Length * 399) + (basePrice * 1000);
