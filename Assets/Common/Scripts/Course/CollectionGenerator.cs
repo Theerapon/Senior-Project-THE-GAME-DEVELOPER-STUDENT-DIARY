@@ -23,24 +23,23 @@ public class CollectionGenerator : MonoBehaviour
     private void CreateCourse()
     {
         GameObject copy;
-        for (int i = 0; i < courseManager.courses.Count; i++)
+        foreach (KeyValuePair<string, Course> dic in courseManager.courses)
         {
-            if (courseManager.courses[i].GetCourseCollected()) //collected = true;
+            if (dic.Value.GetCourseCollected()) //collected = true;
             {
                 copy = Instantiate(courseTemplate, transform);
                 copy.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null; //Image Course > image
-                copy.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetNameCourse(); //Title course
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetDescription(); //Description > Description text
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetNameAuthor(); //Author > Author Text
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetLevelRecommended().ToString(); //Tag > Recommended > Recommended text
-                copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetSecondToConsume().ToString(); //time
-                copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = courseManager.courses[i].GetEnergyToConsume().ToString(); //energy
-                copy.transform.GetChild(1).GetChild(1).GetChild(2).GetComponent<CourseBonusGenerator>().CreateTemplate(i);
+                copy.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetNameCourse(); //Title course
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetDescription(); //Description > Description text
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetNameAuthor(); //Author > Author Text
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetLevelRecommended().ToString(); //Tag > Recommended > Recommended text
+                copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetSecondToConsume().ToString(); //time
+                copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = dic.Value.GetEnergyToConsume().ToString(); //energy
+                copy.transform.GetChild(1).GetChild(1).GetChild(2).GetComponent<CourseBonusGenerator>().CreateTemplate(dic.Key);
 
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<CourseTagGenerated>().CreateTemplate(i); //Tag
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<CourseTagGenerated>().CreateTemplate(dic.Key); //Tag
             }
         }
-
 
         courseTemplate.SetActive(false);
     }

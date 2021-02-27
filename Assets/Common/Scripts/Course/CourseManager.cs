@@ -5,7 +5,7 @@ using UnityEngine;
 public class CourseManager : Manager<CourseManager>
 {
     [SerializeField] private Transform allCourse;
-    public List<Course> courses;
+    public Dictionary<string, Course> courses;
 
     private void Start()
     {
@@ -16,14 +16,7 @@ public class CourseManager : Manager<CourseManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            courses[0].IsCollected();
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            courses[0].UnIsCollected();
-        }
+        
 
     }
 

@@ -19,19 +19,19 @@ public class AllCourseGenerated : MonoBehaviour
     {
 
         GameObject copy;
-        for (int i = 0; i < courseManager.courses.Count; i++)
+        foreach (KeyValuePair<string, Course> dic in courseManager.courses)
         {
-            if (!courseManager.courses[i].GetCourseCollected()) //collected == false
+            if (!dic.Value.GetCourseCollected()) //collected == false
             {
                 copy = Instantiate(courseTemplate, transform);
                 copy.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null; //Image Course > image
-                copy.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetNameCourse(); //Title course
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetDescription(); //Description > Description text
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetNameAuthor(); //Author > Author Text
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = courseManager.courses[i].GetLevelRecommended().ToString(); //Tag > Recommended > Recommended text
-                copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0:n0}", courseManager.courses[i].GetPrice()); //On sell
-                copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:n0}", courseManager.courses[i].GetPrice());  //Normal price
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<CourseTagGenerated>().CreateTemplate(i); //Tag
+                copy.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetNameCourse(); //Title course
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetDescription(); //Description > Description text
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetNameAuthor(); //Author > Author Text
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetLevelRecommended().ToString(); //Tag > Recommended > Recommended text
+                copy.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value.GetPrice()); //On sell
+                copy.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value.GetPrice());  //Normal price
+                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetChild(1).GetChild(0).GetComponent<CourseTagGenerated>().CreateTemplate(dic.Key); //Tag
             }
         }
 

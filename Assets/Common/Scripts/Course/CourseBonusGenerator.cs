@@ -17,10 +17,10 @@ public class CourseBonusGenerator : MonoBehaviour
     }
 
 
-    private void CreateTag(int index)
+    private void CreateTag(string id)
     {
         GameObject copy;
-        GetBonus(index);
+        GetBonus(id);
 
         if(dicBonus != null)
         {
@@ -35,51 +35,51 @@ public class CourseBonusGenerator : MonoBehaviour
         Destroy(bonusTemplate);
     }
 
-    public void CreateTemplate(int index)
+    public void CreateTemplate(string id)
     {
         bonusTemplate = transform.GetChild(0).gameObject;
         bonusTemplate.transform.name = "Template";
-        CreateTag(index);
+        CreateTag(id);
     }
 
-    private void GetBonus(int index)
+    private void GetBonus(string id)
     {
         int bonusCheck = 0;
 
         #region Exp
-        bonusCheck = courseManager.courses[index].GetdefaultMathExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultMathExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("MathExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultProgrammingExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultProgrammingExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("ProgrammingExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultEngineExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultEngineExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("EngineExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultAiExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultAiExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("AiExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultNetwordExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultNetwordExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("NetworkExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultDesignExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultDesignExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("DesignExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultTestingExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultTestingExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("TestingExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultArtExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultArtExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("ArtExp", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultSoundExpReward();
+        bonusCheck = courseManager.courses[id].GetdefaultSoundExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add("SoundExp", bonusCheck);
 
@@ -87,23 +87,23 @@ public class CourseBonusGenerator : MonoBehaviour
         #endregion
 
         #region Stat
-        bonusCheck = courseManager.courses[index].GetdefaultCodingStatReward();
+        bonusCheck = courseManager.courses[id].GetdefaultCodingStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add("CodingStat", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultDesignStatReward();
+        bonusCheck = courseManager.courses[id].GetdefaultDesignStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add("DesignStat", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultTestingStatReward();
+        bonusCheck = courseManager.courses[id].GetdefaultTestingStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add("TestingStat", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultArtStatReward();
+        bonusCheck = courseManager.courses[id].GetdefaultArtStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add("ArtStat", bonusCheck);
 
-        bonusCheck = courseManager.courses[index].GetdefaultSoundStatReward();
+        bonusCheck = courseManager.courses[id].GetdefaultSoundStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add("SoundStat", bonusCheck);
         #endregion

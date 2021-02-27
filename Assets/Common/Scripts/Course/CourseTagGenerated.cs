@@ -14,11 +14,11 @@ public class CourseTagGenerated : MonoBehaviour
         courseManager = CourseManager.Instance;
     }
 
-    private void CreateTag(int index)
+    private void CreateTag(string id)
     {
         GameObject copy;
-        CourseType[] types = courseManager.courses[index].GetCourseType();
-        for (int i = 0; i < courseManager.courses[index].GetCountCourseType(); i++)
+        CourseType[] types = courseManager.courses[id].GetCourseType();
+        for (int i = 0; i < courseManager.courses[id].GetCountCourseType(); i++)
         {
             copy = Instantiate(tagTemplate, transform);
             copy.transform.GetComponent<Image>().sprite = null; //image
@@ -27,11 +27,11 @@ public class CourseTagGenerated : MonoBehaviour
         Destroy(tagTemplate);
     }
 
-    public void CreateTemplate(int index)
+    public void CreateTemplate(string id)
     {
         tagTemplate = transform.GetChild(0).gameObject;
         tagTemplate.transform.name = "Template";
-        CreateTag(index);
+        CreateTag(id);
     }
 
 }
