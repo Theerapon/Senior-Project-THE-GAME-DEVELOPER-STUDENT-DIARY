@@ -7,11 +7,12 @@ public class CriticalThinking : MonoBehaviour
     [SerializeField] private CriticalThinking_SO criticalThinking_SoftSkill_Template;
     private CriticalThinking_SO criticalThinking_SoftSkill_Current;
 
-    void Start()
+    protected void Awake()
     {
         if (criticalThinking_SoftSkill_Template != null)
         {
             criticalThinking_SoftSkill_Current = Instantiate(criticalThinking_SoftSkill_Template);
+            criticalThinking_SoftSkill_Current.Initiate();
         }
     }
 

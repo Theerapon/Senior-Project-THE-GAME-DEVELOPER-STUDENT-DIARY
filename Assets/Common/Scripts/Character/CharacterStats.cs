@@ -275,15 +275,6 @@ public class CharacterStats : Manager<CharacterStats>
         return characterDeginition_Current.GetSoftSkillPoints();
     }
 
-    public string GetFullTimeSleepText()
-    {
-        return characterDeginition_Current.GetFullTimeSleepText();
-    }
-
-    public string GetTwoThirdSleepText()
-    {
-        return characterDeginition_Current.GetTwoThirdSleepText();
-    }
     public float GetMotivationCalculated()
     {
         return characterDeginition_Current.GetMotivationCalculated();

@@ -6,12 +6,13 @@ public class TimeManagement : MonoBehaviour
 {
     [SerializeField] private TimeManagement_SO time_SoftSkill_Template;
     private TimeManagement_SO time_SoftSkill_Current;
-    // Start is called before the first frame update
-    void Start()
+
+    protected void Awake()
     {
         if (time_SoftSkill_Template != null)
         {
             time_SoftSkill_Current = Instantiate(time_SoftSkill_Template);
+            time_SoftSkill_Current.Initiate();
         }
     }
 

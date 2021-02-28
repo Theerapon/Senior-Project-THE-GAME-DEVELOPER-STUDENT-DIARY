@@ -7,11 +7,12 @@ public class Communication : MonoBehaviour
     [SerializeField] private Communication_SO communication_SoftSkill_Template;
     private Communication_SO communication_SoftSkill_Current;
 
-    void Start()
+    protected void Awake()
     {
         if (communication_SoftSkill_Template != null)
         {
             communication_SoftSkill_Current = Instantiate(communication_SoftSkill_Template);
+            communication_SoftSkill_Current.Initiate();
         }
     }
     #region Bonus Increasers

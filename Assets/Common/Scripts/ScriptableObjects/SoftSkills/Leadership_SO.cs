@@ -20,7 +20,15 @@ public class Leadership_SO : SoftSkill_SO
     private float totalBONUS_positiveEventsEffect;
 
     [SerializeField] private LeadershipSkillLevel[] softSkillLevelsList;
-
+    public void Initiate()
+    {
+        if (currentSoftSkillLevel == 0)
+        {
+            totalBONUS_negativeEventsChance = softSkillLevelsList[0].BONUS_negativeEventsChance;
+            totalBONUS_negativeEventsEffect = softSkillLevelsList[0].BONUS_negativeEventsEffect;
+            totalBONUS_positiveEventsEffect = softSkillLevelsList[0].BONUS_positiveEventsEffect;
+        }
+    }
     public void UpSoftSkill()
     {
         if (currentSoftSkillLevel == 0)

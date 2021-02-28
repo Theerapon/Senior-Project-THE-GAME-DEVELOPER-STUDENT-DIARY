@@ -6,11 +6,12 @@ public class WorkEthic : MonoBehaviour
 {
     [SerializeField] private WorkEthic_SO workEthic_SoftSkill_Template;
     private WorkEthic_SO workEthic_SoftSkill_Current;
-    void Start()
+    protected void Awake()
     {
         if (workEthic_SoftSkill_Template != null)
         {
             workEthic_SoftSkill_Current = Instantiate(workEthic_SoftSkill_Template);
+            workEthic_SoftSkill_Current.Initiate();
         }
     }
 

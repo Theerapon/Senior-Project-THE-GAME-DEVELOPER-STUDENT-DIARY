@@ -7,11 +7,13 @@ public class Leadership : MonoBehaviour
     [SerializeField] private Leadership_SO leadership_SoftSkill_Template;
     private Leadership_SO leadership_SoftSkill_Current;
 
-    void Start()
+    protected void Awake()
     {
         if (leadership_SoftSkill_Template != null)
         {
             leadership_SoftSkill_Current = Instantiate(leadership_SoftSkill_Template);
+            leadership_SoftSkill_Current.Initiate();
+
         }
     }
 

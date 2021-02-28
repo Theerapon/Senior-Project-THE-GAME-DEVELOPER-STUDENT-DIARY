@@ -415,36 +415,6 @@ public class CharacterStats_SO : ScriptableObject
     {
         return motivationCalculated;
     }
-
-    public string GetFullTimeSleepText()
-    {
-        int fullTimeSecond = DEFAULT_fullTimeOfSleepingSecond;
-        int hourFullTime;
-        int miniueFullTime;
-        int secondFullTime;
-
-        secondFullTime = fullTimeSecond % 60;
-        fullTimeSecond = fullTimeSecond / 60;
-        miniueFullTime = fullTimeSecond % 60;
-        hourFullTime = fullTimeSecond / 60;
-
-        return string.Format("Full time of sleeping time = " + "{0} Hour " + "{1} Miniue " + "{2} Second", hourFullTime, miniueFullTime, secondFullTime);
-    }
-
-    public string GetTwoThirdSleepText()
-    {
-        int twoThirdSecond = DEFAULT_twoThirdTimeOfSleepingSeond;
-        int hourTwoThirdSecond;
-        int miniueTwoThirdSecond;
-        int secondTwoThirdSecond;
-
-        secondTwoThirdSecond = twoThirdSecond % 60;
-        twoThirdSecond = twoThirdSecond / 60;
-        miniueTwoThirdSecond = twoThirdSecond % 60;
-        hourTwoThirdSecond = twoThirdSecond / 60;
-
-        return string.Format("Two thirds of sleeping time = " + "{0} Hour " + "{1} Miniue " + "{2} Second", hourTwoThirdSecond, miniueTwoThirdSecond, secondTwoThirdSecond);
-    }
     #endregion
 
     #region Character Level Up

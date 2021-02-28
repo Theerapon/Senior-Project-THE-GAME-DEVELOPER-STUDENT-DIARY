@@ -63,7 +63,6 @@ public class GameManager : Manager<GameManager>
         base.Awake();
         _instancedSystemPrefabs = new List<GameObject>();
         InstantiateSystemPrefabs();
-
     }
 
 

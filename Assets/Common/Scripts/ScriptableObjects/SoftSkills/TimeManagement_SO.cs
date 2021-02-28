@@ -21,6 +21,17 @@ public class TimeManagement_SO : SoftSkill_SO
 
     [SerializeField] private TimeManagementSkillLevel[] softSkillLevelsList;
 
+
+    public void Initiate()
+    {
+        if(currentSoftSkillLevel == 0)
+        {
+            totalBONUS_reduceTimeSleeping = softSkillLevelsList[0].BONUS_reduceTimeSleeping;
+            totalBONUS_reduceTimeReadBook = softSkillLevelsList[0].BONUS_reduceTimeReadBook;
+            totalBONUS_reduceTimeTrainCourse = softSkillLevelsList[0].BONUS_reduceTimeTrainCourse;
+        }
+    }
+
     public void UpSoftSkill()
     {
         if (currentSoftSkillLevel == 0)

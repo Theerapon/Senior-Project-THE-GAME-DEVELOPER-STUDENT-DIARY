@@ -20,7 +20,15 @@ public class WorkEthic_SO : SoftSkill_SO
     private float totalBONUS_goldenTimeBootUpProject;
 
     [SerializeField] private WorkEthicSkillLevel[] softSkillLevelsList;
-
+    public void Initiate()
+    {
+        if (currentSoftSkillLevel == 0)
+        {
+            totalBONUS_goldenTimeReduceEnergyConsuption = softSkillLevelsList[0].BONUS_goldenTimeReduceEnergyConsuption;
+            totalBONUS_goldenTimeBootUpMotivation = softSkillLevelsList[0].BONUS_goldenTimeBootUpMotivation;
+            totalBONUS_goldenTimeBootUpProject = softSkillLevelsList[0].BONUS_goldenTimeBootUpProject;
+        }
+    }
     public void UpSoftSkill()
     {
         if (currentSoftSkillLevel == 0)

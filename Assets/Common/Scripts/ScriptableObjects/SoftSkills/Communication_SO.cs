@@ -18,6 +18,14 @@ public class Communication_SO : SoftSkill_SO
     private float totalBONUS_baseBootUpProject;
 
     [SerializeField] private CommunicationSkillLevel[] softSkillLevelsList;
+    public void Initiate()
+    {
+        if(currentSoftSkillLevel == 0)
+        {
+            totalBONUS_charm = softSkillLevelsList[0].BONUS_charm;
+            totalBONUS_baseBootUpProject = softSkillLevelsList[0].BONUS_baseBootUpProject;
+        }
+    }
 
     public void UpSoftSkill()
     {

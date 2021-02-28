@@ -11,7 +11,6 @@ public class TimeManager : Manager<TimeManager>
 
     #endregion
 
-
     #region Default
     [Header("Time Default")]
     [SerializeField] private const double DEFAULT_TIMESCALE = 48;
@@ -68,11 +67,9 @@ public class TimeManager : Manager<TimeManager>
     private double totalSecond = 0;
     private double memorySecond;
 
-    private CharacterStats characterStats;
 
     protected void Start()
     {
-        characterStats = CharacterStats.Instance;
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
         second = 0;
         minute = 0;
@@ -200,7 +197,7 @@ public class TimeManager : Manager<TimeManager>
     private void setText()
     {
         onDate = string.Format("{0} " + "{1}" + " {2} " + "{3}", _currentDays, date, _currentMonth, year);
-        onTime = string.Format("{0:00}:{1:00}" + " Miniue", hour, minute);
+        onTime = string.Format("{0:00}:{1:00} Min.", hour, minute);
         onSeason = string.Format("{0}", _currentSeason);
     }
 
@@ -287,18 +284,8 @@ public class TimeManager : Manager<TimeManager>
         OnSeasonCalendar?.Invoke(onSeason);
     }
 
-    public void ContiniueGameInSummaryScene()
+    public void SkilpTime(int totalSecond)
     {
-        int totalSecond;
-
-        if (characterStats.GetSleepFullTimeSelected())
-        {
-            totalSecond = characterStats.GetDEFAULT_fullTimeOfSleepingSecond();
-        } else
-        {
-            totalSecond = characterStats.GetDEFAULT_twoThirdTimeOfSleepingSeond();
-        }
-
         int hour;
         int miniue;
         int second;
@@ -325,5 +312,19 @@ public class TimeManager : Manager<TimeManager>
     public string GetOnSeason()
     {
         return onSeason;
+    }
+
+    public string GetSecondText(int totalSecond)
+    {
+        int hourFullTime;
+        int miniueFullTime;
+        int secondFullTime;
+
+        secondFullTime = totalSecond % 60;
+        totalSecond = totalSecond / 60;
+        miniueFullTime = totalSecond % 60;
+        hourFullTime = totalSecond / 60;
+
+        return string.Format("{0} Hrs. {1} Min. {2} Sec.", hourFullTime, miniueFullTime, secondFullTime);
     }
 }

@@ -21,6 +21,15 @@ public class CriticalThinking_SO : SoftSkill_SO
 
     [SerializeField] private CriticalThinkingSkillLevel[] softSkillLevelsList;
 
+    public void Initiate()
+    {
+        if (currentSoftSkillLevel == 0)
+        {
+            totalBONUS_baseReduceEnergyConsumption = softSkillLevelsList[0].BONUS_baseReduceEnergyConsumption;
+            totalBONUS_baseBootUpMotivation = softSkillLevelsList[0].BONUS_baseBootUpMotivation;
+            totalBONUS_reduceBugChance = softSkillLevelsList[0].BONUS_reduceBugChance;
+        }
+    }
     public void UpSoftSkill()
     {
         if (currentSoftSkillLevel == 0)
