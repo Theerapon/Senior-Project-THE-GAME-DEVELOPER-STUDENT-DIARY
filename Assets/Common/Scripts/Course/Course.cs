@@ -11,7 +11,10 @@ public class Course : MonoBehaviour
             course_current = Instantiate(course_Template);
         }
     }
-
+    public void SetDiscountCourse(float discount)
+    {
+        course_current.SetDiscountCourse(discount);
+    }
     public void IsCollected()
     {
         course_current.IsCollected();
@@ -22,6 +25,14 @@ public class Course : MonoBehaviour
     }
 
     #region Reporter
+    public int GetDiscountPrice()
+    {
+        return course_current.GetDiscountPrice();
+    }
+    public int GetTotalPrice()
+    {
+        return course_current.GetTotalPrice();
+    }
     public bool GetCourseCollected()
     {
         return course_current.GetCourseCollected();
@@ -108,9 +119,9 @@ public class Course : MonoBehaviour
         return course_current.GetdefaultSoundStatReward();
     }
 
-    public int GetPrice()
+    public int GetOriginalPrice()
     {
-        return course_current.GetPrice();
+        return course_current.GetOriginalPrice();
     }
 
     public string GetNameAuthor()

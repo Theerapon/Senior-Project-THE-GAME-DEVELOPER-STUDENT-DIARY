@@ -4,16 +4,54 @@ using UnityEngine;
 
 public class CourseController : MonoBehaviour
 {
-    void Update()
+    [SerializeField] private CourseDisplay courseDisplay;
+    private CourseManager courseManager;
+    private CharacterStats characterStats;
+
+    [SerializeField] private CourseID billID;
+    [SerializeField] private CourseID learnID;
+
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            BackToMain();
-        }
+        characterStats = CharacterStats.Instance;
+        courseManager = CourseManager.Instance;
     }
 
-    public void BackToMain()
+    public void PurchaseCourse(CourseID courseID)
     {
-        GameManager.Instance.CourseBackToMain();
+        string id = courseID.GetID();
+        billID.SetID(id);
+        courseDisplay.DisplayBill(id);
     }
+
+    public void LearnCourse(CourseID courseID)
+    {
+        string id = courseID.GetID();
+        learnID.SetID(id);
+        courseDisplay.DisplayLearn();
+    }
+
+    public void ConfirmLearnCourse()
+    {
+        string id = learnID.GetID();
+        /*
+        courseManager.courses[id].UnIsCollected();
+        */
+        courseDisplay.CloseAll();
+        courseDisplay.UpdateCollectionCourseIsMain();
+    }
+
+    public void ConfirmPurchaseCourse()
+    {
+        string id = billID.GetID();
+        int totalPrice = courseManager.courses[id].GetTotalPrice();
+        if (totalPrice < characterStats.GetCurrentMoney())
+        {
+            characterStats.TakeMoney(totalPrice);
+            courseManager.courses[billID.GetID()].IsCollected();
+        }
+        courseDisplay.CloseAll();
+        courseDisplay.UpdateAllCourseIsMain();
+    }
+
 }

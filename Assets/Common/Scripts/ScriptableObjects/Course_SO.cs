@@ -15,6 +15,8 @@ public class Course_SO : ScriptableObject
     [SerializeField] private string nameAuthor = "";
     [SerializeField] private string description = "";
     [SerializeField] private int priceCourse = 0;
+    [Range(0,1)]
+    [SerializeField] private float discountCourse = 0f;
     [SerializeField] private bool isCollected = false;
     [SerializeField] private int secondToConsume;
     [SerializeField] private int energyToConsume;
@@ -42,6 +44,11 @@ public class Course_SO : ScriptableObject
     [SerializeField] private LevelRecommended courseRecommended;
 
 
+
+    public void SetDiscountCourse(float discount)
+    {
+        discountCourse = discount;
+    }
     public void IsCollected()
     {
         isCollected = true;
@@ -52,6 +59,14 @@ public class Course_SO : ScriptableObject
     }
 
     #region Reporter
+    public int GetDiscountPrice()
+    {
+        return Mathf.CeilToInt(priceCourse * discountCourse);
+    }
+    public int GetTotalPrice()
+    {
+        return priceCourse - (GetDiscountPrice());
+    }
     public bool GetCourseCollected()
     {
         return isCollected;
@@ -120,7 +135,7 @@ public class Course_SO : ScriptableObject
     {
         return defaultSoundStatReward;
     }
-    public int GetPrice()
+    public int GetOriginalPrice()
     {
         return priceCourse;
     }

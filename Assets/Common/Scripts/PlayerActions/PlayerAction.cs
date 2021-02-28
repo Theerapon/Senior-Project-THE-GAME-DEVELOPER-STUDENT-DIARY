@@ -51,13 +51,5 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 
         return second;
     }
-
-    public int GetMotivationConsumedInSleepAction(int motivationInUse, int totalTime)
-    {
-        int hour = totalTime / 60 / 60;
-        int consumed = hour * motivationInUse;
-
-        return consumed;
-    }
     #endregion
 }
