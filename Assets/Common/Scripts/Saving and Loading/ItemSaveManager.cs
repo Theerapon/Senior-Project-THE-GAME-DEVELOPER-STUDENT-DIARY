@@ -16,6 +16,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
         player = Player.Instance;
         SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         OnLoaded();
+        
     }
 
     private void HandleOnSave()
@@ -37,7 +38,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(Player.Instance.Inventory.ItemSlots, InventoryFileName);
+        SaveItems(Player.Instance.ItemContainer.ItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()
@@ -51,11 +52,11 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(InventoryFileName);
             if (savedSlots == null) return;
-            player.Inventory.ClearItemSlots();
+            player.ItemContainer.ClearItemSlots();
 
             for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                ItemSlot itemSlot = player.Inventory.ItemSlots[i];
+                ItemSlot itemSlot = player.ItemContainer.ItemSlots[i];
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
 
                 if (savedSlot == null)
@@ -114,7 +115,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = itemsSO;
 
-                player.Inventory.AddItem(itemType);
+                player.ItemContainer.AddItem(itemType);
                 player.Equip(itemType);
             }
         }       

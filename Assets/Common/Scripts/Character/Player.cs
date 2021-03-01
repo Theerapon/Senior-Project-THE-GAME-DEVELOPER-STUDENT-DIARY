@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : Manager<Player>
 {
     [Header("Public")]
-    public CharacterInventory Inventory;
+    public ItemContainer ItemContainer;
 	public EquipmentPanel Equipment;
 
 	[SerializeField] Image draggableItem;
@@ -15,36 +15,35 @@ public class Player : Manager<Player>
     protected override void Awake()
     {
 		base.Awake();
-		Inventory = CharacterInventory.instance;
+		ItemContainer = ItemContainer.Instance;
 		Equipment = EquipmentPanel.instance;
 	}
 
     protected void Start()
     {
-
 		// Setup Events:
 		// Right Click
-		Inventory.OnRightClickEvent += InventoryRightClick;
+		ItemContainer.OnRightClickEvent += InventoryRightClick;
 		Equipment.OnRightClickEvent += EquipmentPanelRightClick;
 
 		// Pointer Enter
-		Inventory.OnPointerEnterEvent += ShowTooltip;
+		ItemContainer.OnPointerEnterEvent += ShowTooltip;
 		Equipment.OnPointerEnterEvent += ShowTooltip;
 		// Pointer Exit
-		Inventory.OnPointerExitEvent += HideTooltip;
+		ItemContainer.OnPointerExitEvent += HideTooltip;
 		Equipment.OnPointerExitEvent += HideTooltip;
 
 		// Begin Drag
-		Inventory.OnBeginDragEvent += BeginDrag;
+		ItemContainer.OnBeginDragEvent += BeginDrag;
 		Equipment.OnBeginDragEvent += BeginDrag;
 		// End Drag
-		Inventory.OnEndDragEvent += EndDrag;
+		ItemContainer.OnEndDragEvent += EndDrag;
 		Equipment.OnEndDragEvent += EndDrag;
 		// Drag
-		Inventory.OnDragEvent += Drag;
+		ItemContainer.OnDragEvent += Drag;
 		Equipment.OnDragEvent += Drag;
 		// Drop
-		Inventory.OnDropEvent += Drop;
+		ItemContainer.OnDropEvent += Drop;
 		Equipment.OnDropEvent += Drop;
 		//dropItemArea.OnDropEvent += DropItemOutsideUI;
 	}
@@ -80,7 +79,7 @@ public class Player : Manager<Player>
 		{
 			SwapItems(dropItemSlot);
 		}
-		Inventory.UpdatedItemToHotBar();
+		ItemContainer.UpdatedItemToHotBar();
 	}
 
 	private void SwapItems(BaseItemSlot dropItemSlot)
@@ -147,14 +146,14 @@ public class Player : Manager<Player>
 		} else if (itemSlot.ITEM != null && itemSlot.Amount != 0)
         {
 			Instantiate(itemSlot.ITEM).UseItem();
-			Inventory.RemoveItem(itemSlot.ITEM);
+			ItemContainer.RemoveItem(itemSlot.ITEM);
         }
 		
 	}
 
     public void Equip(ItemPickUp item)
 	{
-		if (Inventory.RemoveItem(item))
+		if (ItemContainer.RemoveItem(item))
 		{
 			ItemPickUp previousItem;
 			if (Equipment.AddItem(item, out previousItem))
@@ -162,24 +161,24 @@ public class Player : Manager<Player>
 				
 				if (previousItem != null)
 				{
-					Inventory.AddItem(previousItem);
+					ItemContainer.AddItem(previousItem);
 					previousItem.Unequip(this);
 				}
 				item.Equip(this);
 			}
 			else
 			{
-				Inventory.AddItem(item);
+				ItemContainer.AddItem(item);
 			}
 		}
 	}
 
 	public void Unequip(ItemPickUp item)
 	{
-		if (Inventory.CanAddItem(item) && Equipment.RemoveItem(item))
+		if (ItemContainer.CanAddItem(item) && Equipment.RemoveItem(item))
 		{
 			item.Unequip(this);
-			Inventory.AddItem(item);
+			ItemContainer.AddItem(item);
 		}
 	}
 }

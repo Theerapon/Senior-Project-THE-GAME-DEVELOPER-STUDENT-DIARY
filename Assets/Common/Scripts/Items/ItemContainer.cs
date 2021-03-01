@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemContainer : MonoBehaviour, IItemContainer
+public class ItemContainer : Manager<ItemContainer>, IItemContainer
 {
     public List<ItemSlot> ItemSlots;
 
@@ -21,6 +21,17 @@ public class ItemContainer : MonoBehaviour, IItemContainer
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
 
+    bool addedItem = true;
+    ItemPickUp itemEntry;
+
+    Queue<ItemPickUp> queueItemsToAdd;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        queueItemsToAdd = new Queue<ItemPickUp>();
+        
+    }
 
     protected void Start()
     {
@@ -36,18 +47,74 @@ public class ItemContainer : MonoBehaviour, IItemContainer
         UpdatedItemToHotBar();
     }
 
+    protected void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            TriggerItemUse(101);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            TriggerItemUse(102);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            TriggerItemUse(103);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            TriggerItemUse(104);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            TriggerItemUse(105);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            TriggerItemUse(106);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            TriggerItemUse(107);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            TriggerItemUse(108);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            TriggerItemUse(109);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            TriggerItemUse(110);
+        }
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            TriggerItemUse(111);
+        }
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            TriggerItemUse(112);
+        }
+
+        if (queueItemsToAdd.Count > 0)
+        {
+            DequeueItemsToAdd();
+            if (!addedItem)
+            {
+                addedItem = TryPickUp();
+            }
+        }
+
+
+    }
+
     protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
     {
         if (action != null)
             action(slot);
     }
-
-    protected virtual void OnValidate()
-    {
-        GetComponentsInChildren(includeInactive: true, result: ItemSlots);
-    }
-
-
 
     public virtual bool AddItem(ItemPickUp item)
     {
@@ -164,5 +231,45 @@ public class ItemContainer : MonoBehaviour, IItemContainer
             }
         }
         return false;
+    }
+
+    public void StoreItem(ItemPickUp itemToStore)
+    {
+        queueItemsToAdd.Enqueue(itemToStore);
+    }
+
+    private void DequeueItemsToAdd()
+    {
+        addedItem = false;
+        itemEntry = queueItemsToAdd.Dequeue();
+    }
+
+    private bool TryPickUp()
+    {
+        //dequeue
+        bool added = false;
+
+        //Check to see if the item to be stored was properly submitted to the inventory - Continue if Yes otherwise do nothing
+        if (itemEntry)
+        {
+            added = AddItem(itemEntry);
+        }
+        return added;
+    }
+
+    public void TriggerItemUse(int itemToUseID)
+    {
+
+    }
+
+
+    [SerializeField] protected Transform itemsParent;
+    protected virtual void OnValidate()
+    {
+        GetComponentsInChildren(includeInactive: true, result: ItemSlots);
+        
+        if (itemsParent != null)
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: ItemSlots);
+
     }
 }
