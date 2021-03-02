@@ -3,80 +3,87 @@
 [CreateAssetMenu(fileName = "NewStats", menuName = "Character/Stats", order = 1)]
 public class CharacterStats_SO : ScriptableObject
 {
+    [System.Serializable]
+    public class CharacterLevel
+    {
+        public int maxEnergy;
+        public int pointStatus;
+        public int requiredXP;
 
+    }
+
+
+    [Header("Level")]
+    [SerializeField] private CharacterLevel [] characterLevels;
+
+    [Header("Identity")]
     #region Fields
     [SerializeField] private string nameCharacter = "";
-
     [SerializeField] private bool isPlayer = false;
+    private int currentCharacterLevel = 0;
+    private int currentExp = 0;
+    private int hasPointStatus = 0;
+    private int hasSoftSkillPoints = 0;
 
-    [SerializeField] private float maxEnergy = 100f;
-    [SerializeField] private const float DEFAULT_currentEnergy = 0f;
-    [SerializeField] private const float DEFAULT_baseReduceEnergyConsumption = 0f; // 0%
-    [SerializeField] private const float DEFAULT_goldenTimeReduceEnergyConsuption = 0.05f; // 5%
-    private float currentEnergy = DEFAULT_currentEnergy;
-    private float baseReduceEnergyConsumption = DEFAULT_baseReduceEnergyConsumption;
-    private float goldenTimeReduceEnergyConsuption = DEFAULT_goldenTimeReduceEnergyConsuption;
+    [Header("Energy")]
+    [SerializeField] private int maxEnergy = 100;
+    [SerializeField] private float DEFAULT_baseReduceEnergyConsumption = 0f; // 0%
+    [SerializeField] private float DEFAULT_goldenTimeReduceEnergyConsuption = 0.05f; // 5%
+    private int currentEnergy;
 
+    [Header("Motivation")]
+    private int DEFAULT_maxMotivation = 100;
+    [SerializeField] private float DEFAULT_baseBootUpMotivation = 0f; // 0%
+    [SerializeField] private float DEFAULT_goldenTimeBootUpMotivation = 0.05f; // 5%
+    private int currentMotivation;
+    private float motivationCalculated;
 
-    [SerializeField] private const float DEFAULT_maxMotivation = 100f;
-    [SerializeField] private const float DEFAULT_currentMotivation = 0f;
-    [SerializeField] private const float DEFAULT_baseBootUpMotivation = 0f; // 0%
-    [SerializeField] private const float DEFAULT_goldenTimeBootUpMotivation = 0.05f; // 5%
-    private float currentMotivation = DEFAULT_currentMotivation;
-    private float baseBootUpMotivation = DEFAULT_baseBootUpMotivation;
-    private float goldenTimeBootUpMotivation = DEFAULT_goldenTimeBootUpMotivation;
-
-
+    [Header("Money")]
     [SerializeField] private int currentMoney = 0;
 
-    [SerializeField] private const int DEFAULT_codingStatus = 10;
-    [SerializeField] private const int DEFAULT_designStatus = 10;
-    [SerializeField] private const int DEFAULT_artStatus = 10;
-    [SerializeField] private const int DEFAULT_audioStatus = 10;
-    [SerializeField] private const int DEFAULT_testStatus = 10;
-    private int codingStatus = DEFAULT_codingStatus;
-    private int designStatus = DEFAULT_designStatus;
-    private int artStatus = DEFAULT_artStatus;
-    private int audioStatus = DEFAULT_audioStatus;
-    private int testStatus = DEFAULT_testStatus;
+    [Header("Programming")]
+    [SerializeField] private int codingStatus = 10;
+    [SerializeField] private int designStatus = 10;
+    [SerializeField] private int artStatus = 10;
+    [SerializeField] private int soundStatus = 10;
+    [SerializeField] private int testStatus = 10;
 
-    [SerializeField] private const float DEFAULT_baseBootUpProject = 0f; // 0%
-    [SerializeField] private const float DEFAULT_goldenTimeBootUpProject = 0.05f; // 5%
-    private float baseBootUpProject = DEFAULT_baseBootUpProject;
-    private float goldenTimeBootUpProject = DEFAULT_goldenTimeBootUpProject;
-    [SerializeField] private const float DEFAULT_reduceBugChance = 0f;
-    private float reduceBugChance = DEFAULT_reduceBugChance;
+    [Header("BootUp Project")]
+    [SerializeField] private float DEFAULT_baseBootUpProject = 0f; // 0%
+    [SerializeField] private float DEFAULT_goldenTimeBootUpProject = 0.05f; // 5%
+    [SerializeField] private float DEFAULT_reduceBugChance = 0f;
 
-    [SerializeField] private const float DEFAULT_charm = 1f;
-    private float charm = DEFAULT_charm;
+    [Header("Relationship")]
+    [SerializeField] private float DEFAULT_charm = 1f;
 
-    [SerializeField] private const float DEFAULT_negativeEventsChance = 0.3f; // 30%
-    [SerializeField] private const float DEFAULT_negativeEventsEffect = 1f; // 100%
-    [SerializeField] private const float DEFAULT_positiveEventsEffect = 1f; // 100%
-    private float negativeEventsChance = DEFAULT_negativeEventsChance; // 30%
-    private float negativeEventsEffect = DEFAULT_negativeEventsEffect; // 100%
-    private float positiveEventsEffect = DEFAULT_positiveEventsEffect; // 100%
+    [Header("Events")]
+    [SerializeField] private float DEFAULT_negativeEventsChance = 0.3f; // 30%
+    [SerializeField] private float DEFAULT_negativeEventsEffect = 1f; // 100%
+    [SerializeField] private float DEFAULT_positiveEventsEffect = 1f; // 100%
 
-    [SerializeField] private const int DEFAULT_fullTimeOfSleepingSecond = 28800; // 9 hour
-    [SerializeField] private const int DEFAULT_twoThirdTimeOfSleepingSeond = DEFAULT_fullTimeOfSleepingSecond * (2 / 3); // 5 hour 20 miniue
-    [SerializeField] private const float DEFAULT_reduceTimeSleeping = 0f;
-    private float reduceTimeSleeping = DEFAULT_reduceTimeSleeping;
+    [Header("Time")]
+    [SerializeField] private int DEFAULT_fullTimeOfSleepingSecond = 28800; // 9 hour
+    [SerializeField] private int DEFAULT_twoThirdTimeOfSleepingSeond; // 5 hour 20 miniue
+    [SerializeField] private float DEFAULT_reduceTimeSleeping = 0f;
+    private bool sleepFullTimeSelected = true;
 
-    [SerializeField] private const float DEFAULT_reduceTimeReadBook = 0f;
-    [SerializeField] private const float DEFAULT_reduceTimeTrainCourse = 0f;
-    private float reduceTimeReadBook = DEFAULT_reduceTimeReadBook;
-    private float reduceTimeTrainCourse = DEFAULT_reduceTimeTrainCourse;
+    [SerializeField] private float DEFAULT_reduceTimeReadBook = 0f;
+    [SerializeField] private float DEFAULT_reduceTimeTrainCourse = 0f;
 
     #endregion
 
 
     #region Stat Increasers
-    public void ApplyMaxEnergy(float newEnergyAmount)
+    public void ApplySleepFullTimeSelected(bool fullTime)
+    {
+        sleepFullTimeSelected = fullTime;
+    }
+    public void ApplyMaxEnergy(int newEnergyAmount)
     {
         maxEnergy = newEnergyAmount;
     }
 
-    public void ApplyCurrentEnergy(float energyAmount)
+    public void ApplyCurrentEnergy(int energyAmount)
     {
         if ((currentEnergy + energyAmount) > maxEnergy)
         {
@@ -87,18 +94,22 @@ public class CharacterStats_SO : ScriptableObject
             currentEnergy += energyAmount;
         } 
     }
-
-    public void ApplyBaseReduceEnergyConsumption(float baseReduceEnergyConsumption)
+    public void GiveXP(int xp)
     {
-        this.baseReduceEnergyConsumption += baseReduceEnergyConsumption;
+        currentExp += xp;
+        if (currentCharacterLevel < characterLevels.Length - 1)
+        {
+            int levelTarget = characterLevels[currentCharacterLevel + 1].requiredXP;
+
+            if (currentExp >= levelTarget)
+                SetCharacterLevel(currentCharacterLevel);
+        } else
+        {
+            Debug.Log("maxlevel");
+        }
     }
 
-    public void ApplyGoldenTimeReduceEnergyConsuption(float goldenTimeReduceEnergyConsuption)
-    {
-        this.goldenTimeReduceEnergyConsuption += goldenTimeReduceEnergyConsuption;
-    }
-
-    public void ApplyCurrentMotivation(float currentMotivation)
+    public void ApplyCurrentMotivation(int currentMotivation)
     {
         if ((this.currentMotivation + currentMotivation) > DEFAULT_maxMotivation)
         {
@@ -108,62 +119,7 @@ public class CharacterStats_SO : ScriptableObject
         {
             this.currentMotivation += currentMotivation;
         }
-
-    }
-
-    public void ApplyBaseBootUpMotivation(float baseBootUpMotivation)
-    {
-        this.baseBootUpMotivation += baseBootUpMotivation;
-    }
-
-    public void ApplyGoldenTimeBootUpMotivation(float goldenTimeBootUpMotivation)
-    {
-        this.goldenTimeBootUpMotivation += goldenTimeBootUpMotivation;
-    }
-
-    public void ApplyBaseBootUpProject(float baseBootUpProject)
-    {
-        this.baseBootUpProject += baseBootUpProject;
-    }
-
-    public void ApplyGoldenTimeBootUpProject(float goldenTimeBootUpProject)
-    {
-        this.goldenTimeBootUpProject += goldenTimeBootUpProject;
-    }
-
-    public void ApplyReduceBugChance(float reduceBugChance)
-    {
-        this.reduceBugChance += reduceBugChance;
-    }
-
-    public void ApplyNegativeEventsChance(float negativeEventsChance)
-    {
-        this.negativeEventsChance += negativeEventsChance;
-    }
-
-    public void ApplyNegativeEventsEffect(float negativeEventsEffect)
-    {
-        this.negativeEventsEffect += negativeEventsEffect;
-    }
-
-    public void ApplyPositiveEventsEffect(float positiveEventsEffect)
-    {
-        this.positiveEventsEffect += positiveEventsEffect;
-    }
-
-    public void ApplyReduceTimeSleeping(float reduceTimeSleeping)
-    {
-        this.reduceTimeSleeping += reduceTimeSleeping;
-    }
-
-    public void ApplyReduceTimeReadBook(float reduceTimeReadBook)
-    {
-        this.reduceTimeReadBook += reduceTimeReadBook;
-    }
-
-    public void ApplyReduceTimeTrainCourse(float reduceTimeTrainCourse)
-    {
-        this.reduceTimeTrainCourse += reduceTimeTrainCourse;
+        MotivationCalculated();
     }
 
     public void ApplyCurrentMoney(int currentMoney)
@@ -186,9 +142,9 @@ public class CharacterStats_SO : ScriptableObject
         artStatus += artAmount;
     }
 
-    public void ApplyAudioStatus(int audioAmount)
+    public void ApplySoundStatus(int soundAmount)
     {
-        audioStatus += audioAmount;
+        soundStatus += soundAmount;
     }
 
     public void ApplyTestStatus(int testAmount)
@@ -198,11 +154,11 @@ public class CharacterStats_SO : ScriptableObject
     #endregion
 
     #region Stat Reducers
-    public void TakeEnergy(float energyAmount)
+    public void TakeEnergy(int energyAmount)
     {
-        if(currentEnergy - energyAmount <= DEFAULT_currentEnergy)
+        if(currentEnergy - energyAmount <= 0)
         {
-            currentEnergy = DEFAULT_currentEnergy;
+            currentEnergy = 0;
         }
         else
         {
@@ -210,185 +166,43 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ReduceBaseReduceEnergyConsumption(float baseReduceEnergy)
+    public void UseStatusPoint()
     {
-        if(baseReduceEnergyConsumption - baseReduceEnergy <= DEFAULT_baseReduceEnergyConsumption)
+        if (hasPointStatus - 1 <= 0)
         {
-            baseReduceEnergyConsumption = DEFAULT_baseReduceEnergyConsumption;
+            hasPointStatus = 0;
         }
         else
         {
-            baseReduceEnergyConsumption -= baseReduceEnergy;
+            hasPointStatus--;
         }
     }
 
-    public void ReduceGoldenTimeReduceEnergyConsuption(float goldenTimeReduceEnergy)
+    public void UseSoftSkillPoint()
     {
-        if (goldenTimeReduceEnergyConsuption - goldenTimeReduceEnergy <= DEFAULT_goldenTimeReduceEnergyConsuption)
+        if (hasSoftSkillPoints - 1 <= 0)
         {
-            goldenTimeReduceEnergyConsuption = DEFAULT_goldenTimeReduceEnergyConsuption;
+            hasSoftSkillPoints = 0;
         }
         else
         {
-            goldenTimeReduceEnergyConsuption -= goldenTimeReduceEnergy;
+            hasSoftSkillPoints--;
         }
     }
 
-    public void ReduceCurrentMotivation(float currentMotivation)
+    public void ReduceCurrentMotivation(int currentMotivation)
     {
-        if (this.currentMotivation - currentMotivation <= DEFAULT_currentMotivation)
+        if (this.currentMotivation - currentMotivation <= 0)
         {
-            this.currentMotivation = DEFAULT_currentMotivation;
+            this.currentMotivation = 0;
         }
         else
         {
             this.currentMotivation -= currentMotivation;
         }
+        MotivationCalculated();
     }
 
-    public void ReduceBaseBootUpMotivation(float baseBootUpMotivation)
-    {
-        if (this.baseBootUpMotivation - baseBootUpMotivation <= DEFAULT_baseBootUpMotivation)
-        {
-            this.baseBootUpMotivation = DEFAULT_baseBootUpMotivation;
-        }
-        else
-        {
-            this.baseBootUpMotivation -= baseBootUpMotivation;
-        }
-    }
-
-    public void ReduceGoldenTimeBootUpMotivation(float goldenTimeBootUpMotivation)
-    {
-        if (this.goldenTimeBootUpMotivation - goldenTimeBootUpMotivation <= DEFAULT_goldenTimeBootUpMotivation)
-        {
-            this.goldenTimeBootUpMotivation = DEFAULT_goldenTimeBootUpMotivation;
-        }
-        else
-        {
-            this.goldenTimeBootUpMotivation -= goldenTimeBootUpMotivation;
-        }
-    }
-
-    public void ReduceBaseBootUpProject(float baseBootUpProject)
-    {
-        if (this.baseBootUpProject - baseBootUpProject <= DEFAULT_baseBootUpProject)
-        {
-            this.baseBootUpProject = DEFAULT_baseBootUpProject;
-        }
-        else
-        {
-            this.baseBootUpProject -= baseBootUpProject;
-        }
-    }
-
-    public void ReduceGoldenTimeBootUpProject(float goldenTimeBootUpProject)
-    {
-        if (this.goldenTimeBootUpProject - goldenTimeBootUpProject <= DEFAULT_goldenTimeBootUpProject)
-        {
-            this.goldenTimeBootUpProject = DEFAULT_goldenTimeBootUpProject;
-        }
-        else
-        {
-            this.goldenTimeBootUpProject -= goldenTimeBootUpProject;
-        }
-    }
-
-    public void ReduceReduceBugChance(float reduceBugChance)
-    {
-        if (this.reduceBugChance - reduceBugChance <= DEFAULT_reduceBugChance)
-        {
-            this.reduceBugChance = DEFAULT_reduceBugChance;
-        }
-        else
-        {
-            this.reduceBugChance -= reduceBugChance;
-        }
-    }
-
-    public void ReduceCharm(float charm)
-    {
-        if (this.charm - charm <= DEFAULT_charm)
-        {
-            this.charm = DEFAULT_charm;
-        }
-        else
-        {
-            this.charm -= charm;
-        }
-    }
-
-    public void ReduceNegativeEventsChance(float negativeEventsChance)
-    {
-        if (this.negativeEventsChance - negativeEventsChance <= DEFAULT_negativeEventsChance)
-        {
-            this.negativeEventsChance = DEFAULT_negativeEventsChance;
-        }
-        else
-        {
-            this.negativeEventsChance -= negativeEventsChance;
-        }
-    }
-
-    public void ReduceNegativeEventsEffect(float negativeEventsEffect)
-    {
-        if (this.negativeEventsEffect - negativeEventsEffect <= DEFAULT_negativeEventsEffect)
-        {
-            this.negativeEventsEffect = DEFAULT_negativeEventsEffect;
-        }
-        else
-        {
-            this.negativeEventsEffect -= negativeEventsEffect;
-        }
-    }
-
-    public void ReducePositiveEventsEffect(float positiveEventsEffect)
-    {
-        if (this.positiveEventsEffect - positiveEventsEffect <= DEFAULT_positiveEventsEffect)
-        {
-            this.positiveEventsEffect = DEFAULT_positiveEventsEffect;
-        }
-        else
-        {
-            this.positiveEventsEffect -= positiveEventsEffect;
-        }
-    }
-
-    public void ReduceReduceTimeSleeping(float reduceTimeSleeping)
-    {
-        if (this.reduceTimeSleeping - reduceTimeSleeping <= DEFAULT_reduceTimeSleeping)
-        {
-            this.reduceTimeSleeping = DEFAULT_reduceTimeSleeping;
-        }
-        else
-        {
-            this.reduceTimeSleeping -= reduceTimeSleeping;
-        }
-    }
-
-    public void ReduceReduceTimeReadBook(float reduceTimeReadBook)
-    {
-        if (this.reduceTimeReadBook - reduceTimeReadBook <= DEFAULT_reduceTimeReadBook)
-        {
-            this.reduceTimeReadBook = DEFAULT_reduceTimeReadBook;
-        }
-        else
-        {
-            this.reduceTimeReadBook -= reduceTimeReadBook;
-        }
-    }
-
-    public void ReduceReduceTimeTrainCourse(float reduceTimeTrainCourse)
-    {
-        if (this.reduceTimeTrainCourse - reduceTimeReadBook <= DEFAULT_reduceTimeTrainCourse)
-        {
-            this.reduceTimeTrainCourse = DEFAULT_reduceTimeTrainCourse;
-        }
-        else
-        {
-            this.reduceTimeTrainCourse -= reduceTimeTrainCourse;
-        }
-    }
 
     public void ReducedCoding(int codingAmount)
     {
@@ -426,15 +240,15 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ReducedAudio(int audioAmount)
+    public void ReducedSound(int soundAmount)
     {
-        if (audioStatus - audioAmount <= 0)
+        if (soundStatus - soundAmount <= 0)
         {
-            audioStatus = 0;
+            soundStatus = 0;
         }
         else
         {
-            audioStatus -= audioAmount;
+            soundStatus -= soundAmount;
         }
     }
 
@@ -457,6 +271,11 @@ public class CharacterStats_SO : ScriptableObject
     #endregion
 
     #region Reporter
+    public bool GetSleepFullTimeSelected()
+    {
+        return sleepFullTimeSelected;
+    }
+
     public string GetNameCharacter()
     {
         return nameCharacter;
@@ -477,113 +296,18 @@ public class CharacterStats_SO : ScriptableObject
         return currentEnergy;
     }
 
-    public float GetBaseReduceEnergyConsumption()
-    {
-        return baseReduceEnergyConsumption;
-    }
-
-    public float GetGoldenTimeReduceEnergyConsuption()
-    {
-        return goldenTimeReduceEnergyConsuption;
-    }
-
-    public float GetCurrentMotivation()
+    public int GetCurrentMotivation()
     {
         return currentMotivation;
     }
-
-    public float GetGoldenTimeBootUpMotivation()
-    {
-        return goldenTimeBootUpMotivation;
-    }
-
-    public float GetBaseBootUpMotivation()
-    {
-        return baseBootUpMotivation;
-    }
-
-    public float GetBaseBootUpProject()
-    {
-        return baseBootUpProject;
-    }
-
-    public float GetGoldenTimeBootUpProject()
-    {
-        return goldenTimeBootUpProject;
-    }
-
-    public float GetReduceBugChance()
-    {
-        return reduceBugChance;
-    }
-    public float GetCharm()
-    {
-        return charm;
-    }
-    public float GetNegativeEventsChance()
-    {
-        return negativeEventsChance;
-    }
-    public float GetNegativeEventsEffect()
-    {
-        return negativeEventsEffect;
-    }
-    public float GetPositiveEventsEffect()
-    {
-        return positiveEventsEffect;
-    }
-
-    public float GetReduceTimeSleeping()
-    {
-        return reduceTimeSleeping;
-    }
-
-    public float GetReduceTimeReadBook()
-    {
-        return reduceTimeReadBook;
-    }
-    public float GetReduceTimeTrainCourse()
-    {
-        return reduceTimeTrainCourse;
-    }
-
-    public int GetStatusCoding()
-    {
-        return codingStatus;
-    }
-
-    public int GetStatusDesign()
-    {
-        return designStatus;
-    }
-
-    public int GetStatusArt()
-    {
-        return artStatus;
-    }
-
-    public int GetStatusTest()
-    {
-        return testStatus;
-    }
-
-    public int GetStatusAudio()
-    {
-        return audioStatus;
-    }
-
     public int GetCurrentMoney()
     {
         return currentMoney;
     }
 
-    public float GetDEFAULT_MaxMotivation()
+    public int GetDEFAULT_MaxMotivation()
     {
         return DEFAULT_maxMotivation;
-    }
-    public float GetDEFAULT_currentEnergy()
-    {
-        return DEFAULT_currentEnergy;
     }
 
     public float GetDEFAULT_baseReduceEnergyConsumption()
@@ -594,10 +318,7 @@ public class CharacterStats_SO : ScriptableObject
     {
         return DEFAULT_goldenTimeReduceEnergyConsuption;
     }
-    public float GetDEFAULT_currentMotivation()
-    {
-        return DEFAULT_currentMotivation;
-    }
+
     public float GetDEFAULT_baseBootUpMotivation()
     {
         return DEFAULT_baseBootUpMotivation;
@@ -606,25 +327,25 @@ public class CharacterStats_SO : ScriptableObject
     {
         return DEFAULT_goldenTimeBootUpMotivation;
     }
-    public float GetDEFAULT_codingStatus()
+    public int GetCodingStatus()
     {
-        return DEFAULT_codingStatus;
+        return codingStatus;
     }
-    public float GetDEFAULT_designStatus()
+    public int GetDesignStatus()
     {
-        return DEFAULT_designStatus;
+        return designStatus;
     }
-    public float GetDEFAULT_artStatus()
+    public int GetArtStatus()
     {
-        return DEFAULT_artStatus;
+        return artStatus;
     }
-    public float GetDEFAULT_audioStatus()
+    public int GetSoundStatus()
     {
-        return DEFAULT_audioStatus;
+        return soundStatus;
     }
-    public float GetDEFAULT_testStatus()
+    public int GetTestStatus()
     {
-        return DEFAULT_testStatus;
+        return testStatus;
     }
     public float GetDEFAULT_baseBootUpProject()
     {
@@ -654,11 +375,11 @@ public class CharacterStats_SO : ScriptableObject
     {
         return DEFAULT_positiveEventsEffect;
     }
-    public float GetDEFAULT_fullTimeOfSleepingSecond()
+    public int GetDEFAULT_fullTimeOfSleepingSecond()
     {
         return DEFAULT_fullTimeOfSleepingSecond;
     }
-    public float GetDEFAULT_twoThirdTimeOfSleepingSeond()
+    public int GetDEFAULT_twoThirdTimeOfSleepingSeond()
     {
         return DEFAULT_twoThirdTimeOfSleepingSeond;
     }
@@ -674,7 +395,96 @@ public class CharacterStats_SO : ScriptableObject
     {
         return DEFAULT_reduceTimeTrainCourse;
     }
+    public int GetCurrentCharacterLevel()
+    {
+        return currentCharacterLevel;
+    }
+    public int GetCurrentExp()
+    {
+        return currentExp;
+    }
+    public int GetPointStatus()
+    {
+        return hasPointStatus;
+    }
+    public int GetSoftSkillPoints()
+    {
+        return hasSoftSkillPoints;
+    }
+    public float GetMotivationCalculated()
+    {
+        return motivationCalculated;
+    }
+    #endregion
 
+    #region Character Level Up
+    public void SetCharacterLevel(int characterLevel)
+    {
+        currentCharacterLevel = characterLevel + 1;
+        currentExp = 0;
 
+        hasPointStatus += characterLevels[currentCharacterLevel].pointStatus;
+        hasSoftSkillPoints++;
+
+        maxEnergy = characterLevels[currentCharacterLevel].maxEnergy;
+
+        currentEnergy = maxEnergy;
+        currentMotivation = DEFAULT_maxMotivation;
+
+        if (characterLevel > 1)
+        {
+            DEFAULT_baseReduceEnergyConsumption += 0.01f;
+            DEFAULT_goldenTimeReduceEnergyConsuption += 0.01f;
+
+            DEFAULT_baseBootUpMotivation += 0.01f;
+            DEFAULT_goldenTimeBootUpMotivation += 0.01f;
+
+            DEFAULT_baseBootUpProject += 0.01f;
+            DEFAULT_goldenTimeBootUpProject += 0.01f;
+            DEFAULT_reduceBugChance += 0.01f;
+
+            DEFAULT_charm += 0.1f;
+
+            DEFAULT_negativeEventsChance -= 0.01f;
+            DEFAULT_negativeEventsEffect -= 0.005f;
+
+            DEFAULT_positiveEventsEffect += 0.005f;
+
+            DEFAULT_fullTimeOfSleepingSecond -= 60;
+            DEFAULT_twoThirdTimeOfSleepingSeond = (int)Mathf.RoundToInt(DEFAULT_fullTimeOfSleepingSecond * (0.6f));
+
+            DEFAULT_reduceTimeSleeping += 0.005f;
+            DEFAULT_reduceTimeReadBook += 0.005f;
+            DEFAULT_reduceTimeTrainCourse += 0.005f;
+            //OnLevelUp.Invoke(charLevel);
+        } else
+        {
+            DEFAULT_twoThirdTimeOfSleepingSeond = (int)Mathf.RoundToInt(DEFAULT_fullTimeOfSleepingSecond * (0.6f));
+        }
+    }
+    #endregion
+
+    #region Calculated Motivation
+    private void MotivationCalculated()
+    {
+        float motivation;
+        if(currentMotivation > 79)
+        {
+            motivation = 1f;
+        } else if (currentMotivation > 59)
+        {
+            motivation = 0.9f;
+        } else if (currentMotivation > 39)
+        {
+            motivation = 0.7f;
+        } else if (currentMotivation > 19)
+        {
+            motivation = 0.5f;
+        } else
+        {
+            motivation = 0.3f;
+        }
+        motivationCalculated = motivation;
+    }
     #endregion
 }

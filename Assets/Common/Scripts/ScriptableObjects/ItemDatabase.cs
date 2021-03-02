@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CreateAssetMenu(fileName = "New database", menuName = "Item Database/New database")]
-public class ItemDatabase : ScriptableObject
+[CreateAssetMenu(fileName = "New database", menuName = "Database/Item Database/New database", order = 0)]
+public class ItemDatabase : Database_SO
 {
 	[SerializeField] ItemPickUps_SO[] itemPickUps_SOs;
 
@@ -33,50 +33,9 @@ public class ItemDatabase : ScriptableObject
 		}
 	}
 
-
-	#if UNITY_EDITOR
-	private void OnValidate()
-	{
-		LoadItems();
-	}
-	private void OnEnable()
-	{
-		EditorApplication.projectChanged -= LoadItems;
-		EditorApplication.projectChanged += LoadItems;
-	}
-
-	private void OnDisable()
-	{
-		EditorApplication.projectChanged -= LoadItems;
-	}
-
-	private void LoadItems()
+	protected override void LoadItems()
 	{
 		itemPickUps_SOs = FindAssetsByType<ItemPickUps_SO>("Assets/Common/Resources/Items");
 	}
 
-	public static T[] FindAssetsByType<T>(params string[] folders) where T : Object
-	{
-		string type = typeof(T).Name;
-
-		string[] guids;
-		if (folders == null || folders.Length == 0)
-		{
-			guids = AssetDatabase.FindAssets("t:" + type);
-		}
-		else
-		{
-			guids = AssetDatabase.FindAssets("t:" + type, folders);
-		}
-
-		T[] assets = new T[guids.Length];
-
-		for (int i = 0; i < guids.Length; i++)
-		{
-			string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
-			assets[i] = AssetDatabase.LoadAssetAtPath<T>(assetPath);
-		}
-		return assets;
-	}
-	#endif
 }

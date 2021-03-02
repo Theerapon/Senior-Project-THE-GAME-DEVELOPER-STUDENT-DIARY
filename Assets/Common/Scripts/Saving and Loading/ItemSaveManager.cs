@@ -7,28 +7,16 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
     [SerializeField] ItemDatabase itemDatabase;
 
-    private Player player = null;
+    private Player player;
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
 
-    protected override void Awake()
-    {
-        base.Awake();
-        if(Player.instance != null)
-        {
-            player = Player.instance;
-        }
-
-
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
-        }
-    }
-
     protected void Start()
     {
+        player = Player.Instance;
+        SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         OnLoaded();
+        
     }
 
     private void HandleOnSave()
@@ -50,12 +38,12 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(Player.instance.Inventory.ItemSlots, InventoryFileName);
+        SaveItems(Player.Instance.ItemContainer.ItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()
     {
-        SaveItems(Player.instance.Equipment.EquipmentSlots, EquipmentFileName);
+        SaveItems(Player.Instance.Equipment.EquipmentSlots, EquipmentFileName);
     }
 
     private void LoadInventory()
@@ -64,11 +52,11 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(InventoryFileName);
             if (savedSlots == null) return;
-            player.Inventory.ClearItemSlots();
+            player.ItemContainer.ClearItemSlots();
 
             for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                ItemSlot itemSlot = player.Inventory.ItemSlots[i];
+                ItemSlot itemSlot = player.ItemContainer.ItemSlots[i];
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
 
                 if (savedSlot == null)
@@ -127,7 +115,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = itemsSO;
 
-                player.Inventory.AddItem(itemType);
+                player.ItemContainer.AddItem(itemType);
                 player.Equip(itemType);
             }
         }       

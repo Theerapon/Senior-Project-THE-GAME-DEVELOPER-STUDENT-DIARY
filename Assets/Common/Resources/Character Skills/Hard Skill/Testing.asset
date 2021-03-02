@@ -9,16 +9,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 316a2dc1420ff824cb69fccfa700a003, type: 3}
+  m_Script: {fileID: 11500000, guid: 3913deede43d757429c03395f2b5287d, type: 3}
   m_Name: Testing
   m_EditorClassIdentifier: 
-  nameSkill: Testing
-  currentXP: 0
-  typeSkill: 0
-  skillLevels:
-  - requiredXP: 10
-  - requiredXP: 100
+  nameHardSkill: Testing
+  hardSkillType: 8
+  hardSkillLevels:
+  - requiredXP: 0
+    bonusCoding: 0
+    bonusDesign: 0
+    bonusTesting: 0
+    bonusArt: 0
+    bonusAudio: 0
+  - requiredXP: 50
+    bonusCoding: 0
+    bonusDesign: 0
+    bonusTesting: 130
+    bonusArt: 0
+    bonusAudio: 0
   - requiredXP: 500
-  - requiredXP: 1000
+    bonusCoding: 0
+    bonusDesign: 0
+    bonusTesting: 340
+    bonusArt: 0
+    bonusAudio: 0
   - requiredXP: 3000
-  - requiredXP: 10000
+    bonusCoding: 0
+    bonusDesign: 0
+    bonusTesting: 985
+    bonusArt: 0
+    bonusAudio: 0
+  - requiredXP: 9000
+    bonusCoding: 0
+    bonusDesign: 0
+    bonusTesting: 2679
+    bonusArt: 0
+    bonusAudio: 0
+  - requiredXP: 21000
+    bonusCoding: 0
+    bonusDesign: 0
+    bonusTesting: 5839
+    bonusArt: 0
+    bonusAudio: 0

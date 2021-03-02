@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
                 case "Bed":
                     objClicked.GetComponent<BedClickable>().OnClick();
                     break;
+                case "Computer":
+                    objClicked.GetComponent<ComputerClickable>().OnClick();
+                    break;
+
             }
         }
 

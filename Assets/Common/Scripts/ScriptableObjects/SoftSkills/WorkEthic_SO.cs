@@ -1,0 +1,73 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "NewSkill", menuName = "Character/Skills/SoftSkill/WorkEthic", order = 4)]
+public class WorkEthic_SO : SoftSkill_SO
+{
+    [System.Serializable]
+    public class WorkEthicSkillLevel
+    {
+        [Header("Work Ethic")]
+        public float BONUS_goldenTimeReduceEnergyConsuption;
+        public float BONUS_goldenTimeBootUpMotivation;
+        public float BONUS_goldenTimeBootUpProject;
+
+    }
+
+    protected float totalBONUS_goldenTimeReduceEnergyConsuption;
+    private float totalBONUS_goldenTimeBootUpMotivation;
+    private float totalBONUS_goldenTimeBootUpProject;
+
+    [SerializeField] private WorkEthicSkillLevel[] softSkillLevelsList;
+    public void Initiate()
+    {
+        if (currentSoftSkillLevel == 0)
+        {
+            totalBONUS_goldenTimeReduceEnergyConsuption = softSkillLevelsList[0].BONUS_goldenTimeReduceEnergyConsuption;
+            totalBONUS_goldenTimeBootUpMotivation = softSkillLevelsList[0].BONUS_goldenTimeBootUpMotivation;
+            totalBONUS_goldenTimeBootUpProject = softSkillLevelsList[0].BONUS_goldenTimeBootUpProject;
+        }
+    }
+    public void UpSoftSkill()
+    {
+        if (currentSoftSkillLevel == 0)
+        {
+            UnLockSkill();
+        }
+
+        if (currentSoftSkillLevel < softSkillLevelsList.Length - 1)
+        {
+            SetSoftSkillLevel(currentSoftSkillLevel);
+        }
+        else
+        {
+            Debug.Log("soft Skill maxlevel");
+        }
+    }
+    public float GetTotalBONUS_goldenTimeReduceEnergyConsuption()
+    {
+        return totalBONUS_goldenTimeReduceEnergyConsuption;
+    }
+
+    public float GetTotalBONUS_goldenTimeBootUpMotivation()
+    {
+        return totalBONUS_goldenTimeBootUpMotivation;
+    }
+    public float GetTotalBONUS_goldenTimeBootUpProject()
+    {
+        return totalBONUS_goldenTimeBootUpProject;
+    }
+    protected override void SetSoftSkillLevel(int softSkillLevel)
+    {
+        currentSoftSkillLevel = softSkillLevel + 1;
+
+        if (currentSoftSkillLevel > 0)
+        {
+            totalBONUS_goldenTimeReduceEnergyConsuption += softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeReduceEnergyConsuption;
+            totalBONUS_goldenTimeBootUpMotivation += softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeBootUpMotivation;
+            totalBONUS_goldenTimeBootUpProject += softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeBootUpProject;
+            //OnLevelUp.Invoke(charLevel);
+        }
+    }
+}

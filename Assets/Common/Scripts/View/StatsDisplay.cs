@@ -11,13 +11,13 @@ public class StatsDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textDesign;
     [SerializeField] private TMP_Text textTesting;
     [SerializeField] private TMP_Text textArt;
-    [SerializeField] private TMP_Text textAudio;
+    [SerializeField] private TMP_Text textSound;
 
 
     protected void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-        MenuManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
+        MenuInGameManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
     }
 
     private void HandleStatsShowed()
@@ -37,11 +37,11 @@ public class StatsDisplay : MonoBehaviour
 
     private void SetText()
     {
-        textCoding.text = characterStats.GetStatusCoding().ToString();
-        textDesign.text = characterStats.GetStatusDesign().ToString();
-        textTesting.text = characterStats.GetStatusTest().ToString();
-        textArt.text = characterStats.GetStatusArt().ToString();
-        textAudio.text = characterStats.GetStatusAudio().ToString();
+        textCoding.text = characterStats.GetCodingStatus().ToString();
+        textDesign.text = characterStats.GetDesignStatus().ToString();
+        textTesting.text = characterStats.GetTestStatus().ToString();
+        textArt.text = characterStats.GetArtStatus().ToString();
+        textSound.text = characterStats.GetSoundStatus().ToString();
     }
 
 }

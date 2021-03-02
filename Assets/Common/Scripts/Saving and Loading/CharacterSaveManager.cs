@@ -5,8 +5,7 @@ public class CharacterSaveManager : MonoBehaviour, ISaveable
     private const string KEY = "PlayerData";
     Rigidbody rgbody;
 
-    
-    
+
     void Start()
     {
         if (SaveManager.Instance != null)

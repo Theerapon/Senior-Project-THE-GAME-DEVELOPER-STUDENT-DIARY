@@ -11,7 +11,6 @@ public class TimeManager : Manager<TimeManager>
 
     #endregion
 
-
     #region Default
     [Header("Time Default")]
     [SerializeField] private const double DEFAULT_TIMESCALE = 48;
@@ -68,6 +67,7 @@ public class TimeManager : Manager<TimeManager>
     private double totalSecond = 0;
     private double memorySecond;
 
+
     protected void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
@@ -98,10 +98,11 @@ public class TimeManager : Manager<TimeManager>
         }
     }
 
-    private void IncreaseTime(int hour, int minute)
+    private void IncreaseTime(int hour, int minute, int second)
     {
         totalSecond += (double) (hour * DEFAULT_MINUTE * DEFAULT_SECOND);
         totalSecond += (double) (minute * DEFAULT_SECOND);
+        totalSecond += second;
         TIMESCALE = totalSecond / TIMEWORLD;
         StartCoroutine("TimeIncreaseCalculate");
 
@@ -131,7 +132,7 @@ public class TimeManager : Manager<TimeManager>
         }
 
         yield return new WaitForSecondsRealtime(1);
-        GameManager.Instance.ContiniueGameInNextDays();
+        GameManager.Instance.GotoMainWithContiniueGameInNextDays();
 
     }
 
@@ -196,7 +197,7 @@ public class TimeManager : Manager<TimeManager>
     private void setText()
     {
         onDate = string.Format("{0} " + "{1}" + " {2} " + "{3}", _currentDays, date, _currentMonth, year);
-        onTime = string.Format("{0:00}:{1:00}" + " Miniue", hour, minute);
+        onTime = string.Format("{0:00}:{1:00} Min.", hour, minute);
         onSeason = string.Format("{0}", _currentSeason);
     }
 
@@ -283,9 +284,47 @@ public class TimeManager : Manager<TimeManager>
         OnSeasonCalendar?.Invoke(onSeason);
     }
 
-    public void ContiniueGame()
+    public void SkilpTime(int totalSecond)
     {
-        IncreaseTime(9, 30);
+        int hour;
+        int miniue;
+        int second;
+
+        second = totalSecond % 60;
+        totalSecond = totalSecond / 60;
+        miniue = totalSecond % 60;
+        hour = totalSecond / 60;
+
+
+        IncreaseTime(hour, miniue, second);
     }
 
+    public string GetOnDate()
+    {
+        return onDate;
+    }
+
+    public string GetOnTime()
+    {
+        return onTime;
+    }
+
+    public string GetOnSeason()
+    {
+        return onSeason;
+    }
+
+    public string GetSecondText(int totalSecond)
+    {
+        int hourFullTime;
+        int miniueFullTime;
+        int secondFullTime;
+
+        secondFullTime = totalSecond % 60;
+        totalSecond = totalSecond / 60;
+        miniueFullTime = totalSecond % 60;
+        hourFullTime = totalSecond / 60;
+
+        return string.Format("{0} Hrs. {1} Min. {2} Sec.", hourFullTime, miniueFullTime, secondFullTime);
+    }
 }

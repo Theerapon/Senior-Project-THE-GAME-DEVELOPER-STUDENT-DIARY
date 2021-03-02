@@ -8,14 +8,14 @@ public class ItemPickUp : MonoBehaviour
     public ItemPickUps_SO itemDefinition;
 
     public CharacterStats characterStats;
-    CharacterInventory charInventory;
+    ItemContainer charInventory;
 
     GameObject foundStats;
 
     #region Constructors
     public ItemPickUp()
     {
-        charInventory = CharacterInventory.instance;
+        charInventory = ItemContainer.Instance;
     }
     #endregion
 
