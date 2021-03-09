@@ -18,12 +18,30 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     }
 
     #region Course
-    public int GetCalculateCourseTimeSecond(Course course)
+    public int GetEnergyCourse(Course course)
+    {
+        int energy = 0;
+        float reduceEnergy;
+        if (TimeManager.Instance.GetGoldenTime())
+        {
+            reduceEnergy = characterStats.GetDEFAULT_goldenTimeReduceEnergyConsuption();
+            
+        }
+        else
+        {
+            reduceEnergy = characterStats.GetDEFAULT_baseReduceEnergyConsumption();
+        }
+
+        energy = (int)(course.GetEnergyToConsume() * (1 - reduceEnergy));
+
+        return energy;
+    }
+    public int GetCalculateCourseTimeSecond(Course courese)
     {
         int second = 0;
         float totalBonusReduced = (characterStats.GetDEFAULT_reduceTimeTrainCourse() + timeManagement.GetTotalBONUS_reduceTimeTrainCourse());
 
-        second = (int)(course.GetSecondToConsume() * (1 - totalBonusReduced));
+        second = (int)(courese.GetSecondToConsume() * (1 - totalBonusReduced));
 
         return second;
     }
@@ -37,8 +55,6 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     public int GetCalculateSleepTimeSecond(bool fullTimeSelected)
     {
         int second = 0;
-        Debug.Log("characterStats " + characterStats);
-        Debug.Log("time management " + timeManagement.GetTotalBONUS_reduceTimeSleeping());
         float totalBonusReduced = (characterStats.GetDEFAULT_reduceTimeSleeping() + timeManagement.GetTotalBONUS_reduceTimeSleeping());
         if (fullTimeSelected)
         {

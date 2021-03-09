@@ -427,7 +427,7 @@ public class CharacterStats_SO : ScriptableObject
         hasSoftSkillPoints++;
 
         maxEnergy = characterLevels[currentCharacterLevel].maxEnergy;
-
+        
         currentEnergy = maxEnergy;
         currentMotivation = DEFAULT_maxMotivation;
 

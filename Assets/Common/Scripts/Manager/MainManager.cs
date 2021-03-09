@@ -28,6 +28,7 @@ public class MainManager : Manager<MainManager>
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
+
         //bed dialogue to summary
         if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.SUMMARY)
         {
@@ -35,12 +36,18 @@ public class MainManager : Manager<MainManager>
         }
 
         //computer dialogue to course (selected course)
-        if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.COURSE)
+        if (currentState == GameManager.GameState.COURSE)
         {
             TurnOffMainForCourse();
         }
-        //computer dialogue to workproject (selected course)
-        if ((previousState == GameManager.GameState.DIALOGUE) && currentState == GameManager.GameState.WORKPROJECT)
+        //computer dialogue to workproject (selected workproject)
+        if (currentState == GameManager.GameState.WORKPROJECT)
+        {
+            TurnOffMainDisplay();
+        }
+
+        //computer dialogue to workproject (selected workproject)
+        if (currentState == GameManager.GameState.COURSEANIMATION)
         {
             TurnOffMainDisplay();
         }
