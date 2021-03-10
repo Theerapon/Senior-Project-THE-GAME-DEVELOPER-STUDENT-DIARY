@@ -9,6 +9,7 @@ public class TimeManager : Manager<TimeManager>
     public Events.EventDateCalendar OnDateCalendar;
     public Events.EventTimeCalendar OnTimeCalendar;
     public Events.EventSeasonCalendar OnSeasonCalendar;
+    public Events.EventOnTimeSkilpValidation OnTimeSkip;
 
     #endregion
 
@@ -142,15 +143,7 @@ public class TimeManager : Manager<TimeManager>
         yield return new WaitForSecondsRealtime(1);
         Debug.Log("Validation" );
 
-        if(GameManager.Instance.CurrentGameState == GameManager.GameState.COURSEANIMATION)
-        {
-            GameManager.Instance.BackFromCourseAnimationToCourse();
-        } 
-        else if(GameManager.Instance.CurrentGameState == GameManager.GameState.SUMMARY)
-        {
-            GameManager.Instance.GotoMainWithContiniueGameInNextDays();
-        }
-
+        OnTimeSkip?.Invoke(GameManager.Instance.CurrentGameState);
     }
 
     private void CalculateTime()

@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro; 
 
-public class CourseBonusGenerator : MonoBehaviour
+public class BonusBoxGenerator : MonoBehaviour
 {
     private CourseManager courseManager;
     GameObject bonusTemplate;
@@ -15,20 +14,18 @@ public class CourseBonusGenerator : MonoBehaviour
         dicBonus = new Dictionary<string, int>();
         courseManager = CourseManager.Instance;
     }
-
-
-    private void CreateTag(string id)
+    private void CreateBonusContent(string id)
     {
         GameObject copy;
         GetBonus(id);
 
-        if(dicBonus != null)
+        if (dicBonus != null)
         {
             foreach (KeyValuePair<string, int> dic in dicBonus)
             {
                 copy = Instantiate(bonusTemplate, transform);
-                copy.transform.GetComponent<Image>().sprite = null; //image
-                copy.transform.GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value);
+                copy.transform.GetChild(0).GetComponent<TMP_Text>().text = dic.Key.ToString(); //name
+                copy.transform.GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value); //value
             }
         }
 
@@ -37,9 +34,9 @@ public class CourseBonusGenerator : MonoBehaviour
 
     public void CreateTemplate(string id)
     {
-        bonusTemplate = transform.GetChild(0).gameObject;
+        bonusTemplate = transform.GetChild(3).gameObject; //reward
         bonusTemplate.transform.name = "Template";
-        CreateTag(id);
+        CreateBonusContent(id);
     }
 
     private void GetBonus(string id)
@@ -109,4 +106,5 @@ public class CourseBonusGenerator : MonoBehaviour
             dicBonus.Add("Sound Stat", bonusCheck);
         #endregion
     }
+
 }

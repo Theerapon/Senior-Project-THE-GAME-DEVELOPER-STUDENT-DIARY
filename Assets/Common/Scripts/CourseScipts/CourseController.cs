@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class CourseController : MonoBehaviour
 {
+    [Header("Course Display")]
     [SerializeField] private CourseDisplay courseDisplay;
     private CourseManager courseManager;
     private CharacterStats characterStats;
     private GameObject foundPlayerAction;
     private PlayerAction playerAction;
 
+    [Header("Course ID")]
     [SerializeField] private CourseID billID;
     [SerializeField] private CourseID learnID;
 
-    private int timeForCourse;
 
     private void Start()
     {
@@ -49,7 +50,6 @@ public class CourseController : MonoBehaviour
         }
         else
         {
-            timeForCourse = playerAction.GetCalculateCourseTimeSecond(courseManager.courses[id]);
             courseDisplay.CloseAll();
             courseDisplay.UpdateCollectionCourseIsMain();
             GameManager.Instance.GotoCourseAnimation();
@@ -77,9 +77,10 @@ public class CourseController : MonoBehaviour
         courseDisplay.DisplayTransaction(purchaseSuccessful);
     }
 
-    public int GetTimeForCourse()
+    public CourseID GetIdLearnCourse()
     {
-        return timeForCourse;
+        return learnID;
     }
+
 }
 

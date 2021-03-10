@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CharacterStats : Manager<CharacterStats>
 {
+    #region Events
+    public Events.EventOnEnergyUpdated OnEnergyUpdated;
+    public Events.EventOnMotivationUpdated OnMotivationUpdated;
+    #endregion
+
     #region Fields
 
     [SerializeField] private CharacterStats_SO characterDefinition_Template;
@@ -33,11 +38,13 @@ public class CharacterStats : Manager<CharacterStats>
     public void ApplyMaxEnergy(int newEnergyAmount)
     {
         characterDeginition_Current.ApplyMaxEnergy(newEnergyAmount);
+        OnEnergyUpdated?.Invoke();
     }
 
     public void ApplyCurrentEnergy(int energyAmount)
     {
         characterDeginition_Current.ApplyCurrentEnergy(energyAmount);
+        OnEnergyUpdated?.Invoke();
     }
     public void GiveXP(int xp)
     {
@@ -47,6 +54,7 @@ public class CharacterStats : Manager<CharacterStats>
     public void ApplyCurrentMotivation(int currentMotivation)
     {
         characterDeginition_Current.ApplyCurrentMotivation(currentMotivation);
+        OnMotivationUpdated?.Invoke();
 
     }
 
@@ -85,6 +93,7 @@ public class CharacterStats : Manager<CharacterStats>
     public void TakeEnergy(int energyAmount)
     {
         characterDeginition_Current.TakeEnergy(energyAmount);
+        OnEnergyUpdated?.Invoke();
     }
 
     public void UseStatusPoint()
@@ -99,7 +108,8 @@ public class CharacterStats : Manager<CharacterStats>
 
     public void ReduceCurrentMotivation(int currentMotivation)
     {
-        characterDeginition_Current.ReduceCurrentMotivation(currentMotivation);
+        characterDeginition_Current.TakeMotivation(currentMotivation);
+        OnMotivationUpdated?.Invoke();
     }
 
 

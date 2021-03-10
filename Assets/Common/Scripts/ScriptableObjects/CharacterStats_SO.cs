@@ -29,7 +29,7 @@ public class CharacterStats_SO : ScriptableObject
     [SerializeField] private int maxEnergy = 100;
     [SerializeField] private float DEFAULT_baseReduceEnergyConsumption = 0f; // 0%
     [SerializeField] private float DEFAULT_goldenTimeReduceEnergyConsuption = 0.05f; // 5%
-    private int currentEnergy;
+    [SerializeField] private int currentEnergy;
 
     [Header("Motivation")]
     private int DEFAULT_maxMotivation = 100;
@@ -190,7 +190,7 @@ public class CharacterStats_SO : ScriptableObject
         }
     }
 
-    public void ReduceCurrentMotivation(int currentMotivation)
+    public void TakeMotivation(int currentMotivation)
     {
         if (this.currentMotivation - currentMotivation <= 0)
         {

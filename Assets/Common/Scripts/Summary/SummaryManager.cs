@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SummaryContiniue : MonoBehaviour
+public class SummaryManager : MonoBehaviour
 {
     private GameObject foundPlayerAction;
     private PlayerAction playerAction;
@@ -13,6 +14,16 @@ public class SummaryContiniue : MonoBehaviour
         characterStats = CharacterStats.Instance;
         foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
         playerAction = foundPlayerAction.GetComponent<PlayerAction>();
+
+        TimeManager.Instance.OnTimeSkip.AddListener(TimeSkilpHandler);
+    }
+
+    private void TimeSkilpHandler(GameManager.GameState gameState)
+    {
+        if (gameState == GameManager.GameState.SUMMARY)
+        {
+            GameManager.Instance.GotoMainWithContiniueGameInNextDays();
+        }
     }
 
     public void OnContiniue()

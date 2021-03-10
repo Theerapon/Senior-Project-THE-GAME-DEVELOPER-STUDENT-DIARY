@@ -36,7 +36,9 @@ public class HardSkill_SO : ScriptableObject
             int levelTarget = hardSkillLevels[currentHardSkillLevel + 1].requiredXP;
 
             if (currentHardSkillEXP >= levelTarget)
+            {
                 SetCharacterLevel(currentHardSkillLevel);
+            }
         }
         else
         {
@@ -91,7 +93,6 @@ public class HardSkill_SO : ScriptableObject
     private void SetCharacterLevel(int hardSkillLevel)
     {
         currentHardSkillLevel = hardSkillLevel + 1;
-        currentHardSkillEXP = 0;
 
 
         if (currentHardSkillLevel > 0)
@@ -103,6 +104,12 @@ public class HardSkill_SO : ScriptableObject
             totalBonus_ArtStats += hardSkillLevels[currentHardSkillLevel].bonusArt;
             totalBonus_SoundStats += hardSkillLevels[currentHardSkillLevel].bonusSound;
             //OnLevelUp.Invoke(charLevel);
+        }
+
+        int levelTarget = hardSkillLevels[currentHardSkillLevel + 1].requiredXP;
+        if (currentHardSkillEXP > levelTarget)
+        {
+            SetCharacterLevel(currentHardSkillLevel);
         }
 
     }
