@@ -16,5 +16,8 @@ public class Events
     [System.Serializable] public class EventStatsValueShowed : UnityEvent { }
     [System.Serializable] public class EventSoftSkillsValueShowed : UnityEvent { }
     [System.Serializable] public class EventHardSkillsValueShowed : UnityEvent { }
+    [System.Serializable] public class EventOnTimeSkilpValidation : UnityEvent<GameManager.GameState> { }
+    [System.Serializable] public class EventOnEnergyUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnMotivationUpdated : UnityEvent { }
 
 }

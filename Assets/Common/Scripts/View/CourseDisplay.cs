@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System;
 
 public class CourseDisplay : Manager<CourseDisplay>
 {
@@ -54,15 +55,33 @@ public class CourseDisplay : Manager<CourseDisplay>
     [SerializeField] private TMP_Text courseDiscount;
     [SerializeField] private TMP_Text courseTotalPrice;
 
+    [Header("Course Canvas")]
+    [SerializeField] private GameObject courseCanvas;
+
     private CourseManager courseManager;
 
 
-    private void Start()
+    protected void Start()
     {
         courseManager = CourseManager.Instance;
         characterStats = CharacterStats.Instance;
         timeManager = TimeManager.Instance;
         UpdateAllCourseIsMain();
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+    }
+
+    private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
+    {
+        if (currentState == GameManager.GameState.COURSE)
+        {
+            DisplayCourseCanvas();
+            UpdateCollectionCourseIsMain();
+        }
+
+        if (currentState == GameManager.GameState.COURSEANIMATION)
+        {
+            DisplayCourseCanvas();
+        }
     }
 
     void Update()
@@ -87,7 +106,7 @@ public class CourseDisplay : Manager<CourseDisplay>
     }
     public void BackToMain()
     {
-        GameManager.Instance.CourseBackToMain();
+        GameManager.Instance.BackFromCourseToMain();
     }
 
     public void UpdateAllCourseIsMain()
@@ -145,6 +164,25 @@ public class CourseDisplay : Manager<CourseDisplay>
         }
     }
 
+    public void DisplayCourseCanvas()
+    {
+        if(GameManager.Instance.CurrentGameState == GameManager.GameState.COURSE)
+        {
+            if (courseCanvas.activeSelf == false)
+            {
+                courseCanvas.SetActive(true);
+            }
+        } else if (GameManager.Instance.CurrentGameState == GameManager.GameState.COURSEANIMATION)
+        {
+            if (courseCanvas.activeSelf == true)
+            {
+                courseCanvas.SetActive(false);
+            }
+        }
+
+
+    }
+
 
     private void CreateAllCourses()
     {
@@ -184,6 +222,30 @@ public class CourseDisplay : Manager<CourseDisplay>
     {
         learn.SetActive(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
+    }
+
+    public void DisplayTransaction(bool purchaseSuccessful)
+    {
+        string str;
+        transaction.SetActive(true);
+        UpdateDisplayState(CourseDisplayState.NOTIFICATION);
+        if (purchaseSuccessful)
+        {
+            str = "Your purchase was completed successfully";
+        }
+        else
+        {
+            str = "Your purchase wasn't completed successfully";
+        }
+        transaction.transform.GetChild(0).gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TMP_Text>().text = str;
+    }
+
+    public void DisplayEnergyNotEnough()
+    {
+        energy.SetActive(true);
+        UpdateDisplayState(CourseDisplayState.NOTIFICATION);
+        string str = "Your energy wasn't enough";
+        energy.transform.GetChild(0).gameObject.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TMP_Text>().text = str;
     }
 
     public void CloseAll()

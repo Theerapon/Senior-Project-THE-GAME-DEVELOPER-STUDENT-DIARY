@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class TimeManager : Manager<TimeManager>
@@ -8,12 +9,18 @@ public class TimeManager : Manager<TimeManager>
     public Events.EventDateCalendar OnDateCalendar;
     public Events.EventTimeCalendar OnTimeCalendar;
     public Events.EventSeasonCalendar OnSeasonCalendar;
+    public Events.EventOnTimeSkilpValidation OnTimeSkip;
 
     #endregion
 
     #region Default
     [Header("Time Default")]
     [SerializeField] private const double DEFAULT_TIMESCALE = 48;
+
+    [Header("GoldenTIme")]
+    [SerializeField] private const double DEFAULT_STARTGOLDENTIME = 9;
+    [SerializeField] private const double DEFAULT_ENDGOLDENTIME = 17;
+
 
     private double TIMESCALE = DEFAULT_TIMESCALE;
 
@@ -66,6 +73,8 @@ public class TimeManager : Manager<TimeManager>
     private static string onDate, onTime, onSeason;
     private double totalSecond = 0;
     private double memorySecond;
+
+    private bool goldenTime = false;
 
 
     protected void Start()
@@ -132,8 +141,9 @@ public class TimeManager : Manager<TimeManager>
         }
 
         yield return new WaitForSecondsRealtime(1);
-        GameManager.Instance.GotoMainWithContiniueGameInNextDays();
+        Debug.Log("Validation" );
 
+        OnTimeSkip?.Invoke(GameManager.Instance.CurrentGameState);
     }
 
     private void CalculateTime()
@@ -150,13 +160,17 @@ public class TimeManager : Manager<TimeManager>
         {
             minute++;
             second = second - DEFAULT_SECOND;
-
+            setText();
+            OnTimeCalendar?.Invoke(onTime);
         }
         
         if (minute >= DEFAULT_MINUTE)
         {
             hour++;
             minute = minute - DEFAULT_MINUTE;
+            setText();
+            OnTimeCalendar?.Invoke(onTime);
+            CalGoldenTime();
         }
         
         if (hour >= DEFAULT_HOUR)
@@ -165,7 +179,9 @@ public class TimeManager : Manager<TimeManager>
             hour = hour - DEFAULT_HOUR;
             CalculateDay();
             setText();
+            OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
+            
         }
         
         if (date > DEFAULT_DATE)
@@ -176,6 +192,7 @@ public class TimeManager : Manager<TimeManager>
             CalculateMonth();
             CalculateSeason();
             setText();
+            OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
             OnSeasonCalendar?.Invoke(onSeason);
         }
@@ -187,17 +204,27 @@ public class TimeManager : Manager<TimeManager>
             CalculateMonth();
             CalculateSeason();
             setText();
+            OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
             OnSeasonCalendar?.Invoke(onSeason);
         }
-        setText();
-        OnTimeCalendar?.Invoke(onTime);
+    }
+
+    private void CalGoldenTime()
+    {
+        if(hour >= DEFAULT_STARTGOLDENTIME && hour <= DEFAULT_ENDGOLDENTIME)
+        {
+            goldenTime = true;
+        } else
+        {
+            goldenTime = false;
+        }
     }
 
     private void setText()
     {
         onDate = string.Format("{0} " + "{1}" + " {2} " + "{3}", _currentDays, date, _currentMonth, year);
-        onTime = string.Format("{0:00}:{1:00} Min.", hour, minute);
+        onTime = string.Format("{0:00}:{1:00} Hrs.", hour, minute);
         onSeason = string.Format("{0}", _currentSeason);
     }
 
@@ -326,5 +353,10 @@ public class TimeManager : Manager<TimeManager>
         hourFullTime = totalSecond / 60;
 
         return string.Format("{0} Hrs. {1} Min. {2} Sec.", hourFullTime, miniueFullTime, secondFullTime);
+    }
+
+    public bool GetGoldenTime()
+    {
+        return goldenTime;
     }
 }

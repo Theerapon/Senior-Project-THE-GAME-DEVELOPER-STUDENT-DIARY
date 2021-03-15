@@ -50,39 +50,39 @@ public class CourseBonusGenerator : MonoBehaviour
         #region Exp
         bonusCheck = courseManager.courses[id].GetdefaultMathExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("MathExp", bonusCheck);
+            dicBonus.Add("Math Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultProgrammingExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("ProgrammingExp", bonusCheck);
+            dicBonus.Add("Programming Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultEngineExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("EngineExp", bonusCheck);
+            dicBonus.Add("Engine Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultAiExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("AiExp", bonusCheck);
+            dicBonus.Add("Ai Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultNetwordExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("NetworkExp", bonusCheck);
+            dicBonus.Add("Network Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultDesignExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("DesignExp", bonusCheck);
+            dicBonus.Add("Design Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultTestingExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("TestingExp", bonusCheck);
+            dicBonus.Add("Testing Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultArtExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("ArtExp", bonusCheck);
+            dicBonus.Add("Art Exp", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultSoundExpReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("SoundExp", bonusCheck);
+            dicBonus.Add("Sound Exp", bonusCheck);
 
 
         #endregion
@@ -90,23 +90,23 @@ public class CourseBonusGenerator : MonoBehaviour
         #region Stat
         bonusCheck = courseManager.courses[id].GetdefaultCodingStatReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("CodingStat", bonusCheck);
+            dicBonus.Add("Coding Stat", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultDesignStatReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("DesignStat", bonusCheck);
+            dicBonus.Add("Design Stat", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultTestingStatReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("TestingStat", bonusCheck);
+            dicBonus.Add("Testing Stat", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultArtStatReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("ArtStat", bonusCheck);
+            dicBonus.Add("Art Stat", bonusCheck);
 
         bonusCheck = courseManager.courses[id].GetdefaultSoundStatReward();
         if (bonusCheck > 0f)
-            dicBonus.Add("SoundStat", bonusCheck);
+            dicBonus.Add("Sound Stat", bonusCheck);
         #endregion
     }
 }

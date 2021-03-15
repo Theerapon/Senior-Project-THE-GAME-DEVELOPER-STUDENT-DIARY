@@ -20,6 +20,7 @@ public class GameManager : Manager<GameManager>
         UI_COMPUTER,
         Course,
         WorkProject,
+        CourseAnimation,
 
     }
     public static Scene _currentLevelScene;
@@ -34,6 +35,7 @@ public class GameManager : Manager<GameManager>
         SUMMARY,
         COURSE,
         WORKPROJECT,
+        COURSEANIMATION,
     }
 
     public GameState CurrentGameState
@@ -103,7 +105,11 @@ public class GameManager : Manager<GameManager>
             case GameState.COURSE:
                 Time.timeScale = 1f;
                 break;
+            case GameState.COURSEANIMATION:
+                Time.timeScale = 1f;
+                break;
             default:
+                Time.timeScale = 1f;
                 break;
         }
 
@@ -136,6 +142,11 @@ public class GameManager : Manager<GameManager>
         if (_currentLevelScene == Scene.Summary)
         {
             UpdateState(GameState.SUMMARY);
+        }
+
+        if (_currentLevelScene == Scene.CourseAnimation)
+        {
+            UpdateState(GameState.COURSEANIMATION);
         }
 
     }
@@ -261,6 +272,12 @@ public class GameManager : Manager<GameManager>
         LoadLevelSceneWithOutLoadingScene(Scene.Course);
         UpdateState(GameState.COURSE);
     }
+
+    public void GotoCourseAnimation()
+    {
+        LoadLevelWithLoadingScene(Scene.CourseAnimation);
+    }
+
     public void GotoWorkProject()
     {
         LoadLevelSceneWithOutLoadingScene(Scene.WorkProject);
@@ -277,11 +294,17 @@ public class GameManager : Manager<GameManager>
         }
     }
 
-    public void CourseBackToMain()
+    public void BackFromCourseToMain()
     {
         UnLoadLevel(Scene.Course);
         CloseToMain();
 
+    }
+
+    public void BackFromCourseAnimationToCourse()
+    {
+        UnLoadLevel(Scene.CourseAnimation);
+        UpdateState(GameState.COURSE);
     }
 
     public void OpenDialogue(Scene scene)

@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class CourseController : MonoBehaviour
 {
+    [Header("Course Display")]
     [SerializeField] private CourseDisplay courseDisplay;
     private CourseManager courseManager;
     private CharacterStats characterStats;
+    private GameObject foundPlayerAction;
+    private PlayerAction playerAction;
 
+    [Header("Course ID")]
     [SerializeField] private CourseID billID;
     [SerializeField] private CourseID learnID;
+
 
     private void Start()
     {
         characterStats = CharacterStats.Instance;
         courseManager = CourseManager.Instance;
+        foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
+        playerAction = foundPlayerAction.GetComponent<PlayerAction>();
     }
 
     public void PurchaseCourse(CourseID courseID)
@@ -34,24 +41,46 @@ public class CourseController : MonoBehaviour
     public void ConfirmLearnCourse()
     {
         string id = learnID.GetID();
-        /*
-        courseManager.courses[id].UnIsCollected();
-        */
-        courseDisplay.CloseAll();
-        courseDisplay.UpdateCollectionCourseIsMain();
+
+        if(playerAction.GetEnergyCourse(courseManager.courses[id]) > characterStats.GetCurrentEnergy())
+        {
+            courseDisplay.CloseAll();
+            courseDisplay.UpdateCollectionCourseIsMain();
+            courseDisplay.DisplayEnergyNotEnough();
+        }
+        else
+        {
+            courseDisplay.CloseAll();
+            courseDisplay.UpdateCollectionCourseIsMain();
+            GameManager.Instance.GotoCourseAnimation();
+        }
+
     }
 
     public void ConfirmPurchaseCourse()
     {
+        bool purchaseSuccessful;
         string id = billID.GetID();
         int totalPrice = courseManager.courses[id].GetTotalPrice();
         if (totalPrice < characterStats.GetCurrentMoney())
         {
             characterStats.TakeMoney(totalPrice);
             courseManager.courses[billID.GetID()].IsCollected();
+            purchaseSuccessful = true;
+        }
+        else
+        {
+            purchaseSuccessful = false;
         }
         courseDisplay.CloseAll();
         courseDisplay.UpdateAllCourseIsMain();
+        courseDisplay.DisplayTransaction(purchaseSuccessful);
+    }
+
+    public CourseID GetIdLearnCourse()
+    {
+        return learnID;
     }
 
 }
+
