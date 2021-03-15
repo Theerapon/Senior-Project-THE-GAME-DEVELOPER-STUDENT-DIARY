@@ -19,5 +19,6 @@ public class Events
     [System.Serializable] public class EventOnTimeSkilpValidation : UnityEvent<GameManager.GameState> { }
     [System.Serializable] public class EventOnEnergyUpdated : UnityEvent { }
     [System.Serializable] public class EventOnMotivationUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnCheckedWordUpdate : UnityEvent { }
 
 }

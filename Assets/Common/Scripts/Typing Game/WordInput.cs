@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WordInput : MonoBehaviour
 {
-    public WordManager wordManager;
+    public TypingGame1Manager wordManager;
 
     void Update()
     {
