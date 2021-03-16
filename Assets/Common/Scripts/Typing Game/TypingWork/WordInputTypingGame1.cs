@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WordInput : MonoBehaviour
+public class WordInputTypingGame1 : MonoBehaviour
 {
     public TypingGame1Manager wordManager;
 

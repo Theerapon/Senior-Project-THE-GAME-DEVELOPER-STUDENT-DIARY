@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class baseWordTypingGame1RandomBox : baseWord
+public class baseWordTypingGame1Random : baseWord
 {
     protected TypingGame1RandomBox wordDisplayHandler;
 
-    public baseWordTypingGame1RandomBox(string word, TypingGame1RandomSpawner spawner)
+    public baseWordTypingGame1Random(string word, TypingGame1RandomSpawner spawner)
     {
         this._word = word;
         typeIndex = 0;
@@ -31,6 +31,12 @@ public class baseWordTypingGame1RandomBox : baseWord
     public void SetID(string id)
     {
         wordDisplayHandler.SetID(id);
+    }
+
+    public override void UpdatedOrderLayer()
+    {
+        base.UpdatedOrderLayer();
+        wordDisplayHandler.UpdatedOrderLayer();
     }
 
 }

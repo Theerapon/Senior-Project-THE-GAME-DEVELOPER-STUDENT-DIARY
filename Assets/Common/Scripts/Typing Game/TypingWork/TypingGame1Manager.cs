@@ -41,7 +41,7 @@ public class TypingGame1Manager : Manager<TypingGame1Manager>
 
     public void AddMainWordBox()
     {
-        baseWordTypingGame1MainBox word = new baseWordTypingGame1MainBox(WordGenerater.GetRandomWord(), wordMainSpawner.SpawnWord());
+        baseWordTypingGame1Main word = new baseWordTypingGame1Main(WordGenerater.GetRandomWord(), wordMainSpawner.SpawnWord());
         mainWordlist.Add(word.GetHashCode().ToString(), word);
         mainWord = word;
         mainID = word.GetHashCode().ToString();
@@ -51,10 +51,9 @@ public class TypingGame1Manager : Manager<TypingGame1Manager>
 
     public void AddRandomWordBox()
     {
-        baseWordTypingGame1RandomBox word = new baseWordTypingGame1RandomBox(WordGenerater.GetRandomWord(), wordRandomSpawner);
+        baseWordTypingGame1Random word = new baseWordTypingGame1Random(WordGenerater.GetRandomWord(), wordRandomSpawner);
         mainWordlist.Add(word.GetHashCode().ToString(), word);
         word.SetID(word.GetHashCode().ToString());
-        //Debug.Log(word.GetWord() + " index = " + mainWordlist.IndexOf(word));
     }
 
     public void TypeLetterManager(char letter)
@@ -83,6 +82,7 @@ public class TypingGame1Manager : Manager<TypingGame1Manager>
                     activeWord = eachWord.Value;
                     hasActivedWord = true;
                     eachWord.Value.TypeLetterEachWord();
+                    eachWord.Value.UpdatedOrderLayer();
                     break;
                 }
                 else

@@ -7,7 +7,6 @@ public class baseWord
     protected string _word;
     protected int typeIndex;
 
-
     public virtual string GetWord()
     {
         return _word;
@@ -36,6 +35,16 @@ public class baseWord
 
     public virtual void RemoveWord()
     {
-        //wordDisplayHandler.RemoveWord();
+
+    }
+
+    public virtual void CreatedMonsterBox()
+    {
+
+    }
+
+    public virtual void UpdatedOrderLayer()
+    {
+
     }
 }

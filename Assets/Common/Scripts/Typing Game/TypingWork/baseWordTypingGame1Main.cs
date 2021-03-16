@@ -1,9 +1,9 @@
 ﻿[System.Serializable]
-public class baseWordTypingGame1MainBox : baseWord
+public class baseWordTypingGame1Main : baseWord
 {
     protected TypingGame1MainBox wordDisplayHandler;
 
-    public baseWordTypingGame1MainBox(string word, TypingGame1MainBox display)
+    public baseWordTypingGame1Main(string word, TypingGame1MainBox display)
     {
         this._word = word;
         typeIndex = 0;
@@ -30,5 +30,11 @@ public class baseWordTypingGame1MainBox : baseWord
         wordDisplayHandler.RemoveWord();
     }
 
-    
+    public override void UpdatedOrderLayer()
+    {
+        base.UpdatedOrderLayer();
+        wordDisplayHandler.UpdatedOrderLayer();
+    }
+
+
 }

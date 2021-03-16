@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class WordBox : MonoBehaviour
 {
     [SerializeField] protected TMP_Text tmp_Text;
+    [SerializeField] protected Canvas canvas;
 
     public virtual void SetWord(string word)
     {
@@ -26,4 +29,10 @@ public class WordBox : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public virtual void UpdatedOrderLayer()
+    {
+        canvas.sortingOrder = 10;
+    }
+
 }
