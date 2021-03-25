@@ -6,13 +6,13 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "New database", menuName = "Database/Item Database/New database", order = 0)]
 public class ItemDatabase : Database_SO
 {
-	[SerializeField] ItemPickUps_SO[] itemPickUps_SOs;
+	[SerializeField] ItemPickUp_Template[] itemPickUps_SOs;
 
-	public ItemPickUps_SO GetItemReference(string itemID)
+	public ItemPickUp_Template GetItemReference(string itemID)
 	{
-		foreach (ItemPickUps_SO item in itemPickUps_SOs)
+		foreach (ItemPickUp_Template item in itemPickUps_SOs)
 		{
-			if (item.ID == itemID)
+			if (item.ID() == itemID)
 			{
 				return item;
 			}
@@ -20,9 +20,9 @@ public class ItemDatabase : Database_SO
 		return null;
 	}
 
-	public ItemPickUps_SO GetItemCopy(string itemID)
+	public ItemPickUp_Template GetItemCopy(string itemID)
 	{
-		ItemPickUps_SO item = GetItemReference(itemID);
+		ItemPickUp_Template item = GetItemReference(itemID);
 		if (item != null)
 		{
 			return item.GetCopy();
@@ -35,7 +35,7 @@ public class ItemDatabase : Database_SO
 
 	protected override void LoadItems()
 	{
-		itemPickUps_SOs = FindAssetsByType<ItemPickUps_SO>("Assets/Common/Resources/Items");
+		//itemPickUps_SOs = FindAssetsByType<ItemPickUp_Template>("Assets/Common/Resources/Items");
 	}
 
 }

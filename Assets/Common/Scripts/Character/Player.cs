@@ -60,7 +60,7 @@ public class Player : Manager<Player>
 
     private void AddStacks(BaseItemSlot dropItemSlot)
 	{
-		int numAddableStacks = dropItemSlot.ITEM.itemDefinition.MaximumStacks - dropItemSlot.Amount;
+		int numAddableStacks = dropItemSlot.ITEM.itemDefinition.GetMaxStackable() - dropItemSlot.Amount;
 		int stacksToAdd = Mathf.Min(numAddableStacks, dragItemSlot.Amount);
 
 		dropItemSlot.Amount += stacksToAdd;
@@ -124,7 +124,7 @@ public class Player : Manager<Player>
 		if (itemSlot.ITEM != null)
 		{
 			dragItemSlot = itemSlot;
-			draggableItem.sprite = itemSlot.ITEM.itemDefinition.itemIcon;
+			draggableItem.sprite = itemSlot.ITEM.itemDefinition.GetItemIcon();
 			draggableItem.transform.position = Input.mousePosition;
 			draggableItem.gameObject.SetActive(true);
 		}
@@ -132,7 +132,7 @@ public class Player : Manager<Player>
 
     private void EquipmentPanelRightClick(BaseItemSlot itemSlot)
     {
-		if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.isEquipped)
+		if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.GetIsEquipped())
 		{
 			Unequip((ItemPickUp)itemSlot.ITEM);
 		}
@@ -140,14 +140,16 @@ public class Player : Manager<Player>
 
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
-		if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.isEquipped)
+		if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.GetIsEquipped())
 		{
 			Equip((ItemPickUp)itemSlot.ITEM);
 		} else if (itemSlot.ITEM != null && itemSlot.Amount != 0)
         {
-			Instantiate(itemSlot.ITEM).UseItem();
+			ItemPickUp copy = Instantiate(itemSlot.ITEM);
+			copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
+			copy.UseItem();
 			ItemContainer.RemoveItem(itemSlot.ITEM);
-        }
+		}
 		
 	}
 

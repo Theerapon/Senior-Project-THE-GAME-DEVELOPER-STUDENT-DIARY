@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class SpawnItem : MonoBehaviour, ISpawns
 {
-    public ItemPickUps_SO[] itemDefinitions;
+    private ItemsVM itemsVM;
 
+    public List<ItemPickUp_Template> itemDefinitions;
+
+    [SerializeField] private Item[] itemsPool;
     public int whichToSpawn = 0;
     public int totalSpawnWeight = 0;
     public int chosen = 0;
@@ -14,27 +18,29 @@ public class SpawnItem : MonoBehaviour, ISpawns
 
     protected void Start()
     {
-        foreach (ItemPickUps_SO ip in itemDefinitions)
-        {
-            totalSpawnWeight += ip.spawnChanceWeight;
-        }
+        itemsVM = FindObjectOfType<ItemsVM>();
+        itemDefinitions = new List<ItemPickUp_Template>();
+        itemDefinitions.Clear();
     }
 
     public void CreateSpawn()
     {
+        Initialized();
+
+        foreach (ItemPickUp_Template ip in itemDefinitions)
+        {
+            totalSpawnWeight += ip.GetItemSpawnChanceWeight();
+        }
         //Spawn with weighted possibilities
+
         chosen = Random.Range(0, totalSpawnWeight);
 
-        foreach (ItemPickUps_SO ip in itemDefinitions)
+        foreach (ItemPickUp_Template ip in itemDefinitions)
         {
-            whichToSpawn += ip.spawnChanceWeight;
+            whichToSpawn += ip.GetItemSpawnChanceWeight();
             if (whichToSpawn >= chosen)
             {
-                itemSpawned = Instantiate(ip.itemSpawnObject, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-
-                itemMaterial = itemSpawned.GetComponent<Renderer>();
-                if (itemMaterial != null)
-                    itemMaterial.material = ip.itemMaterial;
+                itemSpawned = Instantiate(ip.GetItemRigidbody(), new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
 
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = ip;
@@ -42,5 +48,19 @@ public class SpawnItem : MonoBehaviour, ISpawns
                 break;
             }
         }
+        itemDefinitions.Clear();
     }
+
+    private void Initialized()
+    {
+        foreach(Item item in itemsPool)
+        {
+            itemDefinitions.Add(itemsVM.Interpert(item.GetItemID()));
+        }
+
+
+        
+    }
+
+
 }

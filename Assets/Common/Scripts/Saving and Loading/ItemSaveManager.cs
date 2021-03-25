@@ -15,7 +15,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
     {
         player = Player.Instance;
         SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
-        OnLoaded();
+        //OnLoaded();
         
     }
 
@@ -71,11 +71,11 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                     ItemPickUp itemType = null;
                     Renderer itemMaterial = null;
 
-                    ItemPickUps_SO itemsSO = itemDatabase.GetItemCopy(savedSlot.ItemID);
-                    itemSpawned = Instantiate(itemsSO.itemSpawnObject);
+                    ItemPickUp_Template itemsSO = itemDatabase.GetItemCopy(savedSlot.ItemID);
+                    itemSpawned = Instantiate(itemsSO.GetItemRigidbody());
                     itemMaterial = itemSpawned.GetComponent<Renderer>();
                     if (itemMaterial != null)
-                        itemMaterial.material = itemsSO.itemMaterial;
+                        itemMaterial.material = itemsSO.GetItemMaterial();
                     itemType = itemSpawned.GetComponent<ItemPickUp>();
                     itemType.itemDefinition = itemsSO;
 
@@ -107,11 +107,11 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                 ItemPickUp itemType = null;
                 Renderer itemMaterial = null;
 
-                ItemPickUps_SO itemsSO = itemDatabase.GetItemCopy(savedSlot.ItemID);
-                itemSpawned = Instantiate(itemsSO.itemSpawnObject);
+                ItemPickUp_Template itemsSO = itemDatabase.GetItemCopy(savedSlot.ItemID);
+                itemSpawned = Instantiate(itemsSO.GetItemRigidbody());
                 itemMaterial = itemSpawned.GetComponent<Renderer>();
                 if (itemMaterial != null)
-                    itemMaterial.material = itemsSO.itemMaterial;
+                    itemMaterial.material = itemsSO.GetItemMaterial();
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = itemsSO;
 
@@ -135,7 +135,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
             }
             else
             {
-                saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID, itemSlot.Amount);
+                saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID(), itemSlot.Amount);
             }
         }
         SaveData(saveData, fileName);

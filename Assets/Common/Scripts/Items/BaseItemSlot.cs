@@ -35,7 +35,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 image.color = grayColor;
             } else
             {
-                image.sprite = _itemPickUp.itemDefinition.itemIcon;
+                image.sprite = _itemPickUp.itemDefinition.GetItemIcon();
                 image.color = normalColor;
             }
                 
@@ -52,7 +52,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (_amount < 0) _amount = 0;
             if (_amount == 0 && ITEM != null)
             {
-                if(ITEM.itemDefinition.destroyOnUse)
+                if (ITEM.itemDefinition.GetIsDestroyOnUse())
                     ITEM.DestroyItemPickUp();
                 ITEM = null;
             }
@@ -70,7 +70,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public virtual bool CanAddStack(ItemPickUp item, int amount = 1)
     {
-        return ITEM != null && ITEM.itemDefinition.ID == item.itemDefinition.ID;
+        return ITEM != null && ITEM.itemDefinition.ID() == item.itemDefinition.ID();
     }
 
     public virtual bool CanReceiveItem(ItemPickUp item)

@@ -150,7 +150,7 @@ public class ItemContainer : Manager<ItemContainer>, IItemContainer
         {
             if (ItemSlots[i].ITEM != null)
             {
-                hotBarDisplayHolders[i].sprite = ItemSlots[i].ITEM.itemDefinition.itemIcon;
+                hotBarDisplayHolders[i].sprite = ItemSlots[i].ITEM.itemDefinition.GetItemIcon();
                 hotBarDisplayHolders[i].GetComponentInChildren<TMP_Text>().text = ItemSlots[i].Amount.ToString();
             }
             else
@@ -167,9 +167,9 @@ public class ItemContainer : Manager<ItemContainer>, IItemContainer
 
         foreach (ItemSlot itemSlot in ItemSlots)
         {
-            if (itemSlot.ITEM == null || itemSlot.ITEM.itemDefinition.ID == item.itemDefinition.ID)
+            if (itemSlot.ITEM == null || itemSlot.ITEM.itemDefinition.ID() == item.itemDefinition.ID())
             {
-                freeSpaces += item.itemDefinition.MaximumStacks - itemSlot.Amount;
+                freeSpaces += item.itemDefinition.GetMaxStackable() - itemSlot.Amount;
             }
         }
         return freeSpaces >= amount;
@@ -196,7 +196,7 @@ public class ItemContainer : Manager<ItemContainer>, IItemContainer
         for (int i = 0; i < ItemSlots.Count; i++)
         {
             ItemPickUp item = ItemSlots[i].ITEM;
-            if (item != null && item.itemDefinition.ID == itemId)
+            if (item != null && item.itemDefinition.ID() == itemId)
             {
                 number += ItemSlots[i].Amount;
             }
@@ -209,7 +209,7 @@ public class ItemContainer : Manager<ItemContainer>, IItemContainer
         for (int i = 0; i < ItemSlots.Count; i++)
         {
             ItemPickUp item = ItemSlots[i].ITEM;
-            if (item != null && item.itemDefinition.ID == itemID)
+            if (item != null && item.itemDefinition.ID() == itemID)
             {
                 ItemSlots[i].Amount--;
                 UpdatedItemToHotBar();

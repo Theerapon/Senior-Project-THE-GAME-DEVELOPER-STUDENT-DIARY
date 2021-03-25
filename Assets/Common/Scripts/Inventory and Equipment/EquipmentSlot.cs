@@ -18,6 +18,6 @@ public class EquipmentSlot : ItemSlot
 			return true;
 
 		ItemPickUp equippableItem = item as ItemPickUp;
-		return equippableItem != null && equippableItem.itemDefinition.subType == EquipmentType;
+		return equippableItem != null && equippableItem.itemDefinition.GetItemEquipmentType() == EquipmentType;
 	}
 }
