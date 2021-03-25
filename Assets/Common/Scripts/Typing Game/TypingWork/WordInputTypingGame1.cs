@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WordInput : MonoBehaviour
+public class WordInputTypingGame1 : MonoBehaviour
 {
-    public WordManager wordManager;
+    public TypingGame1Manager wordManager;
 
     void Update()
     {
