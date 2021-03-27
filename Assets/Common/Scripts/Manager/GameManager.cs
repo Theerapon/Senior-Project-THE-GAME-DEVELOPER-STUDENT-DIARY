@@ -21,6 +21,7 @@ public class GameManager : Manager<GameManager>
         Course,
         WorkProject,
         CourseAnimation,
+        HUD_Player_Info
 
     }
     public static Scene _currentLevelScene;
@@ -130,14 +131,10 @@ public class GameManager : Manager<GameManager>
 
         if (_currentLevelScene == Scene.Main)
         {
-            //
-            LoadLevelSceneWithOutLoadingScene(Scene.Level1);
-        }
-
-        if (_currentLevelScene == Scene.Level1)
-        {
+            LoadLevelSceneWithOutLoadingScene(Scene.HUD_Player_Info);
             UpdateState(GameState.RUNNING);
         }
+
 
         if (_currentLevelScene == Scene.Summary)
         {

@@ -9,11 +9,11 @@ public class MainManager : Manager<MainManager>
     public GameObject[] SystemPrefabs;
     List<GameObject> _instancedSystemPrefabs;
 
-    [Header("Display")]
-    public GameObject preCharacterInteractiveDisplay;
-    public GameObject mainCamera;
-    public GameObject timeDisplay;
-    public GameObject energyDisplay;
+    //[Header("Display")]
+    //public GameObject preCharacterInteractiveDisplay;
+    //public GameObject mainCamera;
+    //public GameObject timeDisplay;
+    //public GameObject energyDisplay;
 
     protected override void Awake()
     {
@@ -23,7 +23,7 @@ public class MainManager : Manager<MainManager>
 
     private void Start()
     {
-        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        //GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
@@ -84,26 +84,26 @@ public class MainManager : Manager<MainManager>
 
     private void TurnOnMainDisplay()
     {
-        preCharacterInteractiveDisplay.gameObject.SetActive(true);
-        mainCamera.gameObject.SetActive(true);
-        timeDisplay.gameObject.SetActive(true);
-        energyDisplay.gameObject.SetActive(true);
+        //preCharacterInteractiveDisplay.gameObject.SetActive(true);
+        //mainCamera.gameObject.SetActive(true);
+        //timeDisplay.gameObject.SetActive(true);
+        //energyDisplay.gameObject.SetActive(true);
     }
 
     private void TurnOffMainDisplay()
     {
-        preCharacterInteractiveDisplay.gameObject.SetActive(false);
-        mainCamera.gameObject.SetActive(false);
-        timeDisplay.gameObject.SetActive(false);
-        energyDisplay.gameObject.SetActive(false);
+        //preCharacterInteractiveDisplay.gameObject.SetActive(false);
+        //mainCamera.gameObject.SetActive(false);
+        //timeDisplay.gameObject.SetActive(false);
+        //energyDisplay.gameObject.SetActive(false);
     }
 
     private void TurnOffMainForCourse()
     {
-        preCharacterInteractiveDisplay.gameObject.SetActive(false);
-        mainCamera.gameObject.SetActive(true);
-        timeDisplay.gameObject.SetActive(false);
-        energyDisplay.gameObject.SetActive(true);
+        //preCharacterInteractiveDisplay.gameObject.SetActive(false);
+        //mainCamera.gameObject.SetActive(true);
+        //timeDisplay.gameObject.SetActive(false);
+        //energyDisplay.gameObject.SetActive(true);
     }
 
 }

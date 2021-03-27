@@ -23,7 +23,7 @@ public class ItemsVM : MonoBehaviour
     private const string INST_SET_IsDestroyOnUse = "isDestroyOnUse";
     private const string INST_SET_IsGiftable = "isGiftable";
 
-    [SerializeField] private GameObject itemPrefab;
+    //[SerializeField] private GameObject itemPrefab;
 
     private ItemsDataLoading itemsDataLoading;
 
@@ -73,7 +73,7 @@ public class ItemsVM : MonoBehaviour
                     copy.SetItemIcon(icon);
                     break;
                 case INST_SET_ItemRigidbodyPath:
-                    copy.SetItemRigidbody(itemPrefab.GetComponent<Rigidbody>());
+                    //copy.SetItemRigidbody(itemPrefab.GetComponent<Rigidbody>());
                     break;
                 case INST_SET_IsEquipped:
                     copy.SetIsEquipped(bool.Parse(entries[++i]));

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MouseManager : Manager<MouseManager>
 {
@@ -12,9 +9,9 @@ public class MouseManager : Manager<MouseManager>
     public LayerMask clickableLayer;
     public Events.EventGameObject OnClickTarget;
 
-    private PlayerController playerController;
 
     private bool _useDefaultCursor = false;
+    private bool _useTargetCursor = false;
 
 
     private void Start()
@@ -22,7 +19,7 @@ public class MouseManager : Manager<MouseManager>
         if (GameManager.Instance != null)
             GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
 
-        playerController = GameObject.FindObjectOfType<PlayerController>();
+        SetCursorDefalut();
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
@@ -32,20 +29,10 @@ public class MouseManager : Manager<MouseManager>
 
     private void Update()
     {
-        SetCursorDefalut();
-
-        if (_useDefaultCursor)
-        {
-            return;
-        }
-
         switch (GameManager.Instance.CurrentGameState)
         {
             case GameManager.GameState.RUNNING:
                 MouseHandler();
-
-                //on Click
-
                 break;
         }
     }
@@ -57,25 +44,22 @@ public class MouseManager : Manager<MouseManager>
 
     private void MouseHandler()
     {
-        RaycastHit hit;
         bool clickObj = false;
         //check mouse holder
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50, clickableLayer.value))
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 50, clickableLayer.value);
+        if (hit)
         {
             //set cursor
             clickObj = hit.collider.gameObject.GetComponent(typeof(IClickable)) != null;
-            if (clickObj)
+            if (clickObj && _useTargetCursor == false)
             {
                 Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
+                _useDefaultCursor = false;
+                _useTargetCursor = true;
             }
-
-
-            //clicked
-            if (Input.GetMouseButtonDown(0))
-            {
-
-            }
-            else if (Input.GetMouseButtonDown(1))
+            
+            if (Input.GetMouseButtonDown(1))
             {
                 if (clickObj)
                 {
@@ -84,12 +68,39 @@ public class MouseManager : Manager<MouseManager>
                 }
             }
         }
+        else
+        {
+            if (!_useDefaultCursor)
+            {
+                SetCursorDefalut();
+                _useDefaultCursor = true;
+                _useTargetCursor = false;
+            }
+        }
 
     }
 
     public void OnRightClick(GameObject objClicked)
     {
-        playerController.RightClickAction(objClicked);
+        switch (objClicked.tag)
+        {
+            case "obj_bed":
+                objClicked.GetComponent<BedClickable>().OnClick();
+                break;
+            case "obj_calendar":
+                objClicked.GetComponent<CalendarClickable>().OnClick();
+                break;
+            case "obj_com":
+                objClicked.GetComponent<ComClickable>().OnClick();
+                break;
+            case "obj_door":
+                objClicked.GetComponent<DoorClickable>().OnClick();
+                break;
+            case "obj_storage":
+                objClicked.GetComponent<StorageClickable>().OnClick();
+                break;
+
+        }
     }
 
 

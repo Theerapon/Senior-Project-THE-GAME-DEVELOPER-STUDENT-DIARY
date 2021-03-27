@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class Player : Manager<Player>
 {
     [Header("Public")]
-    public ItemContainer ItemContainer;
-	public EquipmentPanel Equipment;
+    public InventoryContainerOld ItemContainer;
+	public EquipmentContainerOld Equipment;
 
 	[SerializeField] Image draggableItem;
 
@@ -15,8 +15,8 @@ public class Player : Manager<Player>
     protected override void Awake()
     {
 		base.Awake();
-		ItemContainer = ItemContainer.Instance;
-		Equipment = EquipmentPanel.instance;
+		ItemContainer = InventoryContainerOld.Instance;
+		Equipment = EquipmentContainerOld.instance;
 	}
 
     protected void Start()
@@ -79,7 +79,6 @@ public class Player : Manager<Player>
 		{
 			SwapItems(dropItemSlot);
 		}
-		ItemContainer.UpdatedItemToHotBar();
 	}
 
 	private void SwapItems(BaseItemSlot dropItemSlot)
@@ -87,12 +86,12 @@ public class Player : Manager<Player>
 		ItemPickUp dragEquipItem = dragItemSlot.ITEM as ItemPickUp;
 		ItemPickUp dropEquipItem = dropItemSlot.ITEM as ItemPickUp;
 
-		if (dropItemSlot is EquipmentSlot)
+		if (dropItemSlot is Slot_Equipment)
 		{
 			if (dragEquipItem != null) dragEquipItem.Equip(this);
 			if (dropEquipItem != null) dropEquipItem.Unequip(this);
 		}
-		if (dragItemSlot is EquipmentSlot)
+		if (dragItemSlot is Slot_Equipment)
 		{
 			if (dragEquipItem != null) dragEquipItem.Unequip(this);
 			if (dropEquipItem != null) dropEquipItem.Equip(this);

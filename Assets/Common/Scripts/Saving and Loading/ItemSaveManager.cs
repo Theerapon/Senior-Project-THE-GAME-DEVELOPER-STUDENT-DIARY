@@ -56,7 +56,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
             for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                ItemSlot itemSlot = player.ItemContainer.ItemSlots[i];
+                Slot_Inventory itemSlot = player.ItemContainer.ItemSlots[i];
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
 
                 if (savedSlot == null)
@@ -121,13 +121,13 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
         }       
     }
 
-    private void SaveItems(IList<ItemSlot> itemSlots, string fileName)
+    private void SaveItems(IList<Slot_Inventory> itemSlots, string fileName)
     {
         var saveData = new ItemContainerSaveData(itemSlots.Count);
 
         for (int i = 0; i < saveData.SavedSlots.Length; i++)
         {
-            ItemSlot itemSlot = itemSlots[i];
+            Slot_Inventory itemSlot = itemSlots[i];
 
             if (itemSlot.ITEM == null)
             {
