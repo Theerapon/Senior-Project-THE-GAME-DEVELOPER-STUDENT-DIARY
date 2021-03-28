@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContainer
 {
-    public List<Slot_Inventory> ItemSlots;
+    public List<BaseInvSlot> ItemSlots;
 
     public event Action<BaseItemSlot> OnPointerEnterEvent;
     public event Action<BaseItemSlot> OnPointerExitEvent;
@@ -115,12 +115,13 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
         
         for (int i = 0; i < ItemSlots.Count; i++)
         {
+            /*
             if (ItemSlots[i].CanAddStack(item))
             {
                 ItemSlots[i].Amount++;
                 Destroy(item.gameObject);
                 return true; //add pass but same item in inventory so that destroy for don't have gameobject too much
-            }
+            }*/
         }
 
         for (int i = 0; i < ItemSlots.Count; i++)
@@ -128,7 +129,7 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
             if (ItemSlots[i].ITEM == null)
             {
                 ItemSlots[i].ITEM = item;
-                ItemSlots[i].Amount++;
+                //ItemSlots[i].Amount++;
                 ItemSlots[i].ITEM.SetGameObjectToFalse();
                 return true; //add pass and set gameobject active to false for don't show item in game scene
             }
@@ -140,11 +141,11 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
     {
         int freeSpaces = 0;
 
-        foreach (Slot_Inventory itemSlot in ItemSlots)
+        foreach (BaseInvSlot itemSlot in ItemSlots)
         {
             if (itemSlot.ITEM == null || itemSlot.ITEM.itemDefinition.ID() == item.itemDefinition.ID())
             {
-                freeSpaces += item.itemDefinition.GetMaxStackable() - itemSlot.Amount;
+                //freeSpaces += item.itemDefinition.GetMaxStackable() - itemSlot.Amount;
             }
         }
         return freeSpaces >= amount;
@@ -159,7 +160,7 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
                 ItemSlots[i].ITEM.itemDefinition.Destroy();
             }
             ItemSlots[i].ITEM = null;
-            ItemSlots[i].Amount = 0;
+            //ItemSlots[i].Amount = 0;
         }
     }
 
@@ -172,7 +173,7 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
             ItemPickUp item = ItemSlots[i].ITEM;
             if (item != null && item.itemDefinition.ID() == itemId)
             {
-                number += ItemSlots[i].Amount;
+                //number += ItemSlots[i].Amount;
             }
         }
         return number;
@@ -185,7 +186,7 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
             ItemPickUp item = ItemSlots[i].ITEM;
             if (item != null && item.itemDefinition.ID() == itemID)
             {
-                ItemSlots[i].Amount--;
+                //ItemSlots[i].Amount--;
                 return item;
             }
         }
@@ -198,7 +199,7 @@ public class InventoryContainerOld : Manager<InventoryContainerOld>, IItemContai
         {
             if (ItemSlots[i].ITEM == item)
             {
-                ItemSlots[i].Amount--;
+                //ItemSlots[i].Amount--;
                 return true;
             }
         }

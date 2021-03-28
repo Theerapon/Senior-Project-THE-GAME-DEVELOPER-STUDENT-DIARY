@@ -56,13 +56,13 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
             for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                Slot_Inventory itemSlot = player.ItemContainer.ItemSlots[i];
+                BaseInvSlot itemSlot = player.ItemContainer.ItemSlots[i];
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
 
                 if (savedSlot == null)
                 {
                     itemSlot.ITEM = null;
-                    itemSlot.Amount = 0;
+                    //itemSlot.Amount = 0;
                 }
                 else
                 {
@@ -80,7 +80,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                     itemType.itemDefinition = itemsSO;
 
                     itemSlot.ITEM = itemType;
-                    itemSlot.Amount = savedSlot.Amount;
+                    //itemSlot.Amount = savedSlot.Amount;
                     itemSlot.ITEM.SetGameObjectToFalse();
                 }
             }
@@ -121,13 +121,13 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
         }       
     }
 
-    private void SaveItems(IList<Slot_Inventory> itemSlots, string fileName)
+    private void SaveItems(IList<BaseInvSlot> itemSlots, string fileName)
     {
         var saveData = new ItemContainerSaveData(itemSlots.Count);
 
         for (int i = 0; i < saveData.SavedSlots.Length; i++)
         {
-            Slot_Inventory itemSlot = itemSlots[i];
+            BaseInvSlot itemSlot = itemSlots[i];
 
             if (itemSlot.ITEM == null)
             {
@@ -135,7 +135,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
             }
             else
             {
-                saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID(), itemSlot.Amount);
+                //saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID(), itemSlot.Amount);
             }
         }
         SaveData(saveData, fileName);

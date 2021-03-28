@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CloseDialogue : MonoBehaviour
 {
-    [SerializeField] GameManager.Scene areaScene;
+    [SerializeField] GameManager.GameScene areaScene;
 
     private void Update()
     {

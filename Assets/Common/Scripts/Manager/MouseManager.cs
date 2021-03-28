@@ -24,7 +24,10 @@ public class MouseManager : Manager<MouseManager>
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        _useDefaultCursor = (currentState != GameManager.GameState.RUNNING);
+        if(currentState != GameManager.GameState.RUNNING)
+        {
+            SetCursorDefalut();
+        }
     }
 
     private void Update()
@@ -40,6 +43,7 @@ public class MouseManager : Manager<MouseManager>
     private void SetCursorDefalut()
     {
         Cursor.SetCursor(pointer, new Vector2(16, 16), CursorMode.Auto);
+        _useDefaultCursor = true;
     }
 
     private void MouseHandler()

@@ -9,7 +9,7 @@ public class GameManager : Manager<GameManager>
     private class LoadingMonoBehaviour : MonoBehaviour { }
 
     #region Enums
-    public enum Scene
+    public enum GameScene
     {
         Boot,
         Loading,
@@ -21,10 +21,11 @@ public class GameManager : Manager<GameManager>
         Course,
         WorkProject,
         CourseAnimation,
-        HUD_Player_Info
+        HUD_Player_Info,
+        HUD_Player_Menu,
 
     }
-    public static Scene _currentLevelScene;
+    public static GameScene _currentGameScene;
 
     public enum GameState
     {
@@ -68,16 +69,6 @@ public class GameManager : Manager<GameManager>
         InstantiateSystemPrefabs();
     }
 
-
-    private void Update()
-    {
-        if (_currentGameState == GameState.PREGAME)
-        {
-            return;
-        }
-    }
-
-
     void UpdateState(GameState state)
     {
         _previousGameState = _currentGameState;
@@ -116,51 +107,62 @@ public class GameManager : Manager<GameManager>
 
         OnGameStateChanged?.Invoke(_currentGameState, _previousGameState);
     }
-
-    private void OnLoadOperationComplete(AsyncOperation ao)
+    void UpdateScene(GameScene scene)
     {
-        if (_currentLevelScene == Scene.Boot)
+        if (scene == GameScene.Boot)
         {
             UpdateState(GameState.PREGAME);
         }
 
-        if (_currentLevelScene == Scene.Loading)
+        if (scene == GameScene.Loading)
         {
             UpdateState(GameState.LOADING);
         }
 
-        if (_currentLevelScene == Scene.Main)
+        if (scene == GameScene.Main && !SceneManager.GetSceneByName(GameScene.HUD_Player_Info.ToString()).isLoaded)
         {
-            LoadLevelSceneWithOutLoadingScene(Scene.HUD_Player_Info);
+            LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Player_Info);
+            UpdateState(GameState.RUNNING);
+        }
+        else
+        {
             UpdateState(GameState.RUNNING);
         }
 
+        if (scene == GameScene.HUD_Player_Menu)
+        {
+            UpdateState(GameState.DISPLAYMENU);
+        }
 
-        if (_currentLevelScene == Scene.Summary)
+        if (scene == GameScene.Summary)
         {
             UpdateState(GameState.SUMMARY);
         }
 
-        if (_currentLevelScene == Scene.CourseAnimation)
+        if (scene == GameScene.CourseAnimation)
         {
             UpdateState(GameState.COURSEANIMATION);
         }
+    }
 
+    private void OnLoadOperationComplete(AsyncOperation ao)
+    {
+        UpdateScene(_currentGameScene);
     }
 
     #region Loading
-    public void LoadLevelSceneWithOutLoadingScene(Scene sceneName)
+    public void LoadLevelSceneWithOutLoadingScene(GameScene sceneName)
     {
         ao = SceneManager.LoadSceneAsync(sceneName.ToString(), LoadSceneMode.Additive);
         if (ao == null)
         {
             Debug.LogError("[GameManager] Unable to load level " + sceneName.ToString());
         }
-        _currentLevelScene = sceneName;
+        _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
     }
 
-    public void LoadLevelWithLoadingScene(Scene sceneName)
+    public void LoadLevelWithLoadingScene(GameScene sceneName)
     {
         onLoaderCallback = () => {
             StartCoroutine(LoadingScene(sceneName));
@@ -168,10 +170,10 @@ public class GameManager : Manager<GameManager>
 
         // Load the loading scene
         UpdateState(GameState.LOADING);
-        SceneManager.LoadSceneAsync(Scene.Loading.ToString(), LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(GameScene.Loading.ToString(), LoadSceneMode.Additive);
     }
 
-    IEnumerator LoadingScene(Scene sceneName)
+    IEnumerator LoadingScene(GameScene sceneName)
     {
         yield return null;
 
@@ -189,15 +191,15 @@ public class GameManager : Manager<GameManager>
         }
 
         //after loading scene finished then unload loading scene
-        UnLoadLevel(Scene.Loading);
+        UnLoadLevel(GameScene.Loading);
 
-        _currentLevelScene = sceneName;
+        _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
 
 
     }
 
-    public void UnLoadLevel(Scene sceneName)
+    public void UnLoadLevel(GameScene sceneName)
     {
         SceneManager.UnloadSceneAsync(sceneName.ToString());
         if (ao == null)
@@ -259,31 +261,44 @@ public class GameManager : Manager<GameManager>
         SwitchSceneToMain(true);
     }
 
+    public void OpenPlayerMenu(bool actived)
+    {
+        if (actived)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Player_Menu);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.HUD_Player_Menu);
+            UpdateScene(GameScene.Main);
+        }
+    }
+
     public void GotoSummaryDiary()
     {
-        LoadLevelSceneWithOutLoadingScene(Scene.Summary);
+        LoadLevelSceneWithOutLoadingScene(GameScene.Summary);
         UpdateState(GameState.SUMMARY);
     }
     public void GotoCourse()
     {
-        LoadLevelSceneWithOutLoadingScene(Scene.Course);
+        LoadLevelSceneWithOutLoadingScene(GameScene.Course);
         UpdateState(GameState.COURSE);
     }
 
     public void GotoCourseAnimation()
     {
-        LoadLevelWithLoadingScene(Scene.CourseAnimation);
+        LoadLevelWithLoadingScene(GameScene.CourseAnimation);
     }
 
     public void GotoWorkProject()
     {
-        LoadLevelSceneWithOutLoadingScene(Scene.WorkProject);
+        LoadLevelSceneWithOutLoadingScene(GameScene.WorkProject);
         UpdateState(GameState.WORKPROJECT);
     }
 
     public void GotoMainWithContiniueGameInNextDays()
     {
-        UnLoadLevel(Scene.Summary);
+        UnLoadLevel(GameScene.Summary);
         CloseToMain();
         if (SaveManager.Instance != null)
         {
@@ -293,30 +308,30 @@ public class GameManager : Manager<GameManager>
 
     public void BackFromCourseToMain()
     {
-        UnLoadLevel(Scene.Course);
+        UnLoadLevel(GameScene.Course);
         CloseToMain();
 
     }
 
     public void BackFromCourseAnimationToCourse()
     {
-        UnLoadLevel(Scene.CourseAnimation);
+        UnLoadLevel(GameScene.CourseAnimation);
         UpdateState(GameState.COURSE);
     }
 
-    public void OpenDialogue(Scene scene)
+    public void OpenDialogue(GameScene scene)
     {
         LoadLevelSceneWithOutLoadingScene(scene);
         UpdateState(GameState.DIALOGUE);
     }
 
 
-    public void FinishedDialogue(Scene nameScene)
+    public void FinishedDialogue(GameScene nameScene)
     {
         UnLoadLevel(nameScene);
     }
 
-    public void CloseDialogue(Scene nameScene)
+    public void CloseDialogue(GameScene nameScene)
     {
         UnLoadLevel(nameScene);
         CloseToMain();
@@ -324,7 +339,7 @@ public class GameManager : Manager<GameManager>
 
     private void CloseToMain()
     {
-        _currentLevelScene = Scene.Main;
+        _currentGameScene = GameScene.Main;
         UpdateState(GameState.RUNNING);
     }
 
@@ -332,29 +347,15 @@ public class GameManager : Manager<GameManager>
     {
         if (loadingScene)
         {
-            LoadLevelWithLoadingScene(Scene.Main);
+            LoadLevelWithLoadingScene(GameScene.Main);
         } else
         {
-            LoadLevelSceneWithOutLoadingScene(Scene.Main);
+            LoadLevelSceneWithOutLoadingScene(GameScene.Main);
         }
     }
 
     #endregion
 
-    #region Game State
-    public void DisplayMenuUpdatedState()
-    {
-        if (_currentGameState == GameState.RUNNING)
-        {
-            UpdateState(GameState.DISPLAYMENU);
-        }
-        else if(_currentGameState == GameState.DISPLAYMENU && _previousGameState == GameState.RUNNING)
-        {
-            UpdateState(GameState.RUNNING);
-        }
-
-    }
-    #endregion
 
 
     private void InstantiateSystemPrefabs()
@@ -366,4 +367,5 @@ public class GameManager : Manager<GameManager>
             _instancedSystemPrefabs.Add(prefabInstance);
         }
     }
+
 }

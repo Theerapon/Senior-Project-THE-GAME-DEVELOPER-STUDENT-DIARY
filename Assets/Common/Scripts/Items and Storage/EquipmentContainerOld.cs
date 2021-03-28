@@ -9,7 +9,7 @@ public class EquipmentContainerOld : MonoBehaviour
 
 
 	public Transform equipmentSlotsParent;
-    public Slot_Equipment[] EquipmentSlots;
+    public BaseEquipmentSlot[] EquipmentSlots;
 
 	public event Action<BaseItemSlot> OnPointerEnterEvent;
 	public event Action<BaseItemSlot> OnPointerExitEvent;
@@ -40,7 +40,7 @@ public class EquipmentContainerOld : MonoBehaviour
 
     protected void OnValidate()
     {
-        EquipmentSlots = equipmentSlotsParent.GetComponentsInChildren<Slot_Equipment>();
+        EquipmentSlots = equipmentSlotsParent.GetComponentsInChildren<BaseEquipmentSlot>();
     }
 
 	public bool AddItem(ItemPickUp item, out ItemPickUp previousItem)
@@ -51,7 +51,7 @@ public class EquipmentContainerOld : MonoBehaviour
 			{
 				previousItem = (ItemPickUp)EquipmentSlots[i].ITEM;
 				EquipmentSlots[i].ITEM = item;
-				EquipmentSlots[i].Amount = 1;
+				//EquipmentSlots[i].Amount = 1;
 				
 				return true;
 			}
@@ -67,7 +67,7 @@ public class EquipmentContainerOld : MonoBehaviour
 			if (EquipmentSlots[i].ITEM == item)
 			{
 				EquipmentSlots[i].ITEM = null;
-				EquipmentSlots[i].Amount = 0;
+				//EquipmentSlots[i].Amount = 0;
 				return true;
 			}
 		}
