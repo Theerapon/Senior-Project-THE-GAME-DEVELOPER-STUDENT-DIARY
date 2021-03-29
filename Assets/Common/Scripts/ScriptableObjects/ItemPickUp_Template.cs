@@ -37,25 +37,24 @@ public class ItemPickUp_Template
         return this;
     }
 
-
     public virtual void Destroy()
     {
 
     }
 
-    public void Equip(BagHandler player)
-    {
-       
-    }
-
-    public void Unequip(BagHandler player)
-    {
-        
-    }
-
     public void UseItem()
     {
 
+    }
+
+    public void Equip()
+    {
+        Debug.Log(itemName + " Equiped");
+    }
+
+    public void Unequip()
+    {
+        Debug.Log(itemName + " Unequiped");
     }
 
     #region Get

@@ -82,13 +82,7 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
 
     public virtual void Swap(int origin_item_entry, int target_item_entry)
     {
-        ItemEntry temp_item_entry =  container_item_entry[origin_item_entry];
-        //target to origin
-        container_item_entry[origin_item_entry] = container_item_entry[target_item_entry];
-        container_item_entry[origin_item_entry].slot_index = container_item_entry[target_item_entry].slot_index;
-        //origin to targen
-        container_item_entry[target_item_entry] = temp_item_entry;
-        container_item_entry[target_item_entry].slot_index = temp_item_entry.slot_index;
+        
     }
 
     public virtual bool CanStore()

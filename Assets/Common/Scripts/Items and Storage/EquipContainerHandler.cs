@@ -7,13 +7,18 @@ public class EquipContainerHandler : MonoBehaviour
 {
     #region Events
     public event Action<BaseItemSlot> OnRightClickEvent;
+    public event Action<BaseItemSlot> OnBeginDragEvent;
+    public event Action<BaseItemSlot> OnEndDragEvent;
+    public event Action<BaseItemSlot> OnDragEvent;
+    public event Action<BaseItemSlot> OnDropEvent;
+
     #endregion
 
     protected GameObject found_player;
     protected EquipmentContainer container;
     [SerializeField] private Transform itemsParent;
 
-    public List<BaseEquipmentSlot> ItemSlots;
+    public List<BaseEquipmentSlot> EquipItemSlots;
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +30,19 @@ public class EquipContainerHandler : MonoBehaviour
         container.OnEquipmentUpdated.AddListener(OnEquipmentUpdatedHandler);
 
         //set Item Slots
-        ItemSlots = new List<BaseEquipmentSlot>();
+        EquipItemSlots = new List<BaseEquipmentSlot>();
         if (itemsParent != null)
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: ItemSlots);
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: EquipItemSlots);
 
         //add Event each slots
-        for (int index = 0; index < ItemSlots.Count; index++)
+        for (int index = 0; index < EquipItemSlots.Count; index++)
         {
-            ItemSlots[index].OnRightClickEvent += slot => EventHelper(slot, OnRightClickEvent);
-            ItemSlots[index].INDEX = index;
+            EquipItemSlots[index].OnRightClickEvent += slot => OnRightClickEvent(slot);
+            EquipItemSlots[index].OnBeginDragEvent += slot => OnBeginDragEvent(slot);
+            EquipItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
+            EquipItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
+            EquipItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
+            EquipItemSlots[index].INDEX = index;
         }
 
         //display all item
@@ -57,11 +66,11 @@ public class EquipContainerHandler : MonoBehaviour
             ItemEntry itemEntry = container.container_item_entry[i];
             if (itemEntry != null)
             {
-                ItemSlots[i].ITEM = itemEntry.item_pickup;
+                EquipItemSlots[i].ITEM = itemEntry.item_pickup;
             }
             else
             {
-                ItemSlots[i].ITEM = null;
+                EquipItemSlots[i].ITEM = null;
             }
         }
 

@@ -38,7 +38,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(BagHandler.Instance.inv_container_handler.ItemSlots, InventoryFileName);
+        SaveItems(BagHandler.Instance.inv_container_handler.InvItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()

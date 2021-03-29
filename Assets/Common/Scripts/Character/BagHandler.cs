@@ -12,15 +12,14 @@ public class BagHandler : Manager<BagHandler>
 	private InventoryContainer inv_container;
 	protected EquipmentContainer equip_container;
 
-	//[SerializeField] Image draggableItem;
+	[SerializeField] Image draggableItem;
 
+	private Color dragColor = new Color(1, 1, 1, 0.7f);
 	private BaseItemSlot dragItemSlot;
 
     protected override void Awake()
     {
 		base.Awake();
-		//ItemContainer = InventoryContainerOld.Instance;
-		//Equipment = EquipmentContainerOld.instance;
 	}
 
     protected void Start()
@@ -41,21 +40,24 @@ public class BagHandler : Manager<BagHandler>
 		// Pointer Exit
 		ItemContainer.OnPointerExitEvent += HideTooltip;
 		Equipment.OnPointerExitEvent += HideTooltip;
-
-		// Begin Drag
-		ItemContainer.OnBeginDragEvent += BeginDrag;
-		Equipment.OnBeginDragEvent += BeginDrag;
-		// End Drag
-		ItemContainer.OnEndDragEvent += EndDrag;
-		Equipment.OnEndDragEvent += EndDrag;
-		// Drag
-		ItemContainer.OnDragEvent += Drag;
-		Equipment.OnDragEvent += Drag;
-		// Drop
-		ItemContainer.OnDropEvent += Drop;
-		Equipment.OnDropEvent += Drop;
-		//dropItemArea.OnDropEvent += DropItemOutsideUI;
 		*/
+
+		inv_container_handler.OnBeginDragEvent += BeginDrag;
+		equip_container_handler.OnBeginDragEvent += BeginDrag;
+		// End Drag
+		inv_container_handler.OnEndDragEvent += EndDrag;
+		equip_container_handler.OnEndDragEvent += EndDrag;
+		// Drag
+		inv_container_handler.OnDragEvent += Drag;
+		equip_container_handler.OnDragEvent += Drag;
+		// Drop
+		inv_container_handler.OnDropEvent += Drop;
+		equip_container_handler.OnDropEvent += Drop;
+		//dropItemArea.OnDropEvent += DropItemOutsideUI;
+
+		draggableItem.gameObject.SetActive(false);
+
+
 	}
 
     private void HideTooltip(BaseItemSlot obj)
@@ -68,65 +70,74 @@ public class BagHandler : Manager<BagHandler>
         
     }
 
-    private void AddStacks(BaseItemSlot dropItemSlot)
-	{
-		//int numAddableStacks = dropItemSlot.ITEM.itemDefinition.GetMaxStackable() - dropItemSlot.Amount;
-		//int stacksToAdd = Mathf.Min(numAddableStacks, dragItemSlot.Amount);
-
-		//dropItemSlot.Amount += stacksToAdd;
-		//dragItemSlot.Amount -= stacksToAdd;
-	}
-
-	private void Drop(BaseItemSlot dropItemSlot)
+	private void Drop(BaseItemSlot tranferItemSlot)
     {
-		/*
+		Debug.Log("dragItemslot == null");
 		if (dragItemSlot == null) return;
 
-		if (dropItemSlot.CanAddStack(dragItemSlot.ITEM))
+		Debug.Log("swap");
+		if (tranferItemSlot.CanReceiveItem(dragItemSlot.ITEM) && dragItemSlot.CanReceiveItem(tranferItemSlot.ITEM))
 		{
-			AddStacks(dropItemSlot);
+			Debug.Log("swap");
+			SwapItems(tranferItemSlot);
 		}
-		else if (dropItemSlot.CanReceiveItem(dragItemSlot.ITEM) && dragItemSlot.CanReceiveItem(dropItemSlot.ITEM))
-		{
-			SwapItems(dropItemSlot);
-		}*/
 	}
 
-	private void SwapItems(BaseItemSlot dropItemSlot)
+	private void SwapItems(BaseItemSlot tranferItemSlot)
 	{
-		ItemPickUp dragEquipItem = dragItemSlot.ITEM as ItemPickUp;
-		ItemPickUp dropEquipItem = dropItemSlot.ITEM as ItemPickUp;
+		ItemPickUp dragItem = dragItemSlot.ITEM as ItemPickUp;
+		int dragIndex = dragItemSlot.INDEX;
 
-		if (dropItemSlot is BaseEquipmentSlot)
-		{
-			if (dragEquipItem != null) dragEquipItem.Equip(this);
-			if (dropEquipItem != null) dropEquipItem.Unequip(this);
-		}
-		if (dragItemSlot is BaseEquipmentSlot)
-		{
-			if (dragEquipItem != null) dragEquipItem.Unequip(this);
-			if (dropEquipItem != null) dropEquipItem.Equip(this);
-		}
+		ItemPickUp tranferItem = tranferItemSlot.ITEM as ItemPickUp;
+		int tranferIndex = tranferItemSlot.INDEX;
 
-		ItemPickUp draggedItem = dragItemSlot.ITEM;
-		//int draggedItemAmount = dragItemSlot.Amount;
+		//swap between Equipment and Inventory
+		if(dragItemSlot is BaseEquipmentSlot || tranferItemSlot is BaseEquipmentSlot)
+        {
+			//swap from inventory to equipment
+			if (tranferItemSlot is BaseEquipmentSlot)
+			{
+				if (dragItem != null) dragItem.Equip();
+				if (tranferItem != null) tranferItem.Unequip();
+				Equip(dragItemSlot);
+			}
 
-		dragItemSlot.ITEM = dropItemSlot.ITEM;
-		//dragItemSlot.Amount = dropItemSlot.Amount;
+			//swap from equipment to inventory
+			if (dragItemSlot is BaseEquipmentSlot && tranferItemSlot.ITEM != null) //inventory is not null
+			{
+				if (dragItem != null) dragItem.Unequip();
+				if (tranferItem != null) tranferItem.Equip();
+				Equip(tranferItemSlot);
+            }
+			else if (dragItemSlot is BaseEquipmentSlot && tranferItemSlot.ITEM == null) //inventory is null
+            {
+				if (dragItem != null) dragItem.Unequip();
+				inv_container.StoreItem(dragItem, tranferIndex);
+				equip_container.RemoveItem(dragIndex);
+			}
 
-		dropItemSlot.ITEM = draggedItem;
-		//dropItemSlot.Amount = draggedItemAmount;
+        }
+        else //swap in inventory
+        {
+			inv_container.Swap(dragIndex, tranferIndex);
+        }
+
+		//ItemPickUp draggedItem = dragItemSlot.ITEM;
+
+		//dragItemSlot.ITEM = dropItemSlot.ITEM;
+
+		//dropItemSlot.ITEM = draggedItem;
 	}
 
 	private void Drag(BaseItemSlot itemSlot)
     {
-		//draggableItem.transform.position = Input.mousePosition;
+		draggableItem.transform.position = Input.mousePosition;
 	}
 
     private void EndDrag(BaseItemSlot itemSlot)
     {
 		dragItemSlot = null;
-		//draggableItem.gameObject.SetActive(false);
+		draggableItem.gameObject.SetActive(false);
 	}
 
     private void BeginDrag(BaseItemSlot itemSlot)
@@ -134,9 +145,11 @@ public class BagHandler : Manager<BagHandler>
 		if (itemSlot.ITEM != null)
 		{
 			dragItemSlot = itemSlot;
-			//draggableItem.sprite = itemSlot.ITEM.itemDefinition.GetItemIcon();
-			//draggableItem.transform.position = Input.mousePosition;
-			//draggableItem.gameObject.SetActive(true);
+			draggableItem.gameObject.SetActive(true);
+			draggableItem.sprite = itemSlot.ITEM.GetItemIcon();
+			draggableItem.color = dragColor;
+			draggableItem.transform.position = Input.mousePosition;
+			
 		}
 	}
 
@@ -173,11 +186,13 @@ public class BagHandler : Manager<BagHandler>
         if (inv_container.RemoveItem(itemSlot.INDEX))
         {
 			ItemPickUp previousItem;
-			if (equip_container.StoreItem(copy_item_pickup, out previousItem, equip_container_handler.ItemSlots))
+			if (equip_container.StoreItem(copy_item_pickup, out previousItem, equip_container_handler.EquipItemSlots))
 			{
+				copy_item_pickup.Equip();
 				if (previousItem != null)
 				{
 					inv_container.StoreItem(previousItem, copy_item_index);
+					previousItem.Unequip();
 				}
 			}
 		}
@@ -190,6 +205,7 @@ public class BagHandler : Manager<BagHandler>
 		if (inv_container.CanStore() && equip_container.RemoveItem(itemSlot.INDEX))
 		{
 			inv_container.StoreItem(copy_item_pickup);
+			copy_item_pickup.Unequip();
 		}
 	}
 }

@@ -37,7 +37,11 @@ public class BaseInvSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDr
     public void OnDrop(PointerEventData eventData)
     {
         if (OnDropEvent != null)
+        {
+            Debug.Log("drop");
             OnDropEvent(this);
+        }
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -48,7 +52,10 @@ public class BaseInvSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDr
             image.color = normalColor;
 
         if (OnEndDragEvent != null)
+        {
             OnEndDragEvent(this);
+        }
+            
     }
 
     protected override void OnDisable()

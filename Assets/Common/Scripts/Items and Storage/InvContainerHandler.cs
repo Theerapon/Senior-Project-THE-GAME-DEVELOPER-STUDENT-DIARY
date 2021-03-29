@@ -7,13 +7,17 @@ public class InvContainerHandler : MonoBehaviour
 {
     #region Events
     public event Action<BaseItemSlot> OnRightClickEvent;
+    public event Action<BaseItemSlot> OnBeginDragEvent;
+    public event Action<BaseItemSlot> OnEndDragEvent;
+    public event Action<BaseItemSlot> OnDragEvent;
+    public event Action<BaseItemSlot> OnDropEvent;
     #endregion
 
     protected GameObject found_player;
     protected InventoryContainer container;
     [SerializeField] private Transform itemsParent;
 
-    public List<BaseInvSlot> ItemSlots;
+    public List<BaseInvSlot> InvItemSlots;
 
     private void Start()
     {
@@ -24,15 +28,19 @@ public class InvContainerHandler : MonoBehaviour
         container.OnInventoryUpdated.AddListener(OnInventoryUpdatedHandler);
 
         //set Item Slots
-        ItemSlots = new List<BaseInvSlot>();
+        InvItemSlots = new List<BaseInvSlot>();
         if (itemsParent != null)
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: ItemSlots);
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: InvItemSlots);
 
         //add Event each slots
-        for (int index = 0; index < ItemSlots.Count; index++)
+        for (int index = 0; index < InvItemSlots.Count; index++)
         {
-            ItemSlots[index].OnRightClickEvent += slot => EventHelper(slot, OnRightClickEvent);
-            ItemSlots[index].INDEX = index;
+            InvItemSlots[index].OnRightClickEvent += slot => OnRightClickEvent(slot);
+            InvItemSlots[index].OnBeginDragEvent += slot => OnBeginDragEvent(slot);
+            InvItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
+            InvItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
+            InvItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
+            InvItemSlots[index].INDEX = index;
         }
 
         //display all item
@@ -56,11 +64,11 @@ public class InvContainerHandler : MonoBehaviour
             ItemEntry itemEntry = container.container_item_entry[index];
             if (itemEntry != null)
             {
-                ItemSlots[index].ITEM = itemEntry.item_pickup;
+                InvItemSlots[index].ITEM = itemEntry.item_pickup;
             }
             else
             {
-                ItemSlots[index].ITEM = null;
+                InvItemSlots[index].ITEM = null;
             }
         }
 
