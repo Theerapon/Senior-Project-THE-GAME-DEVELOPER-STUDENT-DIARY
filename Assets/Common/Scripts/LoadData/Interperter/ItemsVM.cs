@@ -11,9 +11,7 @@ public class ItemsVM : MonoBehaviour
     private const string INST_SET_ItemAmount = "itemAmount";
     private const string INST_SET_ItemSpawnChanceWeight = "itemSpawnChanceWeight";
     private const string INST_SET_MaxStacks = "maxStacks";
-    private const string INST_SET_ItemMaterialPath = "itemMaterialPath";
     private const string INST_SET_ItemIconPath = "itemIconPath";
-    private const string INST_SET_ItemRigidbodyPath = "itemRigidbodyPath";
     private const string INST_SET_IsEquipped = "isEquipped";
     private const string INST_SET_IsStorable = "isStorable";
     private const string INST_SET_IsUnique = "isUnique";
@@ -23,7 +21,6 @@ public class ItemsVM : MonoBehaviour
     private const string INST_SET_IsDestroyOnUse = "isDestroyOnUse";
     private const string INST_SET_IsGiftable = "isGiftable";
 
-    //[SerializeField] private GameObject itemPrefab;
 
     private ItemsDataLoading itemsDataLoading;
 
@@ -64,16 +61,9 @@ public class ItemsVM : MonoBehaviour
                 case INST_SET_MaxStacks:
                     copy.SetMaxStackable(int.Parse(entries[++i]));
                     break;
-                case INST_SET_ItemMaterialPath:
-                    Material material = Resources.Load<Material>(entries[++i]);
-                    copy.SetItemMaterial(material);
-                    break;
                 case INST_SET_ItemIconPath:
                     Sprite icon = Resources.Load<Sprite>(entries[++i]);
                     copy.SetItemIcon(icon);
-                    break;
-                case INST_SET_ItemRigidbodyPath:
-                    //copy.SetItemRigidbody(itemPrefab.GetComponent<Rigidbody>());
                     break;
                 case INST_SET_IsEquipped:
                     copy.SetIsEquipped(bool.Parse(entries[++i]));

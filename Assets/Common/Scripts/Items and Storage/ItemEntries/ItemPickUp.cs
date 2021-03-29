@@ -90,18 +90,12 @@ public class ItemPickUp : MonoBehaviour
     {
         return itemDefinition.GetMaxStackable();
     }
-    public Material GetItemMaterial()
-    {
-        return itemDefinition.GetItemMaterial();
-    }
+
     public Sprite GetItemIcon()
     {
         return itemDefinition.GetItemIcon();
     }
-    public Rigidbody GetItemRigidbody()
-    {
-        return itemDefinition.GetItemRigidbody();
-    }
+
     public bool GetIsEquipped()
     {
         return itemDefinition.GetIsEquipped();

@@ -14,9 +14,7 @@ public class ItemPickUp_Template
     [Range(1, 999)]
     private int MaximumStacks = 1;
 
-    private Material itemMaterial = null;
     private Sprite itemIcon = null;
-    private Rigidbody itemRigidbody = null;
 
     private bool isEquipped = false;
     private bool isStorable = false;
@@ -89,18 +87,12 @@ public class ItemPickUp_Template
     {
         return MaximumStacks;
     }
-    public Material GetItemMaterial()
-    {
-        return itemMaterial;
-    }
+
     public Sprite GetItemIcon()
     {
         return itemIcon;
     }
-    public Rigidbody GetItemRigidbody()
-    {
-        return itemRigidbody;
-    }
+
     public bool GetIsEquipped()
     {
         return isEquipped;
@@ -164,18 +156,12 @@ public class ItemPickUp_Template
     {
         MaximumStacks = value;
     }
-    public void SetItemMaterial(Material material)
-    {
-        itemMaterial  = material;
-    }
+
     public void SetItemIcon(Sprite icon)
     {
         itemIcon = icon;
     }
-    public void SetItemRigidbody(Rigidbody rg)
-    {
-        itemRigidbody = rg;
-    }
+
     public void SetIsEquipped(bool equipped)
     {
         isEquipped = equipped;
