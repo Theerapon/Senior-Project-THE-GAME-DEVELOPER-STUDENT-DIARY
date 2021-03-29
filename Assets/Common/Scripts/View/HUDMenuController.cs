@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System;
+﻿using UnityEngine;
 
-public class MenuController : MonoBehaviour
+
+public class HUDMenuController : MonoBehaviour
 {
     /*
     #region Defination
@@ -36,39 +32,29 @@ public class MenuController : MonoBehaviour
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        /*
-        switch (currentState)
-        {
-            case GameManager.GameState.PREGAME:
-                break;
-            case GameManager.GameState.RUNNING:
-                if(_HotbarHandler.activeSelf == false)
-                {
-                    _HotbarHandler.SetActive(true);
-                }
-                break;
-            case GameManager.GameState.DISPLAYMENU:
-                if (_HotbarHandler.activeSelf == true)
-                {
-                    _HotbarHandler.SetActive(false);
-                }
-                break;
-            default:
-                break;
-        }
-        */
+
     }
 
     void Update()
     {
         if(gameManager != null)
         {
-            if (gameManager.CurrentGameState == GameManager.GameState.RUNNING || gameManager.CurrentGameState == GameManager.GameState.DISPLAYMENU)
+            if (gameManager.CurrentGameState == GameManager.GameState.RUNNING || gameManager.CurrentGameState == GameManager.GameState.HUDPLAYERMENU)
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (Input.GetKeyDown(KeyboardManager.Instance.GetBackKeyCode()))
                 {
 
-                    GameManager.Instance.OpenPlayerMenu(ActivedBlur());
+                    GameManager.Instance.DisplerHUD(ActivedBlur(), GameManager.GameScene.HUD_Player_Menu);
+
+                }
+            }
+
+            if(gameManager.CurrentGameState == GameManager.GameState.STORAGE)
+            {
+                if (Input.GetKeyDown(KeyboardManager.Instance.GetBackKeyCode()))
+                {
+
+                    GameManager.Instance.DisplerHUD(false, GameManager.GameScene.HUD_Storage);
 
                 }
             }

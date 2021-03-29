@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryContainer : ItemContainer<InventoryContainer>
+public class StorageContainer : ItemContainer<StorageContainer>
 {
     #region
-    public Events.EventOnInventoryUpdated OnInventoryUpdated;
+    public Events.EventOnStorageUpdated OnStorageUpdated;
     #endregion
 
     protected override void NotificationEvents()
     {
         base.NotificationEvents();
-        OnInventoryUpdated?.Invoke();
-
+        OnStorageUpdated?.Invoke();
     }
 
     public override void Swap(int origin_item_entry, int target_item_entry)

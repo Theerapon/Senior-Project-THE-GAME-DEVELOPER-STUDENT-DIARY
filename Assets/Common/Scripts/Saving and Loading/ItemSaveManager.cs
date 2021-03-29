@@ -13,7 +13,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     protected void Start()
     {
-        player = BagHandler.Instance;
+        //player = BagHandler.Instance;
         SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         //OnLoaded();
         
@@ -38,7 +38,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(BagHandler.Instance.inv_container_handler.InvItemSlots, InventoryFileName);
+        //SaveItems(BagHandler.Instance.inv_container_handler.InvItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()

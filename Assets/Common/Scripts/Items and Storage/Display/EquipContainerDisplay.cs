@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EquipContainerHandler : MonoBehaviour
+public class EquipContainerDisplay : MonoBehaviour
 {
     #region Events
     public event Action<BaseItemSlot> OnRightClickEvent;
@@ -46,15 +46,10 @@ public class EquipContainerHandler : MonoBehaviour
         }
 
         //display all item
-        Reset();
-    }
-
-    private void OnEquipmentUpdatedHandler()
-    {
         DisplayedEquipment();
     }
 
-    private void Reset()
+    private void OnEquipmentUpdatedHandler()
     {
         DisplayedEquipment();
     }

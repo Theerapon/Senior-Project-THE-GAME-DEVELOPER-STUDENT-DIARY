@@ -2,25 +2,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BagHandler : Manager<BagHandler>
+public class BagHandler : MonoBehaviour
 {
-    //[Header("Public")]
-    public InvContainerHandler inv_container_handler;
-	public EquipContainerHandler equip_container_handler;
+    public InvContainerDisplay inv_container_display;
+	public EquipContainerDisplay equip_container_display;
 
 	private GameObject found_player;
 	private InventoryContainer inv_container;
 	protected EquipmentContainer equip_container;
 
 	[SerializeField] Image draggableItem;
-
 	private Color dragColor = new Color(1, 1, 1, 0.7f);
 	private BaseItemSlot dragItemSlot;
 
-    protected override void Awake()
-    {
-		base.Awake();
-	}
 
     protected void Start()
     {
@@ -30,8 +24,8 @@ public class BagHandler : Manager<BagHandler>
 
 		// Setup Events:
 		// Right Click
-		inv_container_handler.OnRightClickEvent += InventoryRightClick;
-		equip_container_handler.OnRightClickEvent += EquipmentRightClick;
+		inv_container_display.OnRightClickEvent += InventoryRightClick;
+		equip_container_display.OnRightClickEvent += EquipmentRightClick;
 
 		/*
 		// Pointer Enter
@@ -42,17 +36,17 @@ public class BagHandler : Manager<BagHandler>
 		Equipment.OnPointerExitEvent += HideTooltip;
 		*/
 
-		inv_container_handler.OnBeginDragEvent += BeginDrag;
-		equip_container_handler.OnBeginDragEvent += BeginDrag;
+		inv_container_display.OnBeginDragEvent += BeginDrag;
+		equip_container_display.OnBeginDragEvent += BeginDrag;
 		// End Drag
-		inv_container_handler.OnEndDragEvent += EndDrag;
-		equip_container_handler.OnEndDragEvent += EndDrag;
+		inv_container_display.OnEndDragEvent += EndDrag;
+		equip_container_display.OnEndDragEvent += EndDrag;
 		// Drag
-		inv_container_handler.OnDragEvent += Drag;
-		equip_container_handler.OnDragEvent += Drag;
+		inv_container_display.OnDragEvent += Drag;
+		equip_container_display.OnDragEvent += Drag;
 		// Drop
-		inv_container_handler.OnDropEvent += Drop;
-		equip_container_handler.OnDropEvent += Drop;
+		inv_container_display.OnDropEvent += Drop;
+		equip_container_display.OnDropEvent += Drop;
 		//dropItemArea.OnDropEvent += DropItemOutsideUI;
 
 		draggableItem.gameObject.SetActive(false);
@@ -72,13 +66,10 @@ public class BagHandler : Manager<BagHandler>
 
 	private void Drop(BaseItemSlot tranferItemSlot)
     {
-		Debug.Log("dragItemslot == null");
 		if (dragItemSlot == null) return;
 
-		Debug.Log("swap");
 		if (tranferItemSlot.CanReceiveItem(dragItemSlot.ITEM) && dragItemSlot.CanReceiveItem(tranferItemSlot.ITEM))
 		{
-			Debug.Log("swap");
 			SwapItems(tranferItemSlot);
 		}
 	}
@@ -177,7 +168,7 @@ public class BagHandler : Manager<BagHandler>
 		
 	}
 
-    public void Equip(BaseItemSlot itemSlot)
+    private void Equip(BaseItemSlot itemSlot)
 	{
 		ItemPickUp copy_item_pickup = itemSlot.ITEM; // copy item
 		int copy_item_index = itemSlot.INDEX; // copy index
@@ -186,7 +177,7 @@ public class BagHandler : Manager<BagHandler>
         if (inv_container.RemoveItem(itemSlot.INDEX))
         {
 			ItemPickUp previousItem;
-			if (equip_container.StoreItem(copy_item_pickup, out previousItem, equip_container_handler.EquipItemSlots))
+			if (equip_container.StoreItem(copy_item_pickup, out previousItem, equip_container_display.EquipItemSlots))
 			{
 				copy_item_pickup.Equip();
 				if (previousItem != null)
@@ -198,7 +189,7 @@ public class BagHandler : Manager<BagHandler>
 		}
 	}
 
-	public void Unequip(BaseItemSlot itemSlot)
+	private void Unequip(BaseItemSlot itemSlot)
 	{
 		ItemPickUp copy_item_pickup = itemSlot.ITEM; // copy item
 

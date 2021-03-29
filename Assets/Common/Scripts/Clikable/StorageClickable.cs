@@ -6,6 +6,6 @@ public class StorageClickable : MonoBehaviour, IClickable
 {
     public void OnClick()
     {
-        Debug.Log("storage");
+        GameManager.Instance.DisplerHUD(true, GameManager.GameScene.HUD_Storage);
     }
 }

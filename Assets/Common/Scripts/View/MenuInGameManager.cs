@@ -44,7 +44,7 @@ public class MenuInGameManager : Manager<MenuInGameManager>
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        if (currentState == GameManager.GameState.DISPLAYMENU && previousState == GameManager.GameState.RUNNING)
+        if (currentState == GameManager.GameState.HUDPLAYERMENU && previousState == GameManager.GameState.RUNNING)
         {
             Reset();
         }
@@ -58,7 +58,7 @@ public class MenuInGameManager : Manager<MenuInGameManager>
     #region Display
     public void DisplayInventory()
     {
-        if(GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
+        if(GameManager.Instance.CurrentGameState == GameManager.GameState.HUDPLAYERMENU)
         {
             if (_inventory.activeSelf == false && _inventory != null)
             {
@@ -71,7 +71,7 @@ public class MenuInGameManager : Manager<MenuInGameManager>
     }
     public void DisplayStats()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.HUDPLAYERMENU)
         {
             if (_StatsDisplayHolder.activeSelf == false && _StatsDisplayHolder != null)
             {
@@ -85,7 +85,7 @@ public class MenuInGameManager : Manager<MenuInGameManager>
     }
     public void DisplaySkills()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.HUDPLAYERMENU)
         {
             if (_skills.activeSelf == false && _skills != null)
             {
@@ -100,7 +100,7 @@ public class MenuInGameManager : Manager<MenuInGameManager>
     }
     public void DisplayBonus()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.DISPLAYMENU)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.HUDPLAYERMENU)
         {
             if (_bonus.activeSelf == false && _bonus != null)
             {

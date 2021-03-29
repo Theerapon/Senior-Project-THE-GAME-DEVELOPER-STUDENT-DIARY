@@ -23,6 +23,7 @@ public class GameManager : Manager<GameManager>
         CourseAnimation,
         HUD_Player_Info,
         HUD_Player_Menu,
+        HUD_Storage,
 
     }
     public static GameScene _currentGameScene;
@@ -32,12 +33,13 @@ public class GameManager : Manager<GameManager>
         PREGAME,
         LOADING,
         RUNNING,
-        DISPLAYMENU,
+        HUDPLAYERMENU,
         DIALOGUE,
         SUMMARY,
         COURSE,
         WORKPROJECT,
         COURSEANIMATION,
+        STORAGE,
     }
 
     public GameState CurrentGameState
@@ -85,7 +87,7 @@ public class GameManager : Manager<GameManager>
             case GameState.RUNNING:
                 Time.timeScale = 1.0f;
                 break;
-            case GameState.DISPLAYMENU:
+            case GameState.HUDPLAYERMENU:
                 Time.timeScale = 0f;
                 break;
             case GameState.DIALOGUE:
@@ -131,7 +133,12 @@ public class GameManager : Manager<GameManager>
 
         if (scene == GameScene.HUD_Player_Menu)
         {
-            UpdateState(GameState.DISPLAYMENU);
+            UpdateState(GameState.HUDPLAYERMENU);
+        }
+
+        if (scene == GameScene.HUD_Storage)
+        {
+            UpdateState(GameState.STORAGE);
         }
 
         if (scene == GameScene.Summary)
@@ -261,18 +268,20 @@ public class GameManager : Manager<GameManager>
         SwitchSceneToMain(true);
     }
 
-    public void OpenPlayerMenu(bool actived)
+    public void DisplerHUD(bool actived, GameScene scene)
     {
         if (actived)
         {
-            LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Player_Menu);
+            LoadLevelSceneWithOutLoadingScene(scene);
         }
         else
         {
-            UnLoadLevel(GameScene.HUD_Player_Menu);
+            UnLoadLevel(scene);
             UpdateScene(GameScene.Main);
         }
     }
+
+
 
     public void GotoSummaryDiary()
     {

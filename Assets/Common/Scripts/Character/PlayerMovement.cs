@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
                 //transform position
                 rgBody.MovePosition(transform.position + moveDirection);
                 break;
-            case GameManager.GameState.DISPLAYMENU:
+            case GameManager.GameState.HUDPLAYERMENU:
                 break;
             default:
                 break;

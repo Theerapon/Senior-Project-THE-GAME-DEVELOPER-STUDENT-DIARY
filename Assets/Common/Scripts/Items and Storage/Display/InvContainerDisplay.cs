@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvContainerHandler : MonoBehaviour
+public class InvContainerDisplay : MonoBehaviour
 {
     #region Events
     public event Action<BaseItemSlot> OnRightClickEvent;

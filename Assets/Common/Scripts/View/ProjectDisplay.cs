@@ -48,7 +48,7 @@ public class ProjectDisplay : MonoBehaviour
                     DisplayProject();
                 }
                 break;
-            case GameManager.GameState.DISPLAYMENU:
+            case GameManager.GameState.HUDPLAYERMENU:
                 break;
         }
 
