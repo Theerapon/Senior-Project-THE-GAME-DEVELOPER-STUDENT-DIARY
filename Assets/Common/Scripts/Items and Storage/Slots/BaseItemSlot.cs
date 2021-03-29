@@ -38,6 +38,13 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
     }
 
+    protected int _index;
+    public int INDEX
+    {
+        get { return _index; }
+        set { _index = value; }
+    }
+
 
     public virtual bool CanReceiveItem(ItemPickUp item)
     {

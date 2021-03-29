@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public enum ItemDefinitionsType { ENERGY, COIN, EQUIPMENT, EMPTY};
-public enum ItemEquipmentType { NONE, HAT, ACCESSORY, BAG, NOTEBOOK_BAG, DRESS, GAME_WEAPON, SHOES}
+public enum ItemEquipmentType { NONE, HAT, SHIRT, PANT, SHOES}
 
 public class ItemPickUp_Template
 {
@@ -45,12 +45,12 @@ public class ItemPickUp_Template
 
     }
 
-    public void Equip(Player player)
+    public void Equip(BagHandler player)
     {
        
     }
 
-    public void Unequip(Player player)
+    public void Unequip(BagHandler player)
     {
         
     }

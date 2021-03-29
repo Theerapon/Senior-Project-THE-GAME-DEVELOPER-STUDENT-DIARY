@@ -36,7 +36,7 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
         //container_item_entry = new ItemEntry[container_size];
     }
 
-    public virtual void StoreItem(ItemPickUp item_pickup)
+    public virtual bool StoreItem(ItemPickUp item_pickup)
     {
         if (CanStore())
         {
@@ -49,13 +49,35 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
                     break;
                 }
             }
+            NotificationEvents();
+            return true;
+        }
+        else
+        {
+            return false;
         }
         
     }
 
-    public virtual void RemoveItem(int index)
+    public virtual bool StoreItem(ItemPickUp item_pickup, int index)
     {
-        container_item_entry[index] = null;
+        container_item_entry[index] = new ItemEntry(item_pickup, index);
+        NotificationEvents();
+        return true;
+    }
+
+    public virtual bool RemoveItem(int index)
+    {
+        if(container_item_entry[index] != null)
+        {
+            container_item_entry[index] = null;
+            NotificationEvents();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public virtual void Swap(int origin_item_entry, int target_item_entry)
@@ -84,11 +106,10 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
         return canAdd;
     }
 
-    public ItemEntry[] GetContainerItemEntry()
+    protected virtual void NotificationEvents()
     {
-        return container_item_entry;
-    }
 
+    }
 
 
 

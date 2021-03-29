@@ -7,13 +7,13 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
     [SerializeField] ItemDatabase itemDatabase;
 
-    private Player player;
+    private BagHandler player;
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
 
     protected void Start()
     {
-        player = Player.Instance;
+        player = BagHandler.Instance;
         SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         //OnLoaded();
         
@@ -38,25 +38,25 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(Player.Instance.ItemContainer.ItemSlots, InventoryFileName);
+        SaveItems(BagHandler.Instance.inv_container_handler.ItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()
     {
-        SaveItems(Player.Instance.Equipment.EquipmentSlots, EquipmentFileName);
+        //SaveItems(BagHandler.Instance.Equipment.EquipmentSlots, EquipmentFileName);
     }
 
     private void LoadInventory()
-    {
+    {   /*
         if (SaveLoad.SaveExists(InventoryFileName))
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(InventoryFileName);
             if (savedSlots == null) return;
-            player.ItemContainer.ClearItemSlots();
+            player.display_item_container.ClearItemSlots();
 
             for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                BaseInvSlot itemSlot = player.ItemContainer.ItemSlots[i];
+                BaseInvSlot itemSlot = player.display_item_container.ItemSlots[i];
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
 
                 if (savedSlot == null)
@@ -85,12 +85,12 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                 }
             }
 
-        }
+        }*/
 
     }
 
     public void LoadEquipment()
-    {
+    {   /*
         if (SaveLoad.SaveExists(InventoryFileName))
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(EquipmentFileName);
@@ -115,10 +115,10 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = itemsSO;
 
-                player.ItemContainer.AddItem(itemType);
+                player.display_item_container.AddItem(itemType);
                 player.Equip(itemType);
             }
-        }       
+        }*/       
     }
 
     private void SaveItems(IList<BaseInvSlot> itemSlots, string fileName)

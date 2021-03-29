@@ -12,6 +12,7 @@ public class BaseEquipmentSlot : BaseInvSlot
 		gameObject.name = EquipmentType.ToString() + " Slot";
 	}
 
+	/*
 	public override bool CanReceiveItem(ItemPickUp item)
 	{
 		if (item == null)
@@ -20,4 +21,5 @@ public class BaseEquipmentSlot : BaseInvSlot
 		ItemPickUp equippableItem = item as ItemPickUp;
 		return equippableItem != null && equippableItem.itemDefinition.GetItemEquipmentType() == EquipmentType;
 	}
+	*/
 }

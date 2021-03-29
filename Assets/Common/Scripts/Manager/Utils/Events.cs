@@ -21,5 +21,7 @@ public class Events
     [System.Serializable] public class EventOnMotivationUpdated : UnityEvent { }
     [System.Serializable] public class EventOnCheckedWordUpdate : UnityEvent { }
     [System.Serializable] public class EventOnTypingGameStateChanged : UnityEvent<TypingGame2Manager.TypingGameState> { }
+    [System.Serializable] public class EventOnInventoryUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnEquipmentUpdated : UnityEvent { }
 
 }

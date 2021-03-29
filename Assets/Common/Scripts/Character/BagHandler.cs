@@ -2,30 +2,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : Manager<Player>
+public class BagHandler : Manager<BagHandler>
 {
-    [Header("Public")]
-    public InventoryContainerOld ItemContainer;
-	public EquipmentContainerOld Equipment;
+    //[Header("Public")]
+    public InvContainerHandler inv_container_handler;
+	public EquipContainerHandler equip_container_handler;
 
-	[SerializeField] Image draggableItem;
+	private GameObject found_player;
+	private InventoryContainer inv_container;
+	protected EquipmentContainer equip_container;
+
+	//[SerializeField] Image draggableItem;
 
 	private BaseItemSlot dragItemSlot;
 
     protected override void Awake()
     {
 		base.Awake();
-		ItemContainer = InventoryContainerOld.Instance;
-		Equipment = EquipmentContainerOld.instance;
+		//ItemContainer = InventoryContainerOld.Instance;
+		//Equipment = EquipmentContainerOld.instance;
 	}
 
     protected void Start()
     {
+		found_player = GameObject.FindGameObjectWithTag("Player");
+		inv_container = found_player.GetComponentInChildren<InventoryContainer>();
+		equip_container = found_player.GetComponentInChildren<EquipmentContainer>();
+
 		// Setup Events:
 		// Right Click
-		ItemContainer.OnRightClickEvent += InventoryRightClick;
-		Equipment.OnRightClickEvent += EquipmentPanelRightClick;
+		inv_container_handler.OnRightClickEvent += InventoryRightClick;
+		equip_container_handler.OnRightClickEvent += EquipmentRightClick;
 
+		/*
 		// Pointer Enter
 		ItemContainer.OnPointerEnterEvent += ShowTooltip;
 		Equipment.OnPointerEnterEvent += ShowTooltip;
@@ -46,6 +55,7 @@ public class Player : Manager<Player>
 		ItemContainer.OnDropEvent += Drop;
 		Equipment.OnDropEvent += Drop;
 		//dropItemArea.OnDropEvent += DropItemOutsideUI;
+		*/
 	}
 
     private void HideTooltip(BaseItemSlot obj)
@@ -110,13 +120,13 @@ public class Player : Manager<Player>
 
 	private void Drag(BaseItemSlot itemSlot)
     {
-		draggableItem.transform.position = Input.mousePosition;
+		//draggableItem.transform.position = Input.mousePosition;
 	}
 
     private void EndDrag(BaseItemSlot itemSlot)
     {
 		dragItemSlot = null;
-		draggableItem.gameObject.SetActive(false);
+		//draggableItem.gameObject.SetActive(false);
 	}
 
     private void BeginDrag(BaseItemSlot itemSlot)
@@ -124,64 +134,62 @@ public class Player : Manager<Player>
 		if (itemSlot.ITEM != null)
 		{
 			dragItemSlot = itemSlot;
-			draggableItem.sprite = itemSlot.ITEM.itemDefinition.GetItemIcon();
-			draggableItem.transform.position = Input.mousePosition;
-			draggableItem.gameObject.SetActive(true);
+			//draggableItem.sprite = itemSlot.ITEM.itemDefinition.GetItemIcon();
+			//draggableItem.transform.position = Input.mousePosition;
+			//draggableItem.gameObject.SetActive(true);
 		}
 	}
 
-    private void EquipmentPanelRightClick(BaseItemSlot itemSlot)
+    private void EquipmentRightClick(BaseItemSlot itemSlot)
     {
 		if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.GetIsEquipped())
 		{
-			Unequip((ItemPickUp)itemSlot.ITEM);
+			Unequip(itemSlot);
 		}
 	}
 
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
-		/*
 		if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.GetIsEquipped())
 		{
-			Equip((ItemPickUp)itemSlot.ITEM);
-		} else if (itemSlot.ITEM != null && itemSlot.Amount != 0)
+			Equip(itemSlot);
+		} else if (itemSlot.ITEM != null)
         {
-			ItemPickUp copy = Instantiate(itemSlot.ITEM);
-			copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
-			copy.UseItem();
-			ItemContainer.RemoveItem(itemSlot.ITEM);
-		}*/
+			Debug.Log(itemSlot.ITEM.GetItemName());
+			//ItemPickUp copy = Instantiate(itemSlot.ITEM);
+			//copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
+			//copy.UseItem();
+			//display_item_container.RemoveItem(itemSlot.ITEM);
+		}
 		
 	}
 
-    public void Equip(ItemPickUp item)
+    public void Equip(BaseItemSlot itemSlot)
 	{
-		if (ItemContainer.RemoveItem(item))
-		{
+		ItemPickUp copy_item_pickup = itemSlot.ITEM; // copy item
+		int copy_item_index = itemSlot.INDEX; // copy index
+
+		//remove item from inventory
+        if (inv_container.RemoveItem(itemSlot.INDEX))
+        {
 			ItemPickUp previousItem;
-			if (Equipment.AddItem(item, out previousItem))
+			if (equip_container.StoreItem(copy_item_pickup, out previousItem, equip_container_handler.ItemSlots))
 			{
-				
 				if (previousItem != null)
 				{
-					ItemContainer.AddItem(previousItem);
-					previousItem.Unequip(this);
+					inv_container.StoreItem(previousItem, copy_item_index);
 				}
-				item.Equip(this);
-			}
-			else
-			{
-				ItemContainer.AddItem(item);
 			}
 		}
 	}
 
-	public void Unequip(ItemPickUp item)
+	public void Unequip(BaseItemSlot itemSlot)
 	{
-		if (ItemContainer.CanAddItem(item) && Equipment.RemoveItem(item))
+		ItemPickUp copy_item_pickup = itemSlot.ITEM; // copy item
+
+		if (inv_container.CanStore() && equip_container.RemoveItem(itemSlot.INDEX))
 		{
-			item.Unequip(this);
-			ItemContainer.AddItem(item);
+			inv_container.StoreItem(copy_item_pickup);
 		}
 	}
 }

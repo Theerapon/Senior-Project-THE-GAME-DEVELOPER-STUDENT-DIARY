@@ -111,26 +111,17 @@ public class ItemsVM : MonoBehaviour
         ItemEquipmentType subType = ItemEquipmentType.NONE;
         switch (type)
         {
-            case "ENERGY":
+            case "NONE":
                 subType = ItemEquipmentType.NONE;
                 break;
             case "HAT":
                 subType = ItemEquipmentType.HAT;
                 break;
-            case "ACCESSORY":
-                subType = ItemEquipmentType.ACCESSORY;
+            case "SHIRT":
+                subType = ItemEquipmentType.SHIRT;
                 break;
-            case "BAG":
-                subType = ItemEquipmentType.BAG;
-                break;
-            case "NOTEBOOK_BAG":
-                subType = ItemEquipmentType.NOTEBOOK_BAG;
-                break;
-            case "DRESS":
-                subType = ItemEquipmentType.DRESS;
-                break;
-            case "GAME_WEAPON":
-                subType = ItemEquipmentType.GAME_WEAPON;
+            case "PANT":
+                subType = ItemEquipmentType.PANT;
                 break;
             case "SHOES":
                 subType = ItemEquipmentType.SHOES;

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class InventoryContainer : ItemContainer<InventoryContainer>
 {
+    #region
+    public Events.EventOnInventoryUpdated OnInventoryUpdated;
+    #endregion
+
     protected override void Awake()
     {
         base.Awake();
@@ -12,5 +16,12 @@ public class InventoryContainer : ItemContainer<InventoryContainer>
     protected override void Start()
     {
         base.Start();
+    }
+
+    protected override void NotificationEvents()
+    {
+        base.NotificationEvents();
+        OnInventoryUpdated?.Invoke();
+
     }
 }

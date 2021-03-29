@@ -33,14 +33,14 @@ public class ItemPickUp : MonoBehaviour
 
     }
 
-    public void Equip(Player player)
+    public void Equip(BagHandler baghadler)
     {
-        itemDefinition.Equip(player);
+        itemDefinition.Equip(baghadler);
     }
 
-    public void Unequip(Player player)
+    public void Unequip(BagHandler baghadler)
     {
-        itemDefinition.Unequip(player);
+        itemDefinition.Unequip(baghadler);
     }
 
     public virtual void DestroyItemPickUp()

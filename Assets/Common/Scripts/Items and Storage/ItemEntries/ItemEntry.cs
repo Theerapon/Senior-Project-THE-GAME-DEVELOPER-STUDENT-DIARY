@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class ItemEntry
 {
-    public ItemPickUp item_entry;
+    public ItemPickUp item_pickup;
     public int slot_index;
 
     public ItemEntry(ItemPickUp inv_entry)
     {
-        this.item_entry = inv_entry;
+        this.item_pickup = inv_entry;
         this.slot_index = 0;
     }
 
     public ItemEntry(ItemPickUp item_pickup, int slot_index)
     {
-        this.item_entry = item_pickup;
+        this.item_pickup = item_pickup;
         this.slot_index = slot_index;
     }
 

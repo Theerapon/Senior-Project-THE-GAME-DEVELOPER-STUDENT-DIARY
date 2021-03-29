@@ -17,11 +17,12 @@ public class StachContainer : ItemContainer<StachContainer>
         inventoryContainer = InventoryContainer.Instance;
     }
 
-    public override void StoreItem(ItemPickUp item_pickup)
+    public override bool StoreItem(ItemPickUp item_pickup)
     {
         if (inventoryContainer.CanStore())
         {
             inventoryContainer.StoreItem(item_pickup);
+            return true;
         }
         else
         {
@@ -36,10 +37,12 @@ public class StachContainer : ItemContainer<StachContainer>
                         break;
                     }
                 }
+                return true;
             }
             else
             {
                 Debug.Log("Full");
+                return false;
             }
             
         }
