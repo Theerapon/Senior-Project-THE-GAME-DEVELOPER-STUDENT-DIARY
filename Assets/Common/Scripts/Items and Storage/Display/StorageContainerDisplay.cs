@@ -11,6 +11,8 @@ public class StorageContainerDisplay : MonoBehaviour
     public event Action<BaseItemSlot> OnEndDragEvent;
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
+    public event Action<BaseItemSlot> OnPointerEnterEvent;
+    public event Action<BaseItemSlot> OnPointerExitEvent;
     #endregion
 
     protected GameObject found_obj_storage;
@@ -40,6 +42,8 @@ public class StorageContainerDisplay : MonoBehaviour
             StorageItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
             StorageItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
             StorageItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
+            StorageItemSlots[index].OnPointerEnterEvent += slot => OnPointerEnterEvent(slot);
+            StorageItemSlots[index].OnPointerExitEvent += slot => OnPointerExitEvent(slot);
             StorageItemSlots[index].INDEX = index;
         }
 

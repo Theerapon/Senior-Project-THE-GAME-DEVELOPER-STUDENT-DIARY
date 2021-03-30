@@ -1,9 +1,11 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BagHandler : MonoBehaviour
 {
+
     public InvContainerDisplay inv_container_display;
 	public EquipContainerDisplay equip_container_display;
 
@@ -11,10 +13,19 @@ public class BagHandler : MonoBehaviour
 	private InventoryContainer inv_container;
 	protected EquipmentContainer equip_container;
 
+	[Header("Draggable Item")]
+	[SerializeField] GameObject drag_gameobject;
 	[SerializeField] Image draggableItem;
 	private Color dragColor = new Color(1, 1, 1, 0.7f);
 	private BaseItemSlot dragItemSlot;
 
+	[Header("Item Description")]
+	[SerializeField] private GameObject item_description_gameobject;
+	[SerializeField] private TMP_Text item_name;
+	[SerializeField] private TMP_Text item_type;
+	[SerializeField] private TMP_Text item_description;
+	[SerializeField] private Image item_icon;
+	private bool setItemDescription;
 
     protected void Start()
     {
@@ -27,14 +38,13 @@ public class BagHandler : MonoBehaviour
 		inv_container_display.OnRightClickEvent += InventoryRightClick;
 		equip_container_display.OnRightClickEvent += EquipmentRightClick;
 
-		/*
 		// Pointer Enter
-		ItemContainer.OnPointerEnterEvent += ShowTooltip;
-		Equipment.OnPointerEnterEvent += ShowTooltip;
+		inv_container_display.OnPointerEnterEvent += ShowTooltip;
+		equip_container_display.OnPointerEnterEvent += ShowTooltip;
 		// Pointer Exit
-		ItemContainer.OnPointerExitEvent += HideTooltip;
-		Equipment.OnPointerExitEvent += HideTooltip;
-		*/
+		inv_container_display.OnPointerExitEvent += HideTooltip;
+		equip_container_display.OnPointerExitEvent += HideTooltip;
+		
 
 		inv_container_display.OnBeginDragEvent += BeginDrag;
 		equip_container_display.OnBeginDragEvent += BeginDrag;
@@ -49,22 +59,55 @@ public class BagHandler : MonoBehaviour
 		equip_container_display.OnDropEvent += Drop;
 		//dropItemArea.OnDropEvent += DropItemOutsideUI;
 
+		Reset();
 		draggableItem.gameObject.SetActive(false);
-
 
 	}
 
-    private void HideTooltip(BaseItemSlot obj)
+    private void HideTooltip(BaseItemSlot itemSlot)
     {
-        
-    }
+		Reset();
+	}
 
-    private void ShowTooltip(BaseItemSlot obj)
+    private void ShowTooltip(BaseItemSlot itemSlot)
     {
-        
-    }
+		if(itemSlot.ITEM != null)
+        {
+			SetItemDescription(itemSlot);
+			setItemDescription = true;
+		}
+	}
 
-	private void Drop(BaseItemSlot tranferItemSlot)
+	private void SetItemDescription(BaseItemSlot itemSlot)
+    {
+		item_description_gameobject.SetActive(true);
+
+		item_name.text = itemSlot.ITEM.GetItemName();
+		item_description.text = itemSlot.ITEM.GetItemDescription();
+		item_icon.sprite = itemSlot.ITEM.GetItemIcon();
+
+		if (itemSlot.ITEM.GetItemDefinitionsType().ToString() == "EQUIPMENT")
+		{
+			item_type.text = itemSlot.ITEM.GetItemEquipmentType().ToString();
+		}
+		else
+		{
+			item_type.text = itemSlot.ITEM.GetItemDefinitionsType().ToString();
+		}
+	}
+
+
+    private void Reset()
+    {
+		item_name.text = null;
+		item_description.text = null;
+		item_icon.sprite = null;
+		item_type.text = null;
+		item_description_gameobject.SetActive(false);
+		setItemDescription = false;
+	}
+
+    private void Drop(BaseItemSlot tranferItemSlot)
     {
 		if (dragItemSlot == null) return;
 
@@ -123,6 +166,12 @@ public class BagHandler : MonoBehaviour
 	private void Drag(BaseItemSlot itemSlot)
     {
 		draggableItem.transform.position = Input.mousePosition;
+
+        if (!setItemDescription && itemSlot.ITEM != null)
+        {
+			SetItemDescription(itemSlot);
+			setItemDescription = true;
+		}
 	}
 
     private void EndDrag(BaseItemSlot itemSlot)
@@ -136,11 +185,10 @@ public class BagHandler : MonoBehaviour
 		if (itemSlot.ITEM != null)
 		{
 			dragItemSlot = itemSlot;
-			draggableItem.gameObject.SetActive(true);
 			draggableItem.sprite = itemSlot.ITEM.GetItemIcon();
 			draggableItem.color = dragColor;
 			draggableItem.transform.position = Input.mousePosition;
-			
+			draggableItem.gameObject.SetActive(true);
 		}
 	}
 

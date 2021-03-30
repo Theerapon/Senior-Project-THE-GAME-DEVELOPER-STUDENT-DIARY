@@ -7,6 +7,7 @@ public class ItemPickUp_Template
 {
     private string id;
     private string itemName = "New Item";
+    private string itemDescription = "";
     private ItemDefinitionsType itemType = ItemDefinitionsType.EMPTY;
     private ItemEquipmentType subType = ItemEquipmentType.NONE;
     private int itemAmount = 0;
@@ -65,6 +66,10 @@ public class ItemPickUp_Template
     public string GetItemName()
     {
         return itemName;
+    }
+    public string GetItemDescription()
+    {
+        return itemDescription;
     }
     public ItemDefinitionsType GetItemDefinitionsType()
     {
@@ -134,6 +139,10 @@ public class ItemPickUp_Template
     public void SetItemName(string name)
     {
         itemName = name;
+    }
+    public void SetItemDescription(string description)
+    {
+        itemDescription = description;
     }
     public void SetItemDefinitionsType(ItemDefinitionsType type)
     {

@@ -11,6 +11,8 @@ public class InvContainerDisplay : MonoBehaviour
     public event Action<BaseItemSlot> OnEndDragEvent;
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
+    public event Action<BaseItemSlot> OnPointerEnterEvent; 
+    public event Action<BaseItemSlot> OnPointerExitEvent;
     #endregion
 
     protected GameObject found_player;
@@ -40,6 +42,8 @@ public class InvContainerDisplay : MonoBehaviour
             InvItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
             InvItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
             InvItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
+            InvItemSlots[index].OnPointerEnterEvent += slot => OnPointerEnterEvent(slot);
+            InvItemSlots[index].OnPointerExitEvent += slot => OnPointerExitEvent(slot);
             InvItemSlots[index].INDEX = index;
         }
 

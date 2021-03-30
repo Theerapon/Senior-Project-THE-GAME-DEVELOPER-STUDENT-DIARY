@@ -7,6 +7,7 @@ using System;
 public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] protected Image image;
+    [SerializeField] protected Image border;
 
     public event Action<BaseItemSlot> OnPointerEnterEvent;
     public event Action<BaseItemSlot> OnPointerExitEvent;
@@ -16,6 +17,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     protected Color normalColor = Color.white;
     protected Color disabledColor = new Color(1, 1, 1, 0);
+    protected Color selectedColor = new Color(0, 0, 0, 0.5f);
 
     protected ItemPickUp _itemPickUp;
     public ItemPickUp ITEM
@@ -29,12 +31,23 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 image.sprite = null;
                 image.color = disabledColor;
+                if (border != null)
+                {
+                    border.enabled = false;
+                    border.color = selectedColor;
+                }
             } else
             {
                 image.sprite = _itemPickUp.itemDefinition.GetItemIcon();
                 image.color = normalColor;
             }
-                
+
+            if (isPointerOver)
+            {
+                OnPointerExit(null);
+                OnPointerEnter(null);
+            }
+
         }
     }
 
@@ -62,10 +75,9 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     protected virtual void OnValidate()
     {
-        
         if (image == null)
             image = GetComponent<Image>();
-   
+
         ITEM = _itemPickUp;
     }
 
@@ -81,6 +93,9 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         isPointerOver = true;
 
+        if (border != null)
+            border.enabled = true;
+
         if (OnPointerEnterEvent != null)
             OnPointerEnterEvent(this);
     }
@@ -88,6 +103,8 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerOver = false;
+        if(border != null)
+            border.enabled = false;
 
         if (OnPointerExitEvent != null)
             OnPointerExitEvent(this);

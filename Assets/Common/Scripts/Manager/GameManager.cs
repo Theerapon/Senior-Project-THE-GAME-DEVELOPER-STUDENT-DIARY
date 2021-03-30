@@ -118,6 +118,18 @@ public class GameManager : Manager<GameManager>
         _previousGameState = _currentGameState;
         _currentGameState = state;
 
+        switch (_currentGameState)
+        {
+            case GameState.MENU:
+                Time.timeScale = 0f;
+                break;
+            case GameState.HOME_ACTION:
+                Time.timeScale = 0f;
+                break;
+            default:
+                Time.timeScale = 1f;
+                break;
+        }
  
         OnGameStateChanged?.Invoke(_currentGameState, _previousGameState);
     }

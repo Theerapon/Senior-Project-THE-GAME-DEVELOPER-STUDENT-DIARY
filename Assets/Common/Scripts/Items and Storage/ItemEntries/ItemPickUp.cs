@@ -70,6 +70,10 @@ public class ItemPickUp : MonoBehaviour
     {
         return itemDefinition.GetItemName();
     }
+    public string GetItemDescription()
+    {
+        return itemDefinition.GetItemDescription();
+    }
     public ItemDefinitionsType GetItemDefinitionsType()
     {
         return itemDefinition.GetItemDefinitionsType();

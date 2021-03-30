@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StorageHandler : Manager<StorageHandler>
 {
+
     public StorageContainerDisplay storage_container_display;
     public InvContainerDisplay inv_container_display;
 
@@ -18,6 +20,13 @@ public class StorageHandler : Manager<StorageHandler>
     private Color dragColor = new Color(1, 1, 1, 0.7f);
     private BaseItemSlot dragItemSlot;
 
+	[Header("Item Description")]
+	[SerializeField] private GameObject item_description_gameobject;
+	[SerializeField] private TMP_Text item_name;
+	[SerializeField] private TMP_Text item_type;
+	[SerializeField] private TMP_Text item_description;
+	[SerializeField] private Image item_icon;
+	private bool setItemDescription;
 
 	protected void Start()
 	{
@@ -31,14 +40,14 @@ public class StorageHandler : Manager<StorageHandler>
 		inv_container_display.OnRightClickEvent += InventoryRightClick;
 		storage_container_display.OnRightClickEvent += StorageRightClick;
 
-		/*
+
 		// Pointer Enter
-		ItemContainer.OnPointerEnterEvent += ShowTooltip;
-		Equipment.OnPointerEnterEvent += ShowTooltip;
+		inv_container_display.OnPointerEnterEvent += ShowTooltip;
+		storage_container_display.OnPointerEnterEvent += ShowTooltip;
 		// Pointer Exit
-		ItemContainer.OnPointerExitEvent += HideTooltip;
-		Equipment.OnPointerExitEvent += HideTooltip;
-		*/
+		inv_container_display.OnPointerExitEvent += HideTooltip;
+		storage_container_display.OnPointerExitEvent += HideTooltip;
+		
 
 		inv_container_display.OnBeginDragEvent += BeginDrag;
 		storage_container_display.OnBeginDragEvent += BeginDrag;
@@ -53,12 +62,55 @@ public class StorageHandler : Manager<StorageHandler>
 		storage_container_display.OnDropEvent += Drop;
 		//dropItemArea.OnDropEvent += DropItemOutsideUI;
 
+		Reset();
 		draggableItem.gameObject.SetActive(false);
 
 
 	}
 
-    private void StorageRightClick(BaseItemSlot itemSlot)
+    private void HideTooltip(BaseItemSlot itemSlot)
+    {
+		Reset();
+	}
+
+    private void ShowTooltip(BaseItemSlot itemSlot)
+    {
+		if (itemSlot.ITEM != null)
+		{
+			SetItemDescription(itemSlot);
+			setItemDescription = true;
+		}
+	}
+
+    private void Reset()
+    {
+		item_name.text = null;
+		item_description.text = null;
+		item_icon.sprite = null;
+		item_type.text = null;
+		item_description_gameobject.SetActive(false);
+		setItemDescription = false;
+	}
+
+	private void SetItemDescription(BaseItemSlot itemSlot)
+	{
+		item_description_gameobject.SetActive(true);
+
+		item_name.text = itemSlot.ITEM.GetItemName();
+		item_description.text = itemSlot.ITEM.GetItemDescription();
+		item_icon.sprite = itemSlot.ITEM.GetItemIcon();
+
+		if (itemSlot.ITEM.GetItemDefinitionsType().ToString() == "EQUIPMENT")
+		{
+			item_type.text = itemSlot.ITEM.GetItemEquipmentType().ToString();
+		}
+		else
+		{
+			item_type.text = itemSlot.ITEM.GetItemDefinitionsType().ToString();
+		}
+	}
+
+	private void StorageRightClick(BaseItemSlot itemSlot)
     {
 		if (dragItemSlot == null)
         {

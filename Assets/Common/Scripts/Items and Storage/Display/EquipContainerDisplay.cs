@@ -11,7 +11,8 @@ public class EquipContainerDisplay : MonoBehaviour
     public event Action<BaseItemSlot> OnEndDragEvent;
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
-
+    public event Action<BaseItemSlot> OnPointerEnterEvent;
+    public event Action<BaseItemSlot> OnPointerExitEvent;
     #endregion
 
     protected GameObject found_player;
@@ -42,6 +43,8 @@ public class EquipContainerDisplay : MonoBehaviour
             EquipItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
             EquipItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
             EquipItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
+            EquipItemSlots[index].OnPointerEnterEvent += slot => OnPointerEnterEvent(slot);
+            EquipItemSlots[index].OnPointerExitEvent += slot => OnPointerExitEvent(slot);
             EquipItemSlots[index].INDEX = index;
         }
 
