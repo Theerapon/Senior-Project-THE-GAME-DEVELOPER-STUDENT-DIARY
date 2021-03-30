@@ -29,10 +29,11 @@ public class CourseAnimationDisplay : MonoBehaviour
 
     private void TimeSkilpHandler(GameManager.GameState gameState)
     {
+        /*
         if (gameState == GameManager.GameState.COURSEANIMATION)
         {
             DisplayBonusBox();
-        }
+        }*/
     }
 
     private void HandleOnSeasonCalender(string season)
@@ -52,6 +53,7 @@ public class CourseAnimationDisplay : MonoBehaviour
 
     public void DisplayBonusBox()
     {
+        /*
         if (GameManager.Instance.CurrentGameState == GameManager.GameState.COURSEANIMATION)
         {
             if (bonusBox.activeSelf == false && bonusBox != null)
@@ -59,6 +61,6 @@ public class CourseAnimationDisplay : MonoBehaviour
                 bonusBox.SetActive(true);
                 courseAnimationManager.CreateTemplateBonus();
             }
-        }
+        }*/
     }
 }

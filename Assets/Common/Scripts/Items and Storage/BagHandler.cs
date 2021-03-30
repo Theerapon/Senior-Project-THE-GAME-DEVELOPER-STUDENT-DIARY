@@ -146,26 +146,36 @@ public class BagHandler : MonoBehaviour
 
     private void EquipmentRightClick(BaseItemSlot itemSlot)
     {
-		if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.GetIsEquipped())
-		{
-			Unequip(itemSlot);
+		if (dragItemSlot == null)
+        {
+			if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.GetIsEquipped())
+			{
+				Unequip(itemSlot);
+			}
+
 		}
+			
 	}
 
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
-		if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.GetIsEquipped())
-		{
-			Equip(itemSlot);
-		} else if (itemSlot.ITEM != null)
+		if (dragItemSlot == null)
         {
-			Debug.Log(itemSlot.ITEM.GetItemName());
-			//ItemPickUp copy = Instantiate(itemSlot.ITEM);
-			//copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
-			//copy.UseItem();
-			//display_item_container.RemoveItem(itemSlot.ITEM);
+			if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.GetIsEquipped())
+			{
+				Equip(itemSlot);
+			}
+			else if (itemSlot.ITEM != null)
+			{
+				Debug.Log(itemSlot.ITEM.GetItemName());
+				//ItemPickUp copy = Instantiate(itemSlot.ITEM);
+				//copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
+				//copy.UseItem();
+				//display_item_container.RemoveItem(itemSlot.ITEM);
+			}
 		}
-		
+			
+
 	}
 
     private void Equip(BaseItemSlot itemSlot)

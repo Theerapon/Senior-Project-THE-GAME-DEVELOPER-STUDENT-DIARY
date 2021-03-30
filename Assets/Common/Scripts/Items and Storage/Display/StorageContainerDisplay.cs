@@ -17,7 +17,7 @@ public class StorageContainerDisplay : MonoBehaviour
     protected StorageContainer container;
     [SerializeField] private Transform itemsParent;
 
-    public List<BaseInvSlot> StorageItemSlots;
+    public List<BaseStorageSlot> StorageItemSlots;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class StorageContainerDisplay : MonoBehaviour
         container.OnStorageUpdated.AddListener(OnStorageUpdatedHandler);
 
         //set Item Slots
-        StorageItemSlots = new List<BaseInvSlot>();
+        StorageItemSlots = new List<BaseStorageSlot>();
         if (itemsParent != null)
             itemsParent.GetComponentsInChildren(includeInactive: true, result: StorageItemSlots);
 

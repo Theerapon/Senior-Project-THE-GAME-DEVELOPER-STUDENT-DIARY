@@ -78,7 +78,7 @@ public class CourseDisplay : Manager<CourseDisplay>
             UpdateCollectionCourseIsMain();
         }
 
-        if (currentState == GameManager.GameState.COURSEANIMATION)
+        if (currentState == GameManager.GameState.COURSE_LEARN_ANIMATION)
         {
             DisplayCourseCanvas();
         }
@@ -172,7 +172,7 @@ public class CourseDisplay : Manager<CourseDisplay>
             {
                 courseCanvas.SetActive(true);
             }
-        } else if (GameManager.Instance.CurrentGameState == GameManager.GameState.COURSEANIMATION)
+        } else if (GameManager.Instance.CurrentGameState == GameManager.GameState.COURSE_LEARN_ANIMATION)
         {
             if (courseCanvas.activeSelf == true)
             {

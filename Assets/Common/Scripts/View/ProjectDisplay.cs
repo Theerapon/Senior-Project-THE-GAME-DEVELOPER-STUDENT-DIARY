@@ -38,19 +38,6 @@ public class ProjectDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (GameManager.Instance.CurrentGameState)
-        {
-            case GameManager.GameState.PREGAME:
-                break;
-            case GameManager.GameState.RUNNING:
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    DisplayProject();
-                }
-                break;
-            case GameManager.GameState.HUDPLAYERMENU:
-                break;
-        }
 
     }
 

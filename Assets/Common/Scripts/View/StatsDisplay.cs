@@ -35,7 +35,7 @@ public class StatsDisplay : MonoBehaviour
     {
         characterStats = CharacterStats.Instance;
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-        MenuInGameManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
+        //MenuInGameManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
 
         foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
         playerAction = foundPlayerAction.GetComponent<PlayerAction>();

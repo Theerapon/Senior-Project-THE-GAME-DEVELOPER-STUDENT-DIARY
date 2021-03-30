@@ -24,19 +24,14 @@ public class MouseManager : Manager<MouseManager>
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        if(currentState != GameManager.GameState.RUNNING)
-        {
-            SetCursorDefalut();
-        }
+        SetCursorDefalut();
     }
 
     private void Update()
     {
-        switch (GameManager.Instance.CurrentGameState)
+        if(GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
         {
-            case GameManager.GameState.RUNNING:
-                MouseHandler();
-                break;
+            MouseHandler();
         }
     }
 

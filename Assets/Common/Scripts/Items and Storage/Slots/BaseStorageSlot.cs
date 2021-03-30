@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BaseInvSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
+public class BaseStorageSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
-	public event Action<BaseItemSlot> OnBeginDragEvent;
-	public event Action<BaseItemSlot> OnEndDragEvent;
-	public event Action<BaseItemSlot> OnDragEvent;
-	public event Action<BaseItemSlot> OnDropEvent;
+    public event Action<BaseItemSlot> OnBeginDragEvent;
+    public event Action<BaseItemSlot> OnEndDragEvent;
+    public event Action<BaseItemSlot> OnDragEvent;
+    public event Action<BaseItemSlot> OnDropEvent;
 
     protected bool isDragging;
     protected Color dragColor = new Color(1, 1, 1, 0.5f);
@@ -40,7 +42,7 @@ public class BaseInvSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDr
         {
             OnDropEvent(this);
         }
-        
+
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -54,7 +56,7 @@ public class BaseInvSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDr
         {
             OnEndDragEvent(this);
         }
-            
+
     }
 
     protected override void OnDisable()

@@ -20,7 +20,7 @@ public class SummaryManager : MonoBehaviour
 
     private void TimeSkilpHandler(GameManager.GameState gameState)
     {
-        if (gameState == GameManager.GameState.SUMMARY)
+        if (gameState == GameManager.GameState.DAIRY)
         {
             GameManager.Instance.GotoMainWithContiniueGameInNextDays();
         }

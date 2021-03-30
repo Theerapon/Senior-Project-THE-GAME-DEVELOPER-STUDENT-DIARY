@@ -8,6 +8,7 @@ public class CloseDialogue : MonoBehaviour
 
     private void Update()
     {
+        /*
         if(GameManager.Instance.CurrentGameState != GameManager.GameState.DIALOGUE)
         {
             return;
@@ -16,7 +17,7 @@ public class CloseDialogue : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OnCloseDialogue();
-        }
+        }*/
     }
 
     public void OnClick()

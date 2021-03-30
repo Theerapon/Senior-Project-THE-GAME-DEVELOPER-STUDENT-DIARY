@@ -100,7 +100,7 @@ public class TimeManager : Manager<TimeManager>
     {
         switch (GameManager.Instance.CurrentGameState)
         {
-            case GameManager.GameState.RUNNING:
+            case GameManager.GameState.HOME:
                 CalculateTime();
                 break;
 

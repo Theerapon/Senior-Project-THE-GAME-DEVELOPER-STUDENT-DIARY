@@ -18,6 +18,7 @@ public class StorageHandler : Manager<StorageHandler>
     private Color dragColor = new Color(1, 1, 1, 0.7f);
     private BaseItemSlot dragItemSlot;
 
+
 	protected void Start()
 	{
 		found_obj_storage = GameObject.FindGameObjectWithTag("obj_storage");
@@ -59,13 +60,19 @@ public class StorageHandler : Manager<StorageHandler>
 
     private void StorageRightClick(BaseItemSlot itemSlot)
     {
-		ReceiveItem(itemSlot);
+		if (dragItemSlot == null)
+        {
+			ReceiveItem(itemSlot);
+		}
 
 	}
 
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
-		StoreItem(itemSlot);
+		if (dragItemSlot == null)
+		{
+			StoreItem(itemSlot);
+		}
     }
 
 	private void Drop(BaseItemSlot tranferItemSlot)
@@ -80,8 +87,66 @@ public class StorageHandler : Manager<StorageHandler>
 
     private void SwapItems(BaseItemSlot tranferItemSlot)
     {
-        throw new NotImplementedException();
-    }
+		ItemPickUp dragItem = dragItemSlot.ITEM as ItemPickUp;
+		int dragIndex = dragItemSlot.INDEX;
+
+		ItemPickUp tranferItem = tranferItemSlot.ITEM as ItemPickUp;
+		int tranferIndex = tranferItemSlot.INDEX;
+		
+
+		if (dragItemSlot.GetType() != tranferItemSlot.GetType())
+        {
+			//inv to storage
+			if(dragItemSlot is BaseInvSlot)
+            {
+				if(tranferItemSlot.ITEM != null)
+                {
+					inv_container.StoreItem(tranferItem, dragIndex);
+					storage_container.StoreItem(dragItem, tranferIndex);
+				}
+                else
+                {
+                    if (inv_container.RemoveItem(dragIndex))
+                    {
+						storage_container.StoreItem(dragItem, tranferIndex);
+                    }
+                }
+            }
+
+			//storage to inv
+			if (dragItemSlot is BaseStorageSlot)
+			{
+
+				if (tranferItemSlot.ITEM != null)
+				{
+					inv_container.StoreItem(dragItem, dragIndex);
+					storage_container.StoreItem(tranferItem, tranferIndex);
+				}
+				else
+				{
+					if (storage_container.RemoveItem(dragIndex))
+					{
+						inv_container.StoreItem(dragItem, tranferIndex);
+					}
+				}
+			}
+		}
+        else
+        {
+			if(dragItemSlot is BaseInvSlot && dragItemSlot != null)
+            {
+				Debug.Log("BaseInvSlot");
+				inv_container.Swap(dragIndex, tranferIndex);
+			}
+            
+			if(dragItemSlot is BaseStorageSlot && dragItemSlot != null)
+            {
+				Debug.Log("BaseStorageSlot");
+				storage_container.Swap(dragIndex, tranferIndex);
+            }
+
+		}
+	}
 
     private void Drag(BaseItemSlot itemSlot)
     {
