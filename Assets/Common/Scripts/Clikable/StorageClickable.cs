@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class StorageClickable : MonoBehaviour, IClickable
 {
+    [SerializeField] MenuController menuController;
+
+
     public void OnClick()
     {
-        GameManager.Instance.DisplerHomeAction(true, GameManager.GameScene.HUD_Storage);
+        menuController.OpenHomeAction(GameManager.GameScene.Home_Storage);
     }
 }

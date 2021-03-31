@@ -20,14 +20,17 @@ public class GameManager : Manager<GameManager>
         Course,
         WorkProject,
         CourseAnimation,
-        HUD_Player_Info,
-        HUD_Player_Menu,
-        HUD_Storage,
+        HUD_Info,
+        Menu_Bag,
+        Menu_Characters,
+        Menu_Ideas,
+        Menu_Friends,
+        Menu_Exit,
+        Home_Storage,
         Map
 
     }
     public static GameScene _currentGameScene;
-    GameScene _previousGameScene;
 
     public GameScene CurrentGameScene
     {
@@ -35,11 +38,6 @@ public class GameManager : Manager<GameManager>
         set { _currentGameScene = value; }
     }
 
-    public GameScene PreviousGameScene
-    {
-        get { return _previousGameScene; }
-        set { _previousGameScene = value; }
-    }
 
     public enum GameState
     {
@@ -135,36 +133,46 @@ public class GameManager : Manager<GameManager>
     }
     void UpdateScene(GameScene scene)
     {
+        #region Boot
         if (scene == GameScene.Boot)
         {
             UpdateState(GameState.PREGAME);
         }
+        #endregion
 
+        #region Loading
         if (scene == GameScene.Loading)
         {
             UpdateState(GameState.LOADING);
         }
+        #endregion
 
-        
-        if (scene == GameScene.Home && !SceneManager.GetSceneByName(GameScene.HUD_Player_Info.ToString()).isLoaded)
+        #region Home
+        if (scene == GameScene.Home && !SceneManager.GetSceneByName(GameScene.HUD_Info.ToString()).isLoaded)
         {
-            LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Player_Info);
+            LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Info);
             UpdateState(GameState.HOME);
         }
         else
         {
             UpdateState(GameState.HOME);
         }
+        #endregion
 
-        if (scene == GameScene.HUD_Player_Menu)
+        #region Menu
+        if (scene == GameScene.Menu_Bag || scene == GameScene.Menu_Characters || scene == GameScene.Menu_Ideas 
+            || scene == GameScene.Menu_Friends || scene == GameScene.Menu_Exit)
         {
             UpdateState(GameState.MENU);
         }
+        #endregion
 
-        if (scene == GameScene.HUD_Storage)
+        #region Home Action
+        if (scene == GameScene.Home_Storage)
         {
             UpdateState(GameState.HOME_ACTION);
         }
+        #endregion
 
         /*
         if (scene == GameScene.Summary)
@@ -177,6 +185,7 @@ public class GameManager : Manager<GameManager>
             UpdateState(GameState.COURSEANIMATION);
         }
         */
+
     }
 
     private void OnLoadOperationComplete(AsyncOperation ao)
@@ -185,16 +194,17 @@ public class GameManager : Manager<GameManager>
     }
 
     #region Loading
-    public void LoadLevelSceneWithOutLoadingScene(GameScene sceneName)
+    public bool LoadLevelSceneWithOutLoadingScene(GameScene sceneName)
     {
         ao = SceneManager.LoadSceneAsync(sceneName.ToString(), LoadSceneMode.Additive);
         if (ao == null)
         {
             Debug.LogError("[GameManager] Unable to load level " + sceneName.ToString());
+            return false;
         }
-        _previousGameScene = _currentGameScene;
         _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
+        return true;
     }
 
     public void LoadLevelWithLoadingScene(GameScene sceneName)
@@ -228,21 +238,21 @@ public class GameManager : Manager<GameManager>
         //after loading scene finished then unload loading scene
         UnLoadLevel(GameScene.Loading);
 
-        _previousGameScene = _currentGameScene;
         _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
 
 
     }
 
-    public void UnLoadLevel(GameScene sceneName)
+    public bool UnLoadLevel(GameScene sceneName)
     {
         SceneManager.UnloadSceneAsync(sceneName.ToString());
         if (ao == null)
         {
             Debug.LogError("[GameManager] Unable to unload level " + sceneName.ToString());
-            return;
+            return false;
         }
+        return true;
     }
 
     public static float GetLoadingProgress()
@@ -310,16 +320,29 @@ public class GameManager : Manager<GameManager>
         }
     }
 
+
+    private GameManager.GameScene present_menu;
+    private bool menu_hasDisplayed = false;
     public void DisplerMenu(bool actived, GameScene currentScene, GameState toState)
     {
+
         if (actived)
         {
-            LoadLevelSceneWithOutLoadingScene(currentScene);
+            if (present_menu == currentScene && menu_hasDisplayed == true)
+                return;
+
+            UnLoadMenuSceneHasActived();
+            if (LoadLevelSceneWithOutLoadingScene(currentScene))
+            {
+                present_menu = currentScene;
+                menu_hasDisplayed = true;
+            }
         }
         else
         {
             UnLoadLevel(currentScene);
             UpdateState(toState);
+            menu_hasDisplayed = false;
         }
     }
 
@@ -408,8 +431,6 @@ public class GameManager : Manager<GameManager>
 
     #endregion
 
-
-
     private void InstantiateSystemPrefabs()
     {
         GameObject prefabInstance;
@@ -417,6 +438,34 @@ public class GameManager : Manager<GameManager>
         {
             prefabInstance = Instantiate(SystemPrefabs[i]);
             _instancedSystemPrefabs.Add(prefabInstance);
+        }
+    }
+
+    private void UnLoadMenuSceneHasActived()
+    {
+        if (SceneManager.GetSceneByName(GameScene.Menu_Bag.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Bag);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Characters.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Characters);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Ideas.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Ideas);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Friends.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Friends);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Exit.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Exit);
         }
     }
 

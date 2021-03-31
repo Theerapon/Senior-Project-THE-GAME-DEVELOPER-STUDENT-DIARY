@@ -24,5 +24,6 @@ public class Events
     [System.Serializable] public class EventOnInventoryUpdated : UnityEvent { }
     [System.Serializable] public class EventOnEquipmentUpdated : UnityEvent { }
     [System.Serializable] public class EventOnStorageUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnOpenMenu : UnityEvent<GameManager.GameScene> { }
 
 }
