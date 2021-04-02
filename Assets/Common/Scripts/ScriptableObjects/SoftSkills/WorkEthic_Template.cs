@@ -67,9 +67,9 @@ public class WorkEthic_Template : SoftSkill_Template
 
         if (currentSoftSkillLevel > 0)
         {
-            totalBONUS_goldenTimeReduceEnergyConsuption += softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeReduceEnergyConsuption;
-            totalBONUS_goldenTimeBootUpMotivation += softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeBootUpMotivation;
-            totalBONUS_goldenTimeBootUpProject += softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeBootUpProject;
+            totalBONUS_goldenTimeReduceEnergyConsuption = softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeReduceEnergyConsuption;
+            totalBONUS_goldenTimeBootUpMotivation = softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeBootUpMotivation;
+            totalBONUS_goldenTimeBootUpProject = softSkillLevelsList[currentSoftSkillLevel].BONUS_goldenTimeBootUpProject;
             //OnLevelUp.Invoke(charLevel);
         }
     }

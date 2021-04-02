@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoftSkill_Handler : MonoBehaviour
+public class SoftSkills_Handler : MonoBehaviour
 {
     private List<SoftSkill> softSkills;
     private SoftSkillsVM softSkillsVM;

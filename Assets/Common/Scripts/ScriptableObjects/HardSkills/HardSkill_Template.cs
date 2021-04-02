@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 public enum HardSkillType { NONE, MATH, PROGRAMMING, ENGINE, AI, NERWORK, ART, DESIGN, TESTING, SOUND}
-[CreateAssetMenu(fileName = "NewSkill", menuName = "Character/Skills/HardSkill", order = 0)]
-public class HardSkill_SO : ScriptableObject
+public class HardSkill_Template : MonoBehaviour
 {
     [System.Serializable]
     public class HardSkillLevel
@@ -12,9 +11,19 @@ public class HardSkill_SO : ScriptableObject
         public int bonusTesting;
         public int bonusArt;
         public int bonusSound;
+
+        public HardSkillLevel(int requiredXP, int bonusCoding, int bonusDesign, int bonusTesting, int bonusArt, int bonusSound)
+        {
+            this.requiredXP = requiredXP;
+            this.bonusCoding = bonusCoding;
+            this.bonusDesign = bonusDesign;
+            this.bonusTesting = bonusTesting;
+            this.bonusArt = bonusArt;
+            this.bonusSound = bonusSound;
+    }
     }
 
-    [SerializeField] private string nameHardSkill = "";
+    private string nameHardSkill = "";
     private int currentHardSkillLevel;
     private int currentHardSkillEXP;
 
@@ -24,8 +33,8 @@ public class HardSkill_SO : ScriptableObject
     private int totalBonus_ArtStats;
     private int totalBonus_SoundStats;
 
-    [SerializeField] private HardSkillType hardSkillType = HardSkillType.NONE;
-    [SerializeField] private HardSkillLevel[] hardSkillLevels;
+    private HardSkillType hardSkillType = HardSkillType.NONE;
+    private HardSkillLevel[] hardSkillLevels;
 
     #region Stat Increasers
     public void GiveXP(int xp)
@@ -37,7 +46,7 @@ public class HardSkill_SO : ScriptableObject
 
             if (currentHardSkillEXP >= levelTarget)
             {
-                SetCharacterLevel(currentHardSkillLevel);
+                SetHardSkillLevel(currentHardSkillLevel);
             }
         }
         else
@@ -90,7 +99,7 @@ public class HardSkill_SO : ScriptableObject
     }
     #endregion
 
-    private void SetCharacterLevel(int hardSkillLevel)
+    private void SetHardSkillLevel(int hardSkillLevel)
     {
         currentHardSkillLevel = hardSkillLevel + 1;
 
@@ -98,18 +107,18 @@ public class HardSkill_SO : ScriptableObject
         if (currentHardSkillLevel > 0)
         {
 
-            totalBonus_CodingStats += hardSkillLevels[currentHardSkillLevel].bonusCoding;
-            totalBonus_DesignStats += hardSkillLevels[currentHardSkillLevel].bonusDesign;
-            totalBonus_TestingStats += hardSkillLevels[currentHardSkillLevel].bonusTesting;
-            totalBonus_ArtStats += hardSkillLevels[currentHardSkillLevel].bonusArt;
-            totalBonus_SoundStats += hardSkillLevels[currentHardSkillLevel].bonusSound;
+            totalBonus_CodingStats = hardSkillLevels[currentHardSkillLevel].bonusCoding;
+            totalBonus_DesignStats = hardSkillLevels[currentHardSkillLevel].bonusDesign;
+            totalBonus_TestingStats = hardSkillLevels[currentHardSkillLevel].bonusTesting;
+            totalBonus_ArtStats = hardSkillLevels[currentHardSkillLevel].bonusArt;
+            totalBonus_SoundStats = hardSkillLevels[currentHardSkillLevel].bonusSound;
             //OnLevelUp.Invoke(charLevel);
         }
 
         int levelTarget = hardSkillLevels[currentHardSkillLevel + 1].requiredXP;
         if (currentHardSkillEXP > levelTarget)
         {
-            SetCharacterLevel(currentHardSkillLevel);
+            SetHardSkillLevel(currentHardSkillLevel);
         }
 
     }

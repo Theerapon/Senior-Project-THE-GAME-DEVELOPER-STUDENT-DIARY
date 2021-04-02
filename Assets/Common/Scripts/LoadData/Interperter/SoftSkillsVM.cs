@@ -7,7 +7,7 @@ using static Leadership_Template;
 using static TimeManagement_Template;
 using static WorkEthic_Template;
 
-public class SoftSkillsVM : Manager<SoftSkillsVM>
+public class SoftSkillsVM : MonoBehaviour
 {
     private const string INST_SET_softskillID = "softskillID";
     private const string INST_SET_softskillName = "softskillName";

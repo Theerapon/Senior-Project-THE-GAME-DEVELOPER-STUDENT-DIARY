@@ -68,8 +68,8 @@ public class Communication_Template : SoftSkill_Template
 
         if (currentSoftSkillLevel > 0)
         {
-            totalBONUS_baseBootUpProject += softSkillLevelsList[currentSoftSkillLevel].BONUS_baseBootUpProject;
-            totalBONUS_charm += softSkillLevelsList[currentSoftSkillLevel].BONUS_charm;
+            totalBONUS_baseBootUpProject = softSkillLevelsList[currentSoftSkillLevel].BONUS_baseBootUpProject;
+            totalBONUS_charm = softSkillLevelsList[currentSoftSkillLevel].BONUS_charm;
             //OnLevelUp.Invoke(charLevel);
         }
     }

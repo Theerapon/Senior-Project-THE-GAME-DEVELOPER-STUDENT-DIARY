@@ -67,9 +67,9 @@ public class CriticalThinking_Template : SoftSkill_Template
 
         if (currentSoftSkillLevel > 0)
         {
-            totalBONUS_baseReduceEnergyConsumption += softSkillLevelsList[currentSoftSkillLevel].BONUS_baseReduceEnergyConsumption;
-            totalBONUS_baseBootUpMotivation += softSkillLevelsList[currentSoftSkillLevel].BONUS_baseBootUpMotivation;
-            totalBONUS_reduceBugChance += softSkillLevelsList[currentSoftSkillLevel].BONUS_reduceBugChance;
+            totalBONUS_baseReduceEnergyConsumption = softSkillLevelsList[currentSoftSkillLevel].BONUS_baseReduceEnergyConsumption;
+            totalBONUS_baseBootUpMotivation = softSkillLevelsList[currentSoftSkillLevel].BONUS_baseBootUpMotivation;
+            totalBONUS_reduceBugChance = softSkillLevelsList[currentSoftSkillLevel].BONUS_reduceBugChance;
             //OnLevelUp.Invoke(charLevel);
         }
     }

@@ -50,7 +50,7 @@ public class TimeManagement_Template : SoftSkill_Template
 
         if (currentSoftSkillLevel > 0)
         {
-            totalBONUS_reduceTimeTrainCourse += softSkillLevelsList[currentSoftSkillLevel].BONUS_reduceTimeTrainCourse;
+            totalBONUS_reduceTimeTrainCourse = softSkillLevelsList[currentSoftSkillLevel].BONUS_reduceTimeTrainCourse;
             //OnLevelUp.Invoke(charLevel);
         }
     }

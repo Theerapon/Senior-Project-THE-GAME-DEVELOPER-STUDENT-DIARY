@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HardSkill : MonoBehaviour
 {
-    protected HardSkill_SO hardSkill_current;
-    [SerializeField] private HardSkill_SO hardSkill_Template;
+    protected HardSkill_Template hardSkill_current;
+    [SerializeField] private HardSkill_Template hardSkill_Template;
 
     void Start()
     {

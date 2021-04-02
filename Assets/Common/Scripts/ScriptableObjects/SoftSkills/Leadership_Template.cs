@@ -67,9 +67,9 @@ public class Leadership_Template : SoftSkill_Template
 
         if (currentSoftSkillLevel > 0)
         {
-            totalBONUS_negativeEventsChance += softSkillLevelsList[currentSoftSkillLevel].BONUS_negativeEventsChance;
-            totalBONUS_negativeEventsEffect += softSkillLevelsList[currentSoftSkillLevel].BONUS_negativeEventsEffect;
-            totalBONUS_positiveEventsEffect += softSkillLevelsList[currentSoftSkillLevel].BONUS_positiveEventsEffect;
+            totalBONUS_negativeEventsChance = softSkillLevelsList[currentSoftSkillLevel].BONUS_negativeEventsChance;
+            totalBONUS_negativeEventsEffect = softSkillLevelsList[currentSoftSkillLevel].BONUS_negativeEventsEffect;
+            totalBONUS_positiveEventsEffect = softSkillLevelsList[currentSoftSkillLevel].BONUS_positiveEventsEffect;
             //OnLevelUp.Invoke(charLevel);
         }
     }
