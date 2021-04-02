@@ -149,39 +149,42 @@ public class StorageHandler : Manager<StorageHandler>
 		if (dragItemSlot.GetType() != tranferItemSlot.GetType())
         {
 			//inv to storage
-			if(dragItemSlot is BaseInvSlot)
-            {
-				if(tranferItemSlot.ITEM != null)
-                {
+			if (dragItemSlot is BaseInvSlot)
+			{
+				if (tranferItemSlot.ITEM != null)
+				{
 					inv_container.StoreItem(tranferItem, dragIndex);
 					storage_container.StoreItem(dragItem, tranferIndex);
 				}
-                else
-                {
-                    if (inv_container.RemoveItem(dragIndex))
-                    {
-						storage_container.StoreItem(dragItem, tranferIndex);
-                    }
-                }
-            }
-
-			//storage to inv
-			if (dragItemSlot is BaseStorageSlot)
-			{
-
-				if (tranferItemSlot.ITEM != null)
-				{
-					inv_container.StoreItem(dragItem, dragIndex);
-					storage_container.StoreItem(tranferItem, tranferIndex);
-				}
 				else
 				{
-					if (storage_container.RemoveItem(dragIndex))
+					if (inv_container.RemoveItem(dragIndex))
 					{
-						inv_container.StoreItem(dragItem, tranferIndex);
+						storage_container.StoreItem(dragItem, tranferIndex);
 					}
 				}
 			}
+			else
+			{
+				//storage to inv
+				if (dragItemSlot is BaseStorageSlot)
+				{
+					//has item
+					if (tranferItemSlot.ITEM != null)
+					{
+						inv_container.StoreItem(dragItem, tranferIndex);
+						storage_container.StoreItem(tranferItem, dragIndex);
+					}
+					else//hasn't item
+					{
+						if (storage_container.RemoveItem(dragIndex))
+						{
+							inv_container.StoreItem(dragItem, tranferIndex);
+						}
+					}
+				}
+			}
+
 		}
         else
         {

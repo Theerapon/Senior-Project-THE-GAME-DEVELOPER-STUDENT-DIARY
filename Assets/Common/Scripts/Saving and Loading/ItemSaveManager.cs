@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
-    [SerializeField] ItemDatabase itemDatabase;
+   //[SerializeField] ItemDatabase itemDatabase;
 
     private BagHandler player;
     private const string InventoryFileName = "Inventory";

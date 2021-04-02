@@ -41,17 +41,12 @@ public class InitSpawnItem : MonoBehaviour, ISpawns
 
         foreach (ItemPickUp_Template ip in itemDefinitions)
         {
-            whichToSpawn += ip.GetItemSpawnChanceWeight();
-            if (whichToSpawn >= chosen)
-            {
-                GameObject item_copy = Instantiate(itemTemplate);
+            GameObject item_copy = Instantiate(itemTemplate);
 
-                itemType = item_copy.GetComponent<ItemPickUp>();
-                itemType.itemDefinition = ip;
-                whichToSpawn = 0;
-                itemType.StoreItem();
-                break;
-            }
+            itemType = item_copy.GetComponent<ItemPickUp>();
+            itemType.itemDefinition = ip;
+            whichToSpawn = 0;
+            itemType.StoreItem();
         }
         itemDefinitions.Clear();
     }

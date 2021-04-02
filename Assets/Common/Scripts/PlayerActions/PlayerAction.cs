@@ -6,8 +6,6 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 {
     private CharacterStats characterStats;
 
-    private GameObject foundTimeManagement;
-    private TimeManagement timeManagement;
 
     [Header("Hard Skills")]
     [SerializeField] private HardSkill mathHardSkill;
@@ -25,8 +23,6 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     {
         characterStats = CharacterStats.Instance;
 
-        foundTimeManagement = GameObject.FindGameObjectWithTag("TimeManagement");
-        timeManagement = foundTimeManagement.GetComponent<TimeManagement>();
     }
 
     #region Course
@@ -49,13 +45,13 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
         return energy;
     }
     public int GetCalculateCourseTimeSecond(Course courese)
-    {
+    {   /*
         int second = 0;
         float totalBonusReduced = (characterStats.GetDEFAULT_reduceTimeTrainCourse() + timeManagement.GetTotalBONUS_reduceTimeTrainCourse());
 
         second = (int)(courese.GetSecondToConsume() * (1 - totalBonusReduced));
-
-        return second;
+        */
+        return 0;
     }
     public void CalCourseProcess(Course course)
     {
@@ -105,6 +101,7 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     }
     public int GetCalculateSleepTimeSecond(bool fullTimeSelected)
     {
+        /*
         int second = 0;
         float totalBonusReduced = (characterStats.GetDEFAULT_reduceTimeSleeping() + timeManagement.GetTotalBONUS_reduceTimeSleeping());
         if (fullTimeSelected)
@@ -115,8 +112,8 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
         {
             second = (int)(characterStats.GetDEFAULT_twoThirdTimeOfSleepingSeond() * (1 - totalBonusReduced));
         }
-
-        return second;
+        */
+        return 0;
     }
     #endregion
 

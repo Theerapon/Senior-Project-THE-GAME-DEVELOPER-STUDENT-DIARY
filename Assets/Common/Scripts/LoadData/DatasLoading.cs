@@ -15,10 +15,6 @@ public class DatasLoading : MonoBehaviour
         textLists = new Dictionary<string, string>();
     }
 
-    protected virtual void Start()
-    {
-          
-    }
 
     protected virtual void LoadedDataFromCSV()
     {

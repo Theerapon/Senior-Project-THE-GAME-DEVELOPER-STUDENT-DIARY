@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New database", menuName = "Database/Course Database/New database", order = 1)]
-public class CourseDatabase_SO : Database_SO
+public class CourseDatabase_SO : MonoBehaviour
 {
 	[SerializeField] private Course_SO[] course_SoLists;
 
@@ -32,10 +32,6 @@ public class CourseDatabase_SO : Database_SO
 		}
 	}
 
-	protected override void LoadItems()
-	{
-		course_SoLists = FindAssetsByType<Course_SO>("Assets/Common/Resources/Courses");
-	}
 
 	public Course_SO[] GetCourses()
     {
@@ -43,6 +39,6 @@ public class CourseDatabase_SO : Database_SO
     }
 	public void CourseLoadItems()
     {
-		LoadItems();
+		//LoadItems();
     }
 }

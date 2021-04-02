@@ -30,6 +30,8 @@ public class GameManager : Manager<GameManager>
         Map
 
     }
+
+
     public static GameScene _currentGameScene;
 
     public GameScene CurrentGameScene

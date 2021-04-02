@@ -156,11 +156,6 @@ public class BagHandler : MonoBehaviour
 			inv_container.Swap(dragIndex, tranferIndex);
         }
 
-		//ItemPickUp draggedItem = dragItemSlot.ITEM;
-
-		//dragItemSlot.ITEM = dropItemSlot.ITEM;
-
-		//dropItemSlot.ITEM = draggedItem;
 	}
 
 	private void Drag(BaseItemSlot itemSlot)

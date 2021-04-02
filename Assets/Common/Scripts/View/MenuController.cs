@@ -69,11 +69,13 @@ public class MenuController : MonoBehaviour
     private void DisplayMenu(bool action, GameManager.GameScene currentGameScene)
     {
         GameManager.Instance.DisplerMenu(action, currentGameScene, previousGameStateMenu);
+        hasDisplayed = true;
     }
 
     private void DisplayHomeAction(bool action, GameManager.GameScene currentGameScene)
     {
         GameManager.Instance.DisplerHomeAction(ActivedBlur(action), currentGameScene);
+        hasDisplayed = true;
     }
 
     public GameManager.GameState GetPreviousGameStateMenu()
@@ -117,7 +119,6 @@ public class MenuController : MonoBehaviour
         }
 
         DisplayMenu(ActivedBlur(true), gameScene);
-        hasDisplayed = true;
     }
 
     public void OpenHomeAction(GameManager.GameScene gameScene)

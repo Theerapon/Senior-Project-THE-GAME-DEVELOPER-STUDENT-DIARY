@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemsDataLoading : DatasLoading
+public class SoftSkillsLoading : DatasLoading
 {
-    public static ItemsDataLoading instance;
-    private const string SPECIFICATION_PATH = "/Resources/Files/items.csv";
-    private const string SPECIFICATION_ID = "itemID";
+    public static SoftSkillsLoading instance;
+    private const string SPECIFICATION_PATH = "/Resources/Files/softskills.csv";
+    private const string SPECIFICATION_ID = "softskillID";
 
-    public static ItemsDataLoading Instance
+    public static SoftSkillsLoading Instance
     {
         get { return instance; }
         set
@@ -34,8 +35,4 @@ public class ItemsDataLoading : DatasLoading
     }
 
 
-
 }
-
-
-
