@@ -28,17 +28,18 @@ public class StatsDisplay : MonoBehaviour
     [Space]
     [SerializeField] private TMP_Text valueUpstatSound;
 
-    private GameObject foundPlayerAction;
+    private GameObject found_Player;
+    private Characters_Handler chracter_handler;
     private PlayerAction playerAction;
 
     protected void Start()
     {
-        characterStats = CharacterStats.Instance;
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
         //MenuInGameManager.Instance.OnStatsShowed.AddListener(HandleStatsShowed);
 
-        foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
-        playerAction = foundPlayerAction.GetComponent<PlayerAction>();
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        playerAction = found_Player.GetComponentInChildren<PlayerAction>();
+        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
     }
 
     private void HandleStatsShowed()

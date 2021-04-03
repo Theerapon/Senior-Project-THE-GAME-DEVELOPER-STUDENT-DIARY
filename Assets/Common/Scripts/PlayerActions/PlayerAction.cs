@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 {
-    private CharacterStats characterStats;
-
+    private Characters_Handler chracter_handler;
+    private GameObject found_Player;
 
     [Header("Hard Skills")]
     [SerializeField] private HardSkill mathHardSkill;
@@ -21,7 +21,8 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 
     private void Start()
     {
-        characterStats = CharacterStats.Instance;
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
 
     }
 
@@ -32,15 +33,15 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
         float reduceEnergy;
         if (TimeManager.Instance.GetGoldenTime())
         {
-            reduceEnergy = characterStats.GetDEFAULT_goldenTimeReduceEnergyConsuption();
+            //reduceEnergy = chracter_handler.GetDEFAULT_goldenTimeReduceEnergyConsuption();
             
         }
         else
         {
-            reduceEnergy = characterStats.GetDEFAULT_baseReduceEnergyConsumption();
+            //reduceEnergy = chracter_handler.GetDEFAULT_baseReduceEnergyConsumption();
         }
 
-        energy = (int)(course.GetEnergyToConsume() * (1 - reduceEnergy));
+        //energy = (int)(course.GetEnergyToConsume() * (1 - reduceEnergy));
 
         return energy;
     }
@@ -55,8 +56,8 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     }
     public void CalCourseProcess(Course course)
     {
-        characterStats.TakeEnergy(GetEnergyCourse(course));
-        characterStats.ReduceCurrentMotivation(course.GetMotivationConsume());
+        //chracter_handler.TakeEnergy(GetEnergyCourse(course));
+        //chracter_handler.ReduceCurrentMotivation(course.GetMotivationConsume());
 
         #region Exp
         mathHardSkill.GiveXP(course.GetdefaultMathExpReward());
@@ -80,15 +81,15 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
         #endregion
 
         #region Stat
-        characterStats.ApplyCodingStatus(course.GetdefaultCodingStatReward());
+        //chracter_handler.ApplyCodingStatus(course.GetdefaultCodingStatReward());
 
-        characterStats.ApplyDesignStatus(course.GetdefaultDesignStatReward());
+        //chracter_handler.ApplyDesignStatus(course.GetdefaultDesignStatReward());
 
-        characterStats.ApplyTestStatus(course.GetdefaultTestingStatReward());
+        //chracter_handler.ApplyTestStatus(course.GetdefaultTestingStatReward());
 
-        characterStats.ApplyArtStatus(course.GetdefaultArtStatReward());
+        //chracter_handler.ApplyArtStatus(course.GetdefaultArtStatReward());
 
-        characterStats.ApplySoundStatus(course.GetdefaultSoundStatReward());
+        //chracter_handler.ApplySoundStatus(course.GetdefaultSoundStatReward());
         #endregion
         
     }

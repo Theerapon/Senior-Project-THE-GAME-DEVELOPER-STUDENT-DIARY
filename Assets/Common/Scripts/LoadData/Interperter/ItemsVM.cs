@@ -29,69 +29,75 @@ public class ItemsVM : MonoBehaviour
 
     public ItemPickUp_Template Interpert(string id)
     {
-        ItemPickUp_Template copy = new ItemPickUp_Template();
-
-        string row = itemsDataLoading.textLists[id];
-        string[] entries = row.Split(',');
-        for (int i = 0; i < entries.Length; i++)
+        if(itemsDataLoading != null)
         {
-            string entry = entries[i];
-            switch (entry)
+            ItemPickUp_Template copy = new ItemPickUp_Template();
+
+            string row = itemsDataLoading.textLists[id];
+            string[] entries = row.Split(',');
+            for (int i = 0; i < entries.Length; i++)
             {
-                case INST_SET_ItemID:
-                    copy.SetID(entries[++i]);
-                    break;
-                case INST_SET_ItemName:
-                    copy.SetItemName(entries[++i]);
-                    break;
-                case INST_SET_ItemDefinitionsType:
-                    copy.SetItemDefinitionsType(SetDefinitionsType(entries[++i]));
-                    break;
-                case INST_SET_ItemEquipmentType:
-                    copy.SetItemEquipmentType(SetEquipmentType(entries[++i]));
-                    break;
-                case INST_SET_ItemAmount:
-                    copy.SetItemAmount(int.Parse(entries[++i]));
-                    break;
-                case INST_SET_ItemSpawnChanceWeight:
-                    copy.SetItemSpawnChanceWeight(int.Parse(entries[++i]));
-                    break;
-                case INST_SET_MaxStacks:
-                    copy.SetMaxStackable(int.Parse(entries[++i]));
-                    break;
-                case INST_SET_ItemIconPath:
-                    Sprite icon = Resources.Load<Sprite>(entries[++i]);
-                    copy.SetItemIcon(icon);
-                    break;
-                case INST_SET_IsEquipped:
-                    copy.SetIsEquipped(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsStorable:
-                    copy.SetIsStorable(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsUnique:
-                    copy.SetIsUnique(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsDestructible:
-                    copy.SetIsDestructible(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsQuestItem:
-                    copy.SetIsQuestItem(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsStackable:
-                    copy.SetIsStackable(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsDestroyOnUse:
-                    copy.SetIsDestroyOnUse(bool.Parse(entries[++i]));
-                    break;
-                case INST_SET_IsGiftable:
-                    copy.SetIsGiftable(bool.Parse(entries[++i]));
-                    break;
+                string entry = entries[i];
+                switch (entry)
+                {
+                    case INST_SET_ItemID:
+                        copy.SetID(entries[++i]);
+                        break;
+                    case INST_SET_ItemName:
+                        copy.SetItemName(entries[++i]);
+                        break;
+                    case INST_SET_ItemDefinitionsType:
+                        copy.SetItemDefinitionsType(SetDefinitionsType(entries[++i]));
+                        break;
+                    case INST_SET_ItemEquipmentType:
+                        copy.SetItemEquipmentType(SetEquipmentType(entries[++i]));
+                        break;
+                    case INST_SET_ItemAmount:
+                        copy.SetItemAmount(int.Parse(entries[++i]));
+                        break;
+                    case INST_SET_ItemSpawnChanceWeight:
+                        copy.SetItemSpawnChanceWeight(int.Parse(entries[++i]));
+                        break;
+                    case INST_SET_MaxStacks:
+                        copy.SetMaxStackable(int.Parse(entries[++i]));
+                        break;
+                    case INST_SET_ItemIconPath:
+                        Sprite icon = Resources.Load<Sprite>(entries[++i]);
+                        copy.SetItemIcon(icon);
+                        break;
+                    case INST_SET_IsEquipped:
+                        copy.SetIsEquipped(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsStorable:
+                        copy.SetIsStorable(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsUnique:
+                        copy.SetIsUnique(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsDestructible:
+                        copy.SetIsDestructible(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsQuestItem:
+                        copy.SetIsQuestItem(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsStackable:
+                        copy.SetIsStackable(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsDestroyOnUse:
+                        copy.SetIsDestroyOnUse(bool.Parse(entries[++i]));
+                        break;
+                    case INST_SET_IsGiftable:
+                        copy.SetIsGiftable(bool.Parse(entries[++i]));
+                        break;
+
+                }
 
             }
-                
+            return copy;
         }
-        return copy;
+
+        return null;
+        
     }
 
     private ItemEquipmentType SetEquipmentType(string type)

@@ -11,7 +11,7 @@ public class SoftSkill_Template : MonoBehaviour
     protected string description = "";
     protected bool isUnlock = false;
     protected int currentSoftSkillLevel;
-    protected int softSkillArraySize;
+    protected int softSkillMaxLevel;
     protected SoftSkillType softSkillType = SoftSkillType.NONE;
 
     #region Bonus Increasers
@@ -26,7 +26,7 @@ public class SoftSkill_Template : MonoBehaviour
             UnLockSkill();
         }
 
-        if (currentSoftSkillLevel < softSkillArraySize - 1)
+        if (currentSoftSkillLevel < softSkillMaxLevel)
         {
             SetSoftSkillLevel(currentSoftSkillLevel);
         }
@@ -93,6 +93,10 @@ public class SoftSkill_Template : MonoBehaviour
 
     #region TimeManagement
     public virtual float GetTotalBONUS_reduceTimeTrainCourse()
+    {
+        return -1f;
+    }
+    public virtual float GetTotalBONUS_reduceTimeTransport()
     {
         return -1f;
     }

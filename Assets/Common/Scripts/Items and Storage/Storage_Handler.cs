@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StorageHandler : Manager<StorageHandler>
+public class Storage_Handler : Manager<Storage_Handler>
 {
 
     public StorageContainerDisplay storage_container_display;

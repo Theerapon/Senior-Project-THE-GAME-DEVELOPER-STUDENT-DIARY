@@ -7,7 +7,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
    //[SerializeField] ItemDatabase itemDatabase;
 
-    private BagHandler player;
+    private Bag_Handler player;
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
 

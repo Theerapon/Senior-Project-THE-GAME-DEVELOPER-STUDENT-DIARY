@@ -15,13 +15,15 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     [SerializeField] private Image imageMotivation;
     [SerializeField] private TMP_Text textMotivation;
 
-    private CharacterStats characterStats;
+    private GameObject found_Player;
+    private Characters_Handler chracter_handler;
 
     private void Start()
     {
-        characterStats = CharacterStats.Instance;
-        characterStats.OnEnergyUpdated.AddListener(OnEnergyHandler);
-        characterStats.OnMotivationUpdated.AddListener(OnMotivationHandler);
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
+        chracter_handler.characterStats.OnEnergyUpdated.AddListener(OnEnergyHandler);
+        chracter_handler.characterStats.OnMotivationUpdated.AddListener(OnMotivationHandler);
         Reset();
     }
 
@@ -34,22 +36,22 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     private void OnMotivationHandler()
     {
         imageMotivation.fillAmount = CalculateFillAmountMotivation();
-        textMotivation.text = characterStats.GetCurrentMotivation() + " / " + characterStats.GetDEFAULT_MaxMotivation();
+        textMotivation.text = chracter_handler.characterStats.GetCurrentMotivation() + " / " + chracter_handler.characterStats.GetDEFAULT_MaxMotivation();
     }
 
     private void OnEnergyHandler()
     {
         imageEnergy.fillAmount = CalculateFillAmountEnergy();
-        textEnergy.text = characterStats.GetCurrentEnergy() + " / " + characterStats.GetMaxEnergy();
+        textEnergy.text = chracter_handler.characterStats.GetCurrentEnergy() + " / " + chracter_handler.characterStats.GetMaxEnergy();
     }
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)characterStats.GetCurrentEnergy()  / characterStats.GetMaxEnergy();
+        return (float)chracter_handler.characterStats.GetCurrentEnergy()  / chracter_handler.characterStats.GetMaxEnergy();
     }
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)characterStats.GetCurrentMotivation() / characterStats.GetDEFAULT_MaxMotivation();
+        return (float)chracter_handler.characterStats.GetCurrentMotivation() / chracter_handler.characterStats.GetDEFAULT_MaxMotivation();
     }
 }

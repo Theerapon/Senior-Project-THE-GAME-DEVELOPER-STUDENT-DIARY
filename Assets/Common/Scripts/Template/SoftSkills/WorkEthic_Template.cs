@@ -29,7 +29,7 @@ public class WorkEthic_Template : SoftSkill_Template
         this.description = description;
         this.isUnlock = false;
         this.currentSoftSkillLevel = 0;
-        this.softSkillArraySize = softSkillArraySize;
+        this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.WORKETHIC;
 
         this.softSkillLevelsList = softSkillLevelsList;

@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class HardSkill : MonoBehaviour
 {
-    protected HardSkill_Template hardSkill_current;
-    [SerializeField] private HardSkill_Template hardSkill_Template;
+    private HardSkill_Template hardSkill_current;
 
-    void Start()
+    public HardSkill() { }
+    public HardSkill(HardSkill_Template hardSkill_Template)
     {
-        if (hardSkill_Template != null)
-        {
-            hardSkill_current = Instantiate(hardSkill_Template);
-        }
+        hardSkill_current = hardSkill_Template;
     }
+
 
     #region Stat Increasers
     public virtual void GiveXP(int xp)
@@ -25,6 +23,18 @@ public class HardSkill : MonoBehaviour
     public virtual string GetHardSkillName()
     {
         return hardSkill_current.GetHardSkillName();
+    }
+    public string GetHardSkillID()
+    {
+        return hardSkill_current.GetHardSkillID();
+    }
+    public string GetHardSkillDescription()
+    {
+        return hardSkill_current.GetHardSkillDescription();
+    }
+    public int GetMaxLevelHardSkill()
+    {
+        return hardSkill_current.GetMaxLevelHardSkill();
     }
     public virtual int GetCurrentHardSkillLevel()
     {

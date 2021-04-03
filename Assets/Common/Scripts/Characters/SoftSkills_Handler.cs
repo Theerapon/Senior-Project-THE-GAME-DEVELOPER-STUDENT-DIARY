@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoftSkills_Handler : MonoBehaviour
+public class SoftSkills_Handler : Manager<SoftSkills_Handler>
 {
-    private List<SoftSkill> softSkills;
+    public List<SoftSkill> softSkills;
     private SoftSkillsVM softSkillsVM;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         softSkills = new List<SoftSkill>();
     }
 
@@ -16,10 +17,5 @@ public class SoftSkills_Handler : MonoBehaviour
     {
         softSkillsVM = FindObjectOfType<SoftSkillsVM>();
         softSkills = softSkillsVM.Interpert();
-        
-        for(int i = 0; i < softSkills.Count; i++)
-        {
-            softSkills[i].UpSoftSkill();
-        }
     }
 }

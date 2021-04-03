@@ -34,6 +34,7 @@ public class InvContainerDisplay : MonoBehaviour
         if (itemsParent != null)
             itemsParent.GetComponentsInChildren(includeInactive: true, result: InvItemSlots);
 
+
         //add Event each slots
         for (int index = 0; index < InvItemSlots.Count; index++)
         {

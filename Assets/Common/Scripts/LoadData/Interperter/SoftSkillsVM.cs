@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using static Communication_Template;
 using static CriticalThinking_Template;
@@ -28,7 +27,8 @@ public class SoftSkillsVM : MonoBehaviour
     private const string INST_SET_addPositiveChange = "addPositiveChange%";
     
     private const string INST_SET_addReduceTimeCourse = "addReduceTimeCourse%";
-    
+    private const string INST_SET_addReduceTimeTransport = "addReduceTimeTransport%";
+
     private const string INST_SET_addGoldReducEnnergy = "addGoldReducEnnergy%";
     private const string INST_SET_addGoldBootUpMotivation = "addGoldBootUpMotivation%";
     private const string INST_SET_addGoldBootUpProject = "addGoldBootUpProject%";
@@ -42,38 +42,43 @@ public class SoftSkillsVM : MonoBehaviour
 
     public List<SoftSkill> Interpert()
     {
-
-        List<SoftSkill> softSkills = new List<SoftSkill>();
-
-        foreach (KeyValuePair<string, string> line in softskillsLoading.textLists)
+        if(softskillsLoading != null)
         {
-            SoftSkill softSkill = new SoftSkill();
-            string key = line.Key;
-            string value = line.Value;
-            switch (key)
+            List<SoftSkill> softSkills = new List<SoftSkill>();
+
+            foreach (KeyValuePair<string, string> line in softskillsLoading.textLists)
             {
-                case "COMMUNICATION":
-                    softSkill = new SoftSkill(CreateCommunication(value));
-                    break;
-                case "CRITICALTHINKING":
-                    softSkill = new SoftSkill(CreateCriticalThinking(value));
-                    break;
-                case "LEADERSHIP":
-                    softSkill = new SoftSkill(CreateLeadership(value));
-                    break;
-                case "TIMEMANAGEMENT":
-                    softSkill = new SoftSkill(CreateTimeManagement(value));
-                    break;
-                case "WORKETHIC":
-                    softSkill = new SoftSkill(CreateWorkEthic(value));
-                    break;
+                SoftSkill softSkill = new SoftSkill();
+                string key = line.Key;
+                string value = line.Value;
+                switch (key)
+                {
+                    case "COMMUNICATION":
+                        softSkill = new SoftSkill(CreateCommunication(value));
+                        break;
+                    case "CRITICALTHINKING":
+                        softSkill = new SoftSkill(CreateCriticalThinking(value));
+                        break;
+                    case "LEADERSHIP":
+                        softSkill = new SoftSkill(CreateLeadership(value));
+                        break;
+                    case "TIMEMANAGEMENT":
+                        softSkill = new SoftSkill(CreateTimeManagement(value));
+                        break;
+                    case "WORKETHIC":
+                        softSkill = new SoftSkill(CreateWorkEthic(value));
+                        break;
+                }
+
+                softSkills.Add(softSkill);
             }
 
-            softSkills.Add(softSkill);
+
+            return softSkills;
         }
 
-
-        return softSkills;
+        return null;
+        
     }
 
     private Communication_Template CreateCommunication(string line)
@@ -259,10 +264,14 @@ public class SoftSkillsVM : MonoBehaviour
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
                 case INST_SET_endcreateLevel:
-                    float resuceTime = stack_Level_Detail.Pop() / 100f;
-                    softSkillLevelsList[stack_Level_Detail.Pop()] = new TimeManagementSkillLevel(resuceTime);
+                    float resuceTimeTransport = stack_Level_Detail.Pop() / 100f;
+                    float resuceTimeCourse = stack_Level_Detail.Pop() / 100f;
+                    softSkillLevelsList[stack_Level_Detail.Pop()] = new TimeManagementSkillLevel(resuceTimeCourse, resuceTimeTransport);
                     break;
                 case INST_SET_addReduceTimeCourse:
+                    stack_Level_Detail.Push(int.Parse(entries[++i]));
+                    break;
+                case INST_SET_addReduceTimeTransport:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
             }

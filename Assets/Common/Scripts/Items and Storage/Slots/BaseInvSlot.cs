@@ -12,6 +12,7 @@ public class BaseInvSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDr
     protected bool isDragging;
     protected Color dragColor = new Color(1, 1, 1, 0.5f);
 
+
     public override bool CanReceiveItem(ItemPickUp item)
     {
         return true;

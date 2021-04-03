@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class HardSkillsLoading : DatasLoading
+public class CharactersLoading : DatasLoading
 {
-    public static HardSkillsLoading instance;
-    private const string SPECIFICATION_PATH = "/Resources/Files/hardskills.csv";
-    private const string SPECIFICATION_ID = "hardskillID";
+    public static CharactersLoading instance;
+    private const string SPECIFICATION_PATH = "/Resources/Files/characters.csv";
+    private const string SPECIFICATION_ID = "charID";
 
-    public static HardSkillsLoading Instance
+    public static CharactersLoading Instance
     {
         get { return instance; }
         set

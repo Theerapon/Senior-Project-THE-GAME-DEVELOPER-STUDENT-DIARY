@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class SummaryManager : MonoBehaviour
 {
-    private GameObject foundPlayerAction;
+   
+    private GameObject found_Player;
+    private Characters_Handler chracter_handler;
     private PlayerAction playerAction;
-    private CharacterStats characterStats;
 
     private void Start()
     {
-        characterStats = CharacterStats.Instance;
-        foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
-        playerAction = foundPlayerAction.GetComponent<PlayerAction>();
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        playerAction = found_Player.GetComponentInChildren<PlayerAction>();
+        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
 
         TimeManager.Instance.OnTimeSkip.AddListener(TimeSkilpHandler);
     }
@@ -28,7 +29,7 @@ public class SummaryManager : MonoBehaviour
 
     public void OnContiniue()
     {
-        playerAction.Sleep(playerAction.GetCalculateSleepTimeSecond(characterStats.GetSleepFullTimeSelected()));
+        //playerAction.Sleep(playerAction.GetCalculateSleepTimeSecond(characterStats.GetSleepFullTimeSelected()));
 
     }
 }

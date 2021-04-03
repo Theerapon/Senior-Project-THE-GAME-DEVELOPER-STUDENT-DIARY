@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardSkills_Handler : MonoBehaviour
+public class HardSkills_Handler : Manager<HardSkills_Handler>
 {
-    private List<HardSkill> hardSkills;
+    public List<HardSkill> hardSkills;
     private HardSkillsVM hardSkillsVM;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         hardSkills = new List<HardSkill>();
     }
     private void Start()

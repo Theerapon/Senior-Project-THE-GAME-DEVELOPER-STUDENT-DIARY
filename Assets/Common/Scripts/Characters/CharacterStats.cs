@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : Manager<CharacterStats>
+public class CharacterStats : MonoBehaviour
 {
     #region Events
     public Events.EventOnEnergyUpdated OnEnergyUpdated;
@@ -10,31 +10,22 @@ public class CharacterStats : Manager<CharacterStats>
     #endregion
 
     #region Fields
-
-    [SerializeField] private CharacterStats_SO characterDefinition_Template;
-    private CharacterStats_SO characterDeginition_Current;
+    private CharacterStats_Template characterDeginition_Current;
 
     #endregion
 
     #region Initializations
-    protected override void Awake()
+
+    public CharacterStats() { }
+    public CharacterStats(CharacterStats_Template characterStats_Template)
     {
-        base.Awake();
-        if(characterDefinition_Template != null)
-        {
-            characterDeginition_Current = Instantiate(characterDefinition_Template);
-            characterDeginition_Current.GiveXP(0);
-        }
+        characterDeginition_Current = characterStats_Template;
     }
 
 
     #endregion
 
     #region Stat Increasers
-    public void ApplySleepFullTimeSelected(bool fullTime)
-    {
-        characterDeginition_Current.ApplySleepFullTimeSelected(fullTime);
-    }
     public void ApplyMaxEnergy(int newEnergyAmount)
     {
         characterDeginition_Current.ApplyMaxEnergy(newEnergyAmount);
@@ -145,19 +136,11 @@ public class CharacterStats : Manager<CharacterStats>
     #endregion
 
     #region Reporter
-    public bool GetSleepFullTimeSelected()
-    {
-        return characterDeginition_Current.GetSleepFullTimeSelected();
-    }
     public string GetNameCharacter()
     {
         return characterDeginition_Current.GetNameCharacter();
     }
 
-    public bool GetIsPlayer()
-    {
-        return characterDeginition_Current.GetIsPlayer();
-    }
 
     public float GetMaxEnergy()
     {
@@ -248,25 +231,13 @@ public class CharacterStats : Manager<CharacterStats>
     {
         return characterDeginition_Current.GetDEFAULT_positiveEventsEffect();
     }
-    public int GetDEFAULT_fullTimeOfSleepingSecond()
-    {
-        return characterDeginition_Current.GetDEFAULT_fullTimeOfSleepingSecond();
-    }
-    public int GetDEFAULT_twoThirdTimeOfSleepingSeond()
-    {
-        return characterDeginition_Current.GetDEFAULT_twoThirdTimeOfSleepingSeond();
-    }
-    public float GetDEFAULT_reduceTimeSleeping()
-    {
-        return characterDeginition_Current.GetDEFAULT_reduceTimeSleeping();
-    }
-    public float GetDEFAULT_reduceTimeReadBook()
-    {
-        return characterDeginition_Current.GetDEFAULT_reduceTimeReadBook();
-    }
     public float GetDEFAULT_reduceTimeTrainCourse()
     {
         return characterDeginition_Current.GetDEFAULT_reduceTimeTrainCourse();
+    }
+    public float GetDEFAULT_reduceTimeTransport()
+    {
+        return characterDeginition_Current.GetDEFAULT_reduceTimeTransport();
     }
     public int GetCurrentCharacterLevel()
     {

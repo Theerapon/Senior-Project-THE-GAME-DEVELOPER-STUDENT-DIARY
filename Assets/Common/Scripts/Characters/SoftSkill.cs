@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoftSkill : MonoBehaviour
 {
-    public SoftSkill_Template softSkill_Current;
+    private SoftSkill_Template softSkill_Current;
 
     #region New Object
 
@@ -107,6 +107,10 @@ public class SoftSkill : MonoBehaviour
     public float GetTotalBONUS_reduceTimeTrainCourse()
     {
         return softSkill_Current.GetTotalBONUS_reduceTimeTrainCourse();
+    }
+    public virtual float GetTotalBONUS_reduceTimeTransport()
+    {
+        return softSkill_Current.GetTotalBONUS_reduceTimeTransport();
     }
     public float GetTotalBONUS_goldenTimeReduceEnergyConsuption()
     {

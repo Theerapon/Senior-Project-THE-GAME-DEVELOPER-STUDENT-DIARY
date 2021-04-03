@@ -15,8 +15,8 @@ public class CourseDisplay : Manager<CourseDisplay>
     }
     public CourseDisplayState courseDisplayState;
 
-    [Header("Course Manager")]
-    private CharacterStats characterStats;
+    private GameObject found_Player;
+    private Characters_Handler chracter_handler;
 
     [Header("Course Generator")]
     [SerializeField] private AllCourseGenerated _courseGenerated;
@@ -64,8 +64,9 @@ public class CourseDisplay : Manager<CourseDisplay>
     protected void Start()
     {
         courseManager = CourseManager.Instance;
-        characterStats = CharacterStats.Instance;
         timeManager = TimeManager.Instance;
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
         UpdateAllCourseIsMain();
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
     }
@@ -196,8 +197,8 @@ public class CourseDisplay : Manager<CourseDisplay>
 
     private void UpdatePlayerData()
     {
-        namePlayer.text = characterStats.GetNameCharacter();
-        moneyPlayer.text = string.Format("{0:n0}", characterStats.GetCurrentMoney());
+        namePlayer.text = chracter_handler.characterStats.GetNameCharacter();
+        moneyPlayer.text = string.Format("{0:n0}", chracter_handler.characterStats.GetCurrentMoney());
     }
 
     private void UpdateTime()

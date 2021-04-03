@@ -30,7 +30,7 @@ public class CriticalThinking_Template : SoftSkill_Template
         this.description = description;
         this.isUnlock = false;
         this.currentSoftSkillLevel = 0;
-        this.softSkillArraySize = softSkillArraySize;
+        this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.CRITICALTHINKING;
 
         this.softSkillLevelsList = softSkillLevelsList;

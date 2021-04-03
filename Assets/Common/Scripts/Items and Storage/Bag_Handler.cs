@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BagHandler : MonoBehaviour
+public class Bag_Handler : Manager<Bag_Handler>
 {
 
     public InvContainerDisplay inv_container_display;

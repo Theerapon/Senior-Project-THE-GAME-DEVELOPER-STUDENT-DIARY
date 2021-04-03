@@ -7,8 +7,9 @@ public class CourseController : MonoBehaviour
     [Header("Course Display")]
     [SerializeField] private CourseDisplay courseDisplay;
     private CourseManager courseManager;
-    private CharacterStats characterStats;
-    private GameObject foundPlayerAction;
+
+    private GameObject found_Player;
+    private Characters_Handler chracter_handler;
     private PlayerAction playerAction;
 
     [Header("Course ID")]
@@ -18,10 +19,10 @@ public class CourseController : MonoBehaviour
 
     private void Start()
     {
-        characterStats = CharacterStats.Instance;
         courseManager = CourseManager.Instance;
-        foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
-        playerAction = foundPlayerAction.GetComponent<PlayerAction>();
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
+        playerAction = found_Player.GetComponentInChildren<PlayerAction>();
     }
 
     public void PurchaseCourse(CourseID courseID)
@@ -42,7 +43,7 @@ public class CourseController : MonoBehaviour
     {
         string id = learnID.GetID();
 
-        if(playerAction.GetEnergyCourse(courseManager.courses[id]) > characterStats.GetCurrentEnergy())
+        if(playerAction.GetEnergyCourse(courseManager.courses[id]) > chracter_handler.characterStats.GetCurrentEnergy())
         {
             courseDisplay.CloseAll();
             courseDisplay.UpdateCollectionCourseIsMain();
@@ -62,9 +63,9 @@ public class CourseController : MonoBehaviour
         bool purchaseSuccessful;
         string id = billID.GetID();
         int totalPrice = courseManager.courses[id].GetTotalPrice();
-        if (totalPrice < characterStats.GetCurrentMoney())
+        if (totalPrice < chracter_handler.characterStats.GetCurrentMoney())
         {
-            characterStats.TakeMoney(totalPrice);
+            chracter_handler.characterStats.TakeMoney(totalPrice);
             courseManager.courses[billID.GetID()].IsCollected();
             purchaseSuccessful = true;
         }
