@@ -12,6 +12,7 @@ public class BaseEquipmentSlot : BaseInvSlot
 		gameObject.name = EquipmentType.ToString() + " Slot";
 	}
 
+
 	public override bool CanReceiveItem(ItemPickUp item)
 	{
 		if (item == null)

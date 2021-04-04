@@ -6,13 +6,13 @@ using UnityEngine;
 public class StorageContainerDisplay : MonoBehaviour
 {
     #region Events
-    public event Action<BaseItemSlot> OnRightClickEvent;
-    public event Action<BaseItemSlot> OnBeginDragEvent;
-    public event Action<BaseItemSlot> OnEndDragEvent;
-    public event Action<BaseItemSlot> OnDragEvent;
-    public event Action<BaseItemSlot> OnDropEvent;
-    public event Action<BaseItemSlot> OnPointerEnterEvent;
-    public event Action<BaseItemSlot> OnPointerExitEvent;
+    public Events.EventOnBeginDrag OnBeginDragEvent;
+    public Events.EventOnEndDrag OnEndDragEvent;
+    public Events.EventOnDrag OnDragEvent;
+    public Events.EventOnDrop OnDropEvent;
+    public Events.EventOnPointEnter OnPointEnterEvent;
+    public Events.EventOnPointExit OnPointExitEvent;
+    public Events.EventOnRightClick OnRightClickEvent;
     #endregion
 
     protected GameObject found_obj_storage;
@@ -20,6 +20,14 @@ public class StorageContainerDisplay : MonoBehaviour
     [SerializeField] private Transform itemsParent;
 
     public List<BaseStorageSlot> StorageItemSlots;
+
+    private void Awake()
+    {
+        //set Item Slots
+        StorageItemSlots = new List<BaseStorageSlot>();
+        if (itemsParent != null)
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: StorageItemSlots);
+    }
 
     private void Start()
     {
@@ -29,28 +37,57 @@ public class StorageContainerDisplay : MonoBehaviour
 
         container.OnStorageUpdated.AddListener(OnStorageUpdatedHandler);
 
-        //set Item Slots
-        StorageItemSlots = new List<BaseStorageSlot>();
-        if (itemsParent != null)
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: StorageItemSlots);
 
         //add Event each slots
         for (int index = 0; index < StorageItemSlots.Count; index++)
         {
-            StorageItemSlots[index].OnRightClickEvent += slot => OnRightClickEvent(slot);
-            StorageItemSlots[index].OnBeginDragEvent += slot => OnBeginDragEvent(slot);
-            StorageItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
-            StorageItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
-            StorageItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
-            StorageItemSlots[index].OnPointerEnterEvent += slot => OnPointerEnterEvent(slot);
-            StorageItemSlots[index].OnPointerExitEvent += slot => OnPointerExitEvent(slot);
+            StorageItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
+            StorageItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
+            StorageItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
+            StorageItemSlots[index].OnDragEvent.AddListener(OnDragEventHandler);
+            StorageItemSlots[index].OnDropEvent.AddListener(OnDropEventHandler);
+            StorageItemSlots[index].OnPointEnterEvent.AddListener(OnPointEnterEventHandler);
+            StorageItemSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
             StorageItemSlots[index].INDEX = index;
         }
 
         //display all item
         DisplayedStorage();
     }
+    private void OnPointExitEventHandler(BaseItemSlot itemSlot)
+    {
+        OnPointExitEvent?.Invoke(itemSlot);
+    }
 
+    private void OnPointEnterEventHandler(BaseItemSlot itemSlot)
+    {
+        OnPointEnterEvent?.Invoke(itemSlot);
+    }
+
+    private void OnDropEventHandler(BaseItemSlot itemSlot)
+    {
+        OnDropEvent?.Invoke(itemSlot);
+    }
+
+    private void OnDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnEndDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnEndDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnBeginDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnBeginDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnRightClickEventHandler(BaseItemSlot itemSlot)
+    {
+        OnRightClickEvent?.Invoke(itemSlot);
+    }
     private void OnStorageUpdatedHandler()
     {
         DisplayedStorage();

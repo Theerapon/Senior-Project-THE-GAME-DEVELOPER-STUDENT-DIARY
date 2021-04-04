@@ -35,29 +35,29 @@ public class Bag_Handler : Manager<Bag_Handler>
 
 		// Setup Events:
 		// Right Click
-		inv_container_display.OnRightClickEvent += InventoryRightClick;
-		equip_container_display.OnRightClickEvent += EquipmentRightClick;
+		inv_container_display.OnRightClickEvent.AddListener(InventoryRightClick);
+		equip_container_display.OnRightClickEvent.AddListener(EquipmentRightClick);
+
 
 		// Pointer Enter
-		inv_container_display.OnPointerEnterEvent += ShowTooltip;
-		equip_container_display.OnPointerEnterEvent += ShowTooltip;
+		inv_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
+		equip_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
 		// Pointer Exit
-		inv_container_display.OnPointerExitEvent += HideTooltip;
-		equip_container_display.OnPointerExitEvent += HideTooltip;
-		
+		inv_container_display.OnPointExitEvent.AddListener(HideTooltip);
+		equip_container_display.OnPointExitEvent.AddListener(HideTooltip);
 
-		inv_container_display.OnBeginDragEvent += BeginDrag;
-		equip_container_display.OnBeginDragEvent += BeginDrag;
+		//BeginDrag
+		inv_container_display.OnBeginDragEvent.AddListener(BeginDrag);
+		equip_container_display.OnBeginDragEvent.AddListener(BeginDrag);
 		// End Drag
-		inv_container_display.OnEndDragEvent += EndDrag;
-		equip_container_display.OnEndDragEvent += EndDrag;
+		inv_container_display.OnEndDragEvent.AddListener(EndDrag);
+		equip_container_display.OnEndDragEvent.AddListener(EndDrag);
 		// Drag
-		inv_container_display.OnDragEvent += Drag;
-		equip_container_display.OnDragEvent += Drag;
+		inv_container_display.OnDragEvent.AddListener(Drag);
+		equip_container_display.OnDragEvent.AddListener(Drag);
 		// Drop
-		inv_container_display.OnDropEvent += Drop;
-		equip_container_display.OnDropEvent += Drop;
-		//dropItemArea.OnDropEvent += DropItemOutsideUI;
+		inv_container_display.OnDropEvent.AddListener(Drop);
+		equip_container_display.OnDropEvent.AddListener(Drop);
 
 		Reset();
 		draggableItem.gameObject.SetActive(false);
@@ -202,6 +202,8 @@ public class Bag_Handler : Manager<Bag_Handler>
 
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
+		Debug.Log("Right click");
+
 		if (dragItemSlot == null)
         {
 			if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.GetIsEquipped())

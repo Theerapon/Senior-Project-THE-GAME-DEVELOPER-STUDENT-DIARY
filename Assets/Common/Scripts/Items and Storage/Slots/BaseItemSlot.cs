@@ -9,9 +9,13 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] protected Image image;
     [SerializeField] protected Image border;
 
-    public event Action<BaseItemSlot> OnPointerEnterEvent;
-    public event Action<BaseItemSlot> OnPointerExitEvent;
-    public event Action<BaseItemSlot> OnRightClickEvent;
+    public Events.EventOnPointEnter OnPointEnterEvent;
+    public Events.EventOnPointExit OnPointExitEvent;
+    public Events.EventOnRightClick OnRightClickEvent;
+
+    //public event Action<BaseItemSlot> OnPointerEnterEvent;
+    //public event Action<BaseItemSlot> OnPointerExitEvent;
+    //public event Action<BaseItemSlot> OnRightClickEvent;
 
     protected bool isPointerOver;
 
@@ -64,14 +68,6 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         return false;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
-        {
-            if (OnRightClickEvent != null)
-                OnRightClickEvent(this);
-        }
-    }
 
     protected virtual void OnValidate()
     {
@@ -96,8 +92,8 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (border != null)
             border.enabled = true;
 
-        if (OnPointerEnterEvent != null)
-            OnPointerEnterEvent(this);
+        OnPointEnterEvent?.Invoke(this);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -106,7 +102,14 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if(border != null)
             border.enabled = false;
 
-        if (OnPointerExitEvent != null)
-            OnPointerExitEvent(this);
+        OnPointExitEvent?.Invoke(this);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnRightClickEvent?.Invoke(this);
+        }
     }
 }

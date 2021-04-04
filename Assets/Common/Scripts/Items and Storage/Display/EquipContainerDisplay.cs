@@ -6,13 +6,13 @@ using UnityEngine;
 public class EquipContainerDisplay : MonoBehaviour
 {
     #region Events
-    public event Action<BaseItemSlot> OnRightClickEvent;
-    public event Action<BaseItemSlot> OnBeginDragEvent;
-    public event Action<BaseItemSlot> OnEndDragEvent;
-    public event Action<BaseItemSlot> OnDragEvent;
-    public event Action<BaseItemSlot> OnDropEvent;
-    public event Action<BaseItemSlot> OnPointerEnterEvent;
-    public event Action<BaseItemSlot> OnPointerExitEvent;
+    public Events.EventOnBeginDrag OnBeginDragEvent;
+    public Events.EventOnEndDrag OnEndDragEvent;
+    public Events.EventOnDrag OnDragEvent;
+    public Events.EventOnDrop OnDropEvent;
+    public Events.EventOnPointEnter OnPointEnterEvent;
+    public Events.EventOnPointExit OnPointExitEvent;
+    public Events.EventOnRightClick OnRightClickEvent;
     #endregion
 
     protected GameObject found_player;
@@ -20,6 +20,14 @@ public class EquipContainerDisplay : MonoBehaviour
     [SerializeField] private Transform itemsParent;
 
     public List<BaseEquipmentSlot> EquipItemSlots;
+
+    private void Awake()
+    {
+        //set Item Slots
+        EquipItemSlots = new List<BaseEquipmentSlot>();
+        if (itemsParent != null)
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: EquipItemSlots);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,21 +38,18 @@ public class EquipContainerDisplay : MonoBehaviour
 
         container.OnEquipmentUpdated.AddListener(OnEquipmentUpdatedHandler);
 
-        //set Item Slots
-        EquipItemSlots = new List<BaseEquipmentSlot>();
-        if (itemsParent != null)
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: EquipItemSlots);
+
 
         //add Event each slots
         for (int index = 0; index < EquipItemSlots.Count; index++)
         {
-            EquipItemSlots[index].OnRightClickEvent += slot => OnRightClickEvent(slot);
-            EquipItemSlots[index].OnBeginDragEvent += slot => OnBeginDragEvent(slot);
-            EquipItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
-            EquipItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
-            EquipItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
-            EquipItemSlots[index].OnPointerEnterEvent += slot => OnPointerEnterEvent(slot);
-            EquipItemSlots[index].OnPointerExitEvent += slot => OnPointerExitEvent(slot);
+            EquipItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
+            EquipItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
+            EquipItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
+            EquipItemSlots[index].OnDragEvent.AddListener(OnDragEventHandler);
+            EquipItemSlots[index].OnDropEvent.AddListener(OnDropEventHandler);
+            EquipItemSlots[index].OnPointEnterEvent.AddListener(OnPointEnterEventHandler);
+            EquipItemSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
             EquipItemSlots[index].INDEX = index;
         }
 
@@ -52,6 +57,40 @@ public class EquipContainerDisplay : MonoBehaviour
         DisplayedEquipment();
     }
 
+    private void OnPointExitEventHandler(BaseItemSlot itemSlot)
+    {
+        OnPointExitEvent?.Invoke(itemSlot);
+    }
+
+    private void OnPointEnterEventHandler(BaseItemSlot itemSlot)
+    {
+        OnPointEnterEvent?.Invoke(itemSlot);
+    }
+
+    private void OnDropEventHandler(BaseItemSlot itemSlot)
+    {
+        OnDropEvent?.Invoke(itemSlot);
+    }
+
+    private void OnDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnEndDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnEndDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnBeginDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnBeginDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnRightClickEventHandler(BaseItemSlot itemSlot)
+    {
+        OnRightClickEvent?.Invoke(itemSlot);
+    }
     private void OnEquipmentUpdatedHandler()
     {
         DisplayedEquipment();

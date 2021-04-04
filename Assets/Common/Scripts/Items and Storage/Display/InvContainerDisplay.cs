@@ -6,13 +6,13 @@ using UnityEngine;
 public class InvContainerDisplay : MonoBehaviour
 {
     #region Events
-    public event Action<BaseItemSlot> OnRightClickEvent;
-    public event Action<BaseItemSlot> OnBeginDragEvent;
-    public event Action<BaseItemSlot> OnEndDragEvent;
-    public event Action<BaseItemSlot> OnDragEvent;
-    public event Action<BaseItemSlot> OnDropEvent;
-    public event Action<BaseItemSlot> OnPointerEnterEvent; 
-    public event Action<BaseItemSlot> OnPointerExitEvent;
+    public Events.EventOnBeginDrag OnBeginDragEvent;
+    public Events.EventOnEndDrag OnEndDragEvent;
+    public Events.EventOnDrag OnDragEvent;
+    public Events.EventOnDrop OnDropEvent;
+    public Events.EventOnPointEnter OnPointEnterEvent;
+    public Events.EventOnPointExit OnPointExitEvent;
+    public Events.EventOnRightClick OnRightClickEvent;
     #endregion
 
     protected GameObject found_player;
@@ -20,6 +20,17 @@ public class InvContainerDisplay : MonoBehaviour
     [SerializeField] private Transform itemsParent;
 
     public List<BaseInvSlot> InvItemSlots;
+
+
+    protected  void Awake()
+    {
+        InvItemSlots = new List<BaseInvSlot>();
+        if (itemsParent != null)
+        {
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: InvItemSlots);
+        }
+
+    }
 
     private void Start()
     {
@@ -29,27 +40,57 @@ public class InvContainerDisplay : MonoBehaviour
 
         container.OnInventoryUpdated.AddListener(OnInventoryUpdatedHandler);
 
-        //set Item Slots
-        InvItemSlots = new List<BaseInvSlot>();
-        if (itemsParent != null)
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: InvItemSlots);
-
-
-        //add Event each slots
         for (int index = 0; index < InvItemSlots.Count; index++)
         {
-            InvItemSlots[index].OnRightClickEvent += slot => OnRightClickEvent(slot);
-            InvItemSlots[index].OnBeginDragEvent += slot => OnBeginDragEvent(slot);
-            InvItemSlots[index].OnEndDragEvent += slot => OnEndDragEvent(slot);
-            InvItemSlots[index].OnDragEvent += slot => OnDragEvent(slot);
-            InvItemSlots[index].OnDropEvent += slot => OnDropEvent(slot);
-            InvItemSlots[index].OnPointerEnterEvent += slot => OnPointerEnterEvent(slot);
-            InvItemSlots[index].OnPointerExitEvent += slot => OnPointerExitEvent(slot);
+            InvItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
+            InvItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
+            InvItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
+            InvItemSlots[index].OnDragEvent.AddListener(OnDragEventHandler);
+            InvItemSlots[index].OnDropEvent.AddListener(OnDropEventHandler);
+            InvItemSlots[index].OnPointEnterEvent.AddListener(OnPointEnterEventHandler);
+            InvItemSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
             InvItemSlots[index].INDEX = index;
+
         }
 
         //display all item
         Reset();
+    }
+
+    private void OnPointExitEventHandler(BaseItemSlot itemSlot)
+    {
+        OnPointExitEvent?.Invoke(itemSlot);
+    }
+
+    private void OnPointEnterEventHandler(BaseItemSlot itemSlot)
+    {
+        OnPointEnterEvent?.Invoke(itemSlot);
+    }
+
+    private void OnDropEventHandler(BaseItemSlot itemSlot)
+    {
+        OnDropEvent?.Invoke(itemSlot);
+    }
+
+    private void OnDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnEndDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnEndDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnBeginDragEventHandler(BaseItemSlot itemSlot)
+    {
+        OnBeginDragEvent?.Invoke(itemSlot);
+    }
+
+    private void OnRightClickEventHandler(BaseItemSlot itemSlot)
+    {
+        Debug.Log("Right click " + itemSlot.ITEM.GetItemName() + " ");
+        OnRightClickEvent?.Invoke(itemSlot);
     }
 
     private void OnInventoryUpdatedHandler()

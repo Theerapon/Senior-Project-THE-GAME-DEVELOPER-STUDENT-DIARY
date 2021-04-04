@@ -37,30 +37,29 @@ public class Storage_Handler : Manager<Storage_Handler>
 
 		// Setup Events:
 		// Right Click
-		inv_container_display.OnRightClickEvent += InventoryRightClick;
-		storage_container_display.OnRightClickEvent += StorageRightClick;
+		inv_container_display.OnRightClickEvent.AddListener(InventoryRightClick);
+		storage_container_display.OnRightClickEvent.AddListener(StorageRightClick);
 
 
 		// Pointer Enter
-		inv_container_display.OnPointerEnterEvent += ShowTooltip;
-		storage_container_display.OnPointerEnterEvent += ShowTooltip;
+		inv_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
+		storage_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
 		// Pointer Exit
-		inv_container_display.OnPointerExitEvent += HideTooltip;
-		storage_container_display.OnPointerExitEvent += HideTooltip;
-		
+		inv_container_display.OnPointExitEvent.AddListener(HideTooltip);
+		storage_container_display.OnPointExitEvent.AddListener(HideTooltip);
 
-		inv_container_display.OnBeginDragEvent += BeginDrag;
-		storage_container_display.OnBeginDragEvent += BeginDrag;
+		//BeginDrag
+		inv_container_display.OnBeginDragEvent.AddListener(BeginDrag);
+		storage_container_display.OnBeginDragEvent.AddListener(BeginDrag);
 		// End Drag
-		inv_container_display.OnEndDragEvent += EndDrag;
-		storage_container_display.OnEndDragEvent += EndDrag;
+		inv_container_display.OnEndDragEvent.AddListener(EndDrag);
+		storage_container_display.OnEndDragEvent.AddListener(EndDrag);
 		// Drag
-		inv_container_display.OnDragEvent += Drag;
-		storage_container_display.OnDragEvent += Drag;
+		inv_container_display.OnDragEvent.AddListener(Drag);
+		storage_container_display.OnDragEvent.AddListener(Drag);
 		// Drop
-		inv_container_display.OnDropEvent += Drop;
-		storage_container_display.OnDropEvent += Drop;
-		//dropItemArea.OnDropEvent += DropItemOutsideUI;
+		inv_container_display.OnDropEvent.AddListener(Drop);
+		storage_container_display.OnDropEvent.AddListener(Drop);
 
 		Reset();
 		draggableItem.gameObject.SetActive(false);
