@@ -92,10 +92,6 @@ public class SoftSkill : MonoBehaviour
     {
         return softSkill_Current.GetTotalBONUS_reduceBugChance();
     }
-    public float GetTotalBONUS_negativeEventsChance()
-    {
-        return softSkill_Current.GetTotalBONUS_negativeEventsChance();
-    }
     public float GetTotalBONUS_negativeEventsEffect()
     {
         return softSkill_Current.GetTotalBONUS_negativeEventsEffect();

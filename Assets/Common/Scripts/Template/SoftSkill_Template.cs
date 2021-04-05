@@ -103,10 +103,6 @@ public class SoftSkill_Template : MonoBehaviour
     #endregion
 
     #region Leadership
-    public virtual float GetTotalBONUS_negativeEventsChance()
-    {
-        return -1f;
-    }
     public virtual float GetTotalBONUS_negativeEventsEffect()
     {
         return -1f;

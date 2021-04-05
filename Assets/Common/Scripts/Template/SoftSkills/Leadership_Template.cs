@@ -5,13 +5,11 @@ public class Leadership_Template : SoftSkill_Template
     [System.Serializable]
     public class LeadershipSkillLevel
     {
-        public float BONUS_negativeEventsChance;
         public float BONUS_negativeEventsEffect;
         public float BONUS_positiveEventsEffect;
 
-        public LeadershipSkillLevel(float negativeChance, float negativeEffect, float positiveEffect)
+        public LeadershipSkillLevel(float negativeEffect, float positiveEffect)
         {
-            BONUS_negativeEventsChance = negativeChance;
             BONUS_negativeEventsEffect = negativeEffect;
             BONUS_positiveEventsEffect = positiveEffect;
         }
@@ -43,16 +41,11 @@ public class Leadership_Template : SoftSkill_Template
     {
         if (currentSoftSkillLevel == 0)
         {
-            totalBONUS_negativeEventsChance = softSkillLevelsList[0].BONUS_negativeEventsChance;
             totalBONUS_negativeEventsEffect = softSkillLevelsList[0].BONUS_negativeEventsEffect;
             totalBONUS_positiveEventsEffect = softSkillLevelsList[0].BONUS_positiveEventsEffect;
         }
     }
 
-    public override float GetTotalBONUS_negativeEventsChance()
-    {
-        return totalBONUS_negativeEventsChance;
-    }
     public override float GetTotalBONUS_negativeEventsEffect()
     {
         return totalBONUS_negativeEventsEffect;
@@ -67,7 +60,6 @@ public class Leadership_Template : SoftSkill_Template
 
         if (currentSoftSkillLevel > 0)
         {
-            totalBONUS_negativeEventsChance = softSkillLevelsList[currentSoftSkillLevel].BONUS_negativeEventsChance;
             totalBONUS_negativeEventsEffect = softSkillLevelsList[currentSoftSkillLevel].BONUS_negativeEventsEffect;
             totalBONUS_positiveEventsEffect = softSkillLevelsList[currentSoftSkillLevel].BONUS_positiveEventsEffect;
             //OnLevelUp.Invoke(charLevel);

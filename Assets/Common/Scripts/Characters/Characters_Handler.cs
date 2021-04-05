@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Characters_Handler : Manager<Characters_Handler>
 {
-    public CharacterStats characterStats;
+    public CharacterStatus characterStats;
     private CharactersVM charactersVM;
     
     protected override void Awake()
     {
         base.Awake();
-        characterStats = new CharacterStats();
+        characterStats = new CharacterStatus();
     }
     private void Start()
     {

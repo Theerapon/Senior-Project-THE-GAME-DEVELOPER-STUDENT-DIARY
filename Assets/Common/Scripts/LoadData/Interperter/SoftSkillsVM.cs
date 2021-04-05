@@ -22,9 +22,8 @@ public class SoftSkillsVM : MonoBehaviour
     private const string INST_SET_addBaseBootUpMotivation = "addBaseBootUpMotivation%";
     private const string INST_SET_addReducBugChange = "addReducBugChange%";
     
-    private const string INST_SET_addNegativeChance = "addNegativeChance%";
     private const string INST_SET_addNegativeEffect = "addNegativeEffect%";
-    private const string INST_SET_addPositiveChange = "addPositiveChange%";
+    private const string INST_SET_addPositiveEffect = "addPositiveEffect%";
     
     private const string INST_SET_addReduceTimeCourse = "addReduceTimeCourse%";
     private const string INST_SET_addReduceTimeTransport = "addReduceTimeTransport%";
@@ -212,18 +211,14 @@ public class SoftSkillsVM : MonoBehaviour
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
                 case INST_SET_endcreateLevel:
-                    float positiveChange = stack_Level_Detail.Pop() / 100f;
+                    float positiveEffect = stack_Level_Detail.Pop() / 100f;
                     float negativeEffect = stack_Level_Detail.Pop() / 100f;
-                    float negativeChance = stack_Level_Detail.Pop() / 100f;
-                    softSkillLevelsList[stack_Level_Detail.Pop()] = new LeadershipSkillLevel(negativeChance, negativeEffect, positiveChange);
-                    break;
-                case INST_SET_addNegativeChance:
-                    stack_Level_Detail.Push(int.Parse(entries[++i]));
+                    softSkillLevelsList[stack_Level_Detail.Pop()] = new LeadershipSkillLevel(negativeEffect, positiveEffect);
                     break;
                 case INST_SET_addNegativeEffect:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
-                case INST_SET_addPositiveChange:
+                case INST_SET_addPositiveEffect:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
                     

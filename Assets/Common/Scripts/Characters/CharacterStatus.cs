@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStatus : MonoBehaviour
 {
     #region Events
     public Events.EventOnEnergyUpdated OnEnergyUpdated;
@@ -10,14 +10,14 @@ public class CharacterStats : MonoBehaviour
     #endregion
 
     #region Fields
-    private CharacterStats_Template characterDeginition_Current;
+    private CharacterStatus_Template characterDeginition_Current;
 
     #endregion
 
     #region Initializations
 
-    public CharacterStats() { }
-    public CharacterStats(CharacterStats_Template characterStats_Template)
+    public CharacterStatus() { }
+    public CharacterStatus(CharacterStatus_Template characterStats_Template)
     {
         characterDeginition_Current = characterStats_Template;
     }
@@ -219,10 +219,6 @@ public class CharacterStats : MonoBehaviour
     {
         return characterDeginition_Current.GetDEFAULT_charm();
     }
-    public float GetDEFAULT_negativeEventsChance()
-    {
-        return characterDeginition_Current.GetDEFAULT_negativeEventsChance();
-    }
     public float GetDEFAULT_negativeEventsEffect()
     {
         return characterDeginition_Current.GetDEFAULT_negativeEventsEffect();
@@ -259,6 +255,10 @@ public class CharacterStats : MonoBehaviour
     public float GetMotivationCalculated()
     {
         return characterDeginition_Current.GetMotivationCalculated();
+    }
+    public float GetDropRate()
+    {
+        return characterDeginition_Current.GetDropRate();
     }
     #endregion
 

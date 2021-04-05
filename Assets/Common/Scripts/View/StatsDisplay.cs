@@ -7,7 +7,7 @@ using System;
 public class StatsDisplay : MonoBehaviour
 {
     [Header("Stats")]
-    private CharacterStats characterStats;
+    private CharacterStatus characterStats;
     [SerializeField] private TMP_Text textCoding;
     [SerializeField] private TMP_Text textDesign;
     [SerializeField] private TMP_Text textTesting;

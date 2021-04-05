@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CharacterStats_Template : MonoBehaviour
+public class CharacterStatus_Template : MonoBehaviour
 {
     [System.Serializable]
     public class CharacterLevel
@@ -21,15 +21,15 @@ public class CharacterStats_Template : MonoBehaviour
     private CharacterLevel [] characterLevels;
 
 
-    public CharacterStats_Template(string id, string name,
+    public CharacterStatus_Template(string id, string name,
         float bReduceEnergy, float gReducEnergy, int maxMotivation, float bMotivation, float gMotivation,
         int money, int coding, int design, int testing, int art, int sound,
         float bProject, float gProject, float reduceBugChance, float charm, 
-        float negativeChance, float negativeEffect, float positiveEffect, float reduceTimeCourse, float reduceTimeTransport,
+        float negativeEffect, float positiveEffect, float reduceTimeCourse, float reduceTimeTransport, float dropRate,
         float per_bReduceEnergy, float per_gReducEnergy, float per_bMotivation, float per_gMotivation,
         float per_bProject, float per_gProject, float per_reduceBugChance, float per_charm,
-        float per_negativeChance, float per_negativeEffect, float per_positiveEffect, float per_reduceTimeCourse, float per_reduceTimeTransport,
-        int per_softskillPoints, int maxLevel, CharacterLevel[] characterLevels)
+        float per_negativeEffect, float per_positiveEffect, float per_reduceTimeCourse, float per_reduceTimeTransport,
+        int per_softskillPoints, float per_dropRate, int maxLevel, CharacterLevel[] characterLevels)
     {
         character_ID = id;
         character_Name = name;
@@ -63,12 +63,13 @@ public class CharacterStats_Template : MonoBehaviour
 
         DEFAULT_charm = charm;
 
-        DEFAULT_negativeEventsChance = negativeChance;
         DEFAULT_negativeEventsEffect = negativeEffect;
         DEFAULT_positiveEventsEffect = positiveEffect;
 
         DEFAULT_reduceTimeTrainCourse = reduceTimeCourse;
         DEFAULT_reduceTimeTransport = reduceTimeTransport;
+
+        DEFAULT_dropRate = dropRate;
 
         _baseReduceEnergyConsumption = per_bReduceEnergy;
         _goldenTimeReduceEnergyConsuption = per_gReducEnergy;
@@ -82,7 +83,6 @@ public class CharacterStats_Template : MonoBehaviour
 
         _charm = per_charm;
 
-        _negativeEventsChance = per_negativeChance;
         _negativeEventsEffect = per_negativeEffect;
         _positiveEventsEffect = per_positiveEffect;
 
@@ -90,6 +90,7 @@ public class CharacterStats_Template : MonoBehaviour
         _reduceTimeTransport = per_reduceTimeTransport;
 
         _softskillPoints = per_softskillPoints;
+        _dropRate = per_dropRate;
 
         this.characterLevels = characterLevels;
 
@@ -105,6 +106,8 @@ public class CharacterStats_Template : MonoBehaviour
     private int character_current_Exp;
     private int hasStatsPoints;
     private int hasSoftSkillPoints;
+
+    private float DEFAULT_dropRate;
 
     [Header("Energy")]
     private int maxEnergy;
@@ -138,7 +141,6 @@ public class CharacterStats_Template : MonoBehaviour
     private float DEFAULT_charm;
 
     [Header("Events")]
-    private float DEFAULT_negativeEventsChance;
     private float DEFAULT_negativeEventsEffect;
     private float DEFAULT_positiveEventsEffect;
 
@@ -161,7 +163,6 @@ public class CharacterStats_Template : MonoBehaviour
 
     private float _charm;
 
-    private float _negativeEventsChance;
     private float _negativeEventsEffect;
     private float _positiveEventsEffect;
 
@@ -169,6 +170,7 @@ public class CharacterStats_Template : MonoBehaviour
     private float _reduceTimeTransport;
 
     private int _softskillPoints;
+    private float _dropRate;
     #endregion
 
 
@@ -449,10 +451,6 @@ public class CharacterStats_Template : MonoBehaviour
     {
         return DEFAULT_charm;
     }
-    public float GetDEFAULT_negativeEventsChance()
-    {
-        return DEFAULT_negativeEventsChance;
-    }
     public float GetDEFAULT_negativeEventsEffect()
     {
         return DEFAULT_negativeEventsEffect;
@@ -489,6 +487,10 @@ public class CharacterStats_Template : MonoBehaviour
     {
         return motivationCalculated;
     }
+    public float GetDropRate()
+    {
+        return DEFAULT_dropRate;
+    }
     #endregion
 
     #region Character Level Up
@@ -519,13 +521,14 @@ public class CharacterStats_Template : MonoBehaviour
 
             DEFAULT_charm += _charm;
 
-            DEFAULT_negativeEventsChance -= _negativeEventsChance;
             DEFAULT_negativeEventsEffect -= _negativeEventsEffect;
 
             DEFAULT_positiveEventsEffect += _positiveEventsEffect;
 
             DEFAULT_reduceTimeTrainCourse += _reduceTimeTrainCourse;
             DEFAULT_reduceTimeTransport += _reduceTimeTransport;
+
+            DEFAULT_dropRate += _dropRate;
             //OnLevelUp.Invoke(charLevel);
         }
 

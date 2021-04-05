@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static CharacterStats_Template;
+using static CharacterStatus_Template;
 
 public class CharactersVM : Manager<CharactersVM>
 {
@@ -23,11 +23,11 @@ public class CharactersVM : Manager<CharactersVM>
     private const string INST_SET_default_gProject = "default_gProject%";
     private const string INST_SET_default_reduceBugChange = "default_reduceBugChange%";
     private const string INST_SET_default_charm = "default_charm%";
-    private const string INST_SET_default_negativeEventChance = "default_negativeEventChance%";
     private const string INST_SET_default_negativeEventEffect = "default_negativeEventEffect%";
     private const string INST_SET_default_positiveEventEffect = "default_positiveEventEffect%";
     private const string INST_SET_default_reduceTimeCourse = "default_reduceTimeCourse%";
     private const string INST_SET_default_reduceTimeTransport = "default_reduceTimeTransport%";
+    private const string INST_SET_default_dropRate = "perLevel_default_dropRate%";
 
     private const string INST_SET_perLevel_bReduceEnergy = "perLevel_bReduceEnergy%";
     private const string INST_SET_perLevel_gReduceEnergy = "perLevel_gReduceEnergy%";
@@ -37,12 +37,12 @@ public class CharactersVM : Manager<CharactersVM>
     private const string INST_SET_perLevel_gProject = "perLevel_gProject%";
     private const string INST_SET_perLevel_reduceBugChance = "perLevel_reduceBugChance%";
     private const string INST_SET_perLevel_charm = "perLevel_charm%";
-    private const string INST_SET_perLevel_negativeChance = "perLevel_negativeChance%";
     private const string INST_SET_perLevel_negativeEffect = "perLevel_negativeEffect%";
     private const string INST_SET_perLevel_positiveEffect = "perLevel_positiveEffect%";
     private const string INST_SET_perLevel_reduceTimeCourse = "perLevel_reduceTimeCourse%";
     private const string INST_SET_perLevel_reduceTimeTransport = "perLevel_reduceTimeTransport%";
     private const string INST_SET_perLevel_softskillPoints = "perLevel_softskillPoints";
+    private const string INST_SET_perLevel_DropRate = "perLevel_perLevel_DropRate%";
 
     private const string INST_SET_maxLevel = "maxLevel";
     private const string INST_SET_createLevel = "createLevel";
@@ -58,16 +58,16 @@ public class CharactersVM : Manager<CharactersVM>
         chractersLoading = CharactersLoading.instance;
     }
 
-    public CharacterStats Interpert()
+    public CharacterStatus Interpert()
     {
         if(chractersLoading != null)
         {
-            CharacterStats characterStats = new CharacterStats();
+            CharacterStatus characterStats = new CharacterStatus();
 
             foreach (KeyValuePair<string, string> line in chractersLoading.textLists)
             {
                 string value = line.Value;
-                characterStats = new CharacterStats(CreateCharacterStatsTemplate(value));
+                characterStats = new CharacterStatus(CreateCharacterStatsTemplate(value));
             }
             return characterStats;
         }
@@ -75,7 +75,7 @@ public class CharactersVM : Manager<CharactersVM>
         return null;
     }
 
-    private CharacterStats_Template CreateCharacterStatsTemplate(string line)
+    private CharacterStatus_Template CreateCharacterStatsTemplate(string line)
     {
         CharacterLevel[] characterLevelsList = null;
         string charID = "";
@@ -96,11 +96,11 @@ public class CharactersVM : Manager<CharactersVM>
         float default_gProject = 0f;
         float default_reduceBugChange = 0f;
         float default_charm = 0f;
-        float default_negativeEventChance = 0f;
         float default_negativeEventEffect = 0f;
         float default_positiveEventEffect = 0f;
         float default_reduceTimeCourse = 0f;
         float default_reduceTimeTransport = 0f;
+        float default_dropRate = 0f;
 
         float perLevel_bReduceEnergy = 0f;
         float perLevel_gReduceEnergy = 0f;
@@ -110,12 +110,12 @@ public class CharactersVM : Manager<CharactersVM>
         float perLevel_gProject = 0f;
         float perLevel_reduceBugChance =0f;
         float perLevel_charm = 0f;
-        float perLevel_negativeChance = 0f;
         float perLevel_negativeEffect = 0f;
         float perLevel_positiveEffect = 0f;
         float perLevel_reduceTimeCourse = 0f;
         float perLevel_reduceTimeTransport = 0f;
         int perLevel_softskillPoints = 0;
+        float perLevel_dropRate = 0f;
 
         int maxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
@@ -177,9 +177,6 @@ public class CharactersVM : Manager<CharactersVM>
                 case INST_SET_default_charm:
                     default_charm = float.Parse(entries[++i]) / 100f;
                     break;
-                case INST_SET_default_negativeEventChance:
-                    default_negativeEventChance = float.Parse(entries[++i]) / 100f;
-                    break;
                 case INST_SET_default_negativeEventEffect:
                     default_negativeEventEffect = float.Parse(entries[++i]) / 100f;
                     break;
@@ -191,6 +188,9 @@ public class CharactersVM : Manager<CharactersVM>
                     break;
                 case INST_SET_default_reduceTimeTransport:
                     default_reduceTimeTransport = float.Parse(entries[++i]) / 100f;
+                    break;
+                case INST_SET_default_dropRate:
+                    default_dropRate = float.Parse(entries[++i]) / 100f;
                     break;
                 case INST_SET_perLevel_bReduceEnergy:
                     perLevel_bReduceEnergy = float.Parse(entries[++i]) / 100f;
@@ -216,9 +216,6 @@ public class CharactersVM : Manager<CharactersVM>
                 case INST_SET_perLevel_charm:
                     perLevel_charm = float.Parse(entries[++i]) / 100f;
                     break;
-                case INST_SET_perLevel_negativeChance:
-                    perLevel_negativeChance = float.Parse(entries[++i]) / 100f;
-                    break;
                 case INST_SET_perLevel_negativeEffect:
                     perLevel_negativeEffect = float.Parse(entries[++i]) / 100f;
                     break;
@@ -233,6 +230,9 @@ public class CharactersVM : Manager<CharactersVM>
                     break;
                 case INST_SET_perLevel_softskillPoints:
                     perLevel_softskillPoints = int.Parse(entries[++i]);
+                    break;
+                case INST_SET_perLevel_DropRate:
+                    perLevel_dropRate = float.Parse(entries[++i]) / 100f;
                     break;
                 case INST_SET_maxLevel:
                     maxLevel = int.Parse(entries[++i]);
@@ -260,15 +260,15 @@ public class CharactersVM : Manager<CharactersVM>
             }
         }
 
-        return new CharacterStats_Template(charID, charName, 
+        return new CharacterStatus_Template(charID, charName, 
             default_bReduceEnergy, default_gReduceEnergy, default_maxMotivation, default_bMotivation, default_gMotivation, 
             default_money, default_coding, default_design, default_testing, default_art, default_sound,
             default_bProject, default_gProject, default_reduceBugChange, default_charm,
-            default_negativeEventChance, default_negativeEventEffect, default_positiveEventEffect, default_reduceTimeCourse, default_reduceTimeTransport,
+            default_negativeEventEffect, default_positiveEventEffect, default_reduceTimeCourse, default_reduceTimeTransport, default_dropRate,
             perLevel_bReduceEnergy, perLevel_gReduceEnergy, perLevel_bMotivation, perLevel_gMotivation,
             perLevel_bProject, perLevel_gProject, perLevel_reduceBugChance, perLevel_charm,
-            perLevel_negativeChance, perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport,
-            perLevel_softskillPoints, maxLevel, characterLevelsList);
+            perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport,
+            perLevel_softskillPoints, perLevel_dropRate, maxLevel, characterLevelsList);
     }
 }
 
