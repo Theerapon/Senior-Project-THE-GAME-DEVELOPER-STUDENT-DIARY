@@ -56,9 +56,17 @@ public class SoftSkill : MonoBehaviour
     #endregion
 
     #region Reporter
-    public string GetName()
+    public string GetSoftSkillDescription()
     {
-        return softSkill_Current.GetName();
+        return softSkill_Current.GetSoftSkillDescription();
+    }
+    public Sprite GetIconSoftSkill()
+    {
+        return softSkill_Current.GetIconSoftSkill();
+    }
+    public string GetSoftSkillName()
+    {
+        return softSkill_Current.GetSoftSkillName();
     }
     public bool GetIsUnLock()
     {

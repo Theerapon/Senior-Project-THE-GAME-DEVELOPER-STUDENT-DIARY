@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class SoftSkills_Handler : Manager<SoftSkills_Handler>
 {
-    public List<SoftSkill> softSkills;
+    protected List<SoftSkill> softSkills;
     private SoftSkillsVM softSkillsVM;
 
     bool loaded = false;
+
+    public List<SoftSkill> SOFTSKILLS
+    {
+        get { return softSkills; }
+    }
 
     protected override void Awake()
     {

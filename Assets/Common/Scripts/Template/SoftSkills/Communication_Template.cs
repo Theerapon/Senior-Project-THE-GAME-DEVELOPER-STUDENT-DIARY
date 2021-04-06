@@ -29,7 +29,7 @@ public class Communication_Template : SoftSkill_Template
 
     private CommunicationSkillLevel[] softSkillLevelsList;
 
-    public Communication_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, CommunicationSkillLevel[] softSkillLevelsList)
+    public Communication_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, CommunicationSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -40,6 +40,7 @@ public class Communication_Template : SoftSkill_Template
         this.softSkillType = SoftSkillType.COMMUNICATION;
 
         this.softSkillLevelsList = softSkillLevelsList;
+        this.icon = icon;
         Initiate();
     }
 

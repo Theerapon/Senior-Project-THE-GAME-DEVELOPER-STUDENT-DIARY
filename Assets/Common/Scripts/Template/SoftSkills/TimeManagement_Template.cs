@@ -20,7 +20,7 @@ public class TimeManagement_Template : SoftSkill_Template
     private float totalBONUS_reduceTimeTransport;
 
     private TimeManagementSkillLevel[] softSkillLevelsList;
-    public TimeManagement_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, TimeManagementSkillLevel[] softSkillLevelsList)
+    public TimeManagement_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, TimeManagementSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -31,6 +31,7 @@ public class TimeManagement_Template : SoftSkill_Template
         this.softSkillType = SoftSkillType.TIMEMANAGEMENT;
 
         this.softSkillLevelsList = softSkillLevelsList;
+        this.icon = icon;
         Initiate();
     }
 

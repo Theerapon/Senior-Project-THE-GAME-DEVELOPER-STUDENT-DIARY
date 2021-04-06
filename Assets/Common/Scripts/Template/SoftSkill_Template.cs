@@ -6,6 +6,7 @@ using UnityEngine;
 public enum SoftSkillType { NONE, COMMUNICATION, CRITICALTHINKING, LEADERSHIP, TIMEMANAGEMENT, WORKETHIC}
 public class SoftSkill_Template : MonoBehaviour
 {
+    protected Sprite icon;
     protected string softSkill_ID = "";
     protected string nameSoftSkill = "";
     protected string description = "";
@@ -45,7 +46,7 @@ public class SoftSkill_Template : MonoBehaviour
     #endregion
 
     #region Reporter
-    public string GetName()
+    public string GetSoftSkillName()
     {
         return nameSoftSkill;
     }
@@ -61,9 +62,18 @@ public class SoftSkill_Template : MonoBehaviour
     {
         return softSkillType;
     }
+    public Sprite GetIconSoftSkill()
+    {
+        return icon;
+    }
+    public string GetSoftSkillDescription()
+    {
+        return description;
+    }
     #endregion
 
     #region Must Override
+
     protected virtual void Initiate()
     {
         

@@ -14,7 +14,8 @@ public class Characters_Menu_Handler : MonoBehaviour
     private const string INST_SoftSkill = "Soft Skill";
     #endregion
 
-    [SerializeField] protected HardSkill_Display hardSkill_display;
+    [SerializeField] protected HardSkills_Display hardSkill_display;
+    [SerializeField] protected Softskills_Display softSkill_display;
     [SerializeField] protected Status_Display status_display;
     [SerializeField] protected BaseBonusSlot bonusSlot;
 
@@ -69,6 +70,12 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected Image image_hardskill_exp;
     #endregion
 
+    #region SOft Skill Description
+    [Header("Soft Skills Description")]
+    [SerializeField] protected TMP_Text text_softskill_level;
+    [SerializeField] protected TMP_Text text_softskill_description;
+    #endregion
+
     private void Start()
     {
         //fonud inventory container in main Scene
@@ -99,6 +106,12 @@ public class Characters_Menu_Handler : MonoBehaviour
             hardSkill_display.OnPointExitHardSkillSlotEvent.AddListener(UnDisplayedHardSkillDescription);
         }
 
+        if(!ReferenceEquals(softSkill_display, null))
+        {
+            softSkill_display.OnLeftClickSoftSkillSlotEvent.AddListener(SelectedSoftSkillDisplayed);
+            softSkill_display.OnPointEnterSoftSkillSlotEvent.AddListener(DisplayedSoftSkillDescription);
+            softSkill_display.OnPointExitSoftSkillSlotEvent.AddListener(UnDisplayedSoftSkillDescription);
+        }
 
         Reset();
     }
@@ -197,9 +210,32 @@ public class Characters_Menu_Handler : MonoBehaviour
         hardskill_description.SetActive(false);
     }
 
-    
 
-    
+
+
+    #endregion
+    #region Soft Skills
+    private void SelectedSoftSkillDisplayed(BaseSoftSkillSlot softSkillSlot)
+    {
+
+    }
+
+    private void DisplayedSoftSkillDescription(BaseSoftSkillSlot softSkillSlot)
+    {
+        //title
+        DisplayDescriptionBox(true);
+        SetTitleText(softSkillSlot.SOFTSKILL.GetSoftSkillName(), INST_SoftSkill);
+
+        softskill_description.SetActive(true);
+        text_softskill_level.text = softSkillSlot.SOFTSKILL.GetCurrentSoftSkillLevel().ToString();
+        text_softskill_description.text = softSkillSlot.SOFTSKILL.GetSoftSkillDescription().ToString();
+    }
+
+    private void UnDisplayedSoftSkillDescription(BaseSoftSkillSlot softSkillSlot)
+    {
+        DisplayDescriptionBox(false);
+        softskill_description.SetActive(false);
+    }
     #endregion
     protected virtual void OnValidate()
     {

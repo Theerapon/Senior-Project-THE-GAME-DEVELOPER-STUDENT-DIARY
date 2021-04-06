@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardSkill_Display : MonoBehaviour
+public class HardSkills_Display : MonoBehaviour
 {
     #region Events
     public Events.EventOnPointEnterHardSkillSlot OnPointEnterHardSkillSlotEvent;

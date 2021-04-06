@@ -23,7 +23,7 @@ public class CriticalThinking_Template : SoftSkill_Template
 
     private CriticalThinkingSkillLevel[] softSkillLevelsList;
 
-    public CriticalThinking_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, CriticalThinkingSkillLevel[] softSkillLevelsList)
+    public CriticalThinking_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, CriticalThinkingSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -34,6 +34,7 @@ public class CriticalThinking_Template : SoftSkill_Template
         this.softSkillType = SoftSkillType.CRITICALTHINKING;
 
         this.softSkillLevelsList = softSkillLevelsList;
+        this.icon = icon;
         Initiate();
     }
 

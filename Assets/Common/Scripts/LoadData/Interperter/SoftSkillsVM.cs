@@ -32,6 +32,8 @@ public class SoftSkillsVM : MonoBehaviour
     private const string INST_SET_addGoldBootUpMotivation = "addGoldBootUpMotivation%";
     private const string INST_SET_addGoldBootUpProject = "addGoldBootUpProject%";
 
+    private const string INST_SET_icon = "icon";
+
     private SoftSkillsLoading softskillsLoading;
 
     private void Start()
@@ -94,6 +96,7 @@ public class SoftSkillsVM : MonoBehaviour
         string softSkill_Description = "";
         int softSkill_MaxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
+        Sprite icon = null;
         
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -129,10 +132,13 @@ public class SoftSkillsVM : MonoBehaviour
                     int level = stack_Level_Detail.Pop();
                     softSkillLevelsList[level] = new CommunicationSkillLevel(charm, baseBootUpProject);
                     break;
+                case INST_SET_icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
             }
 
         }
-        return new Communication_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList);
+        return new Communication_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }
     private CriticalThinking_Template CreateCriticalThinking(string line)
     {
@@ -142,6 +148,7 @@ public class SoftSkillsVM : MonoBehaviour
         string softSkill_Description = "";
         int softSkill_MaxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
+        Sprite icon = null;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -180,10 +187,13 @@ public class SoftSkillsVM : MonoBehaviour
                 case INST_SET_addReducBugChange:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
+                case INST_SET_icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
             }
 
         }
-        return new CriticalThinking_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList);
+        return new CriticalThinking_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }
     private Leadership_Template CreateLeadership(string line)
     {
@@ -193,6 +203,7 @@ public class SoftSkillsVM : MonoBehaviour
         string softSkill_Description = "";
         int softSkill_MaxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
+        Sprite icon = null;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -227,11 +238,14 @@ public class SoftSkillsVM : MonoBehaviour
                 case INST_SET_addPositiveEffect:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
-                    
+                case INST_SET_icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
+
             }
 
         }
-        return new Leadership_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList);
+        return new Leadership_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }
     private TimeManagement_Template CreateTimeManagement(string line)
     {
@@ -241,6 +255,7 @@ public class SoftSkillsVM : MonoBehaviour
         string softSkill_Description = "";
         int softSkill_MaxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
+        Sprite icon = null;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -275,10 +290,13 @@ public class SoftSkillsVM : MonoBehaviour
                 case INST_SET_addReduceTimeTransport:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
+                case INST_SET_icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
             }
 
         }
-        return new TimeManagement_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList);
+        return new TimeManagement_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }
     private WorkEthic_Template CreateWorkEthic(string line)
     {
@@ -288,6 +306,7 @@ public class SoftSkillsVM : MonoBehaviour
         string softSkill_Description = "";
         int softSkill_MaxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
+        Sprite icon = null;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -326,9 +345,12 @@ public class SoftSkillsVM : MonoBehaviour
                 case INST_SET_addGoldBootUpProject:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
                     break;
+                case INST_SET_icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
             }
 
         }
-        return new WorkEthic_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList); ;
+        return new WorkEthic_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }
 }

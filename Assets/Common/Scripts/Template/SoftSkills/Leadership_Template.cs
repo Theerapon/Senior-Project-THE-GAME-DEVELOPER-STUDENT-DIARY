@@ -22,7 +22,7 @@ public class Leadership_Template : SoftSkill_Template
 
     private LeadershipSkillLevel[] softSkillLevelsList;
 
-    public Leadership_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, LeadershipSkillLevel[] softSkillLevelsList)
+    public Leadership_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, LeadershipSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -33,6 +33,7 @@ public class Leadership_Template : SoftSkill_Template
         this.softSkillType = SoftSkillType.LEADERSHIP;
 
         this.softSkillLevelsList = softSkillLevelsList;
+        this.icon = icon;
         Initiate();
     }
 

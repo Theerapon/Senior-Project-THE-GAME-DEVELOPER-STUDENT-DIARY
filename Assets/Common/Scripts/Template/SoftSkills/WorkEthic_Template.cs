@@ -22,7 +22,7 @@ public class WorkEthic_Template : SoftSkill_Template
 
     private WorkEthicSkillLevel[] softSkillLevelsList;
 
-    public WorkEthic_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, WorkEthicSkillLevel[] softSkillLevelsList)
+    public WorkEthic_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, WorkEthicSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -33,6 +33,7 @@ public class WorkEthic_Template : SoftSkill_Template
         this.softSkillType = SoftSkillType.WORKETHIC;
 
         this.softSkillLevelsList = softSkillLevelsList;
+        this.icon = icon;
         Initiate();
     }
 

@@ -1,17 +1,18 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
-public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public Events.EventOnPointEnterHardSkillSlot OnPointEnterHardSkillSlotEvent;
-    public Events.EventOnPointExitHardSkillSlot OnPointExitHardSkillSlotEvent;
-    public Events.EventOnLeftClickHardSkillSlot OnLeftClickHardSkillSlotEvent;
+    #region Events
+    public Events.EventOnPointEnterSoftSkillSlot OnPointEnterSoftSkillSlotEvent;
+    public Events.EventOnPointExitSoftSkillSlot OnPointExitSoftSkillSlotEvent;
+    public Events.EventOnLeftClickSoftSkillSlot OnLeftClickSoftSkillSlotEvent;
+    #endregion
 
     [SerializeField] protected Image _border;
     [SerializeField] protected Image _image;
-    [SerializeField] protected Image _fillExp;
     [SerializeField] protected TMP_Text _level;
 
     protected bool isPointerOver;
@@ -21,16 +22,15 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
     protected Color disabledColor = new Color(1, 1, 1, 0);
     protected Color level_Zero_Color = new Color(1, 1, 1, 0.5f);
 
-
-    protected HardSkill _hardSkill;
-    public HardSkill HARDSKILL
+    protected SoftSkill _softSkill;
+    public SoftSkill SOFTSKILL
     {
-        get { return _hardSkill; }
+        get { return _softSkill; }
         set
         {
-            _hardSkill = value;
+            _softSkill = value;
 
-            if(ReferenceEquals(_hardSkill, null))
+            if (ReferenceEquals(_softSkill, null))
             {
                 _image.sprite = null;
                 _image.color = disabledColor;
@@ -38,11 +38,10 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
             }
             else
             {
-                _image.sprite = _hardSkill.GetIconHardSKill();
-                _fillExp.fillAmount = _hardSkill.GetExpFillAmount();
-                _level.text = _hardSkill.GetCurrentHardSkillLevel().ToString();
+                _image.sprite = _softSkill.GetIconSoftSkill();
+                _level.text = _softSkill.GetCurrentSoftSkillLevel().ToString();
 
-                if (_hardSkill.GetCurrentHardSkillLevel() <= 0)
+                if (_softSkill.GetCurrentSoftSkillLevel() <= 0)
                 {
                     _image.color = level_Zero_Color;
                 }
@@ -53,13 +52,11 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
             }
         }
     }
-
     void Start()
     {
         if (_border != null)
             _border.enabled = false;
     }
-
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -68,7 +65,7 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
         if (_border != null)
             _border.enabled = true;
 
-        OnPointEnterHardSkillSlotEvent?.Invoke(this);
+        OnPointEnterSoftSkillSlotEvent?.Invoke(this);
 
     }
 
@@ -78,14 +75,14 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
         if (_border != null)
             _border.enabled = false;
 
-        OnPointExitHardSkillSlotEvent?.Invoke(this);
+        OnPointExitSoftSkillSlotEvent?.Invoke(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
         {
-            OnLeftClickHardSkillSlotEvent?.Invoke(this);
+            OnLeftClickSoftSkillSlotEvent?.Invoke(this);
         }
     }
 
@@ -97,13 +94,11 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
         if (_image == null)
             _image = transform.GetChild(1).GetComponent<Image>();
 
-        if (_fillExp == null)
-            _fillExp = transform.GetChild(3).GetComponent<Image>();
 
         if (_level == null)
             _level = transform.GetChild(4).GetComponentInChildren<TMP_Text>();
 
-
-        _characters_type = CharactersSubType.HardSkill;
+        
+        _characters_type = CharactersSubType.SoftSkill;
     }
 }
