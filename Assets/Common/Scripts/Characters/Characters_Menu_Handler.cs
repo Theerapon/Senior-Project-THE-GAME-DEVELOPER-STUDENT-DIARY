@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Characters_Menu_Handler : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Characters_Menu_Handler : MonoBehaviour
     private const string INST_SoftSkill = "Soft Skill";
     #endregion
 
+    [SerializeField] protected HardSkill_Display hardSkill_display;
     [SerializeField] protected Status_Display status_display;
     [SerializeField] protected BaseBonusSlot bonusSlot;
 
@@ -58,25 +60,50 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected TMP_Text text_bonus_drop_rate;
     #endregion
 
+    #region Hard Skill Description
+    [Header("Hard Skills Description")]
+    [SerializeField] protected TMP_Text text_hardskill_level;
+    [SerializeField] protected TMP_Text text_hardskill_currentExp;
+    [SerializeField] protected TMP_Text text_hardskill_requiredExp;
+    [SerializeField] protected TMP_Text text_hardskill_description;
+    [SerializeField] protected Image image_hardskill_exp;
+    #endregion
+
     private void Start()
     {
         //fonud inventory container in main Scene
         found_player = GameObject.FindGameObjectWithTag("Player");
         characters_Handler = found_player.GetComponentInChildren<Characters_Handler>();
 
-        //Events status
-        status_display.OnLeftClickStatusSlot.AddListener(SelectedStatusDisplayed);
-        status_display.OnPointEnterStatusSlot.AddListener(DisplayedStatusDescription);
-        status_display.OnPointExitStatusSlot.AddListener(UnDisplayedStatusDescription);
+        if(!ReferenceEquals(status_display, null))
+        {
+            //Events status
+            status_display.OnLeftClickStatusSlot.AddListener(SelectedStatusDisplayed);
+            status_display.OnPointEnterStatusSlot.AddListener(DisplayedStatusDescription);
+            status_display.OnPointExitStatusSlot.AddListener(UnDisplayedStatusDescription);
+        }
 
-        //Events Bonus
-        bonusSlot.OnLeftClickBonusSlotEvent.AddListener(SelectedBonusDisplayed);
-        bonusSlot.OnPointEnterBonusSlotEvent.AddListener(DisplayedBonusDescription);
-        bonusSlot.OnPointExitBonusSlotEvent.AddListener(UnDisplayedBonusDescription);
+        if (!ReferenceEquals(bonusSlot, null))
+        {
+            //Events Bonus
+            bonusSlot.OnLeftClickBonusSlotEvent.AddListener(SelectedBonusDisplayed);
+            bonusSlot.OnPointEnterBonusSlotEvent.AddListener(DisplayedBonusDescription);
+            bonusSlot.OnPointExitBonusSlotEvent.AddListener(UnDisplayedBonusDescription);
+        }
+
+        if (!ReferenceEquals(hardSkill_display, null))
+        {
+            //Events Bonus
+            hardSkill_display.OnLeftClickHardSkillSlotEvent.AddListener(SelectedHardSkillDisplayed);
+            hardSkill_display.OnPointEnterHardSkillSlotEvent.AddListener(DisplayedHardSkillDescription);
+            hardSkill_display.OnPointExitHardSkillSlotEvent.AddListener(UnDisplayedHardSkillDescription);
+        }
+
 
         Reset();
     }
 
+    
 
     private void Reset()
     {
@@ -145,6 +172,34 @@ public class Characters_Menu_Handler : MonoBehaviour
         DisplayDescriptionBox(false);
         bonus_description.SetActive(false);
     }
+    #endregion
+    #region Hard Skills
+    private void SelectedHardSkillDisplayed(BaseHardSkillSlot hardSkillSlot)
+    {
+
+    }
+    private void DisplayedHardSkillDescription(BaseHardSkillSlot hardSkillSlot)
+    {
+        //title
+        DisplayDescriptionBox(true);
+        SetTitleText(hardSkillSlot.HARDSKILL.GetHardSkillName(), INST_HardSkill);
+
+        hardskill_description.SetActive(true);
+        text_hardskill_level.text = hardSkillSlot.HARDSKILL.GetCurrentHardSkillLevel().ToString();
+        text_hardskill_currentExp.text = hardSkillSlot.HARDSKILL.GetCurrentHardSkillEXP().ToString();
+        text_hardskill_requiredExp.text = hardSkillSlot.HARDSKILL.GetExpRequire().ToString();
+        text_hardskill_description.text = hardSkillSlot.HARDSKILL.GetHardSkillDescription();
+        image_hardskill_exp.fillAmount = hardSkillSlot.HARDSKILL.GetExpFillAmount();
+    }
+    private void UnDisplayedHardSkillDescription(BaseHardSkillSlot hardSkillSlot)
+    {
+        DisplayDescriptionBox(false);
+        hardskill_description.SetActive(false);
+    }
+
+    
+
+    
     #endregion
     protected virtual void OnValidate()
     {

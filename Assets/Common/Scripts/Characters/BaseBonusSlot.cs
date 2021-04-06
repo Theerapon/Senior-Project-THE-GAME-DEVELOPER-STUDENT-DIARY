@@ -78,6 +78,5 @@ public class BaseBonusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         _characters_type = CharactersSubType.Bonus;
         _Title = INST_TITLE;
-        //ITEM = _itemPickUp;
     }
 }

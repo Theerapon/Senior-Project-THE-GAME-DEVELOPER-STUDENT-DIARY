@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class HardSkills_Handler : Manager<HardSkills_Handler>
 {
-    public List<HardSkill> hardSkills;
+    protected List<HardSkill> hardSkills;
     private HardSkillsVM hardSkillsVM;
+    
+    bool loaded = false;
+
+    public List<HardSkill> HARDSKILLS
+    {
+        get { return hardSkills; }
+    }
+    
     protected override void Awake()
     {
         base.Awake();
@@ -14,9 +22,24 @@ public class HardSkills_Handler : Manager<HardSkills_Handler>
     private void Start()
     {
         hardSkillsVM = FindObjectOfType<HardSkillsVM>();
-        hardSkills = hardSkillsVM.Interpert();
+        loaded = false;
 
     }
+
+    private void Update()
+    {
+        if (!loaded)
+        {
+            hardSkills = hardSkillsVM.Interpert();
+            loaded = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            hardSkills[0].GiveXP(50);
+        }
+    }
+
 
 
 }

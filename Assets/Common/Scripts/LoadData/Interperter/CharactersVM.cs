@@ -60,18 +60,21 @@ public class CharactersVM : Manager<CharactersVM>
 
     public CharacterStatus Interpert()
     {
-        if(chractersLoading != null)
+        if(!ReferenceEquals(chractersLoading, null))
         {
-            CharacterStatus characterStats = new CharacterStatus();
+            CharacterStatus characterStats = null;
 
             foreach (KeyValuePair<string, string> line in chractersLoading.textLists)
             {
                 string value = line.Value;
                 characterStats = new CharacterStatus(CreateCharacterStatsTemplate(value));
             }
-            return characterStats;
-        }
 
+            if(!ReferenceEquals(characterStats, null))
+            {
+                return characterStats;
+            }
+        }
         return null;
     }
 

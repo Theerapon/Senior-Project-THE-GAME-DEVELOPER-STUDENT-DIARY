@@ -20,6 +20,10 @@ public class HardSkill : MonoBehaviour
     }
     #endregion
     #region Reporter
+    public Sprite GetIconHardSKill()
+    {
+        return hardSkill_current.GetIconHardSKill();
+    }
     public virtual string GetHardSkillName()
     {
         return hardSkill_current.GetHardSkillName();
@@ -71,6 +75,14 @@ public class HardSkill : MonoBehaviour
     public int GetExpRequire()
     {
         return hardSkill_current.GetExpRequire();
+    }
+    public float GetExpFillAmount()
+    {
+        return hardSkill_current.GetExpFillAmount();
+    }
+    public HardSkill GetCopy()
+    {
+        return this;
     }
     #endregion
 }

@@ -41,13 +41,13 @@ public class SoftSkillsVM : MonoBehaviour
 
     public List<SoftSkill> Interpert()
     {
-        if(softskillsLoading != null)
+        if(!ReferenceEquals(softskillsLoading, null))
         {
             List<SoftSkill> softSkills = new List<SoftSkill>();
 
             foreach (KeyValuePair<string, string> line in softskillsLoading.textLists)
             {
-                SoftSkill softSkill = new SoftSkill();
+                SoftSkill softSkill = null;
                 string key = line.Key;
                 string value = line.Value;
                 switch (key)
@@ -67,13 +67,19 @@ public class SoftSkillsVM : MonoBehaviour
                     case "WORKETHIC":
                         softSkill = new SoftSkill(CreateWorkEthic(value));
                         break;
+                    default:
+                        break;
                 }
 
-                softSkills.Add(softSkill);
+                if(!ReferenceEquals(softSkill, null))
+                {
+                    softSkills.Add(softSkill);
+                }
             }
-
-
-            return softSkills;
+            if (!ReferenceEquals(softSkills, null))
+            {
+                return softSkills;
+            }
         }
 
         return null;

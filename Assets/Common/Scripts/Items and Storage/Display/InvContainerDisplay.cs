@@ -21,7 +21,7 @@ public class InvContainerDisplay : MonoBehaviour
 
     public List<BaseInvSlot> InvItemSlots;
 
-
+    bool displayed = false;
     protected  void Awake()
     {
         InvItemSlots = new List<BaseInvSlot>();
@@ -53,8 +53,42 @@ public class InvContainerDisplay : MonoBehaviour
 
         }
 
+        displayed = false;
         //display all item
-        Reset();
+        //Reset();
+    }
+
+
+    private void Update()
+    {
+        if (!displayed)
+        {
+            DisplayedInv();
+            displayed = true;
+        }
+    }
+
+    public void DisplayedInv()
+    {
+        for (int index = 0; index < container.container_item_entry.Length; index++)
+        {
+            ItemEntry itemEntry = container.container_item_entry[index];
+            if (!ReferenceEquals(itemEntry, null))
+            {
+                InvItemSlots[index].ITEM = itemEntry.item_pickup;
+            }
+            else
+            {
+                InvItemSlots[index].ITEM = null;
+            }
+        }
+
+    }
+
+    protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
+    {
+        if (action != null)
+            action(slot);
     }
 
     private void OnPointExitEventHandler(BaseItemSlot itemSlot)
@@ -96,34 +130,6 @@ public class InvContainerDisplay : MonoBehaviour
     private void OnInventoryUpdatedHandler()
     {
         DisplayedInv();
-    }
-
-    private void Reset()
-    {
-        DisplayedInv();
-    }
-
-    public void DisplayedInv()
-    {
-        for (int index = 0; index < container.container_item_entry.Length; index++)
-        {
-            ItemEntry itemEntry = container.container_item_entry[index];
-            if (itemEntry != null)
-            {
-                InvItemSlots[index].ITEM = itemEntry.item_pickup;
-            }
-            else
-            {
-                InvItemSlots[index].ITEM = null;
-            }
-        }
-
-    }
-
-    protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
-    {
-        if (action != null)
-            action(slot);
     }
 
 }

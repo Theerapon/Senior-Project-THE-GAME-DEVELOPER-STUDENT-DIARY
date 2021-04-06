@@ -6,6 +6,9 @@ public class Characters_Handler : Manager<Characters_Handler>
 {
     protected CharacterStatus characterStatus;
     private CharactersVM charactersVM;
+
+    bool loaded = false;
+
     public CharacterStatus STATUS
     {
         get { return characterStatus; }
@@ -19,9 +22,16 @@ public class Characters_Handler : Manager<Characters_Handler>
     private void Start()
     {
         charactersVM = FindObjectOfType<CharactersVM>();
-        characterStatus = charactersVM.Interpert();
-
+        loaded = false;
     }
 
+    private void Update()
+    {
+        if (!loaded)
+        {
+            characterStatus = charactersVM.Interpert();
+            loaded = true;
+        }
+    }
 
 }

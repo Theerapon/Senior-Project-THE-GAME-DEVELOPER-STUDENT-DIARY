@@ -35,10 +35,11 @@ public class HardSkill_Template : MonoBehaviour
     private HardSkillType hardskill_type = HardSkillType.NONE;
     private HardSkillLevel[] hardskill_levels;
 
+    private Sprite icon;
     private string hardskill_id = "";
     private string hardskill_name = "";
     private string hardskill_description = "";
-    private int level_size;
+    private int maxlevel;
 
     private int current_hardskill_level;
     private int current_hardskill_exp;
@@ -49,17 +50,19 @@ public class HardSkill_Template : MonoBehaviour
     private int totalBonus_art_stats;
     private int totalBonus_sound_stats;
 
-    public HardSkill_Template(string id, string name, string description, int size, HardSkillLevel[] hardskillLevelsList)
+    public HardSkill_Template(string id, string name, string description, int size, HardSkillLevel[] hardskillLevelsList, Sprite icon)
     {
         hardskill_id = id;
         hardskill_name = name;
         hardskill_description = description;
-        level_size = size;
+        maxlevel = size;
         current_hardskill_level = 0;
         current_hardskill_exp = 0;
 
         SetHardSkillType(hardskill_id);
         hardskill_levels = hardskillLevelsList;
+
+        this.icon = icon;
     }
 
     #region Stat Increasers
@@ -83,6 +86,10 @@ public class HardSkill_Template : MonoBehaviour
     #endregion
 
     #region Reporter
+    public Sprite GetIconHardSKill()
+    {
+        return icon;
+    }
     public string GetHardSkillName()
     {
         return hardskill_name;
@@ -97,7 +104,7 @@ public class HardSkill_Template : MonoBehaviour
     }
     public int GetMaxLevelHardSkill()
     {
-        return level_size;
+        return maxlevel;
     }
     public int GetCurrentHardSkillLevel()
     {
@@ -133,7 +140,34 @@ public class HardSkill_Template : MonoBehaviour
     }
     public int GetExpRequire()
     {
-        return hardskill_levels[current_hardskill_level + 1].exp_required;
+        int exp;
+
+        if (current_hardskill_level < hardskill_levels.Length - 1)
+        {
+            exp =  hardskill_levels[current_hardskill_level + 1].exp_required;
+        }
+        else
+        {
+            exp = hardskill_levels[current_hardskill_level].exp_required;
+        }
+
+        return exp;
+    }
+    public float GetExpFillAmount()
+    {
+        float fillamount = 0f;
+
+        if(current_hardskill_level < maxlevel)
+        {
+            fillamount = (float) current_hardskill_exp / hardskill_levels[current_hardskill_level + 1].exp_required;
+        }
+        else
+        {
+            fillamount = 1f;
+        }
+
+
+        return fillamount;
     }
     #endregion
 
@@ -166,11 +200,15 @@ public class HardSkill_Template : MonoBehaviour
             //OnLevelUp.Invoke(charLevel);
         }
 
-        int levelTarget = hardskill_levels[current_hardskill_level + 1].exp_required;
-        if (current_hardskill_exp > levelTarget)
+        if (current_hardskill_level < hardskill_levels.Length - 1)
         {
-            SetHardSkillLevel(current_hardskill_level);
+            int levelTarget = hardskill_levels[current_hardskill_level + 1].exp_required;
+            if (current_hardskill_exp > levelTarget)
+            {
+                SetHardSkillLevel(current_hardskill_level);
+            }
         }
+
 
     }
 

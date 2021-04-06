@@ -38,5 +38,8 @@ public class Events
     [System.Serializable] public class EventOnPointEnterBonusSlot : UnityEvent<BaseBonusSlot> { }
     [System.Serializable] public class EventOnPointExitBonusSlot : UnityEvent<BaseBonusSlot> { }
     [System.Serializable] public class EventOnLeftClickBonusSlot : UnityEvent<BaseBonusSlot> { }
+    [System.Serializable] public class EventOnPointEnterHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
+    [System.Serializable] public class EventOnPointExitHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
+    [System.Serializable] public class EventOnLeftClickHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
 
 }

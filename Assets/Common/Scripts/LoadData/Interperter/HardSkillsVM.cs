@@ -12,6 +12,7 @@ public class HardSkillsVM : Manager<HardSkillsVM>
     private const string INST_SET_hardskillMaxLevel = "hardskillMaxLevel";
     private const string INST_SET_createLevel = "createLevel";
     private const string INST_SET_endcreateLevel = "endcreateLevel";
+    private const string INST_SET_icon = "icon";
 
     private const string INST_SET_expRequired = "expRequired";
     private const string INST_SET_bonusCoding = "bonusCoding";
@@ -32,21 +33,28 @@ public class HardSkillsVM : Manager<HardSkillsVM>
 
     public List<HardSkill> Interpert()
     {
-        if(hardskillsLoading != null)
+        if(!ReferenceEquals(hardskillsLoading, null))
         {
             List<HardSkill> hardSkills = new List<HardSkill>();
 
             foreach (KeyValuePair<string, string> line in hardskillsLoading.textLists)
             {
-                HardSkill hardSkill = new HardSkill();
+                HardSkill hardSkill = null;
                 string key = line.Key;
                 string value = line.Value;
 
                 hardSkill = new HardSkill(CreateTemplate(value));
-                hardSkills.Add(hardSkill);
+
+                if(!ReferenceEquals(hardSkill, null))
+                {
+                    hardSkills.Add(hardSkill);
+                }
 
             }
-            return hardSkills;
+            if(!ReferenceEquals(hardSkills, null))
+            {
+                return hardSkills;
+            }
         }
 
         return null;
@@ -60,6 +68,8 @@ public class HardSkillsVM : Manager<HardSkillsVM>
         string hardSkill_Description = "";
         int hardSkill_MaxLevel = 0;
         Stack<int> stack_Level_Detail = new Stack<int>();
+        
+        Sprite icon = null;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -111,9 +121,12 @@ public class HardSkillsVM : Manager<HardSkillsVM>
                     int level = stack_Level_Detail.Pop();
                     hardSkillLevelsList[level] = new HardSkillLevel(exp, coding, design, testing, art, sound);
                     break;
+                case INST_SET_icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
             }
 
         }
-        return new HardSkill_Template(hardSkill_ID, hardSkill_Name, hardSkill_Description, hardSkill_MaxLevel, hardSkillLevelsList);
+        return new HardSkill_Template(hardSkill_ID, hardSkill_Name, hardSkill_Description, hardSkill_MaxLevel, hardSkillLevelsList, icon);
     }
 }

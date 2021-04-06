@@ -21,6 +21,8 @@ public class StorageContainerDisplay : MonoBehaviour
 
     public List<BaseStorageSlot> StorageItemSlots;
 
+    bool displayed = false;
+
     private void Awake()
     {
         //set Item Slots
@@ -51,9 +53,42 @@ public class StorageContainerDisplay : MonoBehaviour
             StorageItemSlots[index].INDEX = index;
         }
 
-        //display all item
-        DisplayedStorage();
+        displayed = false;
+
     }
+
+    private void Update()
+    {
+        if (!displayed)
+        {
+            DisplayedStorage();
+            displayed = true;
+        }
+    }
+
+    public void DisplayedStorage()
+    {
+        for (int index = 0; index < container.container_item_entry.Length; index++)
+        {
+            ItemEntry itemEntry = container.container_item_entry[index];
+            if (itemEntry != null)
+            {
+                StorageItemSlots[index].ITEM = itemEntry.item_pickup;
+            }
+            else
+            {
+                StorageItemSlots[index].ITEM = null;
+            }
+        }
+
+    }
+
+    protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
+    {
+        if (action != null)
+            action(slot);
+    }
+
     private void OnPointExitEventHandler(BaseItemSlot itemSlot)
     {
         OnPointExitEvent?.Invoke(itemSlot);
@@ -91,28 +126,5 @@ public class StorageContainerDisplay : MonoBehaviour
     private void OnStorageUpdatedHandler()
     {
         DisplayedStorage();
-    }
-
-    public void DisplayedStorage()
-    {
-        for (int index = 0; index < container.container_item_entry.Length; index++)
-        {
-            ItemEntry itemEntry = container.container_item_entry[index];
-            if (itemEntry != null)
-            {
-                StorageItemSlots[index].ITEM = itemEntry.item_pickup;
-            }
-            else
-            {
-                StorageItemSlots[index].ITEM = null;
-            }
-        }
-
-    }
-
-    protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
-    {
-        if (action != null)
-            action(slot);
     }
 }

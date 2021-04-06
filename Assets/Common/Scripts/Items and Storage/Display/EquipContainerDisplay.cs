@@ -21,6 +21,8 @@ public class EquipContainerDisplay : MonoBehaviour
 
     public List<BaseEquipmentSlot> EquipItemSlots;
 
+    bool displayed = false;
+
     private void Awake()
     {
         //set Item Slots
@@ -53,8 +55,18 @@ public class EquipContainerDisplay : MonoBehaviour
             EquipItemSlots[index].INDEX = index;
         }
 
+        displayed = false;
         //display all item
-        DisplayedEquipment();
+        //DisplayedEquipment();
+    }
+
+    private void Update()
+    {
+        if (!displayed)
+        {
+            DisplayedEquipment();
+            displayed = true;
+        }
     }
 
     private void OnPointExitEventHandler(BaseItemSlot itemSlot)

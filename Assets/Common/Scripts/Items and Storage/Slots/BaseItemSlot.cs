@@ -28,7 +28,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             _itemPickUp = value;
 
-            if (_itemPickUp == null)
+            if (ReferenceEquals(_itemPickUp, null))
             {
                 image.sprite = null;
                 image.color = disabledColor;

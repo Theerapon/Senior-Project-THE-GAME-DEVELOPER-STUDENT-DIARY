@@ -29,7 +29,7 @@ public class ItemsVM : MonoBehaviour
 
     public ItemPickUp_Template Interpert(string id)
     {
-        if(itemsDataLoading != null)
+        if (!ReferenceEquals(itemsDataLoading, null))
         {
             ItemPickUp_Template copy = new ItemPickUp_Template();
 
@@ -93,7 +93,11 @@ public class ItemsVM : MonoBehaviour
                 }
 
             }
-            return copy;
+
+            if(!ReferenceEquals(copy, null))
+            {
+                return copy;
+            }
         }
 
         return null;

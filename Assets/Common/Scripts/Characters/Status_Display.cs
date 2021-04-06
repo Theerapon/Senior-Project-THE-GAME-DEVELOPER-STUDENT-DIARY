@@ -25,6 +25,8 @@ public class Status_Display : MonoBehaviour
     [SerializeField] private Transform itemsParent;
     public List<BaseStatusSlot> statusSlots;
 
+    bool displayed = false;
+
     private void Awake()
     {
         //set Item Slots
@@ -46,38 +48,52 @@ public class Status_Display : MonoBehaviour
             statusSlots[index].OnPointExitStatusSlot.AddListener(OnPointExitStatusSlotHandler);
         }
 
-        DisplayedStatus();
+        displayed = false;
+    }
+
+    private void Update()
+    {
+        if (!displayed)
+        {
+            DisplayedStatus();
+            displayed = true;
+        }
     }
 
     private void DisplayedStatus()
     {
         for (int i = 0; i < statusSlots.Count; i++)
         {
-            switch (statusSlots[i].TYPE)
+            if(!ReferenceEquals(characters_Handler, null))
             {
-                case StatusType.Coding:
-                    statusSlots[i].VALUE = characters_Handler.STATUS.GetCodingStatus();
-                    statusSlots[i].DESCRIPTION = INST_CODING;
-                    break;
-                case StatusType.Design:
-                    statusSlots[i].VALUE = characters_Handler.STATUS.GetDesignStatus();
-                    statusSlots[i].DESCRIPTION = INST_DESIGN;
-                    break;
-                case StatusType.Testing:
-                    statusSlots[i].VALUE = characters_Handler.STATUS.GetTestingStatus();
-                    statusSlots[i].DESCRIPTION = INST_TESTING;
-                    break;
-                case StatusType.Art:
-                    statusSlots[i].VALUE = characters_Handler.STATUS.GetArtStatus();
-                    statusSlots[i].DESCRIPTION = INST_ART;
-                    break;
-                case StatusType.Sound:
-                    statusSlots[i].VALUE = characters_Handler.STATUS.GetSoundStatus();
-                    statusSlots[i].DESCRIPTION = INST_SOUND;
-                    break;
-                default:
-                    break;
+                switch (statusSlots[i].TYPE)
+                {
+                    case StatusType.Coding:
+                        statusSlots[i].VALUE = characters_Handler.STATUS.GetCodingStatus();
+                        statusSlots[i].DESCRIPTION = INST_CODING;
+                        break;
+                    case StatusType.Design:
+                        statusSlots[i].VALUE = characters_Handler.STATUS.GetDesignStatus();
+                        statusSlots[i].DESCRIPTION = INST_DESIGN;
+                        break;
+                    case StatusType.Testing:
+                        statusSlots[i].VALUE = characters_Handler.STATUS.GetTestingStatus();
+                        statusSlots[i].DESCRIPTION = INST_TESTING;
+                        break;
+                    case StatusType.Art:
+                        statusSlots[i].VALUE = characters_Handler.STATUS.GetArtStatus();
+                        statusSlots[i].DESCRIPTION = INST_ART;
+                        break;
+                    case StatusType.Sound:
+                        statusSlots[i].VALUE = characters_Handler.STATUS.GetSoundStatus();
+                        statusSlots[i].DESCRIPTION = INST_SOUND;
+                        break;
+                    default:
+                        break;
+                }
             }
+
+            
         }
     }
 
@@ -93,7 +109,6 @@ public class Status_Display : MonoBehaviour
 
     private void OnLeftClickStatusSlotHandler(BaseStatusSlot statusSlot)
     {
-        DisplayedStatus();
         OnLeftClickStatusSlot?.Invoke(statusSlot);
     }
     protected virtual void OnValidate()
