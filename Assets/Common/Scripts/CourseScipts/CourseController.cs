@@ -43,7 +43,7 @@ public class CourseController : MonoBehaviour
     {
         string id = learnID.GetID();
 
-        if(playerAction.GetEnergyCourse(courseManager.courses[id]) > chracter_handler.characterStats.GetCurrentEnergy())
+        if(playerAction.GetEnergyCourse(courseManager.courses[id]) > chracter_handler.STATUS.GetCurrentEnergy())
         {
             courseDisplay.CloseAll();
             courseDisplay.UpdateCollectionCourseIsMain();
@@ -63,9 +63,9 @@ public class CourseController : MonoBehaviour
         bool purchaseSuccessful;
         string id = billID.GetID();
         int totalPrice = courseManager.courses[id].GetTotalPrice();
-        if (totalPrice < chracter_handler.characterStats.GetCurrentMoney())
+        if (totalPrice < chracter_handler.STATUS.GetCurrentMoney())
         {
-            chracter_handler.characterStats.TakeMoney(totalPrice);
+            chracter_handler.STATUS.TakeMoney(totalPrice);
             courseManager.courses[billID.GetID()].IsCollected();
             purchaseSuccessful = true;
         }

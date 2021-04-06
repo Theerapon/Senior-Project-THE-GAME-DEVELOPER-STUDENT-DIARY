@@ -197,8 +197,8 @@ public class CourseDisplay : Manager<CourseDisplay>
 
     private void UpdatePlayerData()
     {
-        namePlayer.text = chracter_handler.characterStats.GetNameCharacter();
-        moneyPlayer.text = string.Format("{0:n0}", chracter_handler.characterStats.GetCurrentMoney());
+        namePlayer.text = chracter_handler.STATUS.GetNameCharacter();
+        moneyPlayer.text = string.Format("{0:n0}", chracter_handler.STATUS.GetCurrentMoney());
     }
 
     private void UpdateTime()

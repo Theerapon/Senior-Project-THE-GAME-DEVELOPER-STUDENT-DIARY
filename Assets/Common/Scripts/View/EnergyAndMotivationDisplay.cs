@@ -22,8 +22,8 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     {
         found_Player = GameObject.FindGameObjectWithTag("Player");
         chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
-        chracter_handler.characterStats.OnEnergyUpdated.AddListener(OnEnergyHandler);
-        chracter_handler.characterStats.OnMotivationUpdated.AddListener(OnMotivationHandler);
+        chracter_handler.STATUS.OnEnergyUpdated.AddListener(OnEnergyHandler);
+        chracter_handler.STATUS.OnMotivationUpdated.AddListener(OnMotivationHandler);
         Reset();
     }
 
@@ -36,22 +36,22 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     private void OnMotivationHandler()
     {
         imageMotivation.fillAmount = CalculateFillAmountMotivation();
-        textMotivation.text = chracter_handler.characterStats.GetCurrentMotivation() + " / " + chracter_handler.characterStats.GetDEFAULT_MaxMotivation();
+        textMotivation.text = chracter_handler.STATUS.GetCurrentMotivation() + " / " + chracter_handler.STATUS.GetDEFAULT_MaxMotivation();
     }
 
     private void OnEnergyHandler()
     {
         imageEnergy.fillAmount = CalculateFillAmountEnergy();
-        textEnergy.text = chracter_handler.characterStats.GetCurrentEnergy() + " / " + chracter_handler.characterStats.GetMaxEnergy();
+        textEnergy.text = chracter_handler.STATUS.GetCurrentEnergy() + " / " + chracter_handler.STATUS.GetMaxEnergy();
     }
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)chracter_handler.characterStats.GetCurrentEnergy()  / chracter_handler.characterStats.GetMaxEnergy();
+        return (float)chracter_handler.STATUS.GetCurrentEnergy()  / chracter_handler.STATUS.GetMaxEnergy();
     }
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)chracter_handler.characterStats.GetCurrentMotivation() / chracter_handler.characterStats.GetDEFAULT_MaxMotivation();
+        return (float)chracter_handler.STATUS.GetCurrentMotivation() / chracter_handler.STATUS.GetDEFAULT_MaxMotivation();
     }
 }

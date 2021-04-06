@@ -32,5 +32,11 @@ public class Events
     [System.Serializable] public class EventOnEndDrag : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnDrag : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnDrop : UnityEvent<BaseItemSlot> { }
+    [System.Serializable] public class EventOnPointEnterStatusSlot : UnityEvent<BaseStatusSlot> { }
+    [System.Serializable] public class EventOnPointExitStatusSlot : UnityEvent<BaseStatusSlot> { }
+    [System.Serializable] public class EventOnLeftClickStatusSlot : UnityEvent<BaseStatusSlot> { }
+    [System.Serializable] public class EventOnPointEnterBonusSlot : UnityEvent<BaseBonusSlot> { }
+    [System.Serializable] public class EventOnPointExitBonusSlot : UnityEvent<BaseBonusSlot> { }
+    [System.Serializable] public class EventOnLeftClickBonusSlot : UnityEvent<BaseBonusSlot> { }
 
 }

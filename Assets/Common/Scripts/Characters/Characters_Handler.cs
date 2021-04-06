@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class Characters_Handler : Manager<Characters_Handler>
 {
-    public CharacterStatus characterStats;
+    protected CharacterStatus characterStatus;
     private CharactersVM charactersVM;
-    
+    public CharacterStatus STATUS
+    {
+        get { return characterStatus; }
+    }
+
     protected override void Awake()
     {
         base.Awake();
-        characterStats = new CharacterStatus();
+        characterStatus = new CharacterStatus();
     }
     private void Start()
     {
         charactersVM = FindObjectOfType<CharactersVM>();
-        characterStats = charactersVM.Interpert();
+        characterStatus = charactersVM.Interpert();
 
     }
+
 
 }

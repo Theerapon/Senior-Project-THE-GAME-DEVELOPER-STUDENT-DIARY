@@ -13,9 +13,6 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public Events.EventOnPointExit OnPointExitEvent;
     public Events.EventOnRightClick OnRightClickEvent;
 
-    //public event Action<BaseItemSlot> OnPointerEnterEvent;
-    //public event Action<BaseItemSlot> OnPointerExitEvent;
-    //public event Action<BaseItemSlot> OnRightClickEvent;
 
     protected bool isPointerOver;
 

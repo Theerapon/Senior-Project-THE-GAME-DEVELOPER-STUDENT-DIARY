@@ -199,9 +199,9 @@ public class CharacterStatus : MonoBehaviour
     {
         return characterDeginition_Current.GetSoundStatus();
     }
-    public int GetTestStatus()
+    public int GetTestingStatus()
     {
-        return characterDeginition_Current.GetTestStatus();
+        return characterDeginition_Current.GetTestingStatus();
     }
     public float GetDEFAULT_baseBootUpProject()
     {

@@ -63,7 +63,7 @@ public class StatsDisplay : MonoBehaviour
     {
         textCoding.text = string.Format("{0} ({1} + {2})", (characterStats.GetCodingStatus() + playerAction.GetBonusCodingStatus()), characterStats.GetCodingStatus(), playerAction.GetBonusCodingStatus()); 
         textDesign.text = string.Format("{0} ({1} + {2})", (characterStats.GetDesignStatus() + playerAction.GetBonusDesignStatus()), characterStats.GetDesignStatus(), playerAction.GetBonusDesignStatus());
-        textTesting.text = string.Format("{0} ({1} + {2})", (characterStats.GetTestStatus() +  playerAction.GetBonusTestingStatus()), characterStats.GetTestStatus(), playerAction.GetBonusTestingStatus());
+        textTesting.text = string.Format("{0} ({1} + {2})", (characterStats.GetTestingStatus() +  playerAction.GetBonusTestingStatus()), characterStats.GetTestingStatus(), playerAction.GetBonusTestingStatus());
         textArt.text = string.Format("{0} ({1} + {2})", (characterStats.GetArtStatus() + playerAction.GetBonusArtStatus()), characterStats.GetArtStatus(), playerAction.GetBonusArtStatus());
         textSound.text = string.Format("{0} ({1} + {2})", (characterStats.GetSoundStatus() + playerAction.GetBonusSoundStatus()), characterStats.GetSoundStatus(), playerAction.GetBonusSoundStatus());
 

@@ -431,7 +431,7 @@ public class CharacterStatus_Template : MonoBehaviour
     {
         return soundStats;
     }
-    public int GetTestStatus()
+    public int GetTestingStatus()
     {
         return testingStats;
     }
