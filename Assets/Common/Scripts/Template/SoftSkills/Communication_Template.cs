@@ -54,6 +54,7 @@ public class Communication_Template : SoftSkill_Template
         }
     }
 
+    #region Get Current Level Bonus
     public override float GetTotalBONUS_baseBootUpProject()
     {
         return totalBONUS_baseBootUpProject;
@@ -62,6 +63,38 @@ public class Communication_Template : SoftSkill_Template
     {
         return totalBONUS_charm;
     }
+    #endregion
+
+    #region Get Next Level Bonus
+    public override float GetNextBONUS_baseBootUpProject()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_baseBootUpProject;
+        }
+        else
+        {
+            value = totalBONUS_baseBootUpProject;
+        }
+
+        return value;
+    }
+    public override float GetNextBONUS_charm()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_charm;
+        }
+        else
+        {
+            value = totalBONUS_charm;
+        }
+
+        return value;
+    }
+    #endregion
 
     protected override void SetSoftSkillLevel(int softSkillLevel)
     {
@@ -74,6 +107,7 @@ public class Communication_Template : SoftSkill_Template
             //OnLevelUp.Invoke(charLevel);
         }
     }
+
     #endregion
 
 

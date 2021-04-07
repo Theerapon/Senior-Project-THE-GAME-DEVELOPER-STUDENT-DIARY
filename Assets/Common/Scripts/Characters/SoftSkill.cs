@@ -80,6 +80,9 @@ public class SoftSkill : MonoBehaviour
     {
         return softSkill_Current.GetSoftSkillType();
     }
+    #endregion
+
+    #region Current
     public float GetTotalBONUS_baseBootUpProject()
     {
         return softSkill_Current.GetTotalBONUS_baseBootUpProject();
@@ -127,6 +130,58 @@ public class SoftSkill : MonoBehaviour
     public float GetTotalBONUS_goldenTimeBootUpProject()
     {
         return softSkill_Current.GetTotalBONUS_goldenTimeBootUpProject();
+    }
+    #endregion
+
+    #region Next
+    public virtual float GetNextBONUS_goldenTimeReduceEnergyConsuption()
+    {
+        return softSkill_Current.GetNextBONUS_goldenTimeReduceEnergyConsuption();
+    }
+
+    public virtual float GetNextBONUS_goldenTimeBootUpMotivation()
+    {
+        return softSkill_Current.GetNextBONUS_goldenTimeBootUpMotivation();
+    }
+    public virtual float GetNextBONUS_goldenTimeBootUpProject()
+    {
+        return softSkill_Current.GetNextBONUS_goldenTimeBootUpProject();
+    }
+    public virtual float GetNextBONUS_reduceTimeTrainCourse()
+    {
+        return softSkill_Current.GetNextBONUS_reduceTimeTrainCourse();
+    }
+    public virtual float GetNextBONUS_reduceTimeTransport()
+    {
+        return softSkill_Current.GetNextBONUS_reduceTimeTransport();
+    }
+    public virtual float GetNextBONUS_negativeEventsEffect()
+    {
+        return softSkill_Current.GetNextBONUS_negativeEventsEffect();
+    }
+    public virtual float GetNextBONUS_positiveEventsEffect()
+    {
+        return softSkill_Current.GetNextBONUS_positiveEventsEffect();
+    }
+    public virtual float GetNextBONUS_baseBootUpProject()
+    {
+        return softSkill_Current.GetNextBONUS_baseBootUpProject();
+    }
+    public virtual float GetNextBONUS_charm()
+    {
+        return softSkill_Current.GetNextBONUS_charm();
+    }
+    public virtual float GetNextBONUS_baseBootUpMotivation()
+    {
+        return softSkill_Current.GetNextBONUS_baseBootUpMotivation();
+    }
+    public virtual float GetNextBONUS_baseReduceEnergyConsumption()
+    {
+        return softSkill_Current.GetNextBONUS_baseReduceEnergyConsumption();
+    }
+    public virtual float GetNextBONUS_reduceBugChance()
+    {
+        return softSkill_Current.GetNextBONUS_reduceBugChance();
     }
     #endregion
 }

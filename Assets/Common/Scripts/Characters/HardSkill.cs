@@ -68,10 +68,7 @@ public class HardSkill : MonoBehaviour
     {
         return hardSkill_current.GetTotalBonusSound();
     }
-    public virtual HardSkillType GetHardSkillType()
-    {
-        return hardSkill_current.GetHardSkillType();
-    }
+
     public int GetExpRequire()
     {
         return hardSkill_current.GetExpRequire();
@@ -83,6 +80,29 @@ public class HardSkill : MonoBehaviour
     public HardSkill GetCopy()
     {
         return this;
+    }
+    #endregion
+
+    #region Next
+    public int GetNextBonusCoding()
+    {
+        return hardSkill_current.GetNextBonusCoding();
+    }
+    public int GetNextBonusDesign()
+    {
+        return hardSkill_current.GetNextBonusDesign();
+    }
+    public int GetNextBonusArt()
+    {
+        return hardSkill_current.GetNextBonusArt();
+    }
+    public int GetNextBonusTesting()
+    {
+        return hardSkill_current.GetNextBonusTesting();
+    }
+    public int GetNextBonusSound()
+    {
+        return hardSkill_current.GetNextBonusSound();
     }
     #endregion
 }

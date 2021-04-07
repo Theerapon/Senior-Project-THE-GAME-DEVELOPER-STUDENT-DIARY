@@ -1,16 +1,6 @@
 ﻿using UnityEngine;
-public enum HardSkillType { NONE, MATH, PROGRAMMING, GAMEENGINE, AI, NETWORK, ART, DESIGN, TESTING, SOUND}
 public class HardSkill_Template : MonoBehaviour
 {
-    private const string INST_ID_MATH = "MATH";
-    private const string INST_ID_PROGRAMMING = "PROGRAMMING";
-    private const string INST_ID_GAMEENGINE = "GAMEENGINE";
-    private const string INST_ID_NETWORK = "NETWORK";
-    private const string INST_ID_AI = "AI";
-    private const string INST_ID_DESIGN = "DESIGN";
-    private const string INST_ID_TESTING = "TESTING";
-    private const string INST_ID_ART = "ART";
-    private const string INST_ID_SOUND = "SOUND";
 
     [System.Serializable]
     public class HardSkillLevel
@@ -32,7 +22,6 @@ public class HardSkill_Template : MonoBehaviour
             this.bonus_sound = bonusSound;
         }
     }
-    private HardSkillType hardskill_type = HardSkillType.NONE;
     private HardSkillLevel[] hardskill_levels;
 
     private Sprite icon;
@@ -44,11 +33,11 @@ public class HardSkill_Template : MonoBehaviour
     private int current_hardskill_level;
     private int current_hardskill_exp;
 
-    private int totalBonus_coding_stats;
-    private int totalBonus_design_stats;
-    private int totalBonus_testing_stats;
-    private int totalBonus_art_stats;
-    private int totalBonus_sound_stats;
+    private int totalBonus_coding_status;
+    private int totalBonus_design_status;
+    private int totalBonus_testing_status;
+    private int totalBonus_art_status;
+    private int totalBonus_sound_status;
 
     public HardSkill_Template(string id, string name, string description, int size, HardSkillLevel[] hardskillLevelsList, Sprite icon)
     {
@@ -59,7 +48,6 @@ public class HardSkill_Template : MonoBehaviour
         current_hardskill_level = 0;
         current_hardskill_exp = 0;
 
-        SetHardSkillType(hardskill_id);
         hardskill_levels = hardskillLevelsList;
 
         this.icon = icon;
@@ -75,7 +63,7 @@ public class HardSkill_Template : MonoBehaviour
 
             if (current_hardskill_exp >= levelTarget)
             {
-                SetHardSkillLevel(current_hardskill_level);
+                SetHardSkillLevelUp(current_hardskill_level);
             }
         }
         else
@@ -114,30 +102,101 @@ public class HardSkill_Template : MonoBehaviour
     {
         return current_hardskill_exp;
     }
+    #region Current
     public int GetTotalBonusCoding()
     {
-        return totalBonus_coding_stats;
+        return totalBonus_coding_status;
     }
     public int GetTotalBonusDesign()
     {
-        return totalBonus_design_stats;
+        return totalBonus_design_status;
     }
     public int GetTotalBonusArt()
     {
-        return totalBonus_art_stats;
+        return totalBonus_art_status;
     }
     public int GetTotalBonusTesting()
     {
-        return totalBonus_testing_stats;
+        return totalBonus_testing_status;
     }
     public int GetTotalBonusSound()
     {
-        return totalBonus_sound_stats;
+        return totalBonus_sound_status;
     }
-    public HardSkillType GetHardSkillType()
+    #endregion
+    #region Next
+    public int GetNextBonusCoding()
     {
-        return hardskill_type;
+        int value;
+        if (current_hardskill_level < maxlevel)
+        {
+            value = hardskill_levels[current_hardskill_level + 1].bonus_coding;
+        }
+        else
+        {
+            value = totalBonus_coding_status;
+        }
+
+        return value;
     }
+    public int GetNextBonusDesign()
+    {
+        int value;
+        if (current_hardskill_level < maxlevel)
+        {
+            value = hardskill_levels[current_hardskill_level + 1].bonus_design;
+        }
+        else
+        {
+            value = totalBonus_design_status;
+        }
+
+        return value;
+    }
+    public int GetNextBonusArt()
+    {
+        int value;
+        if (current_hardskill_level < maxlevel)
+        {
+            value = hardskill_levels[current_hardskill_level + 1].bonus_art;
+        }
+        else
+        {
+            value = totalBonus_art_status;
+        }
+
+        return value;
+    }
+    public int GetNextBonusTesting()
+    {
+        int value;
+        if (current_hardskill_level < maxlevel)
+        {
+            value = hardskill_levels[current_hardskill_level + 1].bonus_testing;
+        }
+        else
+        {
+            value = totalBonus_testing_status;
+        }
+
+        return value;
+    }
+    public int GetNextBonusSound()
+    {
+        int value;
+        if (current_hardskill_level < maxlevel)
+        {
+            value = hardskill_levels[current_hardskill_level + 1].bonus_sound;
+        }
+        else
+        {
+            value = totalBonus_sound_status;
+        }
+
+        return value;
+    }
+    #endregion
+
     public int GetExpRequire()
     {
         int exp;
@@ -176,15 +235,15 @@ public class HardSkill_Template : MonoBehaviour
     {
         if (current_hardskill_level == 0)
         {
-            totalBonus_coding_stats = hardskill_levels[0].bonus_coding;
-            totalBonus_design_stats = hardskill_levels[0].bonus_design;
-            totalBonus_testing_stats = hardskill_levels[0].bonus_testing;
-            totalBonus_art_stats = hardskill_levels[0].bonus_art;
-            totalBonus_sound_stats = hardskill_levels[0].bonus_sound;
+            totalBonus_coding_status = hardskill_levels[0].bonus_coding;
+            totalBonus_design_status = hardskill_levels[0].bonus_design;
+            totalBonus_testing_status = hardskill_levels[0].bonus_testing;
+            totalBonus_art_status = hardskill_levels[0].bonus_art;
+            totalBonus_sound_status = hardskill_levels[0].bonus_sound;
         }
     }
 
-    private void SetHardSkillLevel(int hardSkillLevel)
+    private void SetHardSkillLevelUp(int hardSkillLevel)
     {
         current_hardskill_level = hardSkillLevel + 1;
 
@@ -192,11 +251,11 @@ public class HardSkill_Template : MonoBehaviour
         if (current_hardskill_level > 0)
         {
 
-            totalBonus_coding_stats = hardskill_levels[current_hardskill_level].bonus_coding;
-            totalBonus_design_stats = hardskill_levels[current_hardskill_level].bonus_design;
-            totalBonus_testing_stats = hardskill_levels[current_hardskill_level].bonus_testing;
-            totalBonus_art_stats = hardskill_levels[current_hardskill_level].bonus_art;
-            totalBonus_sound_stats = hardskill_levels[current_hardskill_level].bonus_sound;
+            totalBonus_coding_status = hardskill_levels[current_hardskill_level].bonus_coding;
+            totalBonus_design_status = hardskill_levels[current_hardskill_level].bonus_design;
+            totalBonus_testing_status = hardskill_levels[current_hardskill_level].bonus_testing;
+            totalBonus_art_status = hardskill_levels[current_hardskill_level].bonus_art;
+            totalBonus_sound_status = hardskill_levels[current_hardskill_level].bonus_sound;
             //OnLevelUp.Invoke(charLevel);
         }
 
@@ -205,49 +264,12 @@ public class HardSkill_Template : MonoBehaviour
             int levelTarget = hardskill_levels[current_hardskill_level + 1].exp_required;
             if (current_hardskill_exp > levelTarget)
             {
-                SetHardSkillLevel(current_hardskill_level);
+                SetHardSkillLevelUp(current_hardskill_level);
             }
         }
 
 
     }
 
-    private void SetHardSkillType(string id)
-    {
-        switch (id)
-        {
-            case INST_ID_MATH:
-                hardskill_type = HardSkillType.MATH;
-                break;
-            case INST_ID_PROGRAMMING:
-                hardskill_type = HardSkillType.PROGRAMMING;
-                break;
-            case INST_ID_GAMEENGINE:
-                hardskill_type = HardSkillType.GAMEENGINE;
-                break;
-            case INST_ID_NETWORK:
-                hardskill_type = HardSkillType.NETWORK;
-                break;
-            case INST_ID_AI:
-                hardskill_type = HardSkillType.AI;
-                break;
-            case INST_ID_DESIGN:
-                hardskill_type = HardSkillType.DESIGN;
-                break;
-            case INST_ID_TESTING:
-                hardskill_type = HardSkillType.TESTING;
-                break;
-            case INST_ID_ART:
-                hardskill_type = HardSkillType.ART;
-                break;
-            case INST_ID_SOUND:
-                hardskill_type = HardSkillType.SOUND;
-                break;
-            default:
-                hardskill_type = HardSkillType.NONE;
-                break;
-
-        }
-    }
 
 }

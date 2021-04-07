@@ -22,7 +22,8 @@ public class WorkEthic_Template : SoftSkill_Template
 
     private WorkEthicSkillLevel[] softSkillLevelsList;
 
-    public WorkEthic_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, WorkEthicSkillLevel[] softSkillLevelsList, Sprite icon)
+    public WorkEthic_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, 
+        WorkEthicSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -48,6 +49,7 @@ public class WorkEthic_Template : SoftSkill_Template
         }
     }
 
+    #region Get Current Level Bonus
     public override float GetTotalBONUS_goldenTimeReduceEnergyConsuption()
     {
         return totalBONUS_goldenTimeReduceEnergyConsuption;
@@ -61,7 +63,53 @@ public class WorkEthic_Template : SoftSkill_Template
     {
         return totalBONUS_goldenTimeBootUpProject;
     }
+    #endregion
 
+    #region Get Next Level Bonus
+    public override float GetNextBONUS_goldenTimeReduceEnergyConsuption()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_goldenTimeReduceEnergyConsuption;
+        }
+        else
+        {
+            value = totalBONUS_goldenTimeReduceEnergyConsuption;
+        }
+
+        return value;
+    }
+
+    public override float GetNextBONUS_goldenTimeBootUpMotivation()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_goldenTimeBootUpMotivation;
+        }
+        else
+        {
+            value = totalBONUS_goldenTimeBootUpMotivation;
+        }
+
+        return value;
+    }
+    public override float GetNextBONUS_goldenTimeBootUpProject()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_goldenTimeBootUpProject;
+        }
+        else
+        {
+            value = totalBONUS_goldenTimeBootUpProject;
+        }
+
+        return value;
+    }
+    #endregion
     protected override void SetSoftSkillLevel(int softSkillLevel)
     {
         currentSoftSkillLevel = softSkillLevel + 1;

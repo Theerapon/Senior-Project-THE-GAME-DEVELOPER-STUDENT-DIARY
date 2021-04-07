@@ -86,6 +86,7 @@ public class SoftSkill_Template : MonoBehaviour
     #endregion
 
     #region WrkEthic
+    //current
     public virtual float GetTotalBONUS_goldenTimeReduceEnergyConsuption()
     {
         return -1f;
@@ -99,9 +100,24 @@ public class SoftSkill_Template : MonoBehaviour
     {
         return -1f;
     }
+    //next
+    public virtual float GetNextBONUS_goldenTimeReduceEnergyConsuption()
+    {
+        return -1f;
+    }
+
+    public virtual float GetNextBONUS_goldenTimeBootUpMotivation()
+    {
+        return -1f;
+    }
+    public virtual float GetNextBONUS_goldenTimeBootUpProject()
+    {
+        return -1f;
+    }
     #endregion
 
     #region TimeManagement
+    //current
     public virtual float GetTotalBONUS_reduceTimeTrainCourse()
     {
         return -1f;
@@ -110,9 +126,19 @@ public class SoftSkill_Template : MonoBehaviour
     {
         return -1f;
     }
+    //next
+    public virtual float GetNextBONUS_reduceTimeTrainCourse()
+    {
+        return -1f;
+    }
+    public virtual float GetNextBONUS_reduceTimeTransport()
+    {
+        return -1f;
+    }
     #endregion
 
     #region Leadership
+    //current
     public virtual float GetTotalBONUS_negativeEventsEffect()
     {
         return -1f;
@@ -121,9 +147,19 @@ public class SoftSkill_Template : MonoBehaviour
     {
         return -1f;
     }
+    //next
+    public virtual float GetNextBONUS_negativeEventsEffect()
+    {
+        return -1f;
+    }
+    public virtual float GetNextBONUS_positiveEventsEffect()
+    {
+        return -1f;
+    }
     #endregion
 
     #region Communication
+    //current
     public virtual float GetTotalBONUS_baseBootUpProject()
     {
         return -1f;
@@ -132,9 +168,19 @@ public class SoftSkill_Template : MonoBehaviour
     {
         return -1f;
     }
+    //next
+    public virtual float GetNextBONUS_baseBootUpProject()
+    {
+        return -1f;
+    }
+    public virtual float GetNextBONUS_charm()
+    {
+        return -1f;
+    }
     #endregion
 
     #region CriticalThinking
+    //current
     public virtual float GetTotalBONUS_baseBootUpMotivation()
     {
         return -1f;
@@ -144,6 +190,19 @@ public class SoftSkill_Template : MonoBehaviour
         return -1f;
     }
     public virtual float GetTotalBONUS_reduceBugChance()
+    {
+        return -1f;
+    }
+    //next
+    public virtual float GetNextBONUS_baseBootUpMotivation()
+    {
+        return -1f;
+    }
+    public virtual float GetNextBONUS_baseReduceEnergyConsumption()
+    {
+        return -1f;
+    }
+    public virtual float GetNextBONUS_reduceBugChance()
     {
         return -1f;
     }

@@ -34,10 +34,6 @@ public class HardSkills_Handler : Manager<HardSkills_Handler>
             loaded = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            hardSkills[0].GiveXP(50);
-        }
     }
 
 

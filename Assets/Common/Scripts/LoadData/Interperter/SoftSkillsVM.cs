@@ -136,7 +136,7 @@ public class SoftSkillsVM : MonoBehaviour
                     icon = Resources.Load<Sprite>(entries[++i]);
                     break;
             }
-
+            
         }
         return new Communication_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }

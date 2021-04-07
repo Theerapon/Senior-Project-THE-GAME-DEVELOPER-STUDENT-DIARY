@@ -14,10 +14,15 @@ public class Characters_Menu_Handler : MonoBehaviour
     private const string INST_SoftSkill = "Soft Skill";
     #endregion
 
+    [Header("Descriptino Display")]
     [SerializeField] protected HardSkills_Display hardSkill_display;
     [SerializeField] protected Softskills_Display softSkill_display;
     [SerializeField] protected Status_Display status_display;
     [SerializeField] protected BaseBonusSlot bonusSlot;
+
+    [Header("Generator")]
+    [SerializeField] protected Bonus_Generator bonus_Generator;
+    [SerializeField] protected Status_Generator status_Generator;
 
     protected GameObject found_player;
     protected Characters_Handler characters_Handler;
@@ -203,6 +208,8 @@ public class Characters_Menu_Handler : MonoBehaviour
         text_hardskill_requiredExp.text = hardSkillSlot.HARDSKILL.GetExpRequire().ToString();
         text_hardskill_description.text = hardSkillSlot.HARDSKILL.GetHardSkillDescription();
         image_hardskill_exp.fillAmount = hardSkillSlot.HARDSKILL.GetExpFillAmount();
+
+        status_Generator.CreateTemplate(hardSkillSlot.HARDSKILL);
     }
     private void UnDisplayedHardSkillDescription(BaseHardSkillSlot hardSkillSlot)
     {
@@ -229,6 +236,8 @@ public class Characters_Menu_Handler : MonoBehaviour
         softskill_description.SetActive(true);
         text_softskill_level.text = softSkillSlot.SOFTSKILL.GetCurrentSoftSkillLevel().ToString();
         text_softskill_description.text = softSkillSlot.SOFTSKILL.GetSoftSkillDescription().ToString();
+
+        bonus_Generator.CreateTemplate(softSkillSlot.SOFTSKILL);
     }
 
     private void UnDisplayedSoftSkillDescription(BaseSoftSkillSlot softSkillSlot)

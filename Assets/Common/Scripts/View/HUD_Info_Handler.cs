@@ -22,7 +22,7 @@ public class HUD_Info_Handler : MonoBehaviour
 
     private void OnGameStateChangedHandler(GameManager.GameState current_game_state, GameManager.GameState previouse_game_state)
     {
-        if (current_game_state == GameManager.GameState.MENU || current_game_state == GameManager.GameState.HOME_ACTION)
+        if (current_game_state == GameManager.GameState.MENU)
         {
             ShowAll();
         }
@@ -30,6 +30,12 @@ public class HUD_Info_Handler : MonoBehaviour
         if (current_game_state == GameManager.GameState.HOME || current_game_state == GameManager.GameState.MAP)
         {
             Reset();
+        }
+
+        if(current_game_state == GameManager.GameState.HOME_ACTION)
+        {
+            ShowAll();
+            DisplayButtonMenu(false);
         }
     }
     private void DisplayEnergyAndMotivation(bool actived)

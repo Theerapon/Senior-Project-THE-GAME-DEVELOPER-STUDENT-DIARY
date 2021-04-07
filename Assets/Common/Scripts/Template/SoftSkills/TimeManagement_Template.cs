@@ -20,7 +20,8 @@ public class TimeManagement_Template : SoftSkill_Template
     private float totalBONUS_reduceTimeTransport;
 
     private TimeManagementSkillLevel[] softSkillLevelsList;
-    public TimeManagement_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, TimeManagementSkillLevel[] softSkillLevelsList, Sprite icon)
+    public TimeManagement_Template(string softSkill_ID, string nameSoftSkill, string description, int softSkillArraySize, 
+        TimeManagementSkillLevel[] softSkillLevelsList, Sprite icon)
     {
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
@@ -45,6 +46,7 @@ public class TimeManagement_Template : SoftSkill_Template
         }
     }
 
+    #region Get Current Level Bonus
     public override float GetTotalBONUS_reduceTimeTrainCourse()
     {
         return totalBONUS_reduceTimeTrainCourse;
@@ -53,6 +55,38 @@ public class TimeManagement_Template : SoftSkill_Template
     {
         return totalBONUS_reduceTimeTransport;
     }
+    #endregion
+
+    #region Get Next Level Bonus
+    public override float GetNextBONUS_reduceTimeTrainCourse()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_reduceTimeTrainCourse;
+        }
+        else
+        {
+            value = totalBONUS_reduceTimeTrainCourse;
+        }
+
+        return value;
+    }
+    public override float GetNextBONUS_reduceTimeTransport()
+    {
+        float value;
+        if (currentSoftSkillLevel < softSkillMaxLevel)
+        {
+            value = softSkillLevelsList[currentSoftSkillLevel + 1].BONUS_reduceTimeTransport;
+        }
+        else
+        {
+            value = totalBONUS_reduceTimeTransport;
+        }
+
+        return value;
+    }
+    #endregion
     protected override void SetSoftSkillLevel(int softSkillLevel)
     {
         currentSoftSkillLevel = softSkillLevel + 1;
