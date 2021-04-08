@@ -23,7 +23,7 @@ public class SummaryManager : MonoBehaviour
     {
         if (gameState == GameManager.GameState.DAIRY)
         {
-            GameManager.Instance.GotoMainWithContiniueGameInNextDays();
+            //GameManager.Instance.GotoMainWithContiniueGameInNextDays();
         }
     }
 

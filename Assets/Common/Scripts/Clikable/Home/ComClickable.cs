@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ComClickable : MonoBehaviour, IClickable
 {
+    [SerializeField] MenuController menuController;
+
     public void OnClick()
     {
-        Debug.Log("Com");
-        //GameManager.Instance.OpenDialogue(GameManager.Scene.UI_COMPUTER);
+        menuController.OpenHomeAction(GameManager.GameScene.Home_COMPUTER);
     }
 }

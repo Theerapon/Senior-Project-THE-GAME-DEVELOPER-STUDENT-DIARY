@@ -75,9 +75,9 @@ public class HardSkills_Display : MonoBehaviour
         OnPointEnterHardSkillSlotEvent?.Invoke(hardSkillSlot);
     }
 
-    private void OnLeftClickHardSkillSlotHandler(BaseHardSkillSlot hardSkillSlot)
+    private void OnLeftClickHardSkillSlotHandler(BaseHardSkillSlot hardSkillSlot, bool selected)
     {
-        OnLeftClickHardSkillSlotEvent?.Invoke(hardSkillSlot);
+        OnLeftClickHardSkillSlotEvent?.Invoke(hardSkillSlot, selected);
     }
 
 }

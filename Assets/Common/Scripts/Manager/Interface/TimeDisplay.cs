@@ -5,11 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TimeMenu : MonoBehaviour
+public class TimeDisplay : MonoBehaviour
 {
+    [Header("Display")]
     [SerializeField] private TMP_Text dateCalendar;
     [SerializeField] private TMP_Text timeCalendar;
-    [SerializeField] private TMP_Text seasonCalendar;
+    [SerializeField] private Image icon;
+
+    [Header("Resourse")]
+    [SerializeField] private Sprite image_day;
+    [SerializeField] private Sprite image_night;
 
     protected void Start()
     {
@@ -17,14 +22,22 @@ public class TimeMenu : MonoBehaviour
         {
             TimeManager.Instance.OnDateCalendar.AddListener(HandleOnDateCalendar);
             TimeManager.Instance.OnTimeCalendar.AddListener(HandleOnTimeCalendar);
-            TimeManager.Instance.OnSeasonCalendar.AddListener(HandleOnSeasonCalender);
+            TimeManager.Instance.OnTimeChange.AddListener(HandlerTimeChange);
+            TimeManager.Instance.NotificationAll();
         }
 
     }
 
-    private void HandleOnSeasonCalender(string season)
+    private void HandlerTimeChange(bool isDay)
     {
-        seasonCalendar.text = season.ToUpper();
+        if (isDay)
+        {
+            icon.sprite = image_day;
+        }
+        else
+        {
+            icon.sprite = image_night;
+        }
     }
 
     private void HandleOnTimeCalendar(string time)
@@ -37,8 +50,4 @@ public class TimeMenu : MonoBehaviour
         dateCalendar.text = date.ToUpper();
     }
 
-    void Update()
-    {
-        
-    }
 }

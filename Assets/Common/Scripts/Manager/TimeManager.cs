@@ -8,7 +8,7 @@ public class TimeManager : Manager<TimeManager>
     #region Event
     public Events.EventDateCalendar OnDateCalendar;
     public Events.EventTimeCalendar OnTimeCalendar;
-    public Events.EventSeasonCalendar OnSeasonCalendar;
+    public Events.EventTimeDayOrNight OnTimeChange;
     public Events.EventOnTimeSkilpValidation OnTimeSkip;
 
     #endregion
@@ -70,9 +70,10 @@ public class TimeManager : Manager<TimeManager>
 
 
     private static double minute, hour, date, second, month, year;
-    private static string onDate, onTime, onSeason;
+    private static string onDate, onTime;
     private double totalSecond = 0;
     private double memorySecond;
+    private bool isDay;
 
     private bool goldenTime = false;
 
@@ -87,23 +88,26 @@ public class TimeManager : Manager<TimeManager>
         _currentDays = SetsOfDays.SUN;
         month = 1;
         year = 2021;
+        ValidateCalculateTime();
         ValidationDisplay();
+        NotificationAll();
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        ValidateCalculateTime();
-        ValidationDisplay();
+        if (currentState == GameManager.GameState.HOME || currentState == GameManager.GameState.MAP)
+        {
+            ValidateCalculateTime();
+            ValidationDisplay();
+            NotificationAll();
+        }
     }
 
     void Update()
     {
-        switch (GameManager.Instance.CurrentGameState)
+        if(GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
         {
-            case GameManager.GameState.HOME:
-                CalculateTime();
-                break;
-
+            CalculateTime();
         }
     }
 
@@ -141,7 +145,6 @@ public class TimeManager : Manager<TimeManager>
         }
 
         yield return new WaitForSecondsRealtime(1);
-        Debug.Log("Validation" );
 
         OnTimeSkip?.Invoke(GameManager.Instance.CurrentGameState);
     }
@@ -181,7 +184,8 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
-            
+
+            CheckTimeChange();
         }
         
         if (date > DEFAULT_DATE)
@@ -194,7 +198,6 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
-            OnSeasonCalendar?.Invoke(onSeason);
         }
         
         if (month > DEFAULT_MONTH)
@@ -206,8 +209,20 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
-            OnSeasonCalendar?.Invoke(onSeason);
         }
+    }
+
+    private void CheckTimeChange()
+    {
+        if (hour > 5 && hour < 18)
+        {
+            isDay = true;
+        }
+        else
+        {
+            isDay = false;
+        }
+        OnTimeChange?.Invoke(isDay);
     }
 
     private void CalGoldenTime()
@@ -223,9 +238,8 @@ public class TimeManager : Manager<TimeManager>
 
     private void setText()
     {
-        onDate = string.Format("{0} " + "{1}" + " {2} " + "{3}", _currentDays, date, _currentMonth, year);
-        onTime = string.Format("{0:00}:{1:00} Hrs.", hour, minute);
-        onSeason = string.Format("{0}", _currentSeason);
+        onDate = string.Format("{0}/{1}/{2}", date, month, year);
+        onTime = string.Format("{0:00}:{1:00}", hour, minute);
     }
 
     private void CalculateSeason()
@@ -308,7 +322,6 @@ public class TimeManager : Manager<TimeManager>
         setText();
         OnDateCalendar?.Invoke(onDate);
         OnTimeCalendar?.Invoke(onTime);
-        OnSeasonCalendar?.Invoke(onSeason);
     }
 
     public void SkilpTime(int totalSecond)
@@ -336,10 +349,6 @@ public class TimeManager : Manager<TimeManager>
         return onTime;
     }
 
-    public string GetOnSeason()
-    {
-        return onSeason;
-    }
 
     public string GetSecondText(int totalSecond)
     {
@@ -358,5 +367,12 @@ public class TimeManager : Manager<TimeManager>
     public bool GetGoldenTime()
     {
         return goldenTime;
+    }
+
+    public void NotificationAll()
+    {
+        OnDateCalendar?.Invoke(onDate);
+        OnTimeCalendar?.Invoke(onTime);
+        OnTimeChange?.Invoke(isDay);
     }
 }

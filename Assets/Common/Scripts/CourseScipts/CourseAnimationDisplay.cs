@@ -19,7 +19,6 @@ public class CourseAnimationDisplay : MonoBehaviour
         {
             TimeManager.Instance.OnDateCalendar.AddListener(HandleOnDateCalendar);
             TimeManager.Instance.OnTimeCalendar.AddListener(HandleOnTimeCalendar);
-            TimeManager.Instance.OnSeasonCalendar.AddListener(HandleOnSeasonCalender);
             TimeManager.Instance.ValidationDisplay();
         }
 

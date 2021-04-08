@@ -15,8 +15,6 @@ public class GameManager : Manager<GameManager>
         Loading,
         Home,
         Summary,
-        UI_BED,
-        UI_COMPUTER,
         Course,
         WorkProject,
         CourseAnimation,
@@ -27,6 +25,8 @@ public class GameManager : Manager<GameManager>
         Menu_Friends,
         Menu_Exit,
         Home_Storage,
+        Home_BED,
+        Home_COMPUTER,
         Map
 
     }
@@ -154,8 +154,7 @@ public class GameManager : Manager<GameManager>
         {
             LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Info);
             UpdateState(GameState.HOME);
-        }
-        else
+        } else if (scene == GameScene.Home)
         {
             UpdateState(GameState.HOME);
         }
@@ -170,9 +169,16 @@ public class GameManager : Manager<GameManager>
         #endregion
 
         #region Home Action
-        if (scene == GameScene.Home_Storage)
+        if (scene == GameScene.Home_Storage || scene == GameScene.Home_COMPUTER || scene == GameScene.Home_BED)
         {
             UpdateState(GameState.HOME_ACTION);
+        }
+        #endregion
+
+        #region Map
+        if (scene == GameScene.Map)
+        {
+            UpdateState(GameState.MAP);
         }
         #endregion
 
@@ -301,15 +307,15 @@ public class GameManager : Manager<GameManager>
     #region Scenes
     public void StartGameWithNewGame()
     {
-        SwitchSceneToMain(true);
+        LoadLevelWithLoadingScene(GameScene.Home);
     }
 
     public void StartGameWithContiniueGame()
     {
-        SwitchSceneToMain(true);
+        LoadLevelWithLoadingScene(GameScene.Home);
     }
 
-    public void DisplerHomeAction(bool actived, GameScene scene)
+    public void DisplayHomeAction(bool actived, GameScene scene)
     {
         if (actived)
         {
@@ -325,7 +331,7 @@ public class GameManager : Manager<GameManager>
 
     private GameManager.GameScene present_menu;
     private bool menu_hasDisplayed = false;
-    public void DisplerMenu(bool actived, GameScene currentScene, GameState toState)
+    public void DisplayMenu(bool actived, GameScene currentScene, GameState toState)
     {
 
         if (actived)
@@ -348,7 +354,18 @@ public class GameManager : Manager<GameManager>
         }
     }
 
-
+    public void DispleyMap(bool actived)
+    {
+        if (actived)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.Map);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.Map);
+            UpdateScene(GameScene.Home);
+        }
+    }
 
 
     public void GotoSummaryDiary()
@@ -356,6 +373,7 @@ public class GameManager : Manager<GameManager>
         //LoadLevelSceneWithOutLoadingScene(GameScene.Summary);
         //UpdateState(GameState.SUMMARY);
     }
+
     public void GotoCourse()
     {
         LoadLevelSceneWithOutLoadingScene(GameScene.Course);
@@ -371,64 +389,6 @@ public class GameManager : Manager<GameManager>
     {
         //LoadLevelSceneWithOutLoadingScene(GameScene.WorkProject);
         //UpdateState(GameState.WORKPROJECT);
-    }
-
-    public void GotoMainWithContiniueGameInNextDays()
-    {
-        UnLoadLevel(GameScene.Summary);
-        CloseToMain();
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.OnSave();
-        }
-    }
-
-    public void BackFromCourseToMain()
-    {
-        UnLoadLevel(GameScene.Course);
-        CloseToMain();
-
-    }
-
-    public void BackFromCourseAnimationToCourse()
-    {
-        UnLoadLevel(GameScene.CourseAnimation);
-        UpdateState(GameState.COURSE);
-    }
-
-    public void OpenDialogue(GameScene scene)
-    {
-        //LoadLevelSceneWithOutLoadingScene(scene);
-        //UpdateState(GameState.DIALOGUE);
-    }
-
-
-    public void FinishedDialogue(GameScene nameScene)
-    {
-        UnLoadLevel(nameScene);
-    }
-
-    public void CloseDialogue(GameScene nameScene)
-    {
-        UnLoadLevel(nameScene);
-        CloseToMain();
-    }
-
-    private void CloseToMain()
-    {
-        //_currentGameScene = GameScene.Main;
-        //UpdateState(GameState.RUNNING);
-    }
-
-    private void SwitchSceneToMain(bool loadingScene)
-    {
-        if (loadingScene)
-        {
-            LoadLevelWithLoadingScene(GameScene.Home);
-        } else
-        {
-            LoadLevelSceneWithOutLoadingScene(GameScene.Home);
-        }
     }
 
     #endregion

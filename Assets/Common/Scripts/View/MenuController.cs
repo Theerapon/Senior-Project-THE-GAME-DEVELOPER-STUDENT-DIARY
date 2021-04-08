@@ -6,7 +6,13 @@ public class MenuController : MonoBehaviour
 {
     public Events.EventOnOpenMenu OnGameOpenMaenu;
 
+    [Header("Blur")]
     [SerializeField] private GameObject _blur;
+
+    [Header("Camera")]
+    [SerializeField] private GameObject _camera;
+
+
     private GameManager gameManager;
 
     private GameManager.GameState previousGameStateMenu;
@@ -29,6 +35,16 @@ public class MenuController : MonoBehaviour
         if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU)
         {
             ActivedBlur(true);
+        }
+
+        if (currentState == GameManager.GameState.MAP)
+        {
+            _camera.SetActive(false);
+        }
+
+        if (currentState == GameManager.GameState.HOME)
+        {
+            _camera.SetActive(true);
         }
     }
 
@@ -68,13 +84,14 @@ public class MenuController : MonoBehaviour
 
     private void DisplayMenu(bool action, GameManager.GameScene currentGameScene)
     {
-        GameManager.Instance.DisplerMenu(action, currentGameScene, previousGameStateMenu);
+        Debug.Log(previousGameStateMenu);
+        GameManager.Instance.DisplayMenu(action, currentGameScene, previousGameStateMenu);
         hasDisplayed = true;
     }
 
     private void DisplayHomeAction(bool action, GameManager.GameScene currentGameScene)
     {
-        GameManager.Instance.DisplerHomeAction(ActivedBlur(action), currentGameScene);
+        GameManager.Instance.DisplayHomeAction(ActivedBlur(action), currentGameScene);
         hasDisplayed = true;
     }
 

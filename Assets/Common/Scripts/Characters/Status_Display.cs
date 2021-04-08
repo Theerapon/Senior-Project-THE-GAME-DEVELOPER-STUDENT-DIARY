@@ -107,9 +107,9 @@ public class Status_Display : MonoBehaviour
         OnPointEnterStatusSlot?.Invoke(statusSlot);
     }
 
-    private void OnLeftClickStatusSlotHandler(BaseStatusSlot statusSlot)
+    private void OnLeftClickStatusSlotHandler(BaseStatusSlot statusSlot, bool selected)
     {
-        OnLeftClickStatusSlot?.Invoke(statusSlot);
+        OnLeftClickStatusSlot?.Invoke(statusSlot, selected);
     }
     protected virtual void OnValidate()
     {

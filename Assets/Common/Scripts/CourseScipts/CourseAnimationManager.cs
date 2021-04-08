@@ -30,7 +30,7 @@ public class CourseAnimationManager : MonoBehaviour
     public void BacktoCourse()
     {
         playerAction.CalCourseProcess(courseManager.courses[courseID.GetID()]);
-        GameManager.Instance.BackFromCourseAnimationToCourse();
+        //GameManager.Instance.BackFromCourseAnimationToCourse();
     }
 
     public void CreateTemplateBonus()

@@ -25,6 +25,7 @@ public class UIManager : Manager<UIManager>
     private void HandleMainMenuLoadComplete(bool loadGame)
     {
         mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
+        SetCameraActive(!loadGame);
 
     }
 

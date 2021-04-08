@@ -17,6 +17,9 @@ public class BaseBonusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     [SerializeField] protected Image _image;
 
     protected bool isPointerOver;
+    protected bool isSelected;
+    protected bool otherSelected;
+
 
     [SerializeField] protected CharactersSubType _characters_type;
 
@@ -41,29 +44,44 @@ public class BaseBonusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isPointerOver = true;
+        if (!otherSelected || isSelected)
+        {
+            isPointerOver = true;
 
-        if (_border != null)
-            _border.enabled = true;
+            if (_border != null)
+            {
+                _border.enabled = true;
+            }
 
-        OnPointEnterBonusSlotEvent?.Invoke(this);
+            OnPointEnterBonusSlotEvent?.Invoke(this);
+        }
+
+
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isPointerOver = false;
-        if (_border != null)
-            _border.enabled = false;
+        if (isPointerOver)
+        {
+            if (!isSelected)
+            {
+                isPointerOver = false;
+                if (_border != null)
+                    _border.enabled = false;
 
-        OnPointExitBonusSlotEvent?.Invoke(this);
+                OnPointExitBonusSlotEvent?.Invoke(this);
+            }
+
+        }
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
         {
-            OnLeftClickBonusSlotEvent?.Invoke(this);
+            OnLeftClickBonusSlotEvent?.Invoke(this, isSelected);
         }
     }
 
@@ -78,5 +96,21 @@ public class BaseBonusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         _characters_type = CharactersSubType.Bonus;
         _Title = INST_TITLE;
+    }
+
+    public void SetBorderEnabled(bool actived)
+    {
+        _border.enabled = actived;
+    }
+
+    public void IsSelected(bool selected)
+    {
+        isSelected = selected;
+        _border.enabled = selected;
+        isPointerOver = selected;
+    }
+    public void SetOtherSelected(bool selected)
+    {
+        otherSelected = selected;
     }
 }

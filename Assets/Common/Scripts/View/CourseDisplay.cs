@@ -107,7 +107,7 @@ public class CourseDisplay : Manager<CourseDisplay>
     }
     public void BackToMain()
     {
-        GameManager.Instance.BackFromCourseToMain();
+        //GameManager.Instance.BackFromCourseToMain();
     }
 
     public void UpdateAllCourseIsMain()

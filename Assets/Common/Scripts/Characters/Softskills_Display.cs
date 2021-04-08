@@ -64,9 +64,9 @@ public class Softskills_Display : MonoBehaviour
         }
     }
 
-    private void OnLeftClickSoftSkillSlotHandler(BaseSoftSkillSlot softSkillSlot)
+    private void OnLeftClickSoftSkillSlotHandler(BaseSoftSkillSlot softSkillSlot, bool selected)
     {
-        OnLeftClickSoftSkillSlotEvent?.Invoke(softSkillSlot);
+        OnLeftClickSoftSkillSlotEvent?.Invoke(softSkillSlot, selected);
     }
 
     private void OnPointEnterSoftSkillSlotHandler(BaseSoftSkillSlot softSkillSlot)

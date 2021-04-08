@@ -3,6 +3,21 @@
 public class MouseManager : Manager<MouseManager>
 {
 
+    private const string INST_Obj_Bed = "obj_bed";
+    private const string INST_Obj_Calendar = "obj_calendar";
+    private const string INST_Obj_Computer = "obj_com";
+    private const string INST_Obj_Door = "obj_door";
+    private const string INST_Obj_Storage = "obj_storage";
+    private const string INST_Place_Clothing = "Place_Cloting";
+    private const string INST_Place_Exploration = "Place_Exploration";
+    private const string INST_Place_Food = "Place_Food";
+    private const string INST_Place_Home = "Place_Home";
+    private const string INST_Place_Material = "Place_Material";
+    private const string INST_Place_Mystic = "lace_Mystic";
+    private const string INST_Place_Park = "Place_Park";
+    private const string INST_Place_Teacher = "Place_Teacher";
+    private const string INST_Place_University = "Place_University";
+
     public Texture2D pointer;
     public Texture2D target;
 
@@ -25,6 +40,7 @@ public class MouseManager : Manager<MouseManager>
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
         SetCursorDefalut();
+        _useTargetCursor = false;
     }
 
     private void Update()
@@ -83,24 +99,51 @@ public class MouseManager : Manager<MouseManager>
     {
         switch (objClicked.tag)
         {
-            case "obj_bed":
+            case INST_Obj_Bed:
                 objClicked.GetComponent<BedClickable>().OnClick();
                 break;
-            case "obj_calendar":
+            case INST_Obj_Calendar:
                 objClicked.GetComponent<CalendarClickable>().OnClick();
                 break;
-            case "obj_com":
+            case INST_Obj_Computer:
                 objClicked.GetComponent<ComClickable>().OnClick();
                 break;
-            case "obj_door":
+            case INST_Obj_Door:
                 objClicked.GetComponent<DoorClickable>().OnClick();
                 break;
-            case "obj_storage":
+            case INST_Obj_Storage:
                 objClicked.GetComponent<StorageClickable>().OnClick();
+                break;
+            case INST_Place_Clothing:
+                objClicked.GetComponent<ClotingClickable>().OnClick();
+                break;
+            case INST_Place_Exploration:
+                objClicked.GetComponent<ExplrationClickable>().OnClick();
+                break;
+            case INST_Place_Food:
+                objClicked.GetComponent<FoodClickable>().OnClick();
+                break;
+            case INST_Place_Home:
+                objClicked.GetComponent<HomeClickable>().OnClick();
+                break;
+            case INST_Place_Material:
+                objClicked.GetComponent<MaterialClickable>().OnClick();
+                break;
+            case INST_Place_Mystic:
+                objClicked.GetComponent<MysticClickable>().OnClick();
+                break;
+            case INST_Place_Park:
+                objClicked.GetComponent<ParkClickable>().OnClick();
+                break;
+            case INST_Place_Teacher:
+                objClicked.GetComponent<TeacherClickable>().OnClick();
+                break;
+            case INST_Place_University:
+                objClicked.GetComponent<UniversityClickable>().OnClick();
                 break;
 
         }
-    }
+}
 
 
 }

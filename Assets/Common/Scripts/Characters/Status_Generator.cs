@@ -63,7 +63,6 @@ public class Status_Generator : MonoBehaviour
         copy = Instantiate(_template, transform);
         Image icon = copy.transform.GetChild(0).GetComponent<Image>();
 
-        Debug.Log(id + " " + statusDetails_Handler.StatusDic[id].StatusColor);
 
         icon.sprite = statusDetails_Handler.StatusDic[id].StatusIcon;
         icon.color = statusDetails_Handler.StatusDic[id].StatusColor;

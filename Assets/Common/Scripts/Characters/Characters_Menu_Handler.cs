@@ -133,12 +133,13 @@ public class Characters_Menu_Handler : MonoBehaviour
     }
 
     #region Status
-    private void SelectedStatusDisplayed(BaseStatusSlot statusSlot)
+    private void SelectedStatusDisplayed(BaseStatusSlot statusSlot, bool selected)
     {
-
+       SetSelected(statusSlot, selected);
     }
     private void DisplayedStatusDescription(BaseStatusSlot statusSlot)
     {
+        Reset();
         //title
         DisplayDescriptionBox(true);
         SetTitleText(statusSlot.TYPE.ToString(), INST_STATUS);
@@ -157,13 +158,14 @@ public class Characters_Menu_Handler : MonoBehaviour
 
     #endregion
     #region Bonus
-    private void SelectedBonusDisplayed(BaseBonusSlot bonusSlot)
+    private void SelectedBonusDisplayed(BaseBonusSlot bonusSlot, bool selected)
     {
-        
+        SetSelected(bonusSlot, selected);
     }
 
     private void DisplayedBonusDescription(BaseBonusSlot bonusSlot)
     {
+        Reset();
         //title
         DisplayDescriptionBox(true);
         SetTitleText(bonusSlot.TITLE, INST_BONUS);
@@ -192,12 +194,13 @@ public class Characters_Menu_Handler : MonoBehaviour
     }
     #endregion
     #region Hard Skills
-    private void SelectedHardSkillDisplayed(BaseHardSkillSlot hardSkillSlot)
+    private void SelectedHardSkillDisplayed(BaseHardSkillSlot hardSkillSlot, bool selected)
     {
-
+        SetSelected(hardSkillSlot, selected);
     }
     private void DisplayedHardSkillDescription(BaseHardSkillSlot hardSkillSlot)
     {
+        Reset();
         //title
         DisplayDescriptionBox(true);
         SetTitleText(hardSkillSlot.HARDSKILL.GetHardSkillName(), INST_HardSkill);
@@ -222,13 +225,14 @@ public class Characters_Menu_Handler : MonoBehaviour
 
     #endregion
     #region Soft Skills
-    private void SelectedSoftSkillDisplayed(BaseSoftSkillSlot softSkillSlot)
+    private void SelectedSoftSkillDisplayed(BaseSoftSkillSlot softSkillSlot, bool selected)
     {
-
+        SetSelected(softSkillSlot, selected);
     }
 
     private void DisplayedSoftSkillDescription(BaseSoftSkillSlot softSkillSlot)
     {
+        Reset();
         //title
         DisplayDescriptionBox(true);
         SetTitleText(softSkillSlot.SOFTSKILL.GetSoftSkillName(), INST_SoftSkill);
@@ -281,5 +285,92 @@ public class Characters_Menu_Handler : MonoBehaviour
     {
         text_title_name.text = title;
         text_sub_type.text = type;
+    }
+
+    private void SetSelected(BaseBonusSlot slot, bool selected)
+    {
+        if (selected)
+        {
+            UnDisplayedBonusDescription(slot);
+            SetAllSelectedToFalse(false);
+            slot.IsSelected(false);
+        }
+        else
+        {
+            SetAllSelectedToFalse(true);
+            slot.IsSelected(true);
+            DisplayedBonusDescription(slot);
+        }
+
+
+    }
+    private void SetSelected(BaseHardSkillSlot slot, bool selected)
+    {
+        if (selected)
+        {
+            UnDisplayedHardSkillDescription(slot);
+            SetAllSelectedToFalse(false);
+            slot.IsSelected(false);
+        }
+        else
+        {
+            SetAllSelectedToFalse(true);
+            slot.IsSelected(true);
+            DisplayedHardSkillDescription(slot);
+        }
+    }
+    private void SetSelected(BaseSoftSkillSlot slot, bool selected)
+    {
+        if (selected)
+        {
+            UnDisplayedSoftSkillDescription(slot);
+            SetAllSelectedToFalse(false);
+            slot.IsSelected(false);
+        }
+        else
+        {
+            SetAllSelectedToFalse(true);
+            slot.IsSelected(true);
+            DisplayedSoftSkillDescription(slot);
+        }
+    }
+    private void SetSelected(BaseStatusSlot slot, bool selected)
+    {
+        if (selected)
+        {
+            UnDisplayedStatusDescription(slot);
+            SetAllSelectedToFalse(false);
+            slot.IsSelected(false);
+        }
+        else
+        {
+            SetAllSelectedToFalse(true);
+            slot.IsSelected(true);
+            DisplayedStatusDescription(slot);
+        }
+    }
+
+    private void SetAllSelectedToFalse(bool ottherSelected)
+    {
+        foreach (BaseHardSkillSlot hardSlot in hardSkill_display.hardSkillSlots)
+        {
+            hardSlot.IsSelected(false);
+            hardSlot.SetOtherSelected(ottherSelected);
+        }
+
+        foreach (BaseSoftSkillSlot softSlot in softSkill_display.softSkillSlots)
+        {
+            softSlot.IsSelected(false);
+            softSlot.SetOtherSelected(ottherSelected);
+        }
+
+        foreach (BaseStatusSlot statusSlot in status_display.statusSlots)
+        {
+            statusSlot.IsSelected(false);
+            statusSlot.SetOtherSelected(ottherSelected);
+        }
+
+        bonusSlot.IsSelected(false);
+        bonusSlot.SetOtherSelected(ottherSelected);
     }
 }

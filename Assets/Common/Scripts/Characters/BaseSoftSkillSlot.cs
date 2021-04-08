@@ -16,11 +16,15 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
     [SerializeField] protected TMP_Text _level;
 
     protected bool isPointerOver;
+    protected bool isSelected;
+    protected bool otherSelected;
     [SerializeField] protected CharactersSubType _characters_type;
 
     protected Color normalColor = new Color(1, 1, 1, 1);
     protected Color disabledColor = new Color(1, 1, 1, 0);
     protected Color level_Zero_Color = new Color(1, 1, 1, 0.5f);
+
+
 
     protected SoftSkill _softSkill;
     public SoftSkill SOFTSKILL
@@ -60,29 +64,44 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isPointerOver = true;
 
-        if (_border != null)
-            _border.enabled = true;
+        if (!otherSelected || isSelected)
+        {
+            isPointerOver = true;
 
-        OnPointEnterSoftSkillSlotEvent?.Invoke(this);
+            if (_border != null)
+            {
+                _border.enabled = true;
+            }
+
+            OnPointEnterSoftSkillSlotEvent?.Invoke(this);
+        }
+
 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isPointerOver = false;
-        if (_border != null)
-            _border.enabled = false;
+        if (isPointerOver)
+        {
+            if (!isSelected)
+            {
+                isPointerOver = false;
+                if (_border != null)
+                    _border.enabled = false;
+                OnPointExitSoftSkillSlotEvent?.Invoke(this);
+            }
 
-        OnPointExitSoftSkillSlotEvent?.Invoke(this);
+        }
+
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
         {
-            OnLeftClickSoftSkillSlotEvent?.Invoke(this);
+            OnLeftClickSoftSkillSlotEvent?.Invoke(this, isSelected);
         }
     }
 
@@ -100,5 +119,20 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
 
         
         _characters_type = CharactersSubType.SoftSkill;
+    }
+
+    public void SetBorderEnabled(bool actived)
+    {
+        _border.enabled = actived;
+    }
+    public void IsSelected(bool selected)
+    {
+        isSelected = selected;
+        _border.enabled = selected;
+        isPointerOver = selected;
+    }
+    public void SetOtherSelected(bool selected)
+    {
+        otherSelected = selected;
     }
 }

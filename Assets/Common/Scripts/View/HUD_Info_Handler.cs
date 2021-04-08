@@ -32,11 +32,12 @@ public class HUD_Info_Handler : MonoBehaviour
             Reset();
         }
 
-        if(current_game_state == GameManager.GameState.HOME_ACTION)
+        if(current_game_state == GameManager.GameState.HOME_ACTION 
+            && GameManager.Instance.CurrentGameScene == GameManager.GameScene.Home_Storage)
         {
-            ShowAll();
-            DisplayButtonMenu(false);
+            ShowForHomeAction();
         }
+
     }
     private void DisplayEnergyAndMotivation(bool actived)
     {
@@ -97,6 +98,16 @@ public class HUD_Info_Handler : MonoBehaviour
         DisplayButtonBack(false);
         DisplayButtonMenu(false);
         DisplayMoney(true);
+        DisplayConttentPanel(false);
+    }
+
+    private void ShowForHomeAction()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(true);
+        DisplayButtonBack(false);
+        DisplayMoney(true);
+        DisplayButtonMenu(false);
         DisplayConttentPanel(false);
     }
 }

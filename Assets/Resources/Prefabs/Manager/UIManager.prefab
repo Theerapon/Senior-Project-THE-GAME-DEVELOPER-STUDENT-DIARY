@@ -721,6 +721,9 @@ MonoBehaviour:
   OnMainMenuLoadComplete:
     m_PersistentCalls:
       m_Calls: []
+  _mainMenuAnimator: {fileID: 0}
+  _fadeOutAnimation: {fileID: 0}
+  _fadeInAnimation: {fileID: 0}
 --- !u!1 &1239905268850998075
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,7 +758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: 202.99997}
+  m_AnchoredPosition: {x: 0.000015258789, y: 203}
   m_SizeDelta: {x: 833.0469, y: 138.84113}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2253273409218574986
@@ -889,10 +892,10 @@ RectTransform:
   m_Father: {fileID: 4377391320921283795}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5074619252830953607
 GameObject:
