@@ -24,7 +24,6 @@ public class My_Course_Generator : MonoBehaviour
     private void CreateCourse()
     {
         GameObject copy;
-        Debug.Log(course_handler.CourseDic.Count);
         foreach (KeyValuePair<string, Course> dic in course_handler.CourseDic)
         {
             if (dic.Value.GetCourseCollected() && !ReferenceEquals(playerAction, null)) //collected = true;

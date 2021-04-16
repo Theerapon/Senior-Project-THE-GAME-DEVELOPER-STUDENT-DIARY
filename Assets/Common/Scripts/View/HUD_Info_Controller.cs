@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HUD_Info_Handler : MonoBehaviour
+public class HUD_Info_Controller : MonoBehaviour
 {
     [SerializeField] private GameObject energy_motivation_obj;
     [SerializeField] private GameObject date_time_obj;

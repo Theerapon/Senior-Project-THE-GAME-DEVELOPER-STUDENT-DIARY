@@ -10,7 +10,7 @@ public class CharactersVM : Manager<CharactersVM>
 
     private const string INST_SET_default_bReduceEnerg = "default_bReduceEnergy%";
     private const string INST_SET_default_gReduceEnergy = "default_gReduceEnergy%";
-    private const string INST_SET_default_maxMotivation = "default_maxMotivation%";
+    private const string INST_SET_default_maxMotivation = "default_maxMotivation";
     private const string INST_SET_default_bMotivation = "default_bMotivation%";
     private const string INST_SET_default_gMotivation = "default_gMotivation%";
     private const string INST_SET_default_money = "default_money";
@@ -58,21 +58,21 @@ public class CharactersVM : Manager<CharactersVM>
         chractersLoading = CharactersLoading.instance;
     }
 
-    public CharacterStatus Interpert()
+    public CharacterStatus_Template Interpert()
     {
         if(!ReferenceEquals(chractersLoading, null))
         {
-            CharacterStatus characterStats = null;
+            CharacterStatus_Template template = null;
 
             foreach (KeyValuePair<string, string> line in chractersLoading.textLists)
             {
                 string value = line.Value;
-                characterStats = new CharacterStatus(CreateCharacterStatsTemplate(value));
+                template = CreateCharacterStatsTemplate(value);
             }
 
-            if(!ReferenceEquals(characterStats, null))
+            if(!ReferenceEquals(template, null))
             {
-                return characterStats;
+                return template;
             }
         }
         return null;

@@ -8,10 +8,10 @@ public class SceneChanger : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            FadeToLevel();
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    FadeToLevel();
+        //}
     }
 
     public void FadeToLevel()

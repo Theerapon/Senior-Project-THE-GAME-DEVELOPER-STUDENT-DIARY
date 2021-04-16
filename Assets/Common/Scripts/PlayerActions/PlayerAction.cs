@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 {
-    private Characters_Handler chracter_handler;
-    private GameObject found_Player;
+    private CharacterStatus character_status;
 
     //[Header("Hard Skills")]
     //[SerializeField] private HardSkill mathHardSkill;
@@ -21,8 +20,7 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 
     private void Start()
     {
-        found_Player = GameObject.FindGameObjectWithTag("Player");
-        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
+        character_status = CharacterStatus.Instance;
 
     }
 

@@ -55,8 +55,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [Header("Course Canvas")]
     [SerializeField] private GameObject courseCanvas;
 
-    private GameObject found_Player;
-    private Characters_Handler chracter_handler;
+    private CharacterStatus character_status;
     private Courses_Handler courses_Handler;
 
     protected bool first_displayed;
@@ -65,8 +64,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     {
         courses_Handler = Courses_Handler.Instance;
         //timeManager = TimeManager.Instance;
-        found_Player = GameObject.FindGameObjectWithTag("Player");
-        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
+        character_status = CharacterStatus.Instance;
 
         courseDisplayed = CourseDisplayed.AllCourse;
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);

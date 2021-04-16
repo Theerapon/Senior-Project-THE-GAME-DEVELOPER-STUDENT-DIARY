@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3037656027604823763}
-  - component: {fileID: 6277911599185932710}
+  - component: {fileID: 6619526670349092241}
   m_Layer: 0
   m_Name: SoftSkills
   m_TagString: HardSkills
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 6277911597482504061}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6277911599185932710
+--- !u!114 &6619526670349092241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,6 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6277911597482504061}
   - component: {fileID: 6277911597482504060}
+  - component: {fileID: 6277911599185932710}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -131,6 +132,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6277911599185932710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277911597482504051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f01ecd279bf6c409ec0c0c446419f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6277911597632704593
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,9 +153,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6277911597632704594}
-  - component: {fileID: 2890387386875275041}
   - component: {fileID: 3648844598368037067}
   - component: {fileID: 5657707135426444865}
+  - component: {fileID: 6277911599185932712}
   m_Layer: 0
   m_Name: PlayerStatus
   m_TagString: Untagged
@@ -164,18 +177,6 @@ Transform:
   m_Father: {fileID: 6277911597482504061}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2890387386875275041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6277911597632704593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de840852577b7c44297537da5604cb6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3648844598368037067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +201,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397ff6550720b8d4dad92b1b9093e8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6277911599185932712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6277911597632704593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e594b71c68f21dc49bb5a71aac19e7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEnergyUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMotivationUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMoneyUpdated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6277911597776573164
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6277911598020973617}
-  - component: {fileID: 6277911599185932712}
+  - component: {fileID: 5613851338645840011}
   m_Layer: 0
   m_Name: HardSkills
   m_TagString: HardSkills
@@ -369,7 +391,7 @@ Transform:
   m_Father: {fileID: 6277911597482504061}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6277911599185932712
+--- !u!114 &5613851338645840011
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

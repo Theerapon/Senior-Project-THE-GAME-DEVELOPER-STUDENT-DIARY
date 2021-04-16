@@ -19,8 +19,7 @@ public class Status_Display : MonoBehaviour
     public Events.EventOnLeftClickStatusSlot OnLeftClickStatusSlot;
     #endregion
 
-    protected GameObject found_player;
-    protected Characters_Handler characters_Handler;
+    protected CharacterStatus character_status;
 
     [SerializeField] private Transform itemsParent;
     public List<BaseStatusSlot> statusSlots;
@@ -38,8 +37,7 @@ public class Status_Display : MonoBehaviour
     private void Start()
     {
         //fonud inventory container in main Scene
-        found_player = GameObject.FindGameObjectWithTag("Player");
-        characters_Handler = found_player.GetComponentInChildren<Characters_Handler>();
+        character_status = CharacterStatus.Instance;
 
         for (int index = 0; index < statusSlots.Count; index++)
         {
@@ -64,28 +62,28 @@ public class Status_Display : MonoBehaviour
     {
         for (int i = 0; i < statusSlots.Count; i++)
         {
-            if(!ReferenceEquals(characters_Handler, null))
+            if(!ReferenceEquals(character_status, null))
             {
                 switch (statusSlots[i].TYPE)
                 {
                     case StatusType.Coding:
-                        statusSlots[i].VALUE = characters_Handler.STATUS.GetCodingStatus();
+                        statusSlots[i].VALUE = character_status.GetCodingStatus();
                         statusSlots[i].DESCRIPTION = INST_CODING;
                         break;
                     case StatusType.Design:
-                        statusSlots[i].VALUE = characters_Handler.STATUS.GetDesignStatus();
+                        statusSlots[i].VALUE = character_status.GetDesignStatus();
                         statusSlots[i].DESCRIPTION = INST_DESIGN;
                         break;
                     case StatusType.Testing:
-                        statusSlots[i].VALUE = characters_Handler.STATUS.GetTestingStatus();
+                        statusSlots[i].VALUE = character_status.GetTestingStatus();
                         statusSlots[i].DESCRIPTION = INST_TESTING;
                         break;
                     case StatusType.Art:
-                        statusSlots[i].VALUE = characters_Handler.STATUS.GetArtStatus();
+                        statusSlots[i].VALUE = character_status.GetArtStatus();
                         statusSlots[i].DESCRIPTION = INST_ART;
                         break;
                     case StatusType.Sound:
-                        statusSlots[i].VALUE = characters_Handler.STATUS.GetSoundStatus();
+                        statusSlots[i].VALUE = character_status.GetSoundStatus();
                         statusSlots[i].DESCRIPTION = INST_SOUND;
                         break;
                     default:

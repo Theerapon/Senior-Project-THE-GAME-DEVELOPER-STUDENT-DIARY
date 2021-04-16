@@ -9,7 +9,7 @@ public class Course_Notification_Controller : MonoBehaviour
     private Courses_Handler course_handler;
 
     private GameObject found_Player;
-    private Characters_Handler chracter_handler;
+    private CharacterStatus chracter_status;
     private PlayerAction playerAction;
 
     [Header("Course ID")]
@@ -21,7 +21,7 @@ public class Course_Notification_Controller : MonoBehaviour
     {
         course_handler = Courses_Handler.Instance;
         found_Player = GameObject.FindGameObjectWithTag("Player");
-        chracter_handler = found_Player.GetComponentInChildren<Characters_Handler>();
+        chracter_status = CharacterStatus.Instance;
         playerAction = found_Player.GetComponentInChildren<PlayerAction>();
     }
 
@@ -63,9 +63,9 @@ public class Course_Notification_Controller : MonoBehaviour
         bool purchaseSuccessful;
         string id = purchase_course_id_temp.GetID();
         int totalPrice = course_handler.CourseDic[id].GetTotalPrice();
-        if (totalPrice < chracter_handler.STATUS.GetCurrentMoney())
+        if (totalPrice < chracter_status.GetCurrentMoney())
         {
-            chracter_handler.STATUS.TakeMoney(totalPrice);
+            chracter_status.TakeMoney(totalPrice);
             course_handler.CourseDic[id].IsCollected();
             purchaseSuccessful = true;
         }

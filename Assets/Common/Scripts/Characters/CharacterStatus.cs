@@ -2,25 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStatus : MonoBehaviour
+public class CharacterStatus : Manager<CharacterStatus>
 {
     #region Events
     public Events.EventOnEnergyUpdated OnEnergyUpdated;
     public Events.EventOnMotivationUpdated OnMotivationUpdated;
+    public Events.EventOnMoneyUpdated OnMoneyUpdated;
     #endregion
 
     #region Fields
     private CharacterStatus_Template characterDeginition_Current;
-
+    private CharactersVM charactersVM;
+    bool loaded = false;
     #endregion
 
-    #region Initializations
-
-    public CharacterStatus() { }
-    public CharacterStatus(CharacterStatus_Template characterStats_Template)
+    private void Start()
     {
-        characterDeginition_Current = characterStats_Template;
+        charactersVM = FindObjectOfType<CharactersVM>();
     }
+
+    private void Update()
+    {
+        Debug.Log(loaded);
+        if (!loaded)
+        {
+            characterDeginition_Current = charactersVM.Interpert();
+            loaded = true;
+        }
+    }
+
+    #region Initializations
 
 
     #endregion
@@ -52,6 +63,7 @@ public class CharacterStatus : MonoBehaviour
     public void ApplyCurrentMoney(int currentMoney)
     {
         characterDeginition_Current.ApplyCurrentMoney(currentMoney);
+        OnMoneyUpdated?.Invoke();
     }
 
     public void ApplyCodingStatus(int codingAmount)
@@ -132,6 +144,7 @@ public class CharacterStatus : MonoBehaviour
     public void TakeMoney(int currentMoney)
     {
         characterDeginition_Current.TakeMoney(currentMoney);
+        OnMoneyUpdated?.Invoke();
     }
     #endregion
 
