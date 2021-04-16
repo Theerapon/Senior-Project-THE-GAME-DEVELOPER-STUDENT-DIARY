@@ -54,13 +54,15 @@ public class Softskills_Display : MonoBehaviour
 
     private void DisplayedSoftSkills()
     {
-        for (int i = 0; i < softSkills_Handler.SOFTSKILLS.Count; i++)
+        int i = 0;
+        foreach(KeyValuePair<string, SoftSkill> softskill in softSkills_Handler.SOFTSKILLS)
         {
-            SoftSkill softSkill = softSkills_Handler.SOFTSKILLS[i];
-            if (!ReferenceEquals(softSkill, null))
+            SoftSkill copy = softskill.Value;
+            if (!ReferenceEquals(copy, null))
             {
-                softSkillSlots[i].SOFTSKILL = softSkills_Handler.SOFTSKILLS[i];
+                softSkillSlots[i].SOFTSKILL = softskill.Value;
             }
+            i++;
         }
     }
 

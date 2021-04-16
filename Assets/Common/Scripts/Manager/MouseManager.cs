@@ -40,7 +40,7 @@ public class MouseManager : Manager<MouseManager>
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
         SetCursorDefalut();
-        _useTargetCursor = false;
+        _useDefaultCursor = false;
     }
 
     private void Update()

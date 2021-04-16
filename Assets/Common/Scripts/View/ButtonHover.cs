@@ -7,9 +7,8 @@ public class ButtonHover : MonoBehaviour
 {
     [Header("Title")]
     [SerializeField] TMP_Text text;
-    [SerializeField] Color text_color_highlight;
-
-    private Color normal = new Color(1, 1, 1, 1f);
+    [SerializeField] private Color text_highlight_color;
+    [SerializeField] private Color text_normal_color;
 
     private void Start()
     {
@@ -22,15 +21,20 @@ public class ButtonHover : MonoBehaviour
         {
             Normal();
         }
+
+        if(currentGameState == GameManager.GameState.COURSE_NOTIFICATION)
+        {
+            Normal();
+        }
     }
 
     public void Highlight()
     {
-        text.color = text_color_highlight;
+        text.color = text_highlight_color;
     }
 
     public void Normal()
     {
-        text.color = normal;
+        text.color = text_normal_color;
     }
 }

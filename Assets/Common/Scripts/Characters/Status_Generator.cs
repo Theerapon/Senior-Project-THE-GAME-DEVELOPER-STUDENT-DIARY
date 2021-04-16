@@ -79,8 +79,6 @@ public class Status_Generator : MonoBehaviour
 
     public void CreateTemplate(HardSkill hardSkill)
     {
-        _template = transform.GetChild(0).gameObject;
-        _template.name = "Template";
         _template.SetActive(true);
         ClearTmeplate();
         CreateStatus(hardSkill);

@@ -10,7 +10,7 @@ public class ComputerDialogue : MonoBehaviour, IDialogue
         switch (choice)
         {
             case 1:
-                //GameManager.Instance.GotoCourse();
+                GameManager.Instance.DisplayCourse(true);
                 break;
             case 2:
                 //GameManager.Instance.GotoWorkProject();

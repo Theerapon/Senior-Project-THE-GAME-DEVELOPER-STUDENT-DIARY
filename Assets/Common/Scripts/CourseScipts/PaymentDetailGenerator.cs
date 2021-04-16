@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PaymentDetailGenerator : MonoBehaviour
 {
-    private CourseManager courseManager;
+    private Courses_Handler course_handler;
     GameObject bonusTemplate;
     private Dictionary<string, int> dicBonus;
 
     private void Awake()
     {
         dicBonus = new Dictionary<string, int>();
-        courseManager = CourseManager.Instance;
+        course_handler = Courses_Handler.Instance;
     }
 
     private void CreateBonus(string id)
@@ -64,65 +64,65 @@ public class PaymentDetailGenerator : MonoBehaviour
         int bonusCheck = 0;
 
         #region Exp
-        bonusCheck = courseManager.courses[id].GetdefaultMathExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Mathematics Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultMathExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Mathematics Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultProgrammingExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Programming Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultProgrammingExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Programming Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultEngineExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Engines Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultEngineExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Engines Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultAiExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Artificial Intelligence Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultAiExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Artificial Intelligence Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultNetwordExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Network Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultNetwordExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Network Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultDesignExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Design Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultDesignExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Design Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultTestingExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Testing Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultTestingExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Testing Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultArtExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Art Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultArtExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Art Exp", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultSoundExpReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Sound Exp", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultSoundExpReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Sound Exp", bonusCheck);
 
 
         #endregion
 
         #region Stat
-        bonusCheck = courseManager.courses[id].GetdefaultCodingStatReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Coding Stat", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultCodingStatReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Coding Stat", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultDesignStatReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Design Stat", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultDesignStatReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Design Stat", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultTestingStatReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Testing Stat", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultTestingStatReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Testing Stat", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultArtStatReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Art Stat", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultArtStatReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Art Stat", bonusCheck);
 
-        bonusCheck = courseManager.courses[id].GetdefaultSoundStatReward();
-        if (bonusCheck > 0f)
-            dicBonus.Add("Sound Stat", bonusCheck);
+        //bonusCheck = course_handler.courses[id].GetdefaultSoundStatReward();
+        //if (bonusCheck > 0f)
+        //    dicBonus.Add("Sound Stat", bonusCheck);
         #endregion
     }
 }

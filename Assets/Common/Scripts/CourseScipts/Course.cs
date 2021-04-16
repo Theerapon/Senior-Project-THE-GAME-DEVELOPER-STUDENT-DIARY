@@ -1,15 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Course : MonoBehaviour
 {
-    protected Course_SO course_current;
+    protected Course_Template course_current;
 
-    public Course(Course_SO course_Template)
+    public Course(Course_Template course_Template)
     {
-        if (course_Template != null)
-        {
-            course_current = Instantiate(course_Template);
-        }
+        course_current = course_Template;
     }
     public void SetDiscountCourse(float discount)
     {
@@ -25,6 +23,14 @@ public class Course : MonoBehaviour
     }
 
     #region Reporter
+    public Sprite GetCourseIcon()
+    {
+        return course_current.GetCourseIcon();
+    }
+    public int GetExpForPlayer()
+    {
+        return course_current.GetExpForPlayer();
+    }
     public int GetDiscountPrice()
     {
         return course_current.GetDiscountPrice();
@@ -134,9 +140,9 @@ public class Course : MonoBehaviour
         return course_current.GetDescription();
     }
 
-    public CourseType[] GetCourseType()
+    public List<CourseTag> GetCourseTag()
     {
-        return course_current.GetCourseType();
+        return course_current.GetCourseTag();
     }
 
     public LevelRecommended GetLevelRecommended()
@@ -157,7 +163,7 @@ public class Course : MonoBehaviour
         return course_current.GetMotivationConsume();
     }
     #endregion
-    public Course_SO GetCopy()
+    public Course_Template GetCopy()
     {
         return course_current.GetCopy();
     }

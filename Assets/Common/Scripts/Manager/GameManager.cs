@@ -182,12 +182,14 @@ public class GameManager : Manager<GameManager>
         }
         #endregion
 
-        /*
-        if (scene == GameScene.Summary)
+        #region Course
+        if (scene == GameScene.Course)
         {
-            UpdateState(GameState.SUMMARY);
+            UpdateState(GameState.COURSE);
         }
+        #endregion
 
+        /*
         if (scene == GameScene.CourseAnimation)
         {
             UpdateState(GameState.COURSEANIMATION);
@@ -367,6 +369,31 @@ public class GameManager : Manager<GameManager>
         }
     }
 
+    public void DisplayCourse(bool actived)
+    {
+        if (actived)
+        {
+            UnLoadLevel(GameScene.Home_COMPUTER);
+            LoadLevelSceneWithOutLoadingScene(GameScene.Course);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.Course);
+            UpdateScene(GameScene.Home);
+        }
+    }
+
+    public void DisplayCourseNotification(bool actived)
+    {
+        if (actived)
+        {
+            UpdateState(GameState.COURSE_NOTIFICATION);
+        }
+        else
+        {
+            UpdateState(GameState.COURSE);
+        }
+    }
 
     public void GotoSummaryDiary()
     {

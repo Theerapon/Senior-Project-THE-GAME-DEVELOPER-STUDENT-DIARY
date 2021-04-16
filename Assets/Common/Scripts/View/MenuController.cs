@@ -50,17 +50,21 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if(gameManager != null)
+        if (gameManager != null)
         {
+
             if (Input.GetKeyDown(KeyboardManager.Instance.GetBackKeyCode()))
             {
                 if (hasDisplayed)
                 {
-                    EscClose();
+                    EscBack();
                 }
                 else
                 {
-                    EscOpen();
+                    if(GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
+                    {
+                        EscOpen();
+                    }
                 }
             }
 
@@ -111,14 +115,24 @@ public class MenuController : MonoBehaviour
         if (gameManager.CurrentGameState == GameManager.GameState.MENU)
         {
             DisplayMenu(ActivedBlur(false), gameScene);
+            hasDisplayed = false;
         }
-
-        if (gameManager.CurrentGameState == GameManager.GameState.HOME_ACTION)
+        else if (gameManager.CurrentGameState == GameManager.GameState.HOME_ACTION)
         {
             DisplayHomeAction(ActivedBlur(false), gameScene);
+            hasDisplayed = false;
+        }
+        else if(gameManager.CurrentGameState == GameManager.GameState.COURSE_NOTIFICATION)
+        {
+            GameManager.Instance.DisplayCourseNotification(false);
+            hasDisplayed = true;
+        }
+        else if(gameManager.CurrentGameState == GameManager.GameState.COURSE)
+        {
+            GameManager.Instance.DisplayCourse(ActivedBlur(false));
+            hasDisplayed = false;
         }
 
-        hasDisplayed = false;
     }
 
     public void OpenMenu(GameManager.GameScene gameScene)
@@ -152,7 +166,7 @@ public class MenuController : MonoBehaviour
 
     }
 
-    private void EscClose()
+    private void EscBack()
     {
         //Esc key close current scene
         Close(GameManager.Instance.CurrentGameScene);

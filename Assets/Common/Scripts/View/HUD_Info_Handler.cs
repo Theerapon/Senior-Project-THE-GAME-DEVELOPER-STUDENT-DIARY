@@ -38,6 +38,16 @@ public class HUD_Info_Handler : MonoBehaviour
             ShowForHomeAction();
         }
 
+        if (current_game_state == GameManager.GameState.COURSE)
+        {
+            ShowForCourse();
+        }
+
+        if (current_game_state == GameManager.GameState.COURSE_NOTIFICATION)
+        {
+            ShowForCourseNotification();
+        }
+
     }
     private void DisplayEnergyAndMotivation(bool actived)
     {
@@ -102,6 +112,25 @@ public class HUD_Info_Handler : MonoBehaviour
     }
 
     private void ShowForHomeAction()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(true);
+        DisplayButtonBack(false);
+        DisplayMoney(true);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+    }
+
+    private void ShowForCourse()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(true);
+        DisplayButtonBack(true);
+        DisplayMoney(true);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+    }
+    private void ShowForCourseNotification()
     {
         DisplayEnergyAndMotivation(true);
         DisplayDateTime(true);

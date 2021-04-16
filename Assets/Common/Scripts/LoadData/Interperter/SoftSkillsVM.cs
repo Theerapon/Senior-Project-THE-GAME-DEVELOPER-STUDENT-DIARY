@@ -41,11 +41,11 @@ public class SoftSkillsVM : MonoBehaviour
         softskillsLoading = SoftSkillsLoading.instance;
     }
 
-    public List<SoftSkill> Interpert()
+    public Dictionary<string, SoftSkill> Interpert()
     {
         if(!ReferenceEquals(softskillsLoading, null))
         {
-            List<SoftSkill> softSkills = new List<SoftSkill>();
+            Dictionary<string, SoftSkill> softSkills = new Dictionary<string, SoftSkill>();
 
             foreach (KeyValuePair<string, string> line in softskillsLoading.textLists)
             {
@@ -75,7 +75,7 @@ public class SoftSkillsVM : MonoBehaviour
 
                 if(!ReferenceEquals(softSkill, null))
                 {
-                    softSkills.Add(softSkill);
+                    softSkills.Add(key, softSkill);
                 }
             }
             if (!ReferenceEquals(softSkills, null))

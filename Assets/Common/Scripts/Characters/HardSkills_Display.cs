@@ -55,14 +55,17 @@ public class HardSkills_Display : MonoBehaviour
 
     private void DisplayedHardSkill()
     {
-        for (int i = 0; i < hardSkills_Handler.HARDSKILLS.Count; i++)
+        int i = 0;
+        foreach(KeyValuePair<string, HardSkill> hardskill in hardSkills_Handler.HARDSKILLS)
         {
-            HardSkill hardSkill = hardSkills_Handler.HARDSKILLS[i];
+            HardSkill hardSkill = hardskill.Value;
             if (!ReferenceEquals(hardSkill, null))
             {
-                hardSkillSlots[i].HARDSKILL = hardSkills_Handler.HARDSKILLS[i];
+                hardSkillSlots[i].HARDSKILL = hardskill.Value;
             }
+            i++;
         }
+
     }
 
     private void OnPointExitHardSkillSlotHandler(BaseHardSkillSlot hardSkillSlot)

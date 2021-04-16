@@ -78,8 +78,6 @@ public class Bonus_Generator : MonoBehaviour
 
     public void CreateTemplate(SoftSkill softSkill)
     {
-        _template = transform.GetChild(0).gameObject;
-        _template.name = "Template";
         _template.SetActive(true);
         ClearTmeplate();
         CreateBonus(softSkill);

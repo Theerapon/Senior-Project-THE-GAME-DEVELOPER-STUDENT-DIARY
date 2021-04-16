@@ -7,16 +7,16 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     private Characters_Handler chracter_handler;
     private GameObject found_Player;
 
-    [Header("Hard Skills")]
-    [SerializeField] private HardSkill mathHardSkill;
-    [SerializeField] private HardSkill programmingHardSkill;
-    [SerializeField] private HardSkill gameEngineHardSkill;
-    [SerializeField] private HardSkill networkHardSkill;
-    [SerializeField] private HardSkill aiHardSkill;
-    [SerializeField] private HardSkill designHardSkill;
-    [SerializeField] private HardSkill artHardSkill;
-    [SerializeField] private HardSkill soundHardSkill;
-    [SerializeField] private HardSkill testingHardSkill;
+    //[Header("Hard Skills")]
+    //[SerializeField] private HardSkill mathHardSkill;
+    //[SerializeField] private HardSkill programmingHardSkill;
+    //[SerializeField] private HardSkill gameEngineHardSkill;
+    //[SerializeField] private HardSkill networkHardSkill;
+    //[SerializeField] private HardSkill aiHardSkill;
+    //[SerializeField] private HardSkill designHardSkill;
+    //[SerializeField] private HardSkill artHardSkill;
+    //[SerializeField] private HardSkill soundHardSkill;
+    //[SerializeField] private HardSkill testingHardSkill;
 
 
     private void Start()
@@ -60,23 +60,23 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
         //chracter_handler.ReduceCurrentMotivation(course.GetMotivationConsume());
 
         #region Exp
-        mathHardSkill.GiveXP(course.GetdefaultMathExpReward());
+        //mathHardSkill.GiveXP(course.GetdefaultMathExpReward());
 
-        programmingHardSkill.GiveXP(course.GetdefaultProgrammingExpReward());
+        //programmingHardSkill.GiveXP(course.GetdefaultProgrammingExpReward());
 
-        gameEngineHardSkill.GiveXP(course.GetdefaultEngineExpReward());
+        //gameEngineHardSkill.GiveXP(course.GetdefaultEngineExpReward());
 
-        networkHardSkill.GiveXP(course.GetdefaultAiExpReward());
+        //networkHardSkill.GiveXP(course.GetdefaultAiExpReward());
 
-        aiHardSkill.GiveXP(course.GetdefaultNetwordExpReward());
+        //aiHardSkill.GiveXP(course.GetdefaultNetwordExpReward());
 
-        designHardSkill.GiveXP(course.GetdefaultDesignExpReward());
+        //designHardSkill.GiveXP(course.GetdefaultDesignExpReward());
 
-        testingHardSkill.GiveXP(course.GetdefaultTestingExpReward());
+        //testingHardSkill.GiveXP(course.GetdefaultTestingExpReward());
 
-        artHardSkill.GiveXP(course.GetdefaultArtExpReward());
+        //artHardSkill.GiveXP(course.GetdefaultArtExpReward());
 
-        soundHardSkill.GiveXP(course.GetdefaultSoundExpReward());
+        //soundHardSkill.GiveXP(course.GetdefaultSoundExpReward());
 
         #endregion
 
@@ -122,70 +122,70 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
     public int GetBonusCodingStatus()
     {
         int totalBonusCodingStatus = 0;
-        totalBonusCodingStatus += mathHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += programmingHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += gameEngineHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += aiHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += designHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += artHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += testingHardSkill.GetTotalBonusCoding();
-        totalBonusCodingStatus += soundHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += mathHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += programmingHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += gameEngineHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += aiHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += designHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += artHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += testingHardSkill.GetTotalBonusCoding();
+        //totalBonusCodingStatus += soundHardSkill.GetTotalBonusCoding();
 
         return totalBonusCodingStatus;
     }
     public int GetBonusDesignStatus()
     {
-        int totalBonusDesignStatus = 0;
-        totalBonusDesignStatus += mathHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += programmingHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += gameEngineHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += aiHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += designHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += artHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += testingHardSkill.GetTotalBonusDesign();
-        totalBonusDesignStatus += soundHardSkill.GetTotalBonusDesign();
+        //int totalBonusDesignStatus = 0;
+        //totalBonusDesignStatus += mathHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += programmingHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += gameEngineHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += aiHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += designHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += artHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += testingHardSkill.GetTotalBonusDesign();
+        //totalBonusDesignStatus += soundHardSkill.GetTotalBonusDesign();
 
-        return totalBonusDesignStatus;
+        return 0;
     }
     public int GetBonusArtStatus()
     {
         int totalBonusArtStatus = 0;
-        totalBonusArtStatus += mathHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += programmingHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += gameEngineHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += aiHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += designHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += artHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += testingHardSkill.GetTotalBonusArt();
-        totalBonusArtStatus += soundHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += mathHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += programmingHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += gameEngineHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += aiHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += designHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += artHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += testingHardSkill.GetTotalBonusArt();
+        //totalBonusArtStatus += soundHardSkill.GetTotalBonusArt();
 
         return totalBonusArtStatus;
     }
     public int GetBonusSoundStatus()
     {
         int totalBonusSoundStatus = 0;
-        totalBonusSoundStatus += mathHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += programmingHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += gameEngineHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += aiHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += designHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += artHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += testingHardSkill.GetTotalBonusSound();
-        totalBonusSoundStatus += soundHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += mathHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += programmingHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += gameEngineHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += aiHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += designHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += artHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += testingHardSkill.GetTotalBonusSound();
+        //totalBonusSoundStatus += soundHardSkill.GetTotalBonusSound();
 
         return totalBonusSoundStatus;
     }
     public int GetBonusTestingStatus()
     {
         int totalBonusTestingStatus = 0;
-        totalBonusTestingStatus += mathHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += programmingHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += gameEngineHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += aiHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += designHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += artHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += testingHardSkill.GetTotalBonusTesting();
-        totalBonusTestingStatus += soundHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += mathHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += programmingHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += gameEngineHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += aiHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += designHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += artHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += testingHardSkill.GetTotalBonusTesting();
+        //totalBonusTestingStatus += soundHardSkill.GetTotalBonusTesting();
 
         return totalBonusTestingStatus;
     }

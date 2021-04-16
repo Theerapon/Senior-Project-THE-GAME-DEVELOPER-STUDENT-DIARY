@@ -31,11 +31,11 @@ public class HardSkillsVM : Manager<HardSkillsVM>
     }
 
 
-    public List<HardSkill> Interpert()
+    public Dictionary<string, HardSkill> Interpert()
     {
         if(!ReferenceEquals(hardskillsLoading, null))
         {
-            List<HardSkill> hardSkills = new List<HardSkill>();
+            Dictionary<string, HardSkill> hardSkills = new Dictionary<string, HardSkill>();
 
             foreach (KeyValuePair<string, string> line in hardskillsLoading.textLists)
             {
@@ -47,7 +47,7 @@ public class HardSkillsVM : Manager<HardSkillsVM>
 
                 if(!ReferenceEquals(hardSkill, null))
                 {
-                    hardSkills.Add(hardSkill);
+                    hardSkills.Add(key, hardSkill);
                 }
 
             }

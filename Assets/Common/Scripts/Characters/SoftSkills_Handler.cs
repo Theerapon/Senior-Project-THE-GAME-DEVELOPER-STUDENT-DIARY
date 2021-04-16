@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SoftSkills_Handler : Manager<SoftSkills_Handler>
 {
-    protected List<SoftSkill> softSkills;
+    protected Dictionary<string, SoftSkill> softSkills;
     private SoftSkillsVM softSkillsVM;
 
     bool loaded = false;
 
-    public List<SoftSkill> SOFTSKILLS
+    public Dictionary<string, SoftSkill> SOFTSKILLS
     {
         get { return softSkills; }
     }
@@ -17,7 +17,7 @@ public class SoftSkills_Handler : Manager<SoftSkills_Handler>
     protected override void Awake()
     {
         base.Awake();
-        softSkills = new List<SoftSkill>();
+        softSkills = new Dictionary<string, SoftSkill>();
     }
 
     private void Start()
