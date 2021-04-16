@@ -15,9 +15,9 @@ public class GameManager : Manager<GameManager>
         Loading,
         Home,
         Summary,
-        Course,
-        WorkProject,
-        CourseAnimation,
+        COM_Course,
+        COM_WorkProject,
+        COM_CourseAnimation,
         HUD_Info,
         Menu_Bag,
         Menu_Characters,
@@ -183,7 +183,7 @@ public class GameManager : Manager<GameManager>
         #endregion
 
         #region Course
-        if (scene == GameScene.Course)
+        if (scene == GameScene.COM_Course)
         {
             UpdateState(GameState.COURSE);
         }
@@ -374,11 +374,11 @@ public class GameManager : Manager<GameManager>
         if (actived)
         {
             UnLoadLevel(GameScene.Home_COMPUTER);
-            LoadLevelSceneWithOutLoadingScene(GameScene.Course);
+            LoadLevelSceneWithOutLoadingScene(GameScene.COM_Course);
         }
         else
         {
-            UnLoadLevel(GameScene.Course);
+            UnLoadLevel(GameScene.COM_Course);
             UpdateScene(GameScene.Home);
         }
     }
@@ -403,13 +403,13 @@ public class GameManager : Manager<GameManager>
 
     public void GotoCourse()
     {
-        LoadLevelSceneWithOutLoadingScene(GameScene.Course);
+        LoadLevelSceneWithOutLoadingScene(GameScene.COM_Course);
         UpdateState(GameState.COURSE);
     }
 
     public void GotoCourseAnimation()
     {
-        LoadLevelWithLoadingScene(GameScene.CourseAnimation);
+        LoadLevelWithLoadingScene(GameScene.COM_CourseAnimation);
     }
 
     public void GotoWorkProject()
