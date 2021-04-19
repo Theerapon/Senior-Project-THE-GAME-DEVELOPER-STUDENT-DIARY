@@ -23,7 +23,6 @@ public class CharacterStatus : Manager<CharacterStatus>
 
     private void Update()
     {
-        Debug.Log(loaded);
         if (!loaded)
         {
             characterDeginition_Current = charactersVM.Interpert();

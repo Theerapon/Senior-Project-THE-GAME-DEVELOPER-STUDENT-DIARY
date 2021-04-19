@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class Events
 {
-    [System.Serializable] public class EventLoadComplete : UnityEvent<bool> { }
+    [System.Serializable] public class EventOnLoadComplete : UnityEvent<GameManager.GameState> { }
+    [System.Serializable] public class EventOnHomeDisplay : UnityEvent<bool> { }
     [System.Serializable] public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> { }
     [System.Serializable] public class EventDateCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventTimeCalendar : UnityEvent<string> { }
@@ -45,5 +46,6 @@ public class Events
     [System.Serializable] public class EventOnPointEnterSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnPointExitSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnLeftClickSoftSkillSlot : UnityEvent<BaseSoftSkillSlot, bool> { }
+    
 
 }

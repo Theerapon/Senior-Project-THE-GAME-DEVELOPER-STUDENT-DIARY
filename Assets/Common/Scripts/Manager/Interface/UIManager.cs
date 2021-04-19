@@ -12,20 +12,26 @@ public class UIManager : Manager<UIManager>
 
 
     [Header("Main Menu")]
-    [SerializeField] private MainMenuPreGame _mainMenu;
     [SerializeField] private GameObject mainMenuDisplayHandler;
 
 
     void Start()
     {
-        _mainMenu.OnMainMenuLoadComplete.AddListener(HandleMainMenuLoadComplete);
+        GameManager.Instance.onHomeDisplay.AddListener(HandleLoadGameComplete);
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+
+        _uiCamera.gameObject.SetActive(true);
+        mainMenuDisplayHandler.gameObject.SetActive(true);
+
     }
 
-    private void HandleMainMenuLoadComplete(bool loadGame)
+    private void HandleLoadGameComplete(bool loadGame)
     {
-        mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
-        SetCameraActive(!loadGame);
+        if(GameManager.Instance.CurrentGameState != GameManager.GameState.MAP)
+        {
+            mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
+            SetCameraActive(!loadGame);
+        }
 
     }
 

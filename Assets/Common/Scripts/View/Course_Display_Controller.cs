@@ -179,13 +179,13 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
         ActivedNotificationCanvas(true);
         confirm_purchase_notification.SetActive(true);
         confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courses_Handler.CourseDic[id].GetNameCourse();
-        GameManager.Instance.DisplayCourseNotification(true);
+        SwitchScene.Instance.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }
 
     public void CloseNotification()
     {
-        GameManager.Instance.DisplayCourseNotification(false);
+        SwitchScene.Instance.DisplayCourseNotification(false);
     }
 
 
@@ -202,7 +202,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
         ActivedNotificationCanvas(true);
         confirm_learn_notification.SetActive(true);
         confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courses_Handler.CourseDic[id].GetNameCourse();
-        GameManager.Instance.DisplayCourseNotification(true);
+        SwitchScene.Instance.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }
 

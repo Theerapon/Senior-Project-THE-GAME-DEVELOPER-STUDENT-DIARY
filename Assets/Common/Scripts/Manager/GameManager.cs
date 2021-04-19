@@ -6,6 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Manager<GameManager>
 {
+    #region Events Action and AsyncOperation 
+    public Events.EventGameState OnGameStateChanged;
+    public Events.EventOnLoadComplete onLoadComplete;
+    public Events.EventOnHomeDisplay onHomeDisplay;
+    private static Action onLoaderCallback;
+
+    private static AsyncOperation ao;
+    #endregion
+
     private class LoadingMonoBehaviour : MonoBehaviour { }
 
     #region Enums
@@ -99,12 +108,6 @@ public class GameManager : Manager<GameManager>
     List<GameObject> _instancedSystemPrefabs;
     #endregion
 
-    #region Events Action and AsyncOperation 
-    public Events.EventGameState OnGameStateChanged;
-    private static Action onLoaderCallback;
-
-    private static AsyncOperation ao;
-    #endregion
 
     protected override void Awake()
     {
@@ -139,6 +142,7 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.Boot)
         {
             UpdateState(GameState.PREGAME);
+            onLoadComplete?.Invoke(_previousGameState);
         }
         #endregion
 
@@ -154,9 +158,13 @@ public class GameManager : Manager<GameManager>
         {
             LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Info);
             UpdateState(GameState.HOME);
+            onLoadComplete?.Invoke(_previousGameState);
+            onHomeDisplay?.Invoke(true);
         } else if (scene == GameScene.Home)
         {
             UpdateState(GameState.HOME);
+            onLoadComplete?.Invoke(_previousGameState);
+            onHomeDisplay?.Invoke(true);
         }
         #endregion
 
@@ -179,6 +187,8 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.Map)
         {
             UpdateState(GameState.MAP);
+            onLoadComplete?.Invoke(_previousGameState);
+            onHomeDisplay?.Invoke(false);
         }
         #endregion
 

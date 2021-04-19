@@ -88,14 +88,13 @@ public class MenuController : MonoBehaviour
 
     private void DisplayMenu(bool action, GameManager.GameScene currentGameScene)
     {
-        Debug.Log(previousGameStateMenu);
-        GameManager.Instance.DisplayMenu(action, currentGameScene, previousGameStateMenu);
+        SwitchScene.Instance.DisplayMenu(action, currentGameScene, previousGameStateMenu);
         hasDisplayed = true;
     }
 
     private void DisplayHomeAction(bool action, GameManager.GameScene currentGameScene)
     {
-        GameManager.Instance.DisplayHomeAction(ActivedBlur(action), currentGameScene);
+        SwitchScene.Instance.DisplayHomeAction(ActivedBlur(action), currentGameScene);
         hasDisplayed = true;
     }
 
@@ -124,12 +123,12 @@ public class MenuController : MonoBehaviour
         }
         else if(gameManager.CurrentGameState == GameManager.GameState.COURSE_NOTIFICATION)
         {
-            GameManager.Instance.DisplayCourseNotification(false);
+            SwitchScene.Instance.DisplayCourseNotification(false);
             hasDisplayed = true;
         }
         else if(gameManager.CurrentGameState == GameManager.GameState.COURSE)
         {
-            GameManager.Instance.DisplayCourse(ActivedBlur(false));
+            SwitchScene.Instance.DisplayCourse(ActivedBlur(false));
             hasDisplayed = false;
         }
 
