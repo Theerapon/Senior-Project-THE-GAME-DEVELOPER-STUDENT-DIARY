@@ -36,7 +36,9 @@ public class GameManager : Manager<GameManager>
         Home_Storage,
         Home_BED,
         Home_COMPUTER,
-        Map
+        Map,
+        Saving,
+        Diary,
 
     }
 
@@ -62,7 +64,7 @@ public class GameManager : Manager<GameManager>
         COURSE_LEARN_ANIMATION,
         COURSE_SUMMARY,
         SAVEING,
-        DAIRY,
+        Diary,
         CARD,
         HOME_DIALOUGE,
         ENDING,
@@ -120,19 +122,6 @@ public class GameManager : Manager<GameManager>
     {
         _previousGameState = _currentGameState;
         _currentGameState = state;
-
-        switch (_currentGameState)
-        {
-            case GameState.MENU:
-                Time.timeScale = 0f;
-                break;
-            case GameState.HOME_ACTION:
-                Time.timeScale = 0f;
-                break;
-            default:
-                Time.timeScale = 1f;
-                break;
-        }
  
         OnGameStateChanged?.Invoke(_currentGameState, _previousGameState);
     }
@@ -142,7 +131,7 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.Boot)
         {
             UpdateState(GameState.PREGAME);
-            onLoadComplete?.Invoke(_previousGameState);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
 
@@ -158,12 +147,12 @@ public class GameManager : Manager<GameManager>
         {
             LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Info);
             UpdateState(GameState.HOME);
-            onLoadComplete?.Invoke(_previousGameState);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             onHomeDisplay?.Invoke(true);
         } else if (scene == GameScene.Home)
         {
             UpdateState(GameState.HOME);
-            onLoadComplete?.Invoke(_previousGameState);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             onHomeDisplay?.Invoke(true);
         }
         #endregion
@@ -187,7 +176,7 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.Map)
         {
             UpdateState(GameState.MAP);
-            onLoadComplete?.Invoke(_previousGameState);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             onHomeDisplay?.Invoke(false);
         }
         #endregion
@@ -196,6 +185,22 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.COM_Course)
         {
             UpdateState(GameState.COURSE);
+        }
+        #endregion
+
+        #region Saving
+        if(scene == GameScene.Saving)
+        {
+            UpdateState(GameState.SAVEING);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Diary
+        if(scene == GameScene.Diary)
+        {
+            UpdateState(GameState.Diary);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
 
@@ -402,6 +407,34 @@ public class GameManager : Manager<GameManager>
         else
         {
             UpdateState(GameState.COURSE);
+        }
+    }
+
+    public void DisplaySaving(bool actived)
+    {
+        if (actived)
+        {
+            UnLoadLevel(GameScene.Home_BED);
+            LoadLevelSceneWithOutLoadingScene(GameScene.Saving);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.Saving);
+            UpdateScene(GameScene.Home);
+        }
+    }
+
+    public void DisplayDiary(bool actived)
+    {
+        if (actived)
+        {
+            UnLoadLevel(GameScene.Saving);
+            LoadLevelSceneWithOutLoadingScene(GameScene.Diary);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.Diary);
+            UpdateScene(GameScene.Home);
         }
     }
 

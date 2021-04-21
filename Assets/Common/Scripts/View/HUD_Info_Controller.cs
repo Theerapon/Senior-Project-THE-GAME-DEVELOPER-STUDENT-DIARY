@@ -48,6 +48,11 @@ public class HUD_Info_Controller : MonoBehaviour
             ShowForCourseNotification();
         }
 
+        if(current_game_state == GameManager.GameState.Diary)
+        {
+            ShowForDiary();
+        }
+
     }
     private void DisplayEnergyAndMotivation(bool actived)
     {
@@ -136,6 +141,16 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayDateTime(true);
         DisplayButtonBack(false);
         DisplayMoney(true);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+    }
+
+    private void ShowForDiary()
+    {
+        DisplayEnergyAndMotivation(false);
+        DisplayDateTime(false);
+        DisplayButtonBack(false);
+        DisplayMoney(false);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
     }

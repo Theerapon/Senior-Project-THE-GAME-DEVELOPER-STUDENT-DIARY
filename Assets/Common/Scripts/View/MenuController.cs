@@ -39,11 +39,13 @@ public class MenuController : MonoBehaviour
 
         if (currentState == GameManager.GameState.MAP)
         {
+            ActivedBlur(false);
             _camera.SetActive(false);
         }
 
         if (currentState == GameManager.GameState.HOME)
         {
+            ActivedBlur(false);
             _camera.SetActive(true);
         }
     }

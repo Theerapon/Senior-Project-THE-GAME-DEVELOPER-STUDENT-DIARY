@@ -15,22 +15,28 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    [SerializeField] private const double DEFAULT_TIMESCALE = 48;
+    [SerializeField] private const float DEFAULT_TIMESCALE = 48;
+
+    [Header("Awake and Sleep")]
+    [SerializeField] private const int DEFAULT_AWAKE_HOUR_TIME = 6;
+    [SerializeField] private const int DEFAULT_AWAKE_MINUTE_TIME = 30;
+    [SerializeField] private const int DEFAULT_AWAKE_SECOND_TIME = 0;
+    [SerializeField] private const  int DEFAULT_SLEEP_LIMIT_TIME = 2;
 
     [Header("GoldenTIme")]
-    [SerializeField] private const double DEFAULT_STARTGOLDENTIME = 9;
-    [SerializeField] private const double DEFAULT_ENDGOLDENTIME = 17;
+    [SerializeField] private const int DEFAULT_STARTGOLDENTIME = 9;
+    [SerializeField] private const int DEFAULT_ENDGOLDENTIME = 17;
 
 
-    private double TIMESCALE = DEFAULT_TIMESCALE;
+    private float TIMESCALE = DEFAULT_TIMESCALE;
 
-    private const double TIMEWORLD = 3;
+    private const int TIMEWORLD = 3;
 
-    private const double DEFAULT_SECOND = 60;
-    private const double DEFAULT_MINUTE = 60;
-    private const double DEFAULT_HOUR = 24;
-    private const double DEFAULT_DATE = 28;
-    private const double DEFAULT_MONTH = 4;
+    private const int DEFAULT_SECOND = 60;
+    private const int DEFAULT_MINUTE = 60;
+    private const int DEFAULT_HOUR = 24;
+    private const int DEFAULT_DATE = 28;
+    private const int DEFAULT_MONTH = 4;
     #endregion
 
     #region Enum
@@ -43,15 +49,6 @@ public class TimeManager : Manager<TimeManager>
     }
     private SetsOfMonth _currentMonth;
 
-    private enum SetsOfSeason
-    {
-        SPRING,
-        SUMMER,
-        AUTUMN,
-        WINTER
-
-    }
-    private SetsOfSeason _currentSeason;
 
     private enum SetsOfDays 
     {
@@ -69,10 +66,12 @@ public class TimeManager : Manager<TimeManager>
     #endregion
 
 
-    private static double minute, hour, date, second, month, year;
+    private static float minute, hour, date, second, month, year;
+    private static float tomorrow_minute, tomorrow_hour, tomorrow_second, tomorrow_date, tomorrow_month, tomorrow_year;
     private static string onDate, onTime;
-    private double totalSecond = 0;
-    private double memorySecond;
+    private static string tomorrow_onDate, tomorrow_onTime;
+    private float totalSecond = 0;
+    private float memorySecond;
     private bool isDay;
 
     private bool goldenTime = false;
@@ -81,16 +80,23 @@ public class TimeManager : Manager<TimeManager>
     protected void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-        second = 0;
-        minute = 0;
-        hour = 0;
-        date = 1;
-        _currentDays = SetsOfDays.SUN;
-        month = 1;
-        year = 2021;
+        Initialized();
         ValidateCalculateTime();
         ValidationDisplay();
         NotificationAll();
+
+    }
+
+    private void Initialized()
+    {
+        second = 0;
+        minute = 0;
+        hour = 8;
+        date = 27;
+        _currentDays = SetsOfDays.SUN;
+        month = 4;
+        year = 2021;
+        Tomorrow();  
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
@@ -105,16 +111,19 @@ public class TimeManager : Manager<TimeManager>
 
     void Update()
     {
-        if(GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
+        if(GameManager.Instance.CurrentGameState == GameManager.GameState.HOME 
+            || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
         {
             CalculateTime();
         }
     }
 
+
+
     private void IncreaseTime(int hour, int minute, int second)
     {
-        totalSecond += (double) (hour * DEFAULT_MINUTE * DEFAULT_SECOND);
-        totalSecond += (double) (minute * DEFAULT_SECOND);
+        totalSecond += (float) (hour * DEFAULT_MINUTE * DEFAULT_SECOND);
+        totalSecond += (float) (minute * DEFAULT_SECOND);
         totalSecond += second;
         TIMESCALE = totalSecond / TIMEWORLD;
         StartCoroutine("TimeIncreaseCalculate");
@@ -151,9 +160,37 @@ public class TimeManager : Manager<TimeManager>
 
     private void CalculateTime()
     {
-        memorySecond = Time.deltaTime * (TIMESCALE);
+        memorySecond = (float)(Time.deltaTime * (TIMESCALE));
         second += memorySecond;
         ValidateCalculateTime();
+    }
+
+    private void Tomorrow()
+    {
+        tomorrow_second = DEFAULT_AWAKE_SECOND_TIME;
+        tomorrow_minute = DEFAULT_AWAKE_MINUTE_TIME;
+        tomorrow_hour = DEFAULT_AWAKE_HOUR_TIME;
+
+        tomorrow_date = date;
+        tomorrow_month = month;
+        tomorrow_year = year;
+
+        tomorrow_date++;
+
+        if (tomorrow_date > DEFAULT_DATE)
+        {
+            tomorrow_month++;
+            tomorrow_date = tomorrow_date - DEFAULT_DATE;
+        }
+
+        if (tomorrow_month > DEFAULT_MONTH)
+        {
+            tomorrow_year++;
+            tomorrow_month = tomorrow_month - DEFAULT_MONTH;
+        }
+
+        tomorrow_onDate =  string.Format("{0:00}/{1:00}/{2:0000}", tomorrow_date, tomorrow_month, tomorrow_year);
+        tomorrow_onTime = string.Format("{0:00}:{1:00}", tomorrow_hour, tomorrow_minute);
     }
 
     private void ValidateCalculateTime()
@@ -194,7 +231,6 @@ public class TimeManager : Manager<TimeManager>
             date = date - DEFAULT_DATE;
             CalculateDay();
             CalculateMonth();
-            CalculateSeason();
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
@@ -205,7 +241,6 @@ public class TimeManager : Manager<TimeManager>
             year++;
             month = month - DEFAULT_MONTH;
             CalculateMonth();
-            CalculateSeason();
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
@@ -238,11 +273,11 @@ public class TimeManager : Manager<TimeManager>
 
     private void setText()
     {
-        onDate = string.Format("{0}/{1}/{2}", date, month, year);
+        onDate = string.Format("{0:00}/{1:00}/{2:0000}", date, month, year);
         onTime = string.Format("{0:00}:{1:00}", hour, minute);
     }
 
-    private void CalculateSeason()
+    private void CalculateMonth()
     {
         switch (month)
         {
@@ -263,26 +298,6 @@ public class TimeManager : Manager<TimeManager>
         }
     }
 
-    private void CalculateMonth()
-    {
-        switch (month)
-        {
-            case 1:
-                _currentSeason = SetsOfSeason.SPRING;
-                break;
-            case 2:
-                _currentSeason = SetsOfSeason.SUMMER;
-                break;
-            case 3:
-                _currentSeason = SetsOfSeason.AUTUMN;
-                break;
-            case 4:
-                _currentSeason = SetsOfSeason.WINTER;
-                break;
-            default:
-                break;
-        }
-    }
 
     private void CalculateDay()
     {
@@ -318,7 +333,6 @@ public class TimeManager : Manager<TimeManager>
     public void ValidationDisplay()
     {
         CalculateMonth();
-        CalculateSeason();
         setText();
         OnDateCalendar?.Invoke(onDate);
         OnTimeCalendar?.Invoke(onTime);
@@ -375,4 +389,29 @@ public class TimeManager : Manager<TimeManager>
         OnTimeCalendar?.Invoke(onTime);
         OnTimeChange?.Invoke(isDay);
     }
+
+    public string GetTomorrowOnDate()
+    {
+        return tomorrow_onDate;
+    }
+    public string GetTomorrowOnTime()
+    {
+        return tomorrow_onTime;
+    }
+    public void SetNewDay()
+    {
+        second = tomorrow_second;
+        minute = tomorrow_minute;
+        hour = tomorrow_hour;
+        date = tomorrow_date;
+        month = tomorrow_month;
+        year = tomorrow_year;
+        CalculateDay();
+        CalculateMonth();
+        Tomorrow();
+
+        Debug.Log(string.Format("Today {0:00}/{1:00}/{2:0000}  {3:00}{4:00}", date, month, year, hour, minute));
+        Debug.Log(string.Format("Tomorrow {0:00}/{1:00}/{2:0000}  {3:00}{4:00}", tomorrow_date, tomorrow_month, tomorrow_year, tomorrow_hour, tomorrow_minute));
+    }
+
 }

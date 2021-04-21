@@ -14,6 +14,8 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Map = 4;
     private const int INST_Display_Course = 5;
     private const int INST_Display_Course_Notification = 6;
+    private const int INST_Display_Saving = 7;
+    private const int INST_Display_Diary = 8;
     #endregion
 
     #region Animator Parameters
@@ -30,9 +32,9 @@ public class SwitchScene : Manager<SwitchScene>
         gameManager.onLoadComplete.AddListener(OnloadCompleteHandler);
     }
 
-    private void OnloadCompleteHandler(GameManager.GameState previousGamwState)
+    private void OnloadCompleteHandler(GameManager.GameState currentGameState, GameManager.GameState previousGameState)
     {
-        if(!(previousGamwState == GameManager.GameState.HOME_ACTION))
+        if(previousGameState != GameManager.GameState.HOME_ACTION || currentGameState == GameManager.GameState.SAVEING)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -67,6 +69,12 @@ public class SwitchScene : Manager<SwitchScene>
                 break;
             case INST_Display_Map:
                 gameManager.DispleyMap(active);
+                break;
+            case INST_Display_Saving:
+                gameManager.DisplaySaving(active);
+                break;
+            case INST_Display_Diary:
+                gameManager.DisplayDiary(active);
                 break;
         }
         //LoadScene
@@ -114,6 +122,17 @@ public class SwitchScene : Manager<SwitchScene>
     {
         //---Not Fade Out---
         GameManager.Instance.DisplayCourseNotification(actived);
+    }
+
+    public void DisplaySaving(bool actived)
+    {
+        //---Fade Out---
+        FadeToLevel(INST_Display_Saving, actived);
+    }
+
+    public void DisplayDiary(bool actived)
+    {
+        FadeToLevel(INST_Display_Diary, actived);
     }
     #endregion
 }

@@ -5,15 +5,25 @@ using UnityEngine;
 
 public class BedDialogue : MonoBehaviour, IDialogue
 {
+
+    private GameObject found_home_controller;
+    private MenuController menuController;
+
+    private void Start()
+    {
+        found_home_controller = GameObject.FindGameObjectWithTag("HomeController");
+        menuController = found_home_controller.GetComponent<MenuController>();
+    }
+
     public void SelectedDialogue(int choice)
     {
         switch (choice)
         {
             case 1:
-                //GameManager.Instance.GotoSummaryDiary();
+                SwitchScene.Instance.DisplaySaving(true);
                 break;
             case 2:
-                //GameManager.Instance.GotoSummaryDiary();
+                menuController.Close(GameManager.Instance.CurrentGameScene);
                 break;
         }
     }
