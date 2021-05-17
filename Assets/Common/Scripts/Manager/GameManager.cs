@@ -26,7 +26,6 @@ public class GameManager : Manager<GameManager>
         Summary,
         COM_Course,
         COM_WorkProject,
-        COM_CourseAnimation,
         HUD_Info,
         Menu_Bag,
         Menu_Characters,
@@ -452,7 +451,7 @@ public class GameManager : Manager<GameManager>
 
     public void GotoCourseAnimation()
     {
-        LoadLevelWithLoadingScene(GameScene.COM_CourseAnimation);
+        //LoadLevelWithLoadingScene(GameScene.COM_CourseAnimation);
     }
 
     public void GotoWorkProject()
