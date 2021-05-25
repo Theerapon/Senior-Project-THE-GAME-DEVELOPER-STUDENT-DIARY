@@ -9,12 +9,12 @@ public class StatusDetailsVM : MonoBehaviour
     private const string INST_SET_iconImage = "iconImage";
     private const string INST_SET_color = "color";
 
-    private StatusDetailLoading statusDetailLoading;
+    private StatusDetail_Loading statusDetailLoading;
 
 
     private void Start()
     {
-        statusDetailLoading = StatusDetailLoading.instance;
+        statusDetailLoading = StatusDetail_Loading.instance;
     }
     public Dictionary<string, Status> Interpert()
     {

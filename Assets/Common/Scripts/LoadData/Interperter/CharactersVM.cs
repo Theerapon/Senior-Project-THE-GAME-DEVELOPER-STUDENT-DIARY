@@ -51,11 +51,11 @@ public class CharactersVM : Manager<CharactersVM>
     private const string INST_SET_statsPoints = "statsPoints";
     private const string INST_SET_endcreateLevel = "endcreateLevel";
 
-    private CharactersLoading chractersLoading;
+    private Characters_Loading chractersLoading;
 
     private void Start()
     {
-        chractersLoading = CharactersLoading.instance;
+        chractersLoading = Characters_Loading.instance;
     }
 
     public CharacterStatus_Template Interpert()

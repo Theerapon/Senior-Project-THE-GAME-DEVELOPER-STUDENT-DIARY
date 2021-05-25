@@ -22,12 +22,12 @@ public class HardSkillsVM : Manager<HardSkillsVM>
     private const string INST_SET_bonusSound = "bonusSound";
 
 
-    private HardSkillsLoading hardskillsLoading;
+    private HardSkills_Loading hardskillsLoading;
 
 
     private void Start()
     {
-        hardskillsLoading = HardSkillsLoading.instance;
+        hardskillsLoading = HardSkills_Loading.instance;
     }
 
 

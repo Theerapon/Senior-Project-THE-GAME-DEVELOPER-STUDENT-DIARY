@@ -8,12 +8,12 @@ public class BonusDetailsVM : MonoBehaviour
     private const string INST_SET_bonusName = "bonusName";
     private const string INST_SET_icon = "icon";
 
-    private BonusDetailLoading bonusDetailLoading;
+    private BonusDetail_Loading bonusDetailLoading;
 
 
     private void Start()
     {
-        bonusDetailLoading = BonusDetailLoading.instance;
+        bonusDetailLoading = BonusDetail_Loading.instance;
     }
 
     public Dictionary<string, Bonus> Interpert()

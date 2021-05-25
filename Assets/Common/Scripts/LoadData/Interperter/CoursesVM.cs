@@ -55,11 +55,11 @@ public class CoursesVM : MonoBehaviour
 
     private const string INST_SET_createTag = "createTag";
 
-    private CoursesLoading coursesLoading;
+    private Courses_Loading coursesLoading;
 
     private void Start()
     {
-        coursesLoading = CoursesLoading.instance;
+        coursesLoading = Courses_Loading.instance;
     }
 
     public Dictionary<string, Course> Interpert()

@@ -20,11 +20,11 @@ public class ItemsVM : MonoBehaviour
     private const string INST_SET_IsGiftable = "isGiftable";
 
 
-    private ItemsDataLoading itemsDataLoading;
+    private ItemsData_Loading itemsDataLoading;
 
     private void Start()
     {
-        itemsDataLoading = ItemsDataLoading.instance;
+        itemsDataLoading = ItemsData_Loading.instance;
     }
 
     public ItemPickUp_Template Interpert(string id)

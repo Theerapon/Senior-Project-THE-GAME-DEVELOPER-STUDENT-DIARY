@@ -34,11 +34,11 @@ public class SoftSkillsVM : MonoBehaviour
 
     private const string INST_SET_icon = "icon";
 
-    private SoftSkillsLoading softskillsLoading;
+    private SoftSkills_Loading softskillsLoading;
 
     private void Start()
     {
-        softskillsLoading = SoftSkillsLoading.instance;
+        softskillsLoading = SoftSkills_Loading.instance;
     }
 
     public Dictionary<string, SoftSkill> Interpert()
