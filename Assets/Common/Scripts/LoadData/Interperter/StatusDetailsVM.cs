@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class StatusDetailsVM : MonoBehaviour
 {
-    private const string INST_SET_statusID = "statusID";
+    private const string INST_SET_statusID = "ID";
     private const string INST_SET_statusName = "statusName";
     private const string INST_SET_iconImage = "iconImage";
     private const string INST_SET_color = "color";
 
-    private StatusDetail_Loading statusDetailLoading;
+    [SerializeField] private StatusDetail_Loading statusDetailLoading;
 
-
-    private void Start()
-    {
-        statusDetailLoading = StatusDetail_Loading.instance;
-    }
     public Dictionary<string, Status> Interpert()
     {
         if (!ReferenceEquals(statusDetailLoading, null))

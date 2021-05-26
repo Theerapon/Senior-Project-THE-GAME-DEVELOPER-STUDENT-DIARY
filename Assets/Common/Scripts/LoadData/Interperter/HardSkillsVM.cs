@@ -6,7 +6,7 @@ using static HardSkill_Template;
 
 public class HardSkillsVM : Manager<HardSkillsVM>
 {
-    private const string INST_SET_hardskillID = "hardskillID";
+    private const string INST_SET_hardskillID = "ID";
     private const string INST_SET_hardskillName = "hardskillName";
     private const string INST_SET_hardskillDescription = "hardskillDescription";
     private const string INST_SET_hardskillMaxLevel = "hardskillMaxLevel";
@@ -22,13 +22,8 @@ public class HardSkillsVM : Manager<HardSkillsVM>
     private const string INST_SET_bonusSound = "bonusSound";
 
 
-    private HardSkills_Loading hardskillsLoading;
+    [SerializeField] private HardSkills_Loading hardskillsLoading;
 
-
-    private void Start()
-    {
-        hardskillsLoading = HardSkills_Loading.instance;
-    }
 
 
     public Dictionary<string, HardSkill> Interpert()

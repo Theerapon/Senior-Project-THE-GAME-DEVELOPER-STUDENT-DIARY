@@ -2,7 +2,7 @@
 
 public class ItemsVM : MonoBehaviour
 {
-    private const string INST_SET_ItemID = "itemID";
+    private const string INST_SET_ItemID = "ID";
     private const string INST_SET_ItemName = "itemName";
     private const string INST_SET_ItemDefinitionsType = "itemDefinitionsType";
     private const string INST_SET_ItemEquipmentType = "itemEquipmentType";
@@ -20,12 +20,8 @@ public class ItemsVM : MonoBehaviour
     private const string INST_SET_IsGiftable = "isGiftable";
 
 
-    private ItemsData_Loading itemsDataLoading;
+    [SerializeField] private ItemsData_Loading itemsDataLoading;
 
-    private void Start()
-    {
-        itemsDataLoading = ItemsData_Loading.instance;
-    }
 
     public ItemPickUp_Template Interpert(string id)
     {

@@ -8,7 +8,7 @@ using static WorkEthic_Template;
 
 public class SoftSkillsVM : MonoBehaviour
 {
-    private const string INST_SET_softskillID = "softskillID";
+    private const string INST_SET_softskillID = "ID";
     private const string INST_SET_softskillName = "softskillName";
     private const string INST_SET_softskillDescription = "softskillDescription";
     private const string INST_SET_softskillMaxcreateLevel = "softskillMaxcreateLevel";
@@ -34,12 +34,8 @@ public class SoftSkillsVM : MonoBehaviour
 
     private const string INST_SET_icon = "icon";
 
-    private SoftSkills_Loading softskillsLoading;
+    [SerializeField] private SoftSkills_Loading softskillsLoading;
 
-    private void Start()
-    {
-        softskillsLoading = SoftSkills_Loading.instance;
-    }
 
     public Dictionary<string, SoftSkill> Interpert()
     {

@@ -24,7 +24,7 @@ public class CoursesVM : MonoBehaviour
     private const string INST_SET_SOUND = "sound";
     #endregion
 
-    private const string INST_SET_courseID = "courseID";
+    private const string INST_SET_courseID = "ID";
     private const string INST_SET_courseName = "courseName";
     private const string INST_SET_courseAuthor = "courseAuthor";
     private const string INST_SET_courseDescription = "courseDescription";
@@ -55,12 +55,8 @@ public class CoursesVM : MonoBehaviour
 
     private const string INST_SET_createTag = "createTag";
 
-    private Courses_Loading coursesLoading;
+    [SerializeField] private Courses_Loading coursesLoading;
 
-    private void Start()
-    {
-        coursesLoading = Courses_Loading.instance;
-    }
 
     public Dictionary<string, Course> Interpert()
     {

@@ -5,7 +5,7 @@ using static CharacterStatus_Template;
 
 public class CharactersVM : Manager<CharactersVM>
 {
-    private const string INST_SET_charID = "charID";
+    private const string INST_SET_charID = "ID";
     private const string INST_SET_charName = "charName";
 
     private const string INST_SET_default_bReduceEnerg = "default_bReduceEnergy%";
@@ -51,12 +51,7 @@ public class CharactersVM : Manager<CharactersVM>
     private const string INST_SET_statsPoints = "statsPoints";
     private const string INST_SET_endcreateLevel = "endcreateLevel";
 
-    private Characters_Loading chractersLoading;
-
-    private void Start()
-    {
-        chractersLoading = Characters_Loading.instance;
-    }
+    [SerializeField] private Characters_Loading chractersLoading;
 
     public CharacterStatus_Template Interpert()
     {

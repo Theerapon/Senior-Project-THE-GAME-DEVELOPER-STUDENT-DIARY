@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class BonusDetailsVM : MonoBehaviour
 {
-    private const string INST_SET_bonusID = "bonusID";
+    private const string INST_SET_bonusID = "ID";
     private const string INST_SET_bonusName = "bonusName";
     private const string INST_SET_icon = "icon";
 
-    private BonusDetail_Loading bonusDetailLoading;
-
-
-    private void Start()
-    {
-        bonusDetailLoading = BonusDetail_Loading.instance;
-    }
+    [SerializeField] private BonusDetail_Loading bonusDetailLoading;
 
     public Dictionary<string, Bonus> Interpert()
     {
