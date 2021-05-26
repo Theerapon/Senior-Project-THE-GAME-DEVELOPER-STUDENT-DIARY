@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 50814413}
   - component: {fileID: 50814414}
+  - component: {fileID: 50814415}
   m_Layer: 0
   m_Name: NPCs loading
   m_TagString: Untagged
@@ -171,6 +172,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/NPCs.csv
   SPECIFICATION_ID: ID
+--- !u!114 &50814415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50814412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b86eda44e7fc8408a4857b98d7069b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &58113883
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 58113884}
   - component: {fileID: 58113885}
+  - component: {fileID: 58113886}
   m_Layer: 0
   m_Name: SpawnsItems loading
   m_TagString: Untagged
@@ -219,6 +233,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/SpawnsItems.csv
   SPECIFICATION_ID: ID
+--- !u!114 &58113886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58113883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 767e40b583d8b9c47bef2860657808f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &212041625
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,6 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 212041626}
   - component: {fileID: 212041627}
+  - component: {fileID: 212041628}
   m_Layer: 0
   m_Name: ActivitiesNPC loading
   m_TagString: Untagged
@@ -267,6 +294,19 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/ActivitiesNPC.csv
   SPECIFICATION_ID: ID
+--- !u!114 &212041628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212041625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16a5d4aeed7084428d5b7ac1b7cb4a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bonusDetailLoading: {fileID: 0}
 --- !u!1 &215361633
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,11 +349,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215361633}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d4fb37a3740477f4d90800a3347c913a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bonusDetailLoading: {fileID: 215361634}
 --- !u!4 &215361636
 Transform:
   m_ObjectHideFlags: 0
@@ -338,6 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 471104954}
   - component: {fileID: 471104955}
+  - component: {fileID: 471104956}
   m_Layer: 0
   m_Name: DialoguesNPC loading
   m_TagString: Untagged
@@ -376,6 +418,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/DialoguesNPC.csv
   SPECIFICATION_ID: ID
+--- !u!114 &471104956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471104953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9734aa2336c8d4bb2596b02e5a4cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &474132172
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 474132173}
   - component: {fileID: 474132174}
+  - component: {fileID: 474132175}
   m_Layer: 0
   m_Name: StoreItemSets loading
   m_TagString: Untagged
@@ -424,6 +479,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/StoreItemSets.csv
   SPECIFICATION_ID: ID
+--- !u!114 &474132175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474132172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068f8bc4e5fab5541b8e9c0906fb7c16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &560237297
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,11 +533,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560237297}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afe8dd35c419b7942b952c9dc98bbe8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coursesLoading: {fileID: 0}
 --- !u!4 &560237300
 Transform:
   m_ObjectHideFlags: 0
@@ -495,6 +563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 660790000}
   - component: {fileID: 660790001}
+  - component: {fileID: 660790002}
   m_Layer: 0
   m_Name: RandomBoxs loading
   m_TagString: Untagged
@@ -533,6 +602,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/RandomBoxs.csv
   SPECIFICATION_ID: ID
+--- !u!114 &660790002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660789999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2742e0572a12ae4c95c5473226666b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &670667919
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 670667920}
   - component: {fileID: 670667921}
+  - component: {fileID: 670667922}
   m_Layer: 0
   m_Name: ClassActivities loading
   m_TagString: Untagged
@@ -581,6 +663,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/ClassActivities.csv
   SPECIFICATION_ID: ID
+--- !u!114 &670667922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670667919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d9983a308ffa14184ed0dcab6d90e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &844140400
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,8 +684,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 844140403}
-  - component: {fileID: 844140402}
   - component: {fileID: 844140401}
+  - component: {fileID: 844140402}
   m_Layer: 0
   m_Name: Items loading
   m_TagString: Untagged
@@ -623,11 +717,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844140400}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da23b38ec86d08d4fab2df67030e6824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemsDataLoading: {fileID: 0}
 --- !u!4 &844140403
 Transform:
   m_ObjectHideFlags: 0
@@ -712,8 +807,8 @@ Transform:
   - {fileID: 2102936879}
   - {fileID: 1113204572}
   - {fileID: 1934333525}
-  - {fileID: 1658250810}
   - {fileID: 1291890008}
+  - {fileID: 1658250810}
   - {fileID: 844140403}
   - {fileID: 50814413}
   - {fileID: 1696740295}
@@ -736,6 +831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1113204572}
   - component: {fileID: 1113204573}
+  - component: {fileID: 1113204574}
   m_Layer: 0
   m_Name: Exploration loading
   m_TagString: Untagged
@@ -774,6 +870,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/Exploration.csv
   SPECIFICATION_ID: ID
+--- !u!114 &1113204574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113204571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50abfb210856994eae27421ef309136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1173128228
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1173128229}
   - component: {fileID: 1173128230}
+  - component: {fileID: 1173128231}
   m_Layer: 0
   m_Name: Stores loading
   m_TagString: Untagged
@@ -822,6 +931,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/Stores.csv
   SPECIFICATION_ID: ID
+--- !u!114 &1173128231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173128228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759326c7cc07534da854ef2df279892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1247469754
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,11 +985,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247469754}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 066bb302240cda346bfbd9feae0b93b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  softskillsLoading: {fileID: 0}
 --- !u!4 &1247469757
 Transform:
   m_ObjectHideFlags: 0
@@ -925,11 +1047,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291890005}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3be7e4f08c46d2c4a871fe561557a4c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hardskillsLoading: {fileID: 0}
 --- !u!4 &1291890008
 Transform:
   m_ObjectHideFlags: 0
@@ -942,7 +1065,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 948092573}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458093863
 GameObject:
@@ -986,11 +1109,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458093863}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0116e5dad0875b54c9296e1478e685f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusDetailLoading: {fileID: 0}
 --- !u!4 &1458093866
 Transform:
   m_ObjectHideFlags: 0
@@ -1015,6 +1139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1658250810}
   - component: {fileID: 1658250811}
+  - component: {fileID: 1658250812}
   m_Layer: 0
   m_Name: Ideas loading
   m_TagString: Untagged
@@ -1034,7 +1159,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 948092573}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1658250811
 MonoBehaviour:
@@ -1053,6 +1178,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/Ideas.csv
   SPECIFICATION_ID: ID
+--- !u!114 &1658250812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658250809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3651c3a3d2b462c458e8582f82f58029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1696740294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1696740295}
   - component: {fileID: 1696740296}
+  - component: {fileID: 1696740297}
   m_Layer: 0
   m_Name: Places loading
   m_TagString: Untagged
@@ -1101,6 +1239,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/Places.csv
   SPECIFICATION_ID: ID
+--- !u!114 &1696740297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696740294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52b6b7729f40c84595467ca04f8a9db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1934333524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,6 +1261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1934333525}
   - component: {fileID: 1934333526}
+  - component: {fileID: 1934333527}
   m_Layer: 0
   m_Name: FavoriteItems loading
   m_TagString: Untagged
@@ -1149,6 +1300,18 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/FavoriteItems.csv
   SPECIFICATION_ID: ID
+--- !u!114 &1934333527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934333524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f84329083ed085438e8899a0dbe7714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2038748263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,11 +1354,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038748263}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9164f5d6e9727134bad06bbcecfe16d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chractersLoading: {fileID: 0}
 --- !u!4 &2038748266
 Transform:
   m_ObjectHideFlags: 0
@@ -1220,6 +1384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102936879}
   - component: {fileID: 2102936880}
+  - component: {fileID: 2102936881}
   m_Layer: 0
   m_Name: DialoguesExploration loading
   m_TagString: Untagged
@@ -1258,3 +1423,15 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/DialoguesExploration.csv
   SPECIFICATION_ID: ID
+--- !u!114 &2102936881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102936878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d9e6040205a6f4383aacc8fd2f072b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

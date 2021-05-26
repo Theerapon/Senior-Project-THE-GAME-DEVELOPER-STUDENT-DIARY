@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class BonusDetailsVM : MonoBehaviour
 {
+    #region Instance
     private const string INST_SET_bonusID = "ID";
     private const string INST_SET_bonusName = "bonusName";
     private const string INST_SET_icon = "icon";
+    #endregion
 
     [SerializeField] private BonusDetail_Loading bonusDetailLoading;
 
