@@ -675,6 +675,7 @@ GameObject:
   - component: {fileID: 670667920}
   - component: {fileID: 670667921}
   - component: {fileID: 670667922}
+  - component: {fileID: 670667923}
   m_Layer: 0
   m_Name: ClassActivities loading
   m_TagString: Untagged
@@ -726,6 +727,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classActivities_Loading: {fileID: 670667921}
+--- !u!114 &670667923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670667919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6fda6735f052f49a55ce15ac89a2c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classActivitiesVM: {fileID: 670667922}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &844140400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,6 +1459,7 @@ GameObject:
   - component: {fileID: 2038748266}
   - component: {fileID: 2038748264}
   - component: {fileID: 2038748265}
+  - component: {fileID: 2038748267}
   m_Layer: 0
   m_Name: Characters loading
   m_TagString: Untagged
@@ -1495,6 +1511,20 @@ Transform:
   m_Father: {fileID: 948092573}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2038748267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038748263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc3e6bf852842e43b6db50693280699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactersVM: {fileID: 2038748265}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &2102936878
 GameObject:
   m_ObjectHideFlags: 0

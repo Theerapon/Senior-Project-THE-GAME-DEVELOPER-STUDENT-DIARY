@@ -12,28 +12,13 @@ public class CharacterStatus : Manager<CharacterStatus>
 
     #region Fields
     private CharacterStatus_Template characterDeginition_Current;
-    private CharactersVM charactersVM;
-    bool loaded = false;
     #endregion
 
     private void Start()
     {
-        charactersVM = FindObjectOfType<CharactersVM>();
+        characterDeginition_Current = FindObjectOfType<CharacterStatus_DataHandler>().GetCharacterTemplate;
     }
 
-    private void Update()
-    {
-        if (!loaded)
-        {
-            characterDeginition_Current = charactersVM.Interpert();
-            loaded = true;
-        }
-    }
-
-    #region Initializations
-
-
-    #endregion
 
     #region Stat Increasers
     public void ApplyMaxEnergy(int newEnergyAmount)
