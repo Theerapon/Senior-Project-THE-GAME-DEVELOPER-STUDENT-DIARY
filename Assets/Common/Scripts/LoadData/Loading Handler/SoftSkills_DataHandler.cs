@@ -9,7 +9,6 @@ public class SoftSkills_DataHandler : Manager<SoftSkills_DataHandler>
     [SerializeField] private SoftSkillsVM softSkillsVM;
     [SerializeField] private InterpretHandler interpretHandler;
 
-    bool loaded = false;
 
     public Dictionary<string, SoftSkill> GetSoftSkillsDic
     {

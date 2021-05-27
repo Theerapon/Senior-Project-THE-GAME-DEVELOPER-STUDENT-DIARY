@@ -64,17 +64,17 @@ public class Status_Generator : MonoBehaviour
         Image icon = copy.transform.GetChild(0).GetComponent<Image>();
 
 
-        icon.sprite = statusDetails_Handler.StatusDic[id].StatusIcon;
-        icon.color = statusDetails_Handler.StatusDic[id].StatusColor;
+        icon.sprite = statusDetails_Handler.GetStatusDic[id].StatusIcon;
+        icon.color = statusDetails_Handler.GetStatusDic[id].StatusColor;
 
-        copy.transform.GetChild(1).GetComponent<TMP_Text>().text = statusDetails_Handler.StatusDic[id].StatusName; //name
+        copy.transform.GetChild(1).GetComponent<TMP_Text>().text = statusDetails_Handler.GetStatusDic[id].StatusName; //name
 
         TMP_Text text_current_value = copy.transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>();
         text_current_value.text = string.Format("{0} >", currentValue); //value;
 
         TMP_Text text_next_value = copy.transform.GetChild(2).GetChild(1).GetComponent<TMP_Text>();
         text_next_value.text = string.Format("{0}", nextValue); //value;
-        text_next_value.color = statusDetails_Handler.StatusDic[id].StatusColor;
+        text_next_value.color = statusDetails_Handler.GetStatusDic[id].StatusColor;
     }
 
     public void CreateTemplate(HardSkill hardSkill)

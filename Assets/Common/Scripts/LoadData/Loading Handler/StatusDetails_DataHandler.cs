@@ -1,15 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
 {
     protected Dictionary<string, Status> status_dic;
-    private StatusDetailsVM statusDetailsVM;
+    [SerializeField] private StatusDetailsVM statusDetailsVM;
+    [SerializeField] private InterpretHandler interpretHandler;
 
-    bool loaded = false;
 
-    public Dictionary<string, Status> StatusDic
+    public Dictionary<string, Status> GetStatusDic
     {
         get { return status_dic; }
     }
@@ -21,17 +22,20 @@ public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
     }
     private void Start()
     {
-        statusDetailsVM = FindObjectOfType<StatusDetailsVM>();
-        loaded = false;
+        interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
 
     }
-    private void Update()
+
+    private void EventInterpretHandler()
     {
-        if (!loaded)
-        {
-            status_dic = statusDetailsVM.Interpert();
-            loaded = true;
-        }
+        status_dic = statusDetailsVM.Interpert();
+        //Debug.Log("activities interpret completed");
+        //foreach (KeyValuePair<string, Status> status in status_dic)
+        //{
+        //    Debug.Log(string.Format("ID = {0}, Name = {1}, Color = {2}",
+        //        status.Key, status.Value.StatusName, status.Value.StatusColor));
 
+        //}
     }
+
 }
