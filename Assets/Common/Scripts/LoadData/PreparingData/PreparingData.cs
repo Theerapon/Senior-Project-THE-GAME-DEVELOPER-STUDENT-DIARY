@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class PreparingData : MonoBehaviour
 {
+    #region Events
+    public Events.EventOnInterpretData EventOnInterpretData;
+    #endregion
+
     public DataLoading [] dataLoadings;
 
     private void Awake()
@@ -28,6 +32,12 @@ public class PreparingData : MonoBehaviour
         }
 
         Debug.Log(string.Format("Downloading {0}/{1}", countLoadComplete, dataLoadings.Length));
+        
+        if(countLoadComplete >= dataLoadings.Length)
+        {
+            EventOnInterpretData?.Invoke();
+        }
+        
     }
 
 }

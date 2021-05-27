@@ -12,7 +12,7 @@ public class Softskills_Display : MonoBehaviour
     #endregion
 
     protected GameObject found_player;
-    protected SoftSkills_Handler softSkills_Handler;
+    protected SoftSkills_DataHandler softSkills_Handler;
 
     [SerializeField] private Transform itemsParent;
     public List<BaseSoftSkillSlot> softSkillSlots;
@@ -31,7 +31,7 @@ public class Softskills_Display : MonoBehaviour
     {
         //fonud inventory container in main Scene
         found_player = GameObject.FindGameObjectWithTag("Player");
-        softSkills_Handler = found_player.GetComponentInChildren<SoftSkills_Handler>();
+        softSkills_Handler = found_player.GetComponentInChildren<SoftSkills_DataHandler>();
 
         for (int index = 0; index < softSkillSlots.Count; index++)
         {

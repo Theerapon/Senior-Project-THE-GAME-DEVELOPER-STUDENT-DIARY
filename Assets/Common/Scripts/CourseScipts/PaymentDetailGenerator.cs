@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PaymentDetailGenerator : MonoBehaviour
 {
-    private Courses_Handler course_handler;
+    private Courses_DataHandler course_handler;
     GameObject bonusTemplate;
     private Dictionary<string, int> dicBonus;
 
     private void Awake()
     {
         dicBonus = new Dictionary<string, int>();
-        course_handler = Courses_Handler.Instance;
+        course_handler = Courses_DataHandler.Instance;
     }
 
     private void CreateBonus(string id)

@@ -12,15 +12,15 @@ public class BonusDetailsVM : MonoBehaviour
 
     [SerializeField] private BonusDetail_Loading bonusDetailLoading;
 
-    public Dictionary<string, Bonus> Interpert()
+    public Dictionary<string, Bonus_Template> Interpert()
     {
         if (!ReferenceEquals(bonusDetailLoading, null))
         {
-            Dictionary<string, Bonus> bonus_dic = new Dictionary<string, Bonus>();
+            Dictionary<string, Bonus_Template> bonus_dic = new Dictionary<string, Bonus_Template>();
 
             foreach (KeyValuePair<string, string> line in bonusDetailLoading.textLists)
             {
-                Bonus bonus = null;
+                Bonus_Template bonus = null;
                 string key = line.Key;
                 string value = line.Value;
 
@@ -41,7 +41,7 @@ public class BonusDetailsVM : MonoBehaviour
         return null;
     }
 
-    public Bonus CreateTemplate(string line)
+    public Bonus_Template CreateTemplate(string line)
     {
         string id = "";
         string name = "";
@@ -66,6 +66,6 @@ public class BonusDetailsVM : MonoBehaviour
             }
 
         }
-        return new Bonus(id, name, icon);
+        return new Bonus_Template(id, name, icon);
     }
 }

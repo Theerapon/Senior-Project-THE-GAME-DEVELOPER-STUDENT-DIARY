@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusDetails_Handler : Manager<BonusDetails_Handler>
+public class BonusDetails_DataHandler : Manager<BonusDetails_DataHandler>
 {
-    protected Dictionary<string, Bonus> bonus_dic;
+    protected Dictionary<string, Bonus_Template> bonus_dic;
     private BonusDetailsVM bonusDetailsVM;
 
     bool loaded = false;
 
-    public Dictionary<string, Bonus> BonusDic
+    public Dictionary<string, Bonus_Template> BonusDic
     {
         get { return bonus_dic; }
     }
@@ -17,7 +17,7 @@ public class BonusDetails_Handler : Manager<BonusDetails_Handler>
     protected override void Awake()
     {
         base.Awake();
-        bonus_dic = new Dictionary<string, Bonus>();
+        bonus_dic = new Dictionary<string, Bonus_Template>();
     }
     private void Start()
     {

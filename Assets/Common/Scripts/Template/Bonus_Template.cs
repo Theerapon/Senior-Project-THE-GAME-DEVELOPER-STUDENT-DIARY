@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bonus : MonoBehaviour
+public class Bonus_Template : MonoBehaviour
 {
     protected string bonus_id;
     protected string bonus_name;
     protected Sprite bonus_icon;
 
-    public Bonus(string id, string name, Sprite icon)
+    public Bonus_Template(string id, string name, Sprite icon)
     {
         bonus_id = id;
         bonus_name = name;

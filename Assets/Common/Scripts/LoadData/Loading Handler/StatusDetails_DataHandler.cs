@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusDetails_Handler : Manager<StatusDetails_Handler>
+public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
 {
     protected Dictionary<string, Status> status_dic;
     private StatusDetailsVM statusDetailsVM;

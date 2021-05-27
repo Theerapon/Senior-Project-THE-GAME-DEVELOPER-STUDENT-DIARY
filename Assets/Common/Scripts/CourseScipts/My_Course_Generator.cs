@@ -11,11 +11,11 @@ public class My_Course_Generator : MonoBehaviour
 
     [Header("Template")]
     [SerializeField] protected GameObject courseTemplate;
-    protected Courses_Handler course_handler;
+    protected Courses_DataHandler course_handler;
 
     private void Awake()
     {
-        course_handler = Courses_Handler.Instance;
+        course_handler = Courses_DataHandler.Instance;
         foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
         playerAction = foundPlayerAction.GetComponent<PlayerAction>();
     }

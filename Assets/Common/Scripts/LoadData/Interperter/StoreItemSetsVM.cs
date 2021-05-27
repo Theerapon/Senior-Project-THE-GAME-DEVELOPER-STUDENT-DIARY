@@ -9,5 +9,5 @@ public class StoreItemSetsVM : MonoBehaviour
     private const string INST_SET_Item = "Item";
     #endregion
 
-    [SerializeField] private Places_Loading places_Loading;
+    [SerializeField] private StoreItemSets_Loading storeItemSets_Loading;
 }

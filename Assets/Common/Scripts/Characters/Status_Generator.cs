@@ -13,12 +13,12 @@ public class Status_Generator : MonoBehaviour
     private const string INST_SOUND_ID = "sound";
 
     [SerializeField] protected GameObject _template;
-    protected StatusDetails_Handler statusDetails_Handler;
+    protected StatusDetails_DataHandler statusDetails_Handler;
 
 
     private void Awake()
     {
-        statusDetails_Handler = FindObjectOfType<StatusDetails_Handler>();
+        statusDetails_Handler = FindObjectOfType<StatusDetails_DataHandler>();
     }
 
     private void CreateStatus(HardSkill hardSkill)

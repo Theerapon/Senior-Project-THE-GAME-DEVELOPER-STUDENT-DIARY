@@ -56,13 +56,13 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [SerializeField] private GameObject courseCanvas;
 
     private CharacterStatus character_status;
-    private Courses_Handler courses_Handler;
+    private Courses_DataHandler courses_Handler;
 
     protected bool first_displayed;
 
     protected void Start()
     {
-        courses_Handler = Courses_Handler.Instance;
+        courses_Handler = Courses_DataHandler.Instance;
         //timeManager = TimeManager.Instance;
         character_status = CharacterStatus.Instance;
 

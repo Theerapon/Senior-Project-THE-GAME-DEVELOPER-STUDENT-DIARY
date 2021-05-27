@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DataLoading : MonoBehaviour
 {
-    public Events.EventOnLoadDataCompleted onLoadDataCompleted;
+    public Events.EventLoadFileDataCompleted onLoadDataCompleted;
     public Dictionary<string, string> textLists;
     protected bool hasFinished;
     protected string textID;

@@ -12,7 +12,7 @@ public class HardSkills_Display : MonoBehaviour
     #endregion
 
     protected GameObject found_player;
-    protected HardSkills_Handler hardSkills_Handler;
+    protected HardSkills_DataHandler hardSkills_Handler;
 
     [SerializeField] private Transform itemsParent;
     public List<BaseHardSkillSlot> hardSkillSlots;
@@ -32,7 +32,7 @@ public class HardSkills_Display : MonoBehaviour
     {
         //fonud inventory container in main Scene
         found_player = GameObject.FindGameObjectWithTag("Player");
-        hardSkills_Handler = found_player.GetComponentInChildren<HardSkills_Handler>();
+        hardSkills_Handler = found_player.GetComponentInChildren<HardSkills_DataHandler>();
 
         for (int index = 0; index < hardSkillSlots.Count; index++)
         {

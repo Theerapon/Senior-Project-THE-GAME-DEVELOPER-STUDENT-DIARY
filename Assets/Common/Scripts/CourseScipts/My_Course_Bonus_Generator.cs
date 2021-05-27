@@ -49,12 +49,12 @@ public class My_Course_Bonus_Generator : MonoBehaviour
     [Header("Status Icon")]
     [SerializeField] protected Sprite status_icon;
 
-    protected Courses_Handler course_handler;
+    protected Courses_DataHandler course_handler;
     private Dictionary<string, int> dicBonus;
 
     private void Awake()
     {
-        course_handler = Courses_Handler.Instance;
+        course_handler = Courses_DataHandler.Instance;
         dicBonus = new Dictionary<string, int>();
     }
 

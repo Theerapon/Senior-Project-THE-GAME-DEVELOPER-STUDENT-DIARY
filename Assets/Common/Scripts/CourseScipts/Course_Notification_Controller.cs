@@ -6,7 +6,7 @@ public class Course_Notification_Controller : MonoBehaviour
 {
     [Header("Course Display")]
     [SerializeField] private Course_Display_Controller courseDisplay;
-    private Courses_Handler course_handler;
+    private Courses_DataHandler course_handler;
 
     private GameObject found_Player;
     private CharacterStatus chracter_status;
@@ -19,7 +19,7 @@ public class Course_Notification_Controller : MonoBehaviour
 
     private void Start()
     {
-        course_handler = Courses_Handler.Instance;
+        course_handler = Courses_DataHandler.Instance;
         found_Player = GameObject.FindGameObjectWithTag("Player");
         chracter_status = CharacterStatus.Instance;
         playerAction = found_Player.GetComponentInChildren<PlayerAction>();

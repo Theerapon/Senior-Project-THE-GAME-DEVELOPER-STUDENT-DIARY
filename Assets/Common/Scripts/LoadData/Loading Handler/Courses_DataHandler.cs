@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Courses_Handler : Manager<Courses_Handler>
+public class Courses_DataHandler : Manager<Courses_DataHandler>
 {
     protected Dictionary<string, Course> course_dic;
     private CoursesVM coursesVM;

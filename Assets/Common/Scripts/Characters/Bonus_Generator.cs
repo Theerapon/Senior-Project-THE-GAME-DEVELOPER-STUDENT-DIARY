@@ -22,11 +22,11 @@ public class Bonus_Generator : MonoBehaviour
     
 
     [SerializeField] protected GameObject _template;
-    protected BonusDetails_Handler bonusDetails_Handler;
+    protected BonusDetails_DataHandler bonusDetails_Handler;
 
     private void Awake()
     {
-        bonusDetails_Handler = FindObjectOfType<BonusDetails_Handler>();
+        bonusDetails_Handler = FindObjectOfType<BonusDetails_DataHandler>();
     }
 
 
@@ -66,7 +66,7 @@ public class Bonus_Generator : MonoBehaviour
 
     }
 
-    private void CreateBonusCopy(Bonus bonus, float currentValue, float nextValue)
+    private void CreateBonusCopy(Bonus_Template bonus, float currentValue, float nextValue)
     {
         GameObject copy;
         copy = Instantiate(_template, transform);

@@ -7,11 +7,11 @@ using TMPro;
 public class All_Course_Generator : MonoBehaviour
 { 
     [SerializeField] protected GameObject courseTemplate;
-    protected Courses_Handler course_handler;
+    protected Courses_DataHandler course_handler;
 
     private void Awake()
     {
-        course_handler = Courses_Handler.Instance;
+        course_handler = Courses_DataHandler.Instance;
     }
 
     private void CreateCourse()

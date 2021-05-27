@@ -15,5 +15,5 @@ public class StoresVM : MonoBehaviour
     private const string INST_SET_ItemSetOnSun = "Sun";
     #endregion
 
-    [SerializeField] private Places_Loading places_Loading;
+    [SerializeField] private Stores_Loading stores_Loading;
 }

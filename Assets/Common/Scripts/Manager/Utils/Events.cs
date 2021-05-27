@@ -6,7 +6,9 @@ using UnityEngine.Events;
 public class Events
 {
     [System.Serializable] public class EventOnLoadComplete : UnityEvent<GameManager.GameState, GameManager.GameState> { }
-    [System.Serializable] public class EventOnLoadDataCompleted : UnityEvent { }
+    [System.Serializable] public class EventLoadFileDataCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnInterpretData : UnityEvent { }
+    [System.Serializable] public class EventOnPreparingInterpretData : UnityEvent { }
     [System.Serializable] public class EventOnHomeDisplay : UnityEvent<bool> { }
     [System.Serializable] public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> { }
     [System.Serializable] public class EventDateCalendar : UnityEvent<string> { }

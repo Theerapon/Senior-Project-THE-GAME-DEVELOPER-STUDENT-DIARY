@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardSkills_Handler : Manager<HardSkills_Handler>
+public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
 {
     protected Dictionary<string, HardSkill> hardSkills;
     private HardSkillsVM hardSkillsVM;

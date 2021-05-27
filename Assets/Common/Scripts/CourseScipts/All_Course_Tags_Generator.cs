@@ -16,11 +16,11 @@ public class All_Course_Tags_Generator : MonoBehaviour
     [SerializeField] protected Color art_color;
     [SerializeField] protected Color sound_color;
 
-    protected Courses_Handler course_handler;
+    protected Courses_DataHandler course_handler;
 
     private void Awake()
     {
-        course_handler = Courses_Handler.Instance;
+        course_handler = Courses_DataHandler.Instance;
     }
 
     private void Start()

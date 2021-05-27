@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoftSkills_Handler : Manager<SoftSkills_Handler>
+public class SoftSkills_DataHandler : Manager<SoftSkills_DataHandler>
 {
     protected Dictionary<string, SoftSkill> softSkills;
     private SoftSkillsVM softSkillsVM;
