@@ -28,7 +28,7 @@ public class Courses_DataHandler : Manager<Courses_DataHandler>
     private void EventInterpretHandler()
     {
         course_dic = coursesVM.Interpert();
-        Debug.Log("activities interpret completed");
+        //Debug.Log("activities interpret completed");
         //foreach (KeyValuePair<string, Course> course in course_dic)
         //{
         //    Debug.Log(string.Format("ID = {0}, Name = {1}, Price = {2}", 

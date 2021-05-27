@@ -1,40 +1,42 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
 {
-    protected Dictionary<string, HardSkill> hardSkills;
-    private HardSkillsVM hardSkillsVM;
-    
-    bool loaded = false;
+    protected Dictionary<string, HardSkill> hardSkillsDic;
+    [SerializeField] private HardSkillsVM hardSkillsVM;
+    [SerializeField] private InterpretHandler interpretHandler;
+   
 
-    public Dictionary<string, HardSkill> HARDSKILLS
+    public Dictionary<string, HardSkill> GetHardSkillsDic
     {
-        get { return hardSkills; }
+        get { return hardSkillsDic; }
     }
     
     protected override void Awake()
     {
         base.Awake();
-        hardSkills = new Dictionary<string, HardSkill>();
+        hardSkillsDic = new Dictionary<string, HardSkill>();
     }
     private void Start()
     {
-        hardSkillsVM = FindObjectOfType<HardSkillsVM>();
-        loaded = false;
-
+        interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
-    private void Update()
+    private void EventInterpretHandler()
     {
-        if (!loaded)
+        hardSkillsDic = hardSkillsVM.Interpert();
+        Debug.Log("activities interpret completed");
+        foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsDic)
         {
-            hardSkills = hardSkillsVM.Interpert();
-            loaded = true;
-        }
+            Debug.Log(string.Format("ID = {0}, Name = {1}, Level = {2}",
+                hardskill.Value.GetHardSkillID(), hardskill.Value.GetHardSkillName(), hardskill.Value.GetCurrentHardSkillLevel()));
 
+        }
     }
+
 
 
 

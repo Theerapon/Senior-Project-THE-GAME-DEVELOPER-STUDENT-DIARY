@@ -1089,6 +1089,7 @@ GameObject:
   - component: {fileID: 1291890008}
   - component: {fileID: 1291890006}
   - component: {fileID: 1291890007}
+  - component: {fileID: 1291890009}
   m_Layer: 0
   m_Name: Hardskills loading
   m_TagString: Untagged
@@ -1140,6 +1141,20 @@ Transform:
   m_Father: {fileID: 948092573}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1291890009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291890005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd394aa9cdbfd94c8608e92587a5729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hardSkillsVM: {fileID: 1291890007}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &1458093863
 GameObject:
   m_ObjectHideFlags: 0
