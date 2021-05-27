@@ -55,7 +55,7 @@ public class Softskills_Display : MonoBehaviour
     private void DisplayedSoftSkills()
     {
         int i = 0;
-        foreach(KeyValuePair<string, SoftSkill> softskill in softSkills_Handler.SOFTSKILLS)
+        foreach(KeyValuePair<string, SoftSkill> softskill in softSkills_Handler.GetSoftSkillsDic)
         {
             SoftSkill copy = softskill.Value;
             if (!ReferenceEquals(copy, null))

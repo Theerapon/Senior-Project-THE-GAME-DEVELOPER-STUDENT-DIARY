@@ -1027,6 +1027,7 @@ GameObject:
   - component: {fileID: 1247469757}
   - component: {fileID: 1247469755}
   - component: {fileID: 1247469756}
+  - component: {fileID: 1247469758}
   m_Layer: 0
   m_Name: Softskills loading
   m_TagString: Untagged
@@ -1078,6 +1079,20 @@ Transform:
   m_Father: {fileID: 948092573}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1247469758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247469754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26fb5a5e240d924f87161beeab74b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  softSkillsVM: {fileID: 1247469756}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &1291890005
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,37 +1,42 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoftSkills_DataHandler : Manager<SoftSkills_DataHandler>
 {
-    protected Dictionary<string, SoftSkill> softSkills;
-    private SoftSkillsVM softSkillsVM;
+    protected Dictionary<string, SoftSkill> softSkillsDic;
+    [SerializeField] private SoftSkillsVM softSkillsVM;
+    [SerializeField] private InterpretHandler interpretHandler;
 
     bool loaded = false;
 
-    public Dictionary<string, SoftSkill> SOFTSKILLS
+    public Dictionary<string, SoftSkill> GetSoftSkillsDic
     {
-        get { return softSkills; }
+        get { return softSkillsDic; }
     }
 
     protected override void Awake()
     {
         base.Awake();
-        softSkills = new Dictionary<string, SoftSkill>();
+        softSkillsDic = new Dictionary<string, SoftSkill>();
     }
 
     private void Start()
     {
-        softSkillsVM = FindObjectOfType<SoftSkillsVM>();
-        loaded = false;
+        interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
-    private void Update()
+    private void EventInterpretHandler()
     {
-        if (!loaded)
-        {
-            softSkills = softSkillsVM.Interpert();
-            loaded = true;
-        }
+        softSkillsDic = softSkillsVM.Interpert();
+        //Debug.Log("activities interpret completed");
+        //foreach (KeyValuePair<string, SoftSkill> softskill in softSkillsDic)
+        //{
+        //    Debug.Log(string.Format("ID = {0}, Name = {1}, Description = {2}",
+        //        softskill.Key, softskill.Value.GetSoftSkillName(), softskill.Value.GetSoftSkillDescription()));
+
+        //}
     }
+
 }
