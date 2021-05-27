@@ -18,7 +18,7 @@ public class All_Course_Generator : MonoBehaviour
     {
 
         GameObject copy;
-        foreach (KeyValuePair<string, Course> dic in course_handler.CourseDic)
+        foreach (KeyValuePair<string, Course> dic in course_handler.GetCourseDic)
         {
             if (!dic.Value.GetCourseCollected()) //collected == false
             {

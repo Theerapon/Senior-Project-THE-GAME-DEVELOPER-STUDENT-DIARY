@@ -31,8 +31,8 @@ public class All_Course_Tags_Generator : MonoBehaviour
     private void CreateTag(string id)
     {
         GameObject copy;
-        List<CourseTag> types = course_handler.CourseDic[id].GetCourseTag();
-        for (int i = 0; i < course_handler.CourseDic[id].GetCountCourseType(); i++)
+        List<CourseTag> types = course_handler.GetCourseDic[id].GetCourseTag();
+        for (int i = 0; i < course_handler.GetCourseDic[id].GetCountCourseType(); i++)
         {
             copy = Instantiate(tagTemplate, transform);
             //set border color

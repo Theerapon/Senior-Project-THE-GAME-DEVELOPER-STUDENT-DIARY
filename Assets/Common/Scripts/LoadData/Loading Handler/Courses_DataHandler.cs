@@ -1,15 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Courses_DataHandler : Manager<Courses_DataHandler>
 {
     protected Dictionary<string, Course> course_dic;
-    private CoursesVM coursesVM;
+    [SerializeField] private CoursesVM coursesVM;
+    [SerializeField] private InterpretHandler interpretHandler;
 
-    bool loaded = false;
-
-    public Dictionary<string, Course> CourseDic
+    public Dictionary<string, Course> GetCourseDic
     {
         get { return course_dic; }
     }
@@ -21,17 +21,20 @@ public class Courses_DataHandler : Manager<Courses_DataHandler>
     }
     private void Start()
     {
-        coursesVM = FindObjectOfType<CoursesVM>();
-        loaded = false;
+        interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
 
     }
-    private void Update()
+
+    private void EventInterpretHandler()
     {
-        if (!loaded)
-        {
-            course_dic = coursesVM.Interpert();
-            loaded = true;
-        }
+        course_dic = coursesVM.Interpert();
+        Debug.Log("activities interpret completed");
+        //foreach (KeyValuePair<string, Course> course in course_dic)
+        //{
+        //    Debug.Log(string.Format("ID = {0}, Name = {1}, Price = {2}", 
+        //        course.Key, course.Value.GetNameCourse(), course.Value.GetOriginalPrice()));
 
+        //}
     }
+
 }

@@ -137,62 +137,62 @@ public class My_Course_Bonus_Generator : MonoBehaviour
         int bonusCheck = 0;
 
         #region Exp
-        bonusCheck = course_handler.CourseDic[id].GetdefaultMathExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultMathExpReward();
         
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Math_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultProgrammingExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultProgrammingExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Programming_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultEngineExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultEngineExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Engine_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultAiExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultAiExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Ai_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultNetwordExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultNetwordExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Network_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultDesignExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultDesignExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Design_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultTestingExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultTestingExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Testing_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultArtExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultArtExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Art_Exp, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultSoundExpReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultSoundExpReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Sound_Exp, bonusCheck);
         #endregion
 
         #region Stat
-        bonusCheck = course_handler.CourseDic[id].GetdefaultCodingStatReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultCodingStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Coding_Status, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultDesignStatReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultDesignStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Design_Status, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultTestingStatReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultTestingStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Testing_Status, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultArtStatReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultArtStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Art_Status, bonusCheck);
 
-        bonusCheck = course_handler.CourseDic[id].GetdefaultSoundStatReward();
+        bonusCheck = course_handler.GetCourseDic[id].GetdefaultSoundStatReward();
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Sound_Status, bonusCheck);
         #endregion
