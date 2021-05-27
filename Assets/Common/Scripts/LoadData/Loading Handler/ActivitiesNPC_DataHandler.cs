@@ -42,7 +42,7 @@ public class ActivitiesNPC_DataHandler : Manager<ActivitiesNPC_DataHandler>
         //                activities[i].end_time_hour, activities[i].end_time_minute, activities[i].place));
         //        }
         //    } 
-        //    npc.Value.GetActivitiesDic();
+        //    
         //}
     }
 }

@@ -1,15 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BonusDetails_DataHandler : Manager<BonusDetails_DataHandler>
 {
     protected Dictionary<string, Bonus_Template> bonus_dic;
-    private BonusDetailsVM bonusDetailsVM;
+    [SerializeField] private BonusDetailsVM bonusDetailsVM;
+    [SerializeField] private InterpretHandler interpretHandler;
 
-    bool loaded = false;
-
-    public Dictionary<string, Bonus_Template> BonusDic
+    public Dictionary<string, Bonus_Template> GetBonusDic
     {
         get { return bonus_dic; }
     }
@@ -21,17 +21,18 @@ public class BonusDetails_DataHandler : Manager<BonusDetails_DataHandler>
     }
     private void Start()
     {
-        bonusDetailsVM = FindObjectOfType<BonusDetailsVM>();
-        loaded = false;
+        interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
 
     }
-    private void Update()
+
+    private void EventInterpretHandler()
     {
-        if (!loaded)
-        {
-            bonus_dic = bonusDetailsVM.Interpert();
-            loaded = true;
-        }
-
+        bonus_dic = bonusDetailsVM.Interpert();
+        //Debug.Log("activities interpret completed");
+        //foreach (KeyValuePair<string, Bonus_Template> bonus in bonus_dic)
+        //{
+        //    Debug.Log(string.Format("ID = {0}, id = {1}, name = {2}", bonus.Key, bonus.Value.BonusID, bonus.Value.BonusName));
+        //}
     }
+
 }

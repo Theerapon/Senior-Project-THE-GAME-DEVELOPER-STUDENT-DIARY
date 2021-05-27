@@ -39,26 +39,26 @@ public class Bonus_Generator : MonoBehaviour
         switch (softSkillType)
         {
             case SoftSkillType.COMMUNICATION:
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_CHARM_ID], softSkill.GetTotalBONUS_charm(), softSkill.GetNextBONUS_charm());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_BaseProject_ID], softSkill.GetTotalBONUS_baseBootUpProject(), softSkill.GetNextBONUS_baseBootUpProject());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_CHARM_ID], softSkill.GetTotalBONUS_charm(), softSkill.GetNextBONUS_charm());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BaseProject_ID], softSkill.GetTotalBONUS_baseBootUpProject(), softSkill.GetNextBONUS_baseBootUpProject());
                 break;
             case SoftSkillType.CRITICALTHINKING:
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_BaseMotivation_ID], softSkill.GetTotalBONUS_baseBootUpMotivation(), softSkill.GetNextBONUS_baseBootUpMotivation());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_BaseEnergy_ID], softSkill.GetTotalBONUS_baseReduceEnergyConsumption(), softSkill.GetNextBONUS_baseReduceEnergyConsumption());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_BugChance_ID], softSkill.GetTotalBONUS_reduceBugChance(), softSkill.GetNextBONUS_reduceBugChance());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BaseMotivation_ID], softSkill.GetTotalBONUS_baseBootUpMotivation(), softSkill.GetNextBONUS_baseBootUpMotivation());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BaseEnergy_ID], softSkill.GetTotalBONUS_baseReduceEnergyConsumption(), softSkill.GetNextBONUS_baseReduceEnergyConsumption());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BugChance_ID], softSkill.GetTotalBONUS_reduceBugChance(), softSkill.GetNextBONUS_reduceBugChance());
                 break;
             case SoftSkillType.LEADERSHIP:
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_NegativeEffect_ID], softSkill.GetTotalBONUS_negativeEventsEffect(), softSkill.GetNextBONUS_negativeEventsEffect());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_PositiveEffect_ID], softSkill.GetTotalBONUS_positiveEventsEffect(), softSkill.GetNextBONUS_positiveEventsEffect());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_NegativeEffect_ID], softSkill.GetTotalBONUS_negativeEventsEffect(), softSkill.GetNextBONUS_negativeEventsEffect());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_PositiveEffect_ID], softSkill.GetTotalBONUS_positiveEventsEffect(), softSkill.GetNextBONUS_positiveEventsEffect());
                 break;
             case SoftSkillType.TIMEMANAGEMENT:
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_TimeCourse_ID], softSkill.GetTotalBONUS_reduceTimeTrainCourse(), softSkill.GetNextBONUS_reduceTimeTrainCourse());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_TimeTransport_ID], softSkill.GetTotalBONUS_reduceTimeTransport(), softSkill.GetNextBONUS_reduceTimeTransport());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_TimeCourse_ID], softSkill.GetTotalBONUS_reduceTimeTrainCourse(), softSkill.GetNextBONUS_reduceTimeTrainCourse());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_TimeTransport_ID], softSkill.GetTotalBONUS_reduceTimeTransport(), softSkill.GetNextBONUS_reduceTimeTransport());
                 break;
             case SoftSkillType.WORKETHIC:
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_GoldenProject_ID], softSkill.GetTotalBONUS_goldenTimeBootUpProject(), softSkill.GetNextBONUS_goldenTimeBootUpProject());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_GoldenMotivation_ID], softSkill.GetTotalBONUS_goldenTimeBootUpMotivation(), softSkill.GetNextBONUS_goldenTimeBootUpMotivation());
-                CreateBonusCopy(bonusDetails_Handler.BonusDic[INST_GoldenEnergy_ID], softSkill.GetTotalBONUS_goldenTimeReduceEnergyConsuption(), softSkill.GetNextBONUS_goldenTimeReduceEnergyConsuption());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_GoldenProject_ID], softSkill.GetTotalBONUS_goldenTimeBootUpProject(), softSkill.GetNextBONUS_goldenTimeBootUpProject());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_GoldenMotivation_ID], softSkill.GetTotalBONUS_goldenTimeBootUpMotivation(), softSkill.GetNextBONUS_goldenTimeBootUpMotivation());
+                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_GoldenEnergy_ID], softSkill.GetTotalBONUS_goldenTimeReduceEnergyConsuption(), softSkill.GetNextBONUS_goldenTimeReduceEnergyConsuption());
                 break;
         }
 
