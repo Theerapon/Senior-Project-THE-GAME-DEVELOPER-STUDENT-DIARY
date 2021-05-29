@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 471104954}
   - component: {fileID: 471104955}
   - component: {fileID: 471104956}
+  - component: {fileID: 471104957}
   m_Layer: 0
   m_Name: DialoguesNPC loading
   m_TagString: Untagged
@@ -463,6 +464,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguesNPC_Loading: {fileID: 471104955}
+--- !u!114 &471104957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471104953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c298e2e9d105f4d4f919754c5ba7d3b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialoguesNpcVM: {fileID: 471104956}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &474132172
 GameObject:
   m_ObjectHideFlags: 0

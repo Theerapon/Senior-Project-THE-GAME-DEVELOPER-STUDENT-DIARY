@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Day { None, Mon, Tue, Wed, Thu, Fri, Sat, Sun}
-public enum Place { Secret, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University, Exploration}
-
 public class ActivitiesNpc_Template : MonoBehaviour
 {
 

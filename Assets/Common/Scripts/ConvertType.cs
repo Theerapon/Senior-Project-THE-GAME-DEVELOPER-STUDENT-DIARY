@@ -2,8 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConvertTypeEnum : MonoBehaviour
+public enum Day { None, Mon, Tue, Wed, Thu, Fri, Sat, Sun }
+public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University, Exploration }
+public enum CreateEvent { Null, CreateIdea, CreateItem }
+public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
+public class ConvertType : MonoBehaviour
 {
+    #region Instance NPC ID
+    public static readonly string INST_SET_NpcId001 = "npc001";
+    public static readonly string INST_SET_NpcId002 = "npc002";
+    public static readonly string INST_SET_NpcId003 = "npc003";
+    public static readonly string INST_SET_NpcId004 = "npc004";
+    public static readonly string INST_SET_NpcId005 = "npc005";
+    public static readonly string INST_SET_NpcId006 = "npc006";
+    public static readonly string INST_SET_NpcId007 = "npc007";
+    public static readonly string INST_SET_NpcId008 = "npc008";
+    public static readonly string INST_SET_NpcId009 = "npc009";
+    #endregion
+
     #region Day Instace
     private const string INST_Day_Mon = "Mon";
     private const string INST_Day_Tue = "Tue";
@@ -49,6 +65,7 @@ public class ConvertTypeEnum : MonoBehaviour
     }
 
     #region Place Instace
+    private const string INST_Place_Null = "null";
     private const string INST_Place_Secret = "Secret";
     private const string INST_Place_Home = "Home";
     private const string INST_Place_Food = "Food";
@@ -62,10 +79,13 @@ public class ConvertTypeEnum : MonoBehaviour
     #endregion
     public static Place CheckPlace(string place)
     {
-        Place placeTemp = Place.Secret;
+        Place placeTemp = Place.Null;
 
         switch (place)
         {
+            case INST_Place_Null:
+                placeTemp = Place.Null;
+                break;
             case INST_Place_Secret:
                 placeTemp = Place.Secret;
                 break;
@@ -123,5 +143,84 @@ public class ConvertTypeEnum : MonoBehaviour
         }
 
         return typeTemp;
+    }
+
+    public static string CheckString(string chat)
+    {
+        string temp = string.Empty;
+        if (chat.Equals("null"))
+        {
+            temp = string.Empty;
+        }
+        else
+        {
+            temp = chat;
+        }
+
+        return temp;
+    }
+
+    #region Create Event Instace
+    private const string INST_Event_Null = "null";
+    private const string INST_Event_Idea = "idea";
+    private const string INST_Event_Item = "item";
+    #endregion
+    public static CreateEvent CheckCreateEvent(string text)
+    {
+        CreateEvent temp = CreateEvent.Null;
+
+        switch (text)
+        {
+            case INST_Event_Null:
+                temp = CreateEvent.Null;
+                break;
+            case INST_Event_Idea:
+                temp = CreateEvent.CreateIdea;
+                break;
+            case INST_Event_Item:
+                temp = CreateEvent.CreateItem;
+                break;
+        }
+        return temp;
+    }
+
+    #region Create Event Instace
+    private const string INST_Feel_Normal = "Normal";
+    private const string INST_Feel_Happiness = "Happiness";
+    private const string INST_Feel_Sadness = "Sadness";
+    private const string INST_Feel_Fear = "Fear";
+    private const string INST_Feel_Disgust = "Disgust";
+    private const string INST_Feel_Anger = "Anger";
+    private const string INST_Feel_Surprise = "Surprise";
+    #endregion
+    public static Feel CheckFeel(string text)
+    {
+        Feel temp = Feel.Normal;
+
+        switch (text)
+        {
+            case INST_Feel_Normal:
+                temp = Feel.Normal;
+                break;
+            case INST_Feel_Happiness:
+                temp = Feel.Happiness;
+                break;
+            case INST_Feel_Sadness:
+                temp = Feel.Sadness;
+                break;
+            case INST_Feel_Fear:
+                temp = Feel.Fear;
+                break;
+            case INST_Feel_Disgust:
+                temp = Feel.Disgust;
+                break;
+            case INST_Feel_Anger:
+                temp = Feel.Anger;
+                break;
+            case INST_Feel_Surprise:
+                temp = Feel.Surprise;
+                break;
+        }
+        return temp;
     }
 }

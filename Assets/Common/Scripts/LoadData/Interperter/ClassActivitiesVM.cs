@@ -68,7 +68,7 @@ public class ClassActivitiesVM : MonoBehaviour
                     id = entries[++i];
                     break;
                 case INST_SET_Type:
-                    class_activity_type = ConvertTypeEnum.CheckClassType(entries[++i]);
+                    class_activity_type = ConvertType.CheckClassType(entries[++i]);
                     break;
                 case INST_SET_Name:
                     name = entries[++i];
@@ -77,7 +77,7 @@ public class ClassActivitiesVM : MonoBehaviour
                     icon = Resources.Load<Sprite>(entries[++i]);
                     break;
                 case INST_SET_Day:
-                    day = ConvertTypeEnum.CheckDay(entries[++i]);
+                    day = ConvertType.CheckDay(entries[++i]);
                     break;
                 case INST_SET_StartTime:
                     string start_time = entries[++i];

@@ -16,18 +16,6 @@ public class ActivitiesNpcVM : MonoBehaviour
     private const string INST_SET_CanChat = "CanChat";
     #endregion
 
-    #region Instance NPC ID
-    private const string INST_SET_Npc1 = "npc001";
-    private const string INST_SET_Npc2 = "npc002";
-    private const string INST_SET_Npc3 = "npc003";
-    private const string INST_SET_Npc4 = "npc004";
-    private const string INST_SET_Npc5 = "npc005";
-    private const string INST_SET_Npc6 = "npc006";
-    private const string INST_SET_Npc7 = "npc007";
-    private const string INST_SET_Npc8 = "npc008";
-    private const string INST_SET_Npc9 = "npc009";
-    #endregion
-
     [SerializeField] private ActivitiesNPC_Loading activitiesNPC_Loading;
 
     public Dictionary<string, ActivitiesNpc_Template> Interpert()
@@ -152,7 +140,7 @@ public class ActivitiesNpcVM : MonoBehaviour
                 {
 
                     #region ByNpc
-                    if (activityDetail.npc_id.Equals(INST_SET_Npc1))
+                    if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId001))
                     {
                         switch (activityDetail.day)
                         {
@@ -180,7 +168,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc2))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId002))
                     {
                         switch (activityDetail.day)
                         {
@@ -208,7 +196,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc3))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId003))
                     {
                         switch (activityDetail.day)
                         {
@@ -236,7 +224,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc4))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId004))
                     {
                         switch (activityDetail.day)
                         {
@@ -264,7 +252,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc5))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId005))
                     {
                         switch (activityDetail.day)
                         {
@@ -292,7 +280,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc6))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId006))
                     {
                         switch (activityDetail.day)
                         {
@@ -320,7 +308,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc7))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId007))
                     {
                         switch (activityDetail.day)
                         {
@@ -348,7 +336,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc8))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId008))
                     {
                         switch (activityDetail.day)
                         {
@@ -376,7 +364,7 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(INST_SET_Npc9))
+                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId009))
                     {
                         switch (activityDetail.day)
                         {
@@ -492,15 +480,15 @@ public class ActivitiesNpcVM : MonoBehaviour
             dic_activity_byDayOnNpc9.Add(Day.Sun, activityListSunOnNpc9);
 
             dic.Clear();
-            dic.Add(INST_SET_Npc1, new ActivitiesNpc_Template(dic_activity_byDayOnNpc1));
-            dic.Add(INST_SET_Npc2, new ActivitiesNpc_Template(dic_activity_byDayOnNpc2));
-            dic.Add(INST_SET_Npc3, new ActivitiesNpc_Template(dic_activity_byDayOnNpc3));
-            dic.Add(INST_SET_Npc4, new ActivitiesNpc_Template(dic_activity_byDayOnNpc4));
-            dic.Add(INST_SET_Npc5, new ActivitiesNpc_Template(dic_activity_byDayOnNpc5));
-            dic.Add(INST_SET_Npc6, new ActivitiesNpc_Template(dic_activity_byDayOnNpc6));
-            dic.Add(INST_SET_Npc7, new ActivitiesNpc_Template(dic_activity_byDayOnNpc7));
-            dic.Add(INST_SET_Npc8, new ActivitiesNpc_Template(dic_activity_byDayOnNpc8));
-            dic.Add(INST_SET_Npc9, new ActivitiesNpc_Template(dic_activity_byDayOnNpc9));
+            dic.Add(ConvertType.INST_SET_NpcId001, new ActivitiesNpc_Template(dic_activity_byDayOnNpc1));
+            dic.Add(ConvertType.INST_SET_NpcId002, new ActivitiesNpc_Template(dic_activity_byDayOnNpc2));
+            dic.Add(ConvertType.INST_SET_NpcId003, new ActivitiesNpc_Template(dic_activity_byDayOnNpc3));
+            dic.Add(ConvertType.INST_SET_NpcId004, new ActivitiesNpc_Template(dic_activity_byDayOnNpc4));
+            dic.Add(ConvertType.INST_SET_NpcId005, new ActivitiesNpc_Template(dic_activity_byDayOnNpc5));
+            dic.Add(ConvertType.INST_SET_NpcId006, new ActivitiesNpc_Template(dic_activity_byDayOnNpc6));
+            dic.Add(ConvertType.INST_SET_NpcId007, new ActivitiesNpc_Template(dic_activity_byDayOnNpc7));
+            dic.Add(ConvertType.INST_SET_NpcId008, new ActivitiesNpc_Template(dic_activity_byDayOnNpc8));
+            dic.Add(ConvertType.INST_SET_NpcId009, new ActivitiesNpc_Template(dic_activity_byDayOnNpc9));
 
             if (!ReferenceEquals(dic, null))
             {
@@ -537,7 +525,7 @@ public class ActivitiesNpcVM : MonoBehaviour
                     npc_id = entries[++i];
                     break;
                 case INST_SET_Date:
-                    day = ConvertTypeEnum.CheckDay(entries[++i]);
+                    day = ConvertType.CheckDay(entries[++i]);
                     break;
                 case INST_SET_StartTime:
                     string start_time = entries[++i];
@@ -552,19 +540,12 @@ public class ActivitiesNpcVM : MonoBehaviour
                     end_time_minute = int.Parse(endTime_entries[1]);
                     break;
                 case INST_SET_Place:
-                    place = ConvertTypeEnum.CheckPlace(entries[++i]);
+                    place = ConvertType.CheckPlace(entries[++i]);
                     break;
                 case INST_SET_CanChat:
                     can_chat = bool.Parse(entries[++i]);
                     string chatTmep = entries[++i];
-                    if (chatTmep.Equals("null"))
-                    {
-                        chat = string.Empty;
-                    }
-                    else
-                    {
-                        chat = chatTmep;
-                    }
+                    chat = ConvertType.CheckString(chatTmep);
                     break;
 
             }
