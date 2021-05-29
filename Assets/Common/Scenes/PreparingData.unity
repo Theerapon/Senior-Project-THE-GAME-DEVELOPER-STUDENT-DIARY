@@ -933,6 +933,7 @@ GameObject:
   - component: {fileID: 1113204572}
   - component: {fileID: 1113204573}
   - component: {fileID: 1113204574}
+  - component: {fileID: 1113204575}
   m_Layer: 0
   m_Name: Exploration loading
   m_TagString: Untagged
@@ -984,6 +985,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exploration_Loading: {fileID: 1113204573}
+--- !u!114 &1113204575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113204571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccb703e0a008884b9a11c957fea1840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explorationVM: {fileID: 1113204574}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &1173128228
 GameObject:
   m_ObjectHideFlags: 0
