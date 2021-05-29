@@ -22,69 +22,58 @@ public class DialoguesNpcVM : MonoBehaviour
     private const string INST_SET_CreateItem = "Citem";
     #endregion
 
-    #region Instance NPC ID
-    private const string INST_SET_Npc1 = "npc001";
-    private const string INST_SET_Npc2 = "npc002";
-    private const string INST_SET_Npc3 = "npc003";
-    private const string INST_SET_Npc4 = "npc004";
-    private const string INST_SET_Npc5 = "npc005";
-    private const string INST_SET_Npc6 = "npc006";
-    private const string INST_SET_Npc7 = "npc007";
-    private const string INST_SET_Npc8 = "npc008";
-    private const string INST_SET_Npc9 = "npc009";
-    #endregion
 
     [SerializeField] private DialoguesNPC_Loading dialoguesNPC_Loading;
 
-    public Dictionary<string, List<DialogueNPC>> Interpert()
+    public Dictionary<string, List<DialoguesNPC_Template>> Interpert()
     {
         if (!ReferenceEquals(dialoguesNPC_Loading, null))
         {
-            Dictionary<string, List<DialogueNPC>> dic = new Dictionary<string, List<DialogueNPC>>();
+            Dictionary<string, List<DialoguesNPC_Template>> dic = new Dictionary<string, List<DialoguesNPC_Template>>();
 
             #region Instace NPC
 
             #region NPC1
-            List<DialogueNPC> DialogueNpc1List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc1List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC2
-            List<DialogueNPC> DialogueNpc2List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc2List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC3
-            List<DialogueNPC> DialogueNpc3List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc3List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC4
-            List<DialogueNPC> DialogueNpc4List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc4List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC5
-            List<DialogueNPC> DialogueNpc5List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc5List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC6
-            List<DialogueNPC> DialogueNpc6List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc6List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC7
-            List<DialogueNPC> DialogueNpc7List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc7List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC8
-            List<DialogueNPC> DialogueNpc8List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc8List = new List<DialoguesNPC_Template>();
             #endregion
 
             #region NPC9
-            List<DialogueNPC> DialogueNpc9List = new List<DialogueNPC>();
+            List<DialoguesNPC_Template> DialogueNpc9List = new List<DialoguesNPC_Template>();
             #endregion
 
             #endregion
 
             foreach (KeyValuePair<string, string> line in dialoguesNPC_Loading.textLists)
             {
-                DialogueNPC dialogue = null;
+                DialoguesNPC_Template dialogue = null;
 
                 string key = line.Key;
                 string value = line.Value;
@@ -94,39 +83,39 @@ public class DialoguesNpcVM : MonoBehaviour
                 if (!ReferenceEquals(dialogue, null))
                 {
 
-                    if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId001))
+                    if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId001))
                     {
                         DialogueNpc1List.Add(dialogue);
                     } 
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId002))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId002))
                     {
                         DialogueNpc2List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId003))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId003))
                     {
                         DialogueNpc3List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId004))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId004))
                     {
                         DialogueNpc4List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId005))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId005))
                     {
                         DialogueNpc5List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId006))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId006))
                     {
                         DialogueNpc6List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId007))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId007))
                     {
                         DialogueNpc7List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId008))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId008))
                     {
                         DialogueNpc8List.Add(dialogue);
                     }
-                    else if (dialogue.npc_id.Equals(ConvertType.INST_SET_NpcId009))
+                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId009))
                     {
                         DialogueNpc9List.Add(dialogue);
                     }
@@ -155,7 +144,7 @@ public class DialoguesNpcVM : MonoBehaviour
         return null;
     }
 
-    private DialogueNPC CreateTemplate(string line)
+    private DialoguesNPC_Template CreateTemplate(string line)
     {
         string id = string.Empty;
         string npc_id = string.Empty;
@@ -219,7 +208,6 @@ public class DialoguesNpcVM : MonoBehaviour
                     condition_place = ConvertType.CheckPlace(entries[++i]);
                     break;
                 case INST_SET_Dialogue:
-                    Debug.Log("Create Dialogue");
                     dialoguesList.Add(new Dialogue(entries[++i], ConvertType.CheckFeel(entries[++i])));
                     break;
                 case INST_SET_Event:
@@ -236,6 +224,6 @@ public class DialoguesNpcVM : MonoBehaviour
             }
 
         }
-        return new DialogueNPC(id, npc_id, loop, first_relationship, end_relationship, condition_gift, condition_equip, condition_time, firstHour, firstMinute, endHour, endMinute, condition_place, dialoguesList, condition_event, ideasIdList, itemIdList);
+        return new DialoguesNPC_Template(id, npc_id, loop, first_relationship, end_relationship, condition_gift, condition_equip, condition_time, firstHour, firstMinute, endHour, endMinute, condition_place, dialoguesList, condition_event, ideasIdList, itemIdList);
     }
 }

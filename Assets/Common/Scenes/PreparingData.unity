@@ -432,7 +432,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 948092573}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &471104955
 MonoBehaviour:
@@ -888,8 +888,8 @@ Transform:
   - {fileID: 2038748266}
   - {fileID: 670667920}
   - {fileID: 560237300}
-  - {fileID: 471104954}
   - {fileID: 2102936879}
+  - {fileID: 471104954}
   - {fileID: 1113204572}
   - {fileID: 1934333525}
   - {fileID: 1291890008}
@@ -1551,6 +1551,7 @@ GameObject:
   - component: {fileID: 2102936879}
   - component: {fileID: 2102936880}
   - component: {fileID: 2102936881}
+  - component: {fileID: 2102936882}
   m_Layer: 0
   m_Name: DialoguesExploration loading
   m_TagString: Untagged
@@ -1570,7 +1571,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 948092573}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2102936880
 MonoBehaviour:
@@ -1602,3 +1603,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguesExploration_Loading: {fileID: 2102936880}
+--- !u!114 &2102936882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102936878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e23c772725701741b5f34b883fb0098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialoguesExplorationVM: {fileID: 2102936881}
+  interpretHandler: {fileID: 948092574}

@@ -140,9 +140,9 @@ public class ActivitiesNpcVM : MonoBehaviour
                 {
 
                     #region ByNpc
-                    if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId001))
+                    if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId001))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc1.Add(activityDetail);
@@ -168,9 +168,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId002))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId002))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc2.Add(activityDetail);
@@ -196,9 +196,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId003))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId003))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc3.Add(activityDetail);
@@ -224,9 +224,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId004))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId004))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc4.Add(activityDetail);
@@ -252,9 +252,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId005))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId005))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc5.Add(activityDetail);
@@ -280,9 +280,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId006))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId006))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc6.Add(activityDetail);
@@ -308,9 +308,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId007))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId007))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc7.Add(activityDetail);
@@ -336,9 +336,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId008))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId008))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc8.Add(activityDetail);
@@ -364,9 +364,9 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.npc_id.Equals(ConvertType.INST_SET_NpcId009))
+                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId009))
                     {
-                        switch (activityDetail.day)
+                        switch (activityDetail.Day)
                         {
                             case Day.Mon:
                                 activityListMonOnNpc9.Add(activityDetail);

@@ -5,10 +5,10 @@ using static DialoguesNPC_Template;
 
 public class DialoguesNPC_DataHandler : Manager<DialoguesNPC_DataHandler>
 {
-    protected Dictionary<string, List<DialogueNPC>> dialoguesNpcDic;
+    protected Dictionary<string, List<DialoguesNPC_Template>> dialoguesNpcDic;
     [SerializeField] private DialoguesNpcVM dialoguesNpcVM;
     [SerializeField] private InterpretHandler interpretHandler;
-    public Dictionary<string, List<DialogueNPC>> GetDialoguesNpcDic
+    public Dictionary<string, List<DialoguesNPC_Template>> GetDialoguesNpcDic
     {
         get { return dialoguesNpcDic; }
     }
@@ -16,7 +16,7 @@ public class DialoguesNPC_DataHandler : Manager<DialoguesNPC_DataHandler>
     protected override void Awake()
     {
         base.Awake();
-        dialoguesNpcDic = new Dictionary<string, List<DialogueNPC>>();
+        dialoguesNpcDic = new Dictionary<string, List<DialoguesNPC_Template>>();
     }
 
     private void Start()
