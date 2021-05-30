@@ -643,6 +643,7 @@ GameObject:
   - component: {fileID: 660790000}
   - component: {fileID: 660790001}
   - component: {fileID: 660790002}
+  - component: {fileID: 660790003}
   m_Layer: 0
   m_Name: RandomBoxs loading
   m_TagString: Untagged
@@ -694,6 +695,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomBoxs_Loading: {fileID: 660790001}
+--- !u!114 &660790003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660789999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2715b97376378a44b1dd2b4e267d411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomBoxsVM: {fileID: 660790002}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &670667919
 GameObject:
   m_ObjectHideFlags: 0
