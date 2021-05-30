@@ -6,6 +6,7 @@ public enum Day { None, Mon, Tue, Wed, Thu, Fri, Sat, Sun }
 public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University, Exploration }
 public enum CreateEvent { Null, CreateIdea, CreateItem }
 public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
+public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
 public class ConvertType : MonoBehaviour
 {
     #region Instance NPC ID
@@ -184,6 +185,7 @@ public class ConvertType : MonoBehaviour
         return temp;
     }
 
+
     #region Create Event Instace
     private const string INST_Feel_Normal = "Normal";
     private const string INST_Feel_Happiness = "Happiness";
@@ -219,6 +221,42 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Feel_Surprise:
                 temp = Feel.Surprise;
+                break;
+        }
+        return temp;
+    }
+
+    #region Idea Instace
+    private const string INST_Idea_None = "None";
+    private const string INST_Idea_Goal = "Goal";
+    private const string INST_Idea_Mechanic = "Mechanic";
+    private const string INST_Idea_Theme = "Theme";
+    private const string INST_Idea_Platform = "Platform";
+    private const string INST_Idea_User = "User";
+    #endregion
+    public static IdeaType CheckIdeaType(string text)
+    {
+        IdeaType temp = IdeaType.None;
+
+        switch (text)
+        {
+            case INST_Idea_None:
+                temp = IdeaType.None;
+                break;
+            case INST_Idea_Goal:
+                temp = IdeaType.Goal;
+                break;
+            case INST_Idea_Mechanic:
+                temp = IdeaType.Mechanic;
+                break;
+            case INST_Idea_Theme:
+                temp = IdeaType.Theme;
+                break;
+            case INST_Idea_Platform:
+                temp = IdeaType.Platform;
+                break;
+            case INST_Idea_User:
+                temp = IdeaType.User;
                 break;
         }
         return temp;

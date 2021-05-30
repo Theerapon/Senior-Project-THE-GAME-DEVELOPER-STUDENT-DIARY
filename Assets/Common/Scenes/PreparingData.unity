@@ -1303,6 +1303,7 @@ GameObject:
   - component: {fileID: 1658250810}
   - component: {fileID: 1658250811}
   - component: {fileID: 1658250812}
+  - component: {fileID: 1658250813}
   m_Layer: 0
   m_Name: Ideas loading
   m_TagString: Untagged
@@ -1354,6 +1355,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ideas_Loading: {fileID: 1658250811}
+--- !u!114 &1658250813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658250809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac39921bbb5542845b7236bec3055af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ideasVM: {fileID: 1658250812}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &1696740294
 GameObject:
   m_ObjectHideFlags: 0
