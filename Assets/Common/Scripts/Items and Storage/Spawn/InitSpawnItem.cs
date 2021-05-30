@@ -53,10 +53,10 @@ public class InitSpawnItem : MonoBehaviour, ISpawns
 
     private void Initialized()
     {
-        foreach(ItemID item in itemsPool)
-        {
-            itemDefinitions.Add(itemsVM.Interpert(item.GetItemID()));
-        }
+        //foreach(ItemID item in itemsPool)
+        //{
+        //    itemDefinitions.Add(itemsVM.Interpert(item.GetItemID()));
+        //}
 
 
         

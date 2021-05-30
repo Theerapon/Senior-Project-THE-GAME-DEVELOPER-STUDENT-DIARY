@@ -7,7 +7,7 @@ public class Ideas_DataHandler : Manager<Ideas_DataHandler>
     protected Dictionary<string, Idea_Template> ideasDic;
     [SerializeField] private IdeasVM ideasVM;
     [SerializeField] private InterpretHandler interpretHandler;
-    public Dictionary<string, Idea_Template> GetExplorationDic
+    public Dictionary<string, Idea_Template> GetIdeasDic
     {
         get { return ideasDic; }
     }

@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ItemsVM : MonoBehaviour
 {
     private const string INST_SET_ItemID = "ID";
     private const string INST_SET_ItemName = "itemName";
+    private const string INST_SET_ItemDescription = "itemDescription";
     private const string INST_SET_ItemDefinitionsType = "itemDefinitionsType";
     private const string INST_SET_ItemEquipmentType = "itemEquipmentType";
     private const string INST_SET_ItemAmount = "itemAmount";
@@ -23,124 +25,122 @@ public class ItemsVM : MonoBehaviour
     [SerializeField] private ItemsData_Loading itemsDataLoading;
 
 
-    public ItemPickUp_Template Interpert(string id)
+    public Dictionary<string, ItemPickUp_Template> Interpert()
     {
         if (!ReferenceEquals(itemsDataLoading, null))
         {
-            ItemPickUp_Template copy = new ItemPickUp_Template();
-
-            string row = itemsDataLoading.textLists[id];
-            string[] entries = row.Split(',');
-            for (int i = 0; i < entries.Length; i++)
+            Dictionary<string, ItemPickUp_Template> itemDic = new Dictionary<string, ItemPickUp_Template>();
+            
+            foreach (KeyValuePair<string, string> line in itemsDataLoading.textLists)
             {
-                string entry = entries[i];
-                switch (entry)
-                {
-                    case INST_SET_ItemID:
-                        copy.SetID(entries[++i]);
-                        break;
-                    case INST_SET_ItemName:
-                        copy.SetItemName(entries[++i]);
-                        break;
-                    case INST_SET_ItemDefinitionsType:
-                        copy.SetItemDefinitionsType(SetDefinitionsType(entries[++i]));
-                        break;
-                    case INST_SET_ItemEquipmentType:
-                        copy.SetItemEquipmentType(SetEquipmentType(entries[++i]));
-                        break;
-                    case INST_SET_ItemAmount:
-                        copy.SetItemAmount(int.Parse(entries[++i]));
-                        break;
-                    case INST_SET_ItemSpawnChanceWeight:
-                        copy.SetItemSpawnChanceWeight(int.Parse(entries[++i]));
-                        break;
-                    case INST_SET_MaxStacks:
-                        copy.SetMaxStackable(int.Parse(entries[++i]));
-                        break;
-                    case INST_SET_ItemIconPath:
-                        Sprite icon = Resources.Load<Sprite>(entries[++i]);
-                        copy.SetItemIcon(icon);
-                        break;
-                    case INST_SET_IsEquipped:
-                        copy.SetIsEquipped(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsStorable:
-                        copy.SetIsStorable(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsUnique:
-                        copy.SetIsUnique(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsDestructible:
-                        copy.SetIsDestructible(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsQuestItem:
-                        copy.SetIsQuestItem(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsStackable:
-                        copy.SetIsStackable(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsDestroyOnUse:
-                        copy.SetIsDestroyOnUse(bool.Parse(entries[++i]));
-                        break;
-                    case INST_SET_IsGiftable:
-                        copy.SetIsGiftable(bool.Parse(entries[++i]));
-                        break;
+                ItemPickUp_Template item = null;
+                string key = line.Key;
+                string value = line.Value;
 
+                item = CreateTemplate(value);
+
+                if (!ReferenceEquals(item, null))
+                {
+                    itemDic.Add(key, item);
                 }
 
             }
-
-            if(!ReferenceEquals(copy, null))
+            if (!ReferenceEquals(itemDic, null))
             {
-                return copy;
+                return itemDic;
             }
+
         }
 
         return null;
         
     }
 
-    private ItemEquipmentType SetEquipmentType(string type)
+    private ItemPickUp_Template CreateTemplate(string line)
     {
-        ItemEquipmentType subType = ItemEquipmentType.NONE;
-        switch (type)
-        {
-            case "NONE":
-                subType = ItemEquipmentType.NONE;
-                break;
-            case "HAT":
-                subType = ItemEquipmentType.HAT;
-                break;
-            case "SHIRT":
-                subType = ItemEquipmentType.SHIRT;
-                break;
-            case "PANT":
-                subType = ItemEquipmentType.PANT;
-                break;
-            case "SHOES":
-                subType = ItemEquipmentType.SHOES;
-                break;
-        }
-        return subType;
-    }
-    private ItemDefinitionsType SetDefinitionsType(string type)
-    {
+        string id = string.Empty;
+        string itemName = "New Item";
+        string itemDescription = "Item Desctioption";
         ItemDefinitionsType itemType = ItemDefinitionsType.EMPTY;
-        switch (type)
+        ItemEquipmentType subType = ItemEquipmentType.NONE;
+        int itemAmount = 0;
+        int spawnChanceWeight = 0;
+        int maximumStacks = 1;
+
+        Sprite itemIcon = null;
+
+        bool isEquipped = false;
+        bool isStorable = false;
+        bool isUnique = false;
+        bool isDestructible = false;
+        bool isQuestItem = false;
+        bool isStackable = false;
+        bool isDestroyOnUse = false;
+        bool isGiftable = false;
+
+        string[] entries = line.Split(',');
+        for (int i = 0; i < entries.Length; i++)
         {
-            case "ENERGY":
-                itemType = ItemDefinitionsType.ENERGY;
-                break;
-            case "COIN":
-                itemType = ItemDefinitionsType.COIN;
-                break;
-            case "EQUIPMENT":
-                itemType = ItemDefinitionsType.EQUIPMENT;
-                break;
-            case "EMPTY":
-                itemType = ItemDefinitionsType.EMPTY;
-                break;
+            string entry = entries[i];
+            switch (entry)
+            {
+                case INST_SET_ItemID:
+                    id = entries[++i];
+                    break;
+                case INST_SET_ItemName:
+                    itemName = (entries[++i]);
+                    break; 
+                case INST_SET_ItemDescription:
+                    itemDescription = (entries[++i]);
+                    break;
+                case INST_SET_ItemDefinitionsType:
+                    itemType = ConvertType.CheckDefinitionsType((entries[++i]));
+                    break;
+                case INST_SET_ItemEquipmentType:
+                    subType = ConvertType.CheckEquipmentType((entries[++i]));
+                    break;
+                case INST_SET_ItemAmount:
+                    itemAmount = int.Parse(entries[++i]);
+                    break;
+                case INST_SET_ItemSpawnChanceWeight:
+                    spawnChanceWeight = int.Parse(entries[++i]);
+                    break;
+                case INST_SET_MaxStacks:
+                    maximumStacks = int.Parse(entries[++i]);
+                    break;
+                case INST_SET_ItemIconPath:
+                    itemIcon = Resources.Load<Sprite>(entries[++i]);
+                    break;
+                case INST_SET_IsEquipped:
+                    isEquipped = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsStorable:
+                    isStorable = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsUnique:
+                    isUnique = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsDestructible:
+                    isDestructible = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsQuestItem:
+                    isQuestItem = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsStackable:
+                    isStackable = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsDestroyOnUse:
+                    isDestroyOnUse = bool.Parse(entries[++i]);
+                    break;
+                case INST_SET_IsGiftable:
+                    isGiftable = bool.Parse(entries[++i]);
+                    break;
+
+            }
+
         }
-        return itemType;
+
+        return new ItemPickUp_Template(id, itemName, itemDescription, itemType, subType, itemAmount, spawnChanceWeight, maximumStacks, itemIcon, isEquipped, isStorable, isUnique, isDestructible, isQuestItem, isStackable, isDestroyOnUse, isGiftable);
     }
+
 }

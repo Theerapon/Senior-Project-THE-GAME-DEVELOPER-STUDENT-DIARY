@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class FavoriteItems_DataHandler : Manager<FavoriteItems_DataHandler>
 {
-    protected Dictionary<string, FavortieItems_Template> favoriteItemsDic;
+    protected Dictionary<string, FavoriteItems_Template> favoriteItemsDic;
     [SerializeField] private FavoriteItemsVM favoriteItemsVM;
     [SerializeField] private InterpretHandler interpretHandler;
-    public Dictionary<string, FavortieItems_Template> GetExplorationDic
+    public Dictionary<string, FavoriteItems_Template> GetFavoriteItemDic
     {
         get { return favoriteItemsDic; }
     }
@@ -15,7 +15,7 @@ public class FavoriteItems_DataHandler : Manager<FavoriteItems_DataHandler>
     protected override void Awake()
     {
         base.Awake();
-        favoriteItemsDic = new Dictionary<string, FavortieItems_Template>();
+        favoriteItemsDic = new Dictionary<string, FavoriteItems_Template>();
     }
 
     private void Start()

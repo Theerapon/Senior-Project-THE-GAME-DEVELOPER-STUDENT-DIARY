@@ -7,6 +7,9 @@ public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teac
 public enum CreateEvent { Null, CreateIdea, CreateItem }
 public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
 public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
+public enum ItemDefinitionsType { ENERGY, COIN, EQUIPMENT, EMPTY };
+public enum ItemEquipmentType { NONE, HAT, SHIRT, PANT, SHOES }
+
 public class ConvertType : MonoBehaviour
 {
     #region Instance NPC ID
@@ -260,5 +263,64 @@ public class ConvertType : MonoBehaviour
                 break;
         }
         return temp;
+    }
+
+
+    #region ItemEquipment Instace
+    private const string INST_Eqipment_None = "NONE";
+    private const string INST_Eqipment_Hat = "HAT";
+    private const string INST_Eqipment_Shirt = "SHIRT";
+    private const string INST_Eqipment_Pant = "PANT";
+    private const string INST_Eqipment_Shoes = "SHOES";
+    #endregion
+    public static ItemEquipmentType CheckEquipmentType(string text)
+    {
+        ItemEquipmentType subType = ItemEquipmentType.NONE;
+        switch (text)
+        {
+            case INST_Eqipment_None:
+                subType = ItemEquipmentType.NONE;
+                break;
+            case INST_Eqipment_Hat:
+                subType = ItemEquipmentType.HAT;
+                break;
+            case INST_Eqipment_Shirt:
+                subType = ItemEquipmentType.SHIRT;
+                break;
+            case INST_Eqipment_Pant:
+                subType = ItemEquipmentType.PANT;
+                break;
+            case INST_Eqipment_Shoes:
+                subType = ItemEquipmentType.SHOES;
+                break;
+        }
+        return subType;
+    }
+
+    #region ItemEquipment Instace
+    private const string INST_DefinitionType_EMPTY = "EMPTY";
+    private const string INST_DefinitionType_ENERGY = "ENERGY";
+    private const string INST_DefinitionType_COIN = "COIN";
+    private const string INST_DefinitionType_EQUIPMENT = "EQUIPMENT";
+    #endregion
+    public static ItemDefinitionsType CheckDefinitionsType(string type)
+    {
+        ItemDefinitionsType itemType = ItemDefinitionsType.EMPTY;
+        switch (type)
+        {
+            case INST_DefinitionType_EMPTY:
+                itemType = ItemDefinitionsType.EMPTY; 
+                break;
+            case INST_DefinitionType_ENERGY:
+                itemType = ItemDefinitionsType.ENERGY;
+                break;
+            case INST_DefinitionType_COIN:
+                itemType = ItemDefinitionsType.COIN;
+                break;
+            case INST_DefinitionType_EQUIPMENT:
+                itemType = ItemDefinitionsType.EQUIPMENT;
+                break;
+        }
+        return itemType;
     }
 }

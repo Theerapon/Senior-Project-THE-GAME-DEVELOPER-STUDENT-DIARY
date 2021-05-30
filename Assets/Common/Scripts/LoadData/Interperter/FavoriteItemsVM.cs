@@ -14,15 +14,15 @@ public class FavoriteItemsVM : MonoBehaviour
 
     [SerializeField] private FavoriteItems_Loading favoriteItems_Loading;
 
-    public Dictionary<string, FavortieItems_Template> Interpert()
+    public Dictionary<string, FavoriteItems_Template> Interpert()
     {
         if (!ReferenceEquals(favoriteItems_Loading, null))
         {
-            Dictionary<string, FavortieItems_Template> favoriteItemsDic = new Dictionary<string, FavortieItems_Template>();
+            Dictionary<string, FavoriteItems_Template> favoriteItemsDic = new Dictionary<string, FavoriteItems_Template>();
 
             foreach (KeyValuePair<string, string> line in favoriteItems_Loading.textLists)
             {
-                FavortieItems_Template dialogueExploration = null;
+                FavoriteItems_Template dialogueExploration = null;
                 string key = line.Key;
                 string value = line.Value;
 
@@ -43,7 +43,7 @@ public class FavoriteItemsVM : MonoBehaviour
         return null;
     }
 
-    private FavortieItems_Template CreateTemplate(string line)
+    private FavoriteItems_Template CreateTemplate(string line)
     {
         string id = string.Empty;
         List<DialogueFavoriteItem> itemLikeId = new List<DialogueFavoriteItem>();
@@ -73,6 +73,6 @@ public class FavoriteItemsVM : MonoBehaviour
 
         }
 
-        return new FavortieItems_Template(id, itemLikeId, itemUnLikeId, itemExceptId);
+        return new FavoriteItems_Template(id, itemLikeId, itemUnLikeId, itemExceptId);
     }
 }

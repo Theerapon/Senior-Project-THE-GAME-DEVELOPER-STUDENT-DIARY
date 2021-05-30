@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
 
-public enum ItemDefinitionsType { ENERGY, COIN, EQUIPMENT, EMPTY};
-public enum ItemEquipmentType { NONE, HAT, SHIRT, PANT, SHOES}
-
 public class ItemPickUp_Template
 {
-    private string id;
+    private string id = string.Empty;
     private string itemName = "New Item";
-    private string itemDescription = "";
+    private string itemDescription = "Item Desctioption";
     private ItemDefinitionsType itemType = ItemDefinitionsType.EMPTY;
     private ItemEquipmentType subType = ItemEquipmentType.NONE;
     private int itemAmount = 0;
     private int spawnChanceWeight = 0;
     [Range(1, 999)]
-    private int MaximumStacks = 1;
+    private int maximumStacks = 1;
 
     private Sprite itemIcon = null;
 
@@ -26,11 +23,25 @@ public class ItemPickUp_Template
     private bool isDestroyOnUse = false;
     private bool isGiftable = false;
 
-
-
-    public ItemPickUp_Template()
+    public ItemPickUp_Template(string id, string itemName, string itemDescription, ItemDefinitionsType itemType, ItemEquipmentType subType, int itemAmount, int spawnChanceWeight, int maximumStacks, Sprite itemIcon, bool isEquipped, bool isStorable, bool isUnique, bool isDestructible, bool isQuestItem, bool isStackable, bool isDestroyOnUse, bool isGiftable)
     {
-
+        this.id = id;
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
+        this.itemType = itemType;
+        this.subType = subType;
+        this.itemAmount = itemAmount;
+        this.spawnChanceWeight = spawnChanceWeight;
+        this.maximumStacks = maximumStacks;
+        this.itemIcon = itemIcon;
+        this.isEquipped = isEquipped;
+        this.isStorable = isStorable;
+        this.isUnique = isUnique;
+        this.isDestructible = isDestructible;
+        this.isQuestItem = isQuestItem;
+        this.isStackable = isStackable;
+        this.isDestroyOnUse = isDestroyOnUse;
+        this.isGiftable = isGiftable;
     }
 
     public virtual ItemPickUp_Template GetCopy()
@@ -89,7 +100,7 @@ public class ItemPickUp_Template
     }
     public int GetMaxStackable()
     {
-        return MaximumStacks;
+        return maximumStacks;
     }
 
     public Sprite GetItemIcon()
@@ -128,79 +139,6 @@ public class ItemPickUp_Template
     public bool GetIsGiftable()
     {
         return isGiftable;
-    }
-    #endregion
-
-    #region Set
-    public void SetID(string id)
-    {
-        this.id = id;
-    }
-    public void SetItemName(string name)
-    {
-        itemName = name;
-    }
-    public void SetItemDescription(string description)
-    {
-        itemDescription = description;
-    }
-    public void SetItemDefinitionsType(ItemDefinitionsType type)
-    {
-        itemType = type;
-    }
-    public void SetItemEquipmentType(ItemEquipmentType type)
-    {
-        subType = type;
-    }
-    public void SetItemAmount(int amount)
-    {
-        itemAmount = amount;
-    }
-    public void SetItemSpawnChanceWeight(int weight)
-    {
-        spawnChanceWeight = weight;
-    }
-    public void SetMaxStackable(int value)
-    {
-        MaximumStacks = value;
-    }
-
-    public void SetItemIcon(Sprite icon)
-    {
-        itemIcon = icon;
-    }
-
-    public void SetIsEquipped(bool equipped)
-    {
-        isEquipped = equipped;
-    }
-    public void SetIsStorable(bool stored)
-    {
-        isStorable = stored;
-    }
-    public void SetIsUnique(bool uniqued)
-    {
-        isUnique = uniqued;
-    }
-    public void SetIsDestructible(bool destructed)
-    {
-        isDestructible = destructed;
-    }
-    public void SetIsQuestItem(bool quested)
-    {
-        isQuestItem = quested;
-    }
-    public void SetIsStackable(bool stacked)
-    {
-        isStackable = stacked;
-    }
-    public void SetIsDestroyOnUse(bool destroyed)
-    {
-        isDestroyOnUse = destroyed;
-    }
-    public void SetIsGiftable(bool value)
-    {
-        isGiftable = value;
     }
     #endregion
 }
