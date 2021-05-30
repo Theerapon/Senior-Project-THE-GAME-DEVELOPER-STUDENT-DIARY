@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 50814413}
   - component: {fileID: 50814414}
   - component: {fileID: 50814415}
+  - component: {fileID: 50814416}
   m_Layer: 0
   m_Name: NPCs loading
   m_TagString: Untagged
@@ -185,6 +186,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nPCs_Loading: {fileID: 50814414}
+--- !u!114 &50814416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50814412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e836e6d84ae009a4c817c595cc34cb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcsVM: {fileID: 50814415}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &58113883
 GameObject:
   m_ObjectHideFlags: 0
