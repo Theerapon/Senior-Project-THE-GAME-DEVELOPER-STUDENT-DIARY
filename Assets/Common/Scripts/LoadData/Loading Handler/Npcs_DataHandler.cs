@@ -27,12 +27,12 @@ public class Npcs_DataHandler : Manager<Npcs_DataHandler>
     private void EventInterpretHandler()
     {
         npcsDic = npcsVM.Interpert();
-        Debug.Log("activities interpret completed");
-        foreach (KeyValuePair<string, Npc_Template> npc in npcsDic)
-        {
-            Debug.Log(string.Format("ID = {0}, Name = {1}, Birthday = {2}, Home = {3}",
-                npc.Value.Id, npc.Value.NpcName, npc.Value.Birthday, npc.Value.OriginHome));
+        //Debug.Log("activities interpret completed");
+        //foreach (KeyValuePair<string, Npc_Template> npc in npcsDic)
+        //{
+        //    Debug.Log(string.Format("ID = {0}, Name = {1}, Birthday = {2}, Home = {3}",
+        //        npc.Value.Id, npc.Value.NpcName, npc.Value.Birthday, npc.Value.OriginHome));
 
-        }
+        //}
     }
 }

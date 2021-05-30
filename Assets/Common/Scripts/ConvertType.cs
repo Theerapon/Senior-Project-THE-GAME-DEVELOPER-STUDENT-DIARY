@@ -9,6 +9,7 @@ public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
 public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
 public enum ItemDefinitionsType { ENERGY, COIN, EQUIPMENT, EMPTY };
 public enum ItemEquipmentType { NONE, HAT, SHIRT, PANT, SHOES }
+public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ExplorationScene, ParkScene }
 
 public class ConvertType : MonoBehaviour
 {
@@ -322,5 +323,49 @@ public class ConvertType : MonoBehaviour
                 break;
         }
         return itemType;
+    }
+
+    #region Scene Instace
+    private const string INST_Scene_UniversityScene = "UniversityScene";
+    private const string INST_Scene_FoodScene = "FoodScene";
+    private const string INST_Scene_ClothingScene = "ClothingScene";
+    private const string INST_Scene_TeacherScene = "TeacherScene";
+    private const string INST_Scene_MysticScene = "MysticScene";
+    private const string INST_Scene_SellScene = "SellScene";
+    private const string INST_Scene_ExplorationScene = "ExplorationScene";
+    private const string INST_Scene_ParkScene = "ParkScene";
+
+    #endregion
+    public static OnClickSwitchScene CheckOnClickSwitchScene(string text)
+    {
+        OnClickSwitchScene temp = OnClickSwitchScene.None;
+        switch (text)
+        {
+            case INST_Scene_UniversityScene:
+                temp = OnClickSwitchScene.UniversityScene;
+                break;
+            case INST_Scene_FoodScene:
+                temp = OnClickSwitchScene.FoodScene;
+                break;
+            case INST_Scene_ClothingScene:
+                temp = OnClickSwitchScene.ClothingScene;
+                break;
+            case INST_Scene_TeacherScene:
+                temp = OnClickSwitchScene.TeacherScene;
+                break;
+            case INST_Scene_MysticScene:
+                temp = OnClickSwitchScene.MysticScene;
+                break;
+            case INST_Scene_SellScene:
+                temp = OnClickSwitchScene.SellScene;
+                break;
+            case INST_Scene_ExplorationScene:
+                temp = OnClickSwitchScene.ExplorationScene;
+                break;
+            case INST_Scene_ParkScene:
+                temp = OnClickSwitchScene.ParkScene;
+                break;
+        }
+        return temp;
     }
 }
