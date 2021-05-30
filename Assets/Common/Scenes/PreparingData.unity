@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 58113884}
   - component: {fileID: 58113885}
   - component: {fileID: 58113886}
+  - component: {fileID: 58113887}
   m_Layer: 0
   m_Name: SpawnsItems loading
   m_TagString: Untagged
@@ -262,6 +263,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnsItems_Loading: {fileID: 58113885}
+--- !u!114 &58113887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58113883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5ab37fc1821db4c8b4050afea0d9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnsItemsVM: {fileID: 58113886}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &212041625
 GameObject:
   m_ObjectHideFlags: 0
