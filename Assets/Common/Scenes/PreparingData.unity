@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 474132173}
   - component: {fileID: 474132174}
   - component: {fileID: 474132175}
+  - component: {fileID: 474132176}
   m_Layer: 0
   m_Name: StoreItemSets loading
   m_TagString: Untagged
@@ -570,6 +571,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   storeItemSets_Loading: {fileID: 474132174}
+--- !u!114 &474132176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474132172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4224656edeb85284b82ad940125de597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storeItemSetsVM: {fileID: 474132175}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &560237297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1085,7 @@ GameObject:
   - component: {fileID: 1173128229}
   - component: {fileID: 1173128230}
   - component: {fileID: 1173128231}
+  - component: {fileID: 1173128232}
   m_Layer: 0
   m_Name: Stores loading
   m_TagString: Untagged
@@ -1121,6 +1137,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stores_Loading: {fileID: 1173128230}
+--- !u!114 &1173128232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173128228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d04b2b5cd32174e9963144da0b19a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  storesVM: {fileID: 1173128231}
+  interpretHandler: {fileID: 948092574}
 --- !u!1 &1247469754
 GameObject:
   m_ObjectHideFlags: 0
