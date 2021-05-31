@@ -33,7 +33,7 @@ public class InitSpawnItem : MonoBehaviour, ISpawns
 
         foreach (ItemPickUp_Template ip in itemDefinitions)
         {
-            totalSpawnWeight += ip.GetItemSpawnChanceWeight();
+            //totalSpawnWeight += ip.GetItemSpawnC;
         }
         //Spawn with weighted possibilities
 

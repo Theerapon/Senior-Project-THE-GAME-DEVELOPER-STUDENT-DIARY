@@ -83,17 +83,17 @@ public class Bag_Handler : Manager<Bag_Handler>
     {
 		item_description_gameobject.SetActive(true);
 
-		item_name.text = itemSlot.ITEM.GetItemName();
-		item_description.text = itemSlot.ITEM.GetItemDescription();
-		item_icon.sprite = itemSlot.ITEM.GetItemIcon();
+		item_name.text = itemSlot.ITEM.ItemName;
+		item_description.text = itemSlot.ITEM.ItemDescription;
+		item_icon.sprite = itemSlot.ITEM.ItemIcon;
 
-		if (itemSlot.ITEM.GetItemDefinitionsType().ToString() == "EQUIPMENT")
+		if (itemSlot.ITEM.ItemType == ItemDefinitionsType.Equipment)
 		{
-			item_type.text = itemSlot.ITEM.GetItemEquipmentType().ToString();
+			item_type.text = itemSlot.ITEM.SubType.ToString();
 		}
 		else
 		{
-			item_type.text = itemSlot.ITEM.GetItemDefinitionsType().ToString();
+			item_type.text = itemSlot.ITEM.ItemType.ToString();
 		}
 	}
 
@@ -181,7 +181,7 @@ public class Bag_Handler : Manager<Bag_Handler>
 		if (itemSlot.ITEM != null)
 		{
 			dragItemSlot = itemSlot;
-			draggableItem.sprite = itemSlot.ITEM.GetItemIcon();
+			draggableItem.sprite = itemSlot.ITEM.ItemIcon;
 			draggableItem.color = dragColor;
 			draggableItem.transform.position = Input.mousePosition;
 			draggableItem.gameObject.SetActive(true);
@@ -192,7 +192,7 @@ public class Bag_Handler : Manager<Bag_Handler>
     {
 		if (dragItemSlot == null)
         {
-			if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.GetIsEquipped())
+			if (itemSlot.ITEM is ItemPickUp && itemSlot.ITEM.itemDefinition.IsEquipped)
 			{
 				Unequip(itemSlot);
 			}
@@ -207,13 +207,13 @@ public class Bag_Handler : Manager<Bag_Handler>
 
 		if (dragItemSlot == null)
         {
-			if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.GetIsEquipped())
+			if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.IsEquipped)
 			{
 				Equip(itemSlot);
 			}
 			else if (itemSlot.ITEM != null)
 			{
-				Debug.Log(itemSlot.ITEM.GetItemName());
+				Debug.Log(itemSlot.ITEM.name);
 				//ItemPickUp copy = Instantiate(itemSlot.ITEM);
 				//copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
 				//copy.UseItem();

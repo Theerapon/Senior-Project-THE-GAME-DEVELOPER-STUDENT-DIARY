@@ -39,7 +39,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 }
             } else
             {
-                image.sprite = _itemPickUp.itemDefinition.GetItemIcon();
+                image.sprite = _itemPickUp.itemDefinition.ItemIcon;
                 image.color = normalColor;
             }
 

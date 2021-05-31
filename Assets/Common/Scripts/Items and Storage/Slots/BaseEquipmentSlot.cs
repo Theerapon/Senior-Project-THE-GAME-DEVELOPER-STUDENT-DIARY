@@ -19,7 +19,7 @@ public class BaseEquipmentSlot : BaseInvSlot
 			return true;
 
 		ItemPickUp equippableItem = item as ItemPickUp;
-		return equippableItem != null && equippableItem.itemDefinition.GetItemEquipmentType() == EquipmentType;
+		return equippableItem != null && equippableItem.itemDefinition.SubType == EquipmentType;
 	}
 	
 }

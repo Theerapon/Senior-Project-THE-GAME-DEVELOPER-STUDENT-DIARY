@@ -19,7 +19,7 @@ public class EquipmentContainer : ItemContainer<EquipmentContainer>
     {
         for (int index = 0; index < container_item_entry.Length; index++)
         {
-            if (baseEquipmentSlots[index].EquipmentType == item_pickup.itemDefinition.GetItemEquipmentType())
+            if (baseEquipmentSlots[index].EquipmentType == item_pickup.itemDefinition.SubType)
             {
                 previous_item = baseEquipmentSlots[index];
                 container_item_entry[index] = new ItemEntry(item_pickup, index);
@@ -34,7 +34,7 @@ public class EquipmentContainer : ItemContainer<EquipmentContainer>
     {
         for (int index = 0; index < baseEquipmentSlots.Count; index++)
         {
-            if (baseEquipmentSlots[index].EquipmentType == item_pickup.itemDefinition.GetItemEquipmentType())
+            if (baseEquipmentSlots[index].EquipmentType == item_pickup.itemDefinition.SubType)
             {
                 if (container_item_entry[index] != null)
                 {
@@ -61,7 +61,7 @@ public class EquipmentContainer : ItemContainer<EquipmentContainer>
     {
         foreach (ItemEntry itemEntry in container_item_entry)
         {
-            if (itemEntry != null && item_pickup.GetItemEquipmentType() == itemEntry.item_pickup.GetItemEquipmentType())
+            if (itemEntry != null && item_pickup.SubType == itemEntry.item_pickup.SubType)
             {
                 return true;
             }

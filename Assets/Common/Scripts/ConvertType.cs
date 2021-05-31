@@ -7,9 +7,11 @@ public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teac
 public enum CreateEvent { Null, CreateIdea, CreateItem }
 public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
 public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
-public enum ItemDefinitionsType { ENERGY, COIN, EQUIPMENT, EMPTY };
-public enum ItemEquipmentType { NONE, HAT, SHIRT, PANT, SHOES }
+public enum ItemDefinitionsType { Food, Treasure, Equipment}; 
+public enum ItemEquipmentType { NONE, Hat, Shirt, Pant, Shoes }
 public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ExplorationScene, ParkScene }
+public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
+
 
 public class ConvertType : MonoBehaviour
 {
@@ -283,43 +285,39 @@ public class ConvertType : MonoBehaviour
                 subType = ItemEquipmentType.NONE;
                 break;
             case INST_Eqipment_Hat:
-                subType = ItemEquipmentType.HAT;
+                subType = ItemEquipmentType.Hat;
                 break;
             case INST_Eqipment_Shirt:
-                subType = ItemEquipmentType.SHIRT;
+                subType = ItemEquipmentType.Shirt;
                 break;
             case INST_Eqipment_Pant:
-                subType = ItemEquipmentType.PANT;
+                subType = ItemEquipmentType.Pant;
                 break;
             case INST_Eqipment_Shoes:
-                subType = ItemEquipmentType.SHOES;
+                subType = ItemEquipmentType.Shoes;
                 break;
         }
         return subType;
     }
 
     #region ItemEquipment Instace
-    private const string INST_DefinitionType_EMPTY = "EMPTY";
-    private const string INST_DefinitionType_ENERGY = "ENERGY";
-    private const string INST_DefinitionType_COIN = "COIN";
+    private const string INST_DefinitionType_TREASURE = "TREASURE";
+    private const string INST_DefinitionType_FOOD = "FOOD";
     private const string INST_DefinitionType_EQUIPMENT = "EQUIPMENT";
     #endregion
     public static ItemDefinitionsType CheckDefinitionsType(string type)
     {
-        ItemDefinitionsType itemType = ItemDefinitionsType.EMPTY;
+        ItemDefinitionsType itemType = ItemDefinitionsType.Treasure;
         switch (type)
         {
-            case INST_DefinitionType_EMPTY:
-                itemType = ItemDefinitionsType.EMPTY; 
+            case INST_DefinitionType_TREASURE:
+                itemType = ItemDefinitionsType.Treasure;
                 break;
-            case INST_DefinitionType_ENERGY:
-                itemType = ItemDefinitionsType.ENERGY;
-                break;
-            case INST_DefinitionType_COIN:
-                itemType = ItemDefinitionsType.COIN;
+            case INST_DefinitionType_FOOD:
+                itemType = ItemDefinitionsType.Food;
                 break;
             case INST_DefinitionType_EQUIPMENT:
-                itemType = ItemDefinitionsType.EQUIPMENT;
+                itemType = ItemDefinitionsType.Equipment;
                 break;
         }
         return itemType;
@@ -365,6 +363,153 @@ public class ConvertType : MonoBehaviour
             case INST_Scene_ParkScene:
                 temp = OnClickSwitchScene.ParkScene;
                 break;
+        }
+        return temp;
+    }
+
+    #region Item Property Instace
+    private const string INST_Itemproperty_Charm = "Charm";
+    private const string INST_Itemproperty_BonusProject = "BonusProject";
+    private const string INST_Itemproperty_BonusProjectGoldenTime = "BonusProjectGoldenTime";
+    private const string INST_Itemproperty_BonusMotivation = "BonusMotivation";
+    private const string INST_Itemproperty_BonusMotivationGoldenTime = "BonusMotivationGoldenTime";
+    private const string INST_Itemproperty_ReduceEnergyConsume = "ReduceEnergyConsume";
+    private const string INST_Itemproperty_ReduceEnergyConsumeGoldenTime = "ReduceEnergyConsumeGoldenTime";
+    private const string INST_Itemproperty_ReduceChanceBug = "ReduceChanceBug";
+    private const string INST_Itemproperty_ReduceEffectNegativeEvent = "ReduceEffectNegativeEvent";
+    private const string INST_Itemproperty_IncreaseEffectPositiveEvent = "IncreaseEffectPositiveEvent";
+    private const string INST_Itemproperty_ReduceCourseTime = "ReduceCourseTime";
+    private const string INST_Itemproperty_ReduceTransportTime = "ReduceTransportTime";
+    private const string INST_Itemproperty_IncreaseDropRate = "IncreaseDropRate";
+    private const string INST_Itemproperty_Energy = "Energy";
+    private const string INST_Itemproperty_MaxEnergy = "MaxEnergy";
+    private const string INST_Itemproperty_Motivation = "Motivation";
+    private const string INST_Itemproperty_Coding = "Coding";
+    private const string INST_Itemproperty_Design = "Design";
+    private const string INST_Itemproperty_Testing = "Testing";
+    private const string INST_Itemproperty_Art = "Art";
+    private const string INST_Itemproperty_Sound = "Sound";
+    private const string INST_Itemproperty_StatusPoint = "StatusPoint";
+    private const string INST_Itemproperty_SoftSkillPoint = "SoftSkillPoint";
+    private const string INST_Itemproperty_CharacterExp = "CharacterExp";
+    private const string INST_Itemproperty_HSMathExp = "HSMathExp";
+    private const string INST_Itemproperty_HSProgramingExp = "HSProgramingExp";
+    private const string INST_Itemproperty_HSEngineExp = "HSEngineExp";
+    private const string INST_Itemproperty_HSNetworkExp = "HSNetworkExp";
+    private const string INST_Itemproperty_HSAiExp = "HSAiExp";
+    private const string INST_Itemproperty_HSDesignExp = "HSDesignExp";
+    private const string INST_Itemproperty_HSTesting = "HSTesting";
+    private const string INST_Itemproperty_HSArtExp = "HSArtExp";
+    private const string INST_Itemproperty_HSSoundExp = "HSSoundExp";
+
+
+    #endregion
+    public static ItemPropertyType CheckItemProperty(string text)
+    {
+        ItemPropertyType temp = ItemPropertyType.None;
+        switch (text)
+        {
+            case INST_Itemproperty_Charm:
+                temp = ItemPropertyType.Charm;
+                break;
+            case INST_Itemproperty_BonusProject:
+                temp = ItemPropertyType.BonusProject;
+                break;
+            case INST_Itemproperty_BonusProjectGoldenTime:
+                temp = ItemPropertyType.BonusProjectGoldenTime;
+                break;
+            case INST_Itemproperty_BonusMotivation:
+                temp = ItemPropertyType.BonusMotivation;
+                break;
+            case INST_Itemproperty_BonusMotivationGoldenTime:
+                temp = ItemPropertyType.BonusMotivationGoldenTime;
+                break;
+            case INST_Itemproperty_ReduceEnergyConsume:
+                temp = ItemPropertyType.ReduceEnergyConsume;
+                break;
+            case INST_Itemproperty_ReduceEnergyConsumeGoldenTime:
+                temp = ItemPropertyType.ReduceEnergyConsumeGoldenTime;
+                break;
+            case INST_Itemproperty_ReduceChanceBug:
+                temp = ItemPropertyType.ReduceChanceBug;
+                break;
+            case INST_Itemproperty_ReduceEffectNegativeEvent:
+                temp = ItemPropertyType.ReduceEffectNegativeEvent;
+                break;
+            case INST_Itemproperty_IncreaseEffectPositiveEvent:
+                temp = ItemPropertyType.IncreaseEffectPositiveEvent;
+                break;
+            case INST_Itemproperty_ReduceCourseTime:
+                temp = ItemPropertyType.ReduceCourseTime;
+                break;
+            case INST_Itemproperty_ReduceTransportTime:
+                temp = ItemPropertyType.ReduceTransportTime;
+                break;
+            case INST_Itemproperty_IncreaseDropRate:
+                temp = ItemPropertyType.IncreaseDropRate;
+                break;
+            case INST_Itemproperty_Energy:
+                temp = ItemPropertyType.Energy;
+                break;
+            case INST_Itemproperty_MaxEnergy:
+                temp = ItemPropertyType.MaxEnergy;
+                break;
+            case INST_Itemproperty_Motivation:
+                temp = ItemPropertyType.Motivation;
+                break;
+            case INST_Itemproperty_Coding:
+                temp = ItemPropertyType.Coding;
+                break;
+            case INST_Itemproperty_Design:
+                temp = ItemPropertyType.Design;
+                break;
+            case INST_Itemproperty_Testing:
+                temp = ItemPropertyType.Testing;
+                break;
+            case INST_Itemproperty_Art:
+                temp = ItemPropertyType.Art;
+                break;
+            case INST_Itemproperty_Sound:
+                temp = ItemPropertyType.Sound;
+                break;
+            case INST_Itemproperty_StatusPoint:
+                temp = ItemPropertyType.StatusPoint;
+                break;
+            case INST_Itemproperty_SoftSkillPoint:
+                temp = ItemPropertyType.SoftSkillPoint;
+                break;
+            case INST_Itemproperty_CharacterExp:
+                temp = ItemPropertyType.CharacterExp;
+                break;
+            case INST_Itemproperty_HSMathExp:
+                temp = ItemPropertyType.HSMathExp;
+                break;
+            case INST_Itemproperty_HSProgramingExp:
+                temp = ItemPropertyType.HSProgramingExp;
+                break;
+            case INST_Itemproperty_HSEngineExp:
+                temp = ItemPropertyType.HSEngineExp;
+                break;
+            case INST_Itemproperty_HSNetworkExp:
+                temp = ItemPropertyType.HSNetworkExp;
+                break;
+            case INST_Itemproperty_HSAiExp:
+                temp = ItemPropertyType.HSAiExp;
+                break;
+            case INST_Itemproperty_HSDesignExp:
+                temp = ItemPropertyType.HSDesignExp;
+                break;
+            case INST_Itemproperty_HSTesting:
+                temp = ItemPropertyType.HSTesting;
+                break;
+            case INST_Itemproperty_HSArtExp:
+                temp = ItemPropertyType.HSArtExp;
+                break;
+            case INST_Itemproperty_HSSoundExp:
+                temp = ItemPropertyType.HSSoundExp;
+                break;
+
+
         }
         return temp;
     }

@@ -123,7 +123,7 @@ public class InvContainerDisplay : MonoBehaviour
 
     private void OnRightClickEventHandler(BaseItemSlot itemSlot)
     {
-        Debug.Log("Right click " + itemSlot.ITEM.GetItemName() + " ");
+        Debug.Log("Right click " + itemSlot.ITEM.ItemName + " ");
         OnRightClickEvent?.Invoke(itemSlot);
     }
 

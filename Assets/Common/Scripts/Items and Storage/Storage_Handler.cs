@@ -95,17 +95,17 @@ public class Storage_Handler : Manager<Storage_Handler>
 	{
 		item_description_gameobject.SetActive(true);
 
-		item_name.text = itemSlot.ITEM.GetItemName();
-		item_description.text = itemSlot.ITEM.GetItemDescription();
-		item_icon.sprite = itemSlot.ITEM.GetItemIcon();
+		item_name.text = itemSlot.ITEM.ItemName;
+		item_description.text = itemSlot.ITEM.ItemDescription;
+		item_icon.sprite = itemSlot.ITEM.ItemIcon;
 
-		if (itemSlot.ITEM.GetItemDefinitionsType().ToString() == "EQUIPMENT")
+		if (itemSlot.ITEM.ItemType == ItemDefinitionsType.Equipment)
 		{
-			item_type.text = itemSlot.ITEM.GetItemEquipmentType().ToString();
+			item_type.text = itemSlot.ITEM.SubType.ToString();
 		}
 		else
 		{
-			item_type.text = itemSlot.ITEM.GetItemDefinitionsType().ToString();
+			item_type.text = itemSlot.ITEM.ItemType.ToString();
 		}
 	}
 
@@ -219,7 +219,7 @@ public class Storage_Handler : Manager<Storage_Handler>
 		{
 			dragItemSlot = itemSlot;
 			draggableItem.gameObject.SetActive(true);
-			draggableItem.sprite = itemSlot.ITEM.GetItemIcon();
+			draggableItem.sprite = itemSlot.ITEM.ItemIcon;
 			draggableItem.color = dragColor;
 			draggableItem.transform.position = Input.mousePosition;
 

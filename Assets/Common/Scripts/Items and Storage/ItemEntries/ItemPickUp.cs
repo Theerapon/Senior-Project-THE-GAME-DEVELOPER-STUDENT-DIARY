@@ -45,7 +45,7 @@ public class ItemPickUp : MonoBehaviour
 
     public virtual void DestroyItemPickUp()
     {
-        if (!itemDefinition.GetIsDestructible())
+        if (!itemDefinition.IsDestructible)
         {
             Destroy(this.gameObject);
         }
@@ -62,67 +62,20 @@ public class ItemPickUp : MonoBehaviour
     }
 
     #region Get
-    public string ID()
-    {
-        return itemDefinition.ID();
-    }
-    public string GetItemName()
-    {
-        return itemDefinition.GetItemName();
-    }
-    public string GetItemDescription()
-    {
-        return itemDefinition.GetItemDescription();
-    }
-    public ItemDefinitionsType GetItemDefinitionsType()
-    {
-        return itemDefinition.GetItemDefinitionsType();
-    }
-    public ItemEquipmentType GetItemEquipmentType()
-    {
-        return itemDefinition.GetItemEquipmentType();
-    }
-    public int GetItemAmount()
-    {
-        return itemDefinition.GetItemAmount();
-    }
-    public int GetItemSpawnChanceWeight()
-    {
-        return itemDefinition.GetItemSpawnChanceWeight();
-    }
-    public int GetMaxStackable()
-    {
-        return itemDefinition.GetMaxStackable();
-    }
-
-    public Sprite GetItemIcon()
-    {
-        return itemDefinition.GetItemIcon();
-    }
-
-    public bool GetIsEquipped()
-    {
-        return itemDefinition.GetIsEquipped();
-    }
-    public bool GetIsStorable()
-    {
-        return itemDefinition.GetIsStorable();
-    }
-    public bool GetIsQuestItem()
-    {
-        return itemDefinition.GetIsQuestItem();
-    }
-    public bool GetIsStackable()
-    {
-        return itemDefinition.GetIsStackable();
-    }
-    public bool GetIsDestroyOnUse()
-    {
-        return itemDefinition.GetIsDestroyOnUse();
-    }
-    public bool GetIsGiftable()
-    {
-        return itemDefinition.GetIsGiftable();
-    }
+    public string Id { get => itemDefinition.Id; }
+    public string ItemName { get => itemDefinition.ItemName; }
+    public string ItemDescription { get => itemDefinition.ItemDescription; }
+    public ItemDefinitionsType ItemType { get => itemDefinition.ItemType; }
+    public ItemEquipmentType SubType { get => itemDefinition.SubType; }
+    public int PurchasePrice { get => itemDefinition.PurchasePrice; }
+    public int SellingPrice1 { get => itemDefinition.SellingPrice; }
+    public Sprite ItemIcon { get => itemDefinition.ItemIcon; }
+    public bool IsEquipped { get => itemDefinition.IsEquipped; }
+    public bool IsStorable { get => itemDefinition.IsStorable; }
+    public bool IsUnique { get => itemDefinition.IsUnique; }
+    public bool IsDestructible { get => itemDefinition.IsDestructible; }
+    public bool IsDestroyOnUse { get => itemDefinition.IsDestroyOnUse; }
+    public bool IsGiftable { get => itemDefinition.IsGiftable; }
+    public List<ItemProperty> ItemProperties { get => itemDefinition.ItemProperties; }
     #endregion
 }
