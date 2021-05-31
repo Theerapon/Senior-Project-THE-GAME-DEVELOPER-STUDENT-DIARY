@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemProperty : MonoBehaviour
+public class ItemPropertyAmount : MonoBehaviour
 {
     private ItemPropertyType itemPropertyType = ItemPropertyType.None;
     private float amount = 0;
@@ -10,7 +10,7 @@ public class ItemProperty : MonoBehaviour
     public ItemPropertyType ItemPropertyType { get => itemPropertyType; }
     public float Amount { get => amount; }
 
-    public ItemProperty(ItemPropertyType itemPropertyType, float amount)
+    public ItemPropertyAmount(ItemPropertyType itemPropertyType, float amount)
     {
         this.itemPropertyType = itemPropertyType;
         this.amount = amount;

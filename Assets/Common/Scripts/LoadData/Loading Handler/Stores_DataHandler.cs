@@ -27,15 +27,15 @@ public class Stores_DataHandler : Manager<Stores_DataHandler>
     private void EventInterpretHandler()
     {
         storeDic = storesVM.Interpert();
-        Debug.Log("activities interpret completed");
-        foreach (KeyValuePair<string, Store_Template> store in storeDic)
-        {
-            for (int i = 0; i < store.Value.StoreItemSetPerDay.Length; i++)
-            {
-                Debug.Log(string.Format("Store ID = {0}, Day = {1}, StoreItemSetID = {2}",
-                store.Value.Id, i+1, store.Value.StoreItemSetPerDay[i]));
-            }
+        //Debug.Log("activities interpret completed");
+        //foreach (KeyValuePair<string, Store_Template> store in storeDic)
+        //{
+        //    for (int i = 0; i < store.Value.StoreItemSetPerDay.Length; i++)
+        //    {
+        //        Debug.Log(string.Format("Store ID = {0}, Day = {1}, StoreItemSetID = {2}",
+        //        store.Value.Id, i+1, store.Value.StoreItemSetPerDay[i]));
+        //    }
 
-        }
+        //}
     }
 }

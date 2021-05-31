@@ -19,7 +19,7 @@ public class ItemPickUp_Template
     private bool isDestroyOnUse = false;
     private bool isGiftable = false;
 
-    private List<ItemProperty> itemProperties = null;
+    private List<ItemPropertyAmount> itemProperties = null;
 
     public string Id { get => id; }
     public string ItemName { get => itemName; }
@@ -35,9 +35,9 @@ public class ItemPickUp_Template
     public bool IsDestructible { get => isDestructible; }
     public bool IsDestroyOnUse { get => isDestroyOnUse; }
     public bool IsGiftable { get => isGiftable; }
-    public List<ItemProperty> ItemProperties { get => itemProperties; }
+    public List<ItemPropertyAmount> ItemProperties { get => itemProperties; }
 
-    public ItemPickUp_Template(string id, string itemName, string itemDescription, ItemDefinitionsType itemType, ItemEquipmentType subType, int purchasePrice, int sellingPrice, Sprite itemIcon, bool isEquipped, bool isStorable, bool isUnique, bool isDestructible, bool isDestroyOnUse, bool isGiftable, List<ItemProperty> itemProperties)
+    public ItemPickUp_Template(string id, string itemName, string itemDescription, ItemDefinitionsType itemType, ItemEquipmentType subType, int purchasePrice, int sellingPrice, Sprite itemIcon, bool isEquipped, bool isStorable, bool isUnique, bool isDestructible, bool isDestroyOnUse, bool isGiftable, List<ItemPropertyAmount> itemProperties)
     {
         this.id = id;
         this.itemName = itemName;

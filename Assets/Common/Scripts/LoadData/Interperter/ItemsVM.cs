@@ -73,7 +73,7 @@ public class ItemsVM : MonoBehaviour
         bool isDestroyOnUse = false;
         bool isGiftable = false;
 
-        List<ItemProperty> itemProperties = new List<ItemProperty>();
+        List<ItemPropertyAmount> itemProperties = new List<ItemPropertyAmount>();
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -124,8 +124,7 @@ public class ItemsVM : MonoBehaviour
                     isGiftable = bool.Parse(entries[++i]);
                     break;
                 case INST_SET_ItemProperty:
-                    itemProperties.Add(new ItemProperty(ConvertType.CheckItemProperty(entries[++i]), float.Parse(entries[++i])));
-                    isGiftable = bool.Parse(entries[++i]);
+                    itemProperties.Add(new ItemPropertyAmount(ConvertType.CheckItemProperty(entries[++i]), float.Parse(entries[++i])));
                     break;
 
             }

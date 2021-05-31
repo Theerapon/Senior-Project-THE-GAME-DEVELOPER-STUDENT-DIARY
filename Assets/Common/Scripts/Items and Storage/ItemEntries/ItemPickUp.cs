@@ -76,6 +76,6 @@ public class ItemPickUp : MonoBehaviour
     public bool IsDestructible { get => itemDefinition.IsDestructible; }
     public bool IsDestroyOnUse { get => itemDefinition.IsDestroyOnUse; }
     public bool IsGiftable { get => itemDefinition.IsGiftable; }
-    public List<ItemProperty> ItemProperties { get => itemDefinition.ItemProperties; }
+    public List<ItemPropertyAmount> ItemProperties { get => itemDefinition.ItemProperties; }
     #endregion
 }
