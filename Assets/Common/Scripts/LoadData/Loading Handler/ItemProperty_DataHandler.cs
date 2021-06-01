@@ -27,7 +27,7 @@ public class ItemProperty_DataHandler : Manager<ItemProperty_DataHandler>
     private void EventInterpretHandler()
     {
         itemPropertyDic = itemPropertyVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Item property interpret completed");
         //foreach (KeyValuePair<ItemPropertyType, ItemProperty_Template> itemProperty in itemPropertyDic)
         //{
         //    Debug.Log(string.Format("Type = {0}, Name = {1}, Icon = {2}",

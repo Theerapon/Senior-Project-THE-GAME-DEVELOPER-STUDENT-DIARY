@@ -27,7 +27,7 @@ public class SpawnsItems_DataHandler : Manager<SpawnsItems_DataHandler>
     private void EventInterpretHandler()
     {
         spawnsItemsDic = spawnsItemsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("SpawnsItem interpret completed");
         //foreach (KeyValuePair<string, SpawnsItems_Template> spawnItem in spawnsItemsDic)
         //{
         //    for(int i = 0; i < spawnItem.Value.SpawnItems.Count; i++)

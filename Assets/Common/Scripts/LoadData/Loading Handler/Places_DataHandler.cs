@@ -27,7 +27,7 @@ public class Places_DataHandler : Manager<Places_DataHandler>
     private void EventInterpretHandler()
     {
         placesDic = placesVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Place interpret completed");
         //foreach (KeyValuePair<string, Place_Template> place in placesDic)
         //{
         //    Debug.Log(string.Format("ID = {0}, Name = {1}, Open = {2:00}:{3:00}, Sun Open = {4}, Store ID = {5}",

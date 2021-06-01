@@ -26,7 +26,7 @@ public class Ideas_DataHandler : Manager<Ideas_DataHandler>
     private void EventInterpretHandler()
     {
         ideasDic = ideasVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Ideas interpret completed");
         //foreach (KeyValuePair<string, Idea_Template> idea in ideasDic)
         //{
         //    Debug.Log(string.Format("ID {0}, Type {1}, Name {2}, Collected = {3}", 

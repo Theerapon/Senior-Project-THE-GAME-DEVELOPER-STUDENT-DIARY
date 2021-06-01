@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static DialoguesExploration_Template;
 
 public class DialoguesExploration_DataHandler : Manager<DialoguesExploration_DataHandler>
 {
@@ -28,7 +27,7 @@ public class DialoguesExploration_DataHandler : Manager<DialoguesExploration_Dat
     private void EventInterpretHandler()
     {
         dialoguesExplorationDic = dialoguesExplorationVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("DialoguesExploration interpret completed");
         //foreach (KeyValuePair<string, DialoguesExploration_Template> diaExploration in dialoguesExplorationDic)
         //{
         //    Debug.Log(string.Format("ID {0}, Count Dialogues = {1}, Spawn ID = {2}", diaExploration.Key, diaExploration.Value.DialoguesList.Count, diaExploration.Value.SpawnItemId));

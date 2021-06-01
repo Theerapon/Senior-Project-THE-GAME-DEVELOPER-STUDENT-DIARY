@@ -12,6 +12,7 @@ public class StoresVM : MonoBehaviour
     private const string INST_SET_ItemSetOnFri = "Fri";
     private const string INST_SET_ItemSetOnSat = "Sat";
     private const string INST_SET_ItemSetOnSun = "Sun";
+    private const string INST_SET_Event = "Event";
     #endregion
 
     [SerializeField] private Stores_Loading stores_Loading;
@@ -48,7 +49,14 @@ public class StoresVM : MonoBehaviour
     private Store_Template CreateTemplate(string line)
     {
         string id = string.Empty;
-        string[] storeItemSetIdPerDay = new string[7];
+        List<string> storeItemSetOnMon = new List<string>();
+        List<string> storeItemSetOnTue = new List<string>();
+        List<string> storeItemSetOnWed = new List<string>();
+        List<string> storeItemSetOnThu = new List<string>();
+        List<string> storeItemSetOnFri = new List<string>();
+        List<string> storeItemSetOnSat = new List<string>();
+        List<string> storeItemSetOnSun = new List<string>();
+        Dictionary<string, string> storeItemSetOnEvent = new Dictionary<string, string>();
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -60,31 +68,34 @@ public class StoresVM : MonoBehaviour
                     id = entries[++i];
                     break;
                 case INST_SET_ItemSetOnMon:
-                    storeItemSetIdPerDay[0] = entries[++i];
+                    storeItemSetOnMon.Add(entries[++i]);
                     break;
                 case INST_SET_ItemSetOnTue:
-                    storeItemSetIdPerDay[1] = entries[++i];
+                    storeItemSetOnTue.Add(entries[++i]);
                     break;
                 case INST_SET_ItemSetOnWed:
-                    storeItemSetIdPerDay[2] = entries[++i];
+                    storeItemSetOnWed.Add(entries[++i]);
                     break;
                 case INST_SET_ItemSetOnThu:
-                    storeItemSetIdPerDay[3] = entries[++i];
+                    storeItemSetOnThu.Add(entries[++i]);
                     break;
                 case INST_SET_ItemSetOnFri:
-                    storeItemSetIdPerDay[4] = entries[++i];
+                    storeItemSetOnFri.Add(entries[++i]);
                     break;
                 case INST_SET_ItemSetOnSat:
-                    storeItemSetIdPerDay[5] = entries[++i];
+                    storeItemSetOnSat.Add(entries[++i]);
                     break;
                 case INST_SET_ItemSetOnSun:
-                    storeItemSetIdPerDay[6] = entries[++i];
+                    storeItemSetOnSun.Add(entries[++i]);
+                    break;
+                case INST_SET_Event:
+                    storeItemSetOnEvent.Add(entries[++i], entries[++i]);
                     break;
 
             }
 
         }
 
-        return new Store_Template(id, storeItemSetIdPerDay);
+        return new Store_Template(id, storeItemSetOnMon, storeItemSetOnTue, storeItemSetOnWed, storeItemSetOnThu, storeItemSetOnFri, storeItemSetOnSat, storeItemSetOnSun, storeItemSetOnEvent);
     }
 }

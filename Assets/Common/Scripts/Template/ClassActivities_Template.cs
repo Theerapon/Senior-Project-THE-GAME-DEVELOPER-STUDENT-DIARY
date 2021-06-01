@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ClassActivityType { Project, Class}
 public class ClassActivities_Template : MonoBehaviour
 {
     private string id;
-    public string ID { get { return id; } }
-
     private ClassActivityType activityType;
     private string activity_name;
     private Sprite icon;
@@ -16,53 +13,30 @@ public class ClassActivities_Template : MonoBehaviour
     private int start_time_minute;
     private int end_time_hour;
     private int end_time_minute;
+    private List<string> registerId = null;
 
-    public ClassActivities_Template(string id, ClassActivityType classActivityType, string name,
-        Sprite icon, Day day, int sTime_hour, int sTime_minute, int eTime_hour, int eTime_minute)
+    public ClassActivities_Template(string id, ClassActivityType activityType, string activity_name, Sprite icon, Day day, int start_time_hour, int start_time_minute, int end_time_hour, int end_time_minute, List<string> registerId)
     {
         this.id = id;
-        this.activityType = classActivityType;
-        this.activity_name = name;
+        this.activityType = activityType;
+        this.activity_name = activity_name;
         this.icon = icon;
         this.day = day;
-        this.start_time_hour = sTime_hour;
-        this.start_time_minute = sTime_minute;
-        this.end_time_hour = eTime_hour;
-        this.end_time_minute = eTime_minute;
+        this.start_time_hour = start_time_hour;
+        this.start_time_minute = start_time_minute;
+        this.end_time_hour = end_time_hour;
+        this.end_time_minute = end_time_minute;
+        this.registerId = registerId;
     }
 
-    #region Reporter
-    public ClassActivityType GetClassType()
-    {
-        return activityType;
-    }
-    public string GetClassName()
-    {
-        return activity_name;
-    }
-    public Sprite GetClassIcon()
-    {
-        return icon;
-    }
-    public Day GetClassDay()
-    {
-        return day;
-    }
-    public int GetStartTimeHour()
-    {
-        return start_time_hour;
-    }
-    public int GetStartTimeMinute()
-    {
-        return start_time_minute;
-    }
-    public int GetEndTimeHour()
-    {
-        return end_time_hour;
-    }
-    public int GetEndTimeMinute()
-    {
-        return end_time_minute;
-    }
-    #endregion
+    public string Id { get => id; }
+    public ClassActivityType ActivityType { get => activityType; }
+    public string Activity_name { get => activity_name; }
+    public Sprite Icon { get => icon; }
+    public Day Day { get => day; }
+    public int Start_time_hour { get => start_time_hour; }
+    public int Start_time_minute { get => start_time_minute; }
+    public int End_time_hour { get => end_time_hour; }
+    public int End_time_minute { get => end_time_minute; }
+    public List<string> RegisterId { get => registerId; }
 }

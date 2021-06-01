@@ -9,9 +9,9 @@ public class PreparingData : MonoBehaviour
     public Events.EventOnInterpretData EventOnInterpretData;
     #endregion
 
-    public DataLoading [] dataLoadings;
+    [SerializeField] private DataLoading [] dataLoadings;
 
-    private void Awake()
+    protected void Awake()
     {
         foreach (DataLoading datasLoading in dataLoadings)
         {
@@ -31,7 +31,7 @@ public class PreparingData : MonoBehaviour
             }
         }
 
-        Debug.Log(string.Format("Downloading {0}/{1}", countLoadComplete, dataLoadings.Length));
+        //Debug.Log(string.Format("Downloading {0}/{1}", countLoadComplete, dataLoadings.Length));
         
         if(countLoadComplete >= dataLoadings.Length)
         {

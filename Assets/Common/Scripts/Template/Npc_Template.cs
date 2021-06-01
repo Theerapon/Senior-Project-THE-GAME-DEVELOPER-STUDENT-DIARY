@@ -21,6 +21,7 @@ public class Npc_Template : MonoBehaviour
     private int dayBirthday = 0;
     private int mounthBirthday = 0;
     private int yearBirthday = 0;
+    private List<string> registerId = null;
 
     public string Id { get => id; }
     public string NpcName { get => npcName; }
@@ -39,8 +40,9 @@ public class Npc_Template : MonoBehaviour
     public int DayBirthday { get => dayBirthday; }
     public int MounthBirthday { get => mounthBirthday; }
     public int YearBirthday { get => yearBirthday; }
+    public List<string> RegisterId { get => registerId; }
 
-    public Npc_Template(string id, string npcName, Sprite icon, Sprite happinessImage, Sprite sadnessImage, Sprite fearImage, Sprite disgusImage, Sprite angerImage, Sprite surpriseImage, Sprite normalImage, List<string> descriptionRelationship, string favoriteItemSetId, Place originHome, string birthday, int dayBirthday, int mounthBirthday, int yearBirthday)
+    public Npc_Template(string id, string npcName, Sprite icon, Sprite happinessImage, Sprite sadnessImage, Sprite fearImage, Sprite disgusImage, Sprite angerImage, Sprite surpriseImage, Sprite normalImage, List<string> descriptionRelationship, string favoriteItemSetId, Place originHome, string birthday, int dayBirthday, int mounthBirthday, int yearBirthday, List<string> registerId)
     {
         this.id = id;
         this.npcName = npcName;
@@ -59,5 +61,6 @@ public class Npc_Template : MonoBehaviour
         this.dayBirthday = dayBirthday;
         this.mounthBirthday = mounthBirthday;
         this.yearBirthday = yearBirthday;
+        this.registerId = registerId;
     }
 }

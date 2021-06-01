@@ -27,7 +27,7 @@ public class StoreItemSets_DataHandler : Manager<StoreItemSets_DataHandler>
     private void EventInterpretHandler()
     {
         storeItemSetDic = storeItemSetsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Store Item Set interpret completed");
         //foreach (KeyValuePair<string, StoreItemSets_Template> storeItemSet in storeItemSetDic)
         //{
         //    for (int i = 0; i < storeItemSet.Value.StoreItemSets.Count; i++)

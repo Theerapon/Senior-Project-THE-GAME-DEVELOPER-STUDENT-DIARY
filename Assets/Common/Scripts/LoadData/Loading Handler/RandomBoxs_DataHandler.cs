@@ -27,7 +27,7 @@ public class RandomBoxs_DataHandler : Manager<RandomBoxs_DataHandler>
     private void EventInterpretHandler()
     {
         randomboxDic = randomBoxsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("RandomBox interpret completed");
         //foreach (KeyValuePair<string, RandomBox_Template> randombox in randomboxDic)
         //{
         //    Debug.Log(string.Format("ID = {0}, SoawnId = {1}",

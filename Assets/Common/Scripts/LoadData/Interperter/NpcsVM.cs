@@ -21,6 +21,7 @@ public class NpcsVM : MonoBehaviour
     private const string INST_SET_Home = "Home";
     private const string INST_SET_Birthday = "Birthday";
     private const string Check_Birthday = "Unknown";
+    private const string INST_SET_Register = "Register";
     #endregion
 
     [SerializeField] private NPCs_Loading nPCs_Loading;
@@ -73,6 +74,7 @@ public class NpcsVM : MonoBehaviour
         int dayBirthday = 0;
         int mounthBirthday = 0;
         int yearBirthday = 0;
+        List<string> registerId = new List<string>();
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -134,11 +136,14 @@ public class NpcsVM : MonoBehaviour
                     }
 
                     break;
+                case INST_SET_Register:
+                    registerId.Add(entries[++i]);
+                    break;
 
             }
 
         }
 
-        return new Npc_Template(id, npcName, icon, happinessImage, sadnessImage, fearImage, disgusImage, angerImage, surpriseImage, normalImage, descriptionRelationship, favoriteItemSetId, originHome, birthday, dayBirthday, mounthBirthday, yearBirthday);
+        return new Npc_Template(id, npcName, icon, happinessImage, sadnessImage, fearImage, disgusImage, angerImage, surpriseImage, normalImage, descriptionRelationship, favoriteItemSetId, originHome, birthday, dayBirthday, mounthBirthday, yearBirthday, registerId);
     }
 }

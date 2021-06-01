@@ -431,6 +431,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bonusDetailsVM: {fileID: 215361635}
   interpretHandler: {fileID: 948092574}
+--- !u!1 &266759041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266759042}
+  - component: {fileID: 266759045}
+  - component: {fileID: 266759044}
+  - component: {fileID: 266759043}
+  m_Layer: 0
+  m_Name: Schedule loading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &266759042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266759041}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 948092573}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &266759043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266759041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffe99071fbad5a4c9bc0f25c9f1feed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scheduleVM: {fileID: 266759044}
+  interpretHandler: {fileID: 948092574}
+--- !u!114 &266759044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266759041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8e916eb50563f4294667eecb5c5a31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  schedule_Loading: {fileID: 266759045}
+--- !u!114 &266759045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266759041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f876323f3b9be43ad97fcbc470d479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLoadDataCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  SPECIFICATION_PATH: /Resources/Files/Schedule.csv
+  SPECIFICATION_ID: ID
 --- !u!1 &471104953
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,12 +1009,12 @@ MonoBehaviour:
   - {fileID: 2038748264}
   - {fileID: 670667921}
   - {fileID: 560237298}
-  - {fileID: 471104955}
   - {fileID: 2102936880}
+  - {fileID: 471104955}
   - {fileID: 1113204573}
   - {fileID: 1934333526}
-  - {fileID: 1658250811}
   - {fileID: 1291890006}
+  - {fileID: 1658250811}
   - {fileID: 844140401}
   - {fileID: 50814414}
   - {fileID: 1696740296}
@@ -948,6 +1025,7 @@ MonoBehaviour:
   - {fileID: 474132174}
   - {fileID: 1173128230}
   - {fileID: 1483880172}
+  - {fileID: 266759045}
 --- !u!4 &948092573
 Transform:
   m_ObjectHideFlags: 0
@@ -980,6 +1058,8 @@ Transform:
   - {fileID: 474132173}
   - {fileID: 1173128229}
   - {fileID: 1483880169}
+  - {fileID: 266759042}
+  - {fileID: 1714787873}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1615,6 +1695,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placesVM: {fileID: 1696740297}
   interpretHandler: {fileID: 948092574}
+--- !u!1 &1714787872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1714787873}
+  - component: {fileID: 1714787876}
+  - component: {fileID: 1714787875}
+  - component: {fileID: 1714787874}
+  m_Layer: 0
+  m_Name: ScheduleRegister loading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1714787873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714787872}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 948092573}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1714787874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714787872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d81b27db9b35ee4caf9127afffdb08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1714787875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714787872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281260142a899494682e442b98a6218c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1714787876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714787872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79714fac8f1191d4ea7db9f95a9816ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLoadDataCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  SPECIFICATION_PATH: /Resources/Files/ScheduleRegister.csv
+  SPECIFICATION_ID: ID
 --- !u!1 &1934333524
 GameObject:
   m_ObjectHideFlags: 0

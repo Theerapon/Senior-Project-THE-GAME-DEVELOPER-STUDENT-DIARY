@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguesExploration_Loading : DataLoading
+public class ScheduleRegister_Loading : DataLoading
 {
-    public static DialoguesExploration_Loading instance;
-    [SerializeField] private string SPECIFICATION_PATH = "/Resources/Files/DialoguesExploration.csv";
+    public static ScheduleRegister_Loading instance;
+    [SerializeField] private string SPECIFICATION_PATH = "/Resources/Files/ScheduleRegister.csv";
     [SerializeField] private string SPECIFICATION_ID = "ID";
 
-    public static DialoguesExploration_Loading Instance
+    public static ScheduleRegister_Loading Instance
     {
         get { return instance; }
         set
@@ -33,7 +33,7 @@ public class DialoguesExploration_Loading : DataLoading
         Instance = this;
 
     }
-    protected void Start()
+    private void Start()
     {
         hasFinished = LoadedDataFromCSV();
         if (hasFinished)

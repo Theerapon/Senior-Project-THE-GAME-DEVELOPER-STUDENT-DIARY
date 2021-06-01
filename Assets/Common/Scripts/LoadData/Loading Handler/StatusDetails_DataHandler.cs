@@ -29,7 +29,7 @@ public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
     private void EventInterpretHandler()
     {
         status_dic = statusDetailsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Status Detail interpret completed");
         //foreach (KeyValuePair<string, Status> status in status_dic)
         //{
         //    Debug.Log(string.Format("ID = {0}, Name = {1}, Color = {2}",

@@ -28,7 +28,7 @@ public class BonusDetails_DataHandler : Manager<BonusDetails_DataHandler>
     private void EventInterpretHandler()
     {
         bonus_dic = bonusDetailsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("BonusDetail interpret completed");
         //foreach (KeyValuePair<string, Bonus_Template> bonus in bonus_dic)
         //{
         //    Debug.Log(string.Format("ID = {0}, id = {1}, name = {2}", bonus.Key, bonus.Value.BonusID, bonus.Value.BonusName));

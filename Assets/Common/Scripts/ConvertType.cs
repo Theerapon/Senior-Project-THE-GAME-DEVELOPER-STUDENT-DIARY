@@ -11,8 +11,8 @@ public enum ItemDefinitionsType { Food, Treasure, Equipment};
 public enum ItemEquipmentType { NONE, Hat, Shirt, Pant, Shoes }
 public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ExplorationScene, ParkScene }
 public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
-
-
+public enum ClassActivityType { Project, Class }
+public enum ScheduleEvent { None, DiscountFoodStore, ClothingFestival101, ClothingFestival202, ClothingFestival303, ClothingFestival404, DiscountCourse, Project, Class, MidtermTest, FinalTest, MysticFestival1st, MysticFestival2nd, MysticFestival3rd, MysticFestival4th, Birthday}
 public class ConvertType : MonoBehaviour
 {
     #region Instance NPC ID
@@ -509,6 +509,83 @@ public class ConvertType : MonoBehaviour
                 temp = ItemPropertyType.HSSoundExp;
                 break;
 
+
+        }
+        return temp;
+    }
+
+
+    #region Schedule Event Instace
+    private const string INST_Schedule_None = "None";
+    private const string INST_Schedule_DiscountFoodStore = "DiscountFoodStore";
+    private const string INST_Schedule_ClothingFestival101 = "ClothingFestival101";
+    private const string INST_Schedule_ClothingFestival202 = "ClothingFestival202";
+    private const string INST_Schedule_ClothingFestival303 = "ClothingFestival303";
+    private const string INST_Schedule_ClothingFestival404 = "ClothingFestival404";
+    private const string INST_Schedule_DiscountCourse = "DiscountCourse";
+    private const string INST_Schedule_Project = "Project";
+    private const string INST_Schedule_Class = "Class";
+    private const string INST_Schedule_MidtermTest = "MidtermTest";
+    private const string INST_Schedule_FinalTest = "FinalTest";
+    private const string INST_Schedule_MysticFestival1st = "MysticFestival1st";
+    private const string INST_Schedule_MysticFestival2nd = "MysticFestival2nd";
+    private const string INST_Schedule_MysticFestival3rd = "MysticFestival3rd";
+    private const string INST_Schedule_MysticFestival4th = "MysticFestival4th";
+    private const string INST_Schedule_Birthday = "Birthday";
+    #endregion
+    public static ScheduleEvent CheckScheuleEvent(string text)
+    {
+        ScheduleEvent temp = ScheduleEvent.None;
+        switch (text)
+        {
+            case INST_Schedule_None:
+                temp = ScheduleEvent.None;
+                break;
+            case INST_Schedule_DiscountFoodStore:
+                temp = ScheduleEvent.DiscountFoodStore;
+                break;
+            case INST_Schedule_ClothingFestival101:
+                temp = ScheduleEvent.ClothingFestival101;
+                break;
+            case INST_Schedule_ClothingFestival202:
+                temp = ScheduleEvent.ClothingFestival202;
+                break;
+            case INST_Schedule_ClothingFestival303:
+                temp = ScheduleEvent.ClothingFestival303;
+                break;
+            case INST_Schedule_ClothingFestival404:
+                temp = ScheduleEvent.ClothingFestival404;
+                break;
+            case INST_Schedule_DiscountCourse:
+                temp = ScheduleEvent.DiscountCourse;
+                break;
+            case INST_Schedule_Project:
+                temp = ScheduleEvent.Project;
+                break;
+            case INST_Schedule_Class:
+                temp = ScheduleEvent.Class;
+                break;
+            case INST_Schedule_MidtermTest:
+                temp = ScheduleEvent.MidtermTest;
+                break;
+            case INST_Schedule_FinalTest:
+                temp = ScheduleEvent.FinalTest;
+                break;
+            case INST_Schedule_MysticFestival1st:
+                temp = ScheduleEvent.MysticFestival1st;
+                break;
+            case INST_Schedule_MysticFestival2nd:
+                temp = ScheduleEvent.MysticFestival2nd;
+                break;
+            case INST_Schedule_MysticFestival3rd:
+                temp = ScheduleEvent.MysticFestival3rd;
+                break;
+            case INST_Schedule_MysticFestival4th:
+                temp = ScheduleEvent.MysticFestival4th;
+                break;
+            case INST_Schedule_Birthday:
+                temp = ScheduleEvent.Birthday;
+                break;
 
         }
         return temp;

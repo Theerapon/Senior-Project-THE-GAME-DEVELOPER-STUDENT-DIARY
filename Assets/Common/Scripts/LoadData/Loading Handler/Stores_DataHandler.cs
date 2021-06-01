@@ -27,7 +27,7 @@ public class Stores_DataHandler : Manager<Stores_DataHandler>
     private void EventInterpretHandler()
     {
         storeDic = storesVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Store interpret completed");
         //foreach (KeyValuePair<string, Store_Template> store in storeDic)
         //{
         //    for (int i = 0; i < store.Value.StoreItemSetPerDay.Length; i++)

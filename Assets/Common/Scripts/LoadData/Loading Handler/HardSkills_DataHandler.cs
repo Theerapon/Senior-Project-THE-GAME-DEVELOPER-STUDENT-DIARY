@@ -28,7 +28,7 @@ public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
     private void EventInterpretHandler()
     {
         hardSkillsDic = hardSkillsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("HardSkill interpret completed");
         //foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsDic)
         //{
         //    Debug.Log(string.Format("ID = {0}, Name = {1}, Level = {2}",

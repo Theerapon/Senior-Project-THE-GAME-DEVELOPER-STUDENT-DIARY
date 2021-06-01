@@ -26,7 +26,7 @@ public class ItemsTemplate_DataHandler : Manager<ItemsTemplate_DataHandler>
     private void EventInterpretHandler()
     {
         itemTemplateDic = itemsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Items interpret completed");
         //foreach (KeyValuePair<string, ItemPickUp_Template> item in itemTemplateDic)
         //{
         //    Debug.Log(string.Format("ID {0}, Type {1}, Name {2}, ",

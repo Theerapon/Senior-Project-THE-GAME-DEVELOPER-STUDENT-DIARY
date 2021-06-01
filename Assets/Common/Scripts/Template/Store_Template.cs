@@ -5,14 +5,35 @@ using UnityEngine;
 public class Store_Template : MonoBehaviour
 {
     private string id;
-    private string[] storeItemSetIdPerDay = new string[7];
+    private List<string> storeItemSetOnMon = new List<string>();
+    private List<string> storeItemSetOnTue = new List<string>();
+    private List<string> storeItemSetOnWed = new List<string>();
+    private List<string> storeItemSetOnThu = new List<string>();
+    private List<string> storeItemSetOnFri = new List<string>();
+    private List<string> storeItemSetOnSat = new List<string>();
+    private List<string> storeItemSetOnSun = new List<string>();
+    private Dictionary<string, string> storeItemSetOnEvent = new Dictionary<string, string>();
 
     public string Id { get => id; }
-    public string[] StoreItemSetPerDay { get => storeItemSetIdPerDay; }
+    public List<string> StoreItemSetOnMon { get => storeItemSetOnMon; }
+    public List<string> StoreItemSetOnTue { get => storeItemSetOnTue; }
+    public List<string> StoreItemSetOnWed { get => storeItemSetOnWed; }
+    public List<string> StoreItemSetOnThu { get => storeItemSetOnThu; }
+    public List<string> StoreItemSetOnFri { get => storeItemSetOnFri; }
+    public List<string> StoreItemSetOnSat { get => storeItemSetOnSat; }
+    public List<string> StoreItemSetOnSun { get => storeItemSetOnSun; }
+    public Dictionary<string, string> StoreItemSetOnEvent { get => storeItemSetOnEvent; }
 
-    public Store_Template(string id, string[] storeItemSetPerDay)
+    public Store_Template(string id, List<string> storeItemSetOnMon, List<string> storeItemSetOnTue, List<string> storeItemSetOnWed, List<string> storeItemSetOnThu, List<string> storeItemSetOnFri, List<string> storeItemSetOnSat, List<string> storeItemSetOnSun, Dictionary<string, string> storeItemSetOnEvent)
     {
         this.id = id;
-        this.storeItemSetIdPerDay = storeItemSetPerDay;
+        this.storeItemSetOnMon = storeItemSetOnMon;
+        this.storeItemSetOnTue = storeItemSetOnTue;
+        this.storeItemSetOnWed = storeItemSetOnWed;
+        this.storeItemSetOnThu = storeItemSetOnThu;
+        this.storeItemSetOnFri = storeItemSetOnFri;
+        this.storeItemSetOnSat = storeItemSetOnSat;
+        this.storeItemSetOnSun = storeItemSetOnSun;
+        this.storeItemSetOnEvent = storeItemSetOnEvent;
     }
 }

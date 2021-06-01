@@ -26,7 +26,7 @@ public class FavoriteItems_DataHandler : Manager<FavoriteItems_DataHandler>
     private void EventInterpretHandler()
     {
         favoriteItemsDic = favoriteItemsVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Favorite Item interpret completed");
         //foreach (KeyValuePair<string, FavortieItems_Template> favoriteItem in favoriteItemsDic)
         //{
         //    for(int i = 0; i < favoriteItem.Value.ItemLikeId.Count; i++)

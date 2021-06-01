@@ -29,7 +29,7 @@ public class ActivitiesNPC_DataHandler : Manager<ActivitiesNPC_DataHandler>
     private void EventInterpretHandler()
     {
         activitiesDic = activitiesNpcVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("activities NPC interpret completed");
         //foreach(KeyValuePair<string, ActivitiesNpc_Template> npc in activitiesDic)
         //{
         //    foreach (KeyValuePair<Day, List<Activity>> day in npc.Value.GetActivitiesDic())

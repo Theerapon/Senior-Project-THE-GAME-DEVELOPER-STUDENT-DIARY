@@ -26,7 +26,7 @@ public class Exploration_DataHandler : Manager<Exploration_DataHandler>
     private void EventInterpretHandler()
     {
         explorationDic = explorationVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Exploration interpret completed");
         //foreach (KeyValuePair<string, Exploration_Template> exploration in explorationDic)
         //{
         //    foreach (KeyValuePair<int, List<string>> explorationDialogueIdLists in exploration.Value.ExplodialogueIdList)

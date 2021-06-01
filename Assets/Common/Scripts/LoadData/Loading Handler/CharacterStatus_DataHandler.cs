@@ -22,7 +22,7 @@ public class CharacterStatus_DataHandler : Manager<CharacterStatus_DataHandler>
     private void EventInterpretHandler()
     {
         characterDeginition_Current = charactersVM.Interpert();
-        //Debug.Log("activities interpret completed");
+        //Debug.Log("Character Status interpret completed");
         //Debug.Log(string.Format("Name {0}, Level {1}, Money {2}", 
         //    characterDeginition_Current.GetNameCharacter(),
         //    characterDeginition_Current.GetCurrentCharacterLevel(),
