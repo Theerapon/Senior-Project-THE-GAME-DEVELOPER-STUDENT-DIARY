@@ -1026,6 +1026,7 @@ MonoBehaviour:
   - {fileID: 1173128230}
   - {fileID: 1483880172}
   - {fileID: 266759045}
+  - {fileID: 1714787876}
 --- !u!4 &948092573
 Transform:
   m_ObjectHideFlags: 0
@@ -1713,7 +1714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1714787873
 Transform:
   m_ObjectHideFlags: 0
@@ -1740,6 +1741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d81b27db9b35ee4caf9127afffdb08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scheduleRegisterVM: {fileID: 1714787875}
+  interpretHandler: {fileID: 948092574}
 --- !u!114 &1714787875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1752,6 +1755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281260142a899494682e442b98a6218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scheduleRegister_Loading: {fileID: 1714787876}
 --- !u!114 &1714787876
 MonoBehaviour:
   m_ObjectHideFlags: 0
