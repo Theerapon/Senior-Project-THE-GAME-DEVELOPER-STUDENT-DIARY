@@ -40,11 +40,11 @@ public class BaseHardSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
             }
             else
             {
-                _image.sprite = _hardSkill.GetIconHardSKill();
+                _image.sprite = _hardSkill.Icon;
                 _fillExp.fillAmount = _hardSkill.GetExpFillAmount();
-                _level.text = _hardSkill.GetCurrentHardSkillLevel().ToString();
+                _level.text = _hardSkill.CurrentLevel.ToString();
 
-                if (_hardSkill.GetCurrentHardSkillLevel() <= 0)
+                if (_hardSkill.CurrentLevel <= 0)
                 {
                     _image.color = level_Zero_Color;
                 }

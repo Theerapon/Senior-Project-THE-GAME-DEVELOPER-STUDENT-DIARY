@@ -16,14 +16,14 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textMotivation;
 
     private GameObject found_Player;
-    private CharacterStatusController chracter_status;
+    private CharacterStatusController characterStatusController;
 
     private void Start()
     {
         found_Player = GameObject.FindGameObjectWithTag("Player");
-        chracter_status = CharacterStatusController.Instance;
-        chracter_status.OnEnergyUpdated.AddListener(OnEnergyHandler);
-        chracter_status.OnMotivationUpdated.AddListener(OnMotivationHandler);
+        characterStatusController = CharacterStatusController.Instance;
+        characterStatusController.characterStatus.OnEnergyUpdated.AddListener(OnEnergyHandler);
+        characterStatusController.characterStatus.OnMotivationUpdated.AddListener(OnMotivationHandler);
         Reset();
     }
 
@@ -36,22 +36,22 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     private void OnMotivationHandler()
     {
         imageMotivation.fillAmount = CalculateFillAmountMotivation();
-        textMotivation.text = chracter_status.CurrentMotivation + " / " + chracter_status.Default_maxMotivation;
+        textMotivation.text = characterStatusController.characterStatus.CurrentMotivation + " / " + characterStatusController.characterStatus.Default_maxMotivation;
     }
 
     private void OnEnergyHandler()
     {
         imageEnergy.fillAmount = CalculateFillAmountEnergy();
-        textEnergy.text = chracter_status.CurrentEnergy + " / " + chracter_status.Default_maxEnergy;
+        textEnergy.text = characterStatusController.characterStatus.CurrentEnergy + " / " + characterStatusController.characterStatus.Default_maxEnergy;
     }
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)chracter_status.CurrentEnergy  / chracter_status.Default_maxEnergy;
+        return (float)characterStatusController.characterStatus.CurrentEnergy  / characterStatusController.characterStatus.Default_maxEnergy;
     }
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)chracter_status.CurrentMotivation / chracter_status.Default_maxMotivation;
+        return (float)characterStatusController.characterStatus.CurrentMotivation / characterStatusController.characterStatus.Default_maxMotivation;
     }
 }

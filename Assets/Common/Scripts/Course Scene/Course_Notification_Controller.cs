@@ -63,9 +63,9 @@ public class Course_Notification_Controller : MonoBehaviour
         bool purchaseSuccessful;
         string id = purchase_course_id_temp.GetID();
         int totalPrice = course_handler.GetCourseDic[id].GetTotalPrice();
-        if (totalPrice < characterStatusController.CurrentMoney)
+        if (totalPrice < characterStatusController.characterStatus.CurrentMoney)
         {
-            characterStatusController.TakeMoney(totalPrice);
+            characterStatusController.characterStatus.TakeMoney(totalPrice);
             course_handler.GetCourseDic[id].IsCollected();
             purchaseSuccessful = true;
         }

@@ -25,7 +25,7 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected Status_Generator status_Generator;
 
     protected GameObject found_player;
-    protected CharacterStatusController characters_status;
+    protected CharacterStatusController charactersStatusController;
 
     #region GameObjects
     [Header("Game Objects")]
@@ -85,7 +85,7 @@ public class Characters_Menu_Handler : MonoBehaviour
     {
         //fonud inventory container in main Scene
         found_player = GameObject.FindGameObjectWithTag("Player");
-        characters_status = CharacterStatusController.Instance;
+        charactersStatusController = CharacterStatusController.Instance;
 
         if(!ReferenceEquals(status_display, null))
         {
@@ -172,19 +172,19 @@ public class Characters_Menu_Handler : MonoBehaviour
         
         //description
         bonus_description.SetActive(true);
-        text_bonus_charm.text = ((int)(characters_status.Default_charm * 100)).ToString();
-        text_bonus_base_bootupProject.text = ((int)(characters_status.Default_baseBootUpProject * 100)).ToString();
-        text_bonus_golden_bootupProject.text = ((int)(characters_status.Default_goldenTimeBootUpProject * 100)).ToString();
-        text_bonus_base_bootupMotivation.text = ((int)(characters_status.Default_baseBootUpMotivation * 100)).ToString();
-        text_bonus_golden_bootupMotivation.text = ((int)(characters_status.Default_goldenTimeBootUpMotivation * 100)).ToString();
-        text_bonus_base_energy.text = ((int)(characters_status.Default_baseReduceEnergyConsumption * 100)).ToString();
-        text_bonus_golden_energy.text = ((int)(characters_status.Defautl_goldenTimeReduceEnergyConsuption * 100)).ToString();
-        text_bonus_bug_chance.text = ((int)(characters_status.Default_reduceBugChance * 100)).ToString();
-        text_bonus_negative_effect.text = ((int)(characters_status.Default_negativeEventsEffect * 100)).ToString();
-        text_bonus_positive_effect.text = ((int)(characters_status.Default_positiveEventsEffect * 100)).ToString();
-        text_bonus_time_course.text = ((int)(characters_status.Default_reduceTimeTrainCourse * 100)).ToString();
-        text_bonus_time_transport.text = ((int)(characters_status.Default_reduceTimeTransport * 100)).ToString();
-        text_bonus_drop_rate.text = ((int)(characters_status.Default_dropRate * 100)).ToString();
+        text_bonus_charm.text = ((int)(charactersStatusController.characterStatus.Default_charm * 100)).ToString();
+        text_bonus_base_bootupProject.text = ((int)(charactersStatusController.characterStatus.Default_baseBootUpProject * 100)).ToString();
+        text_bonus_golden_bootupProject.text = ((int)(charactersStatusController.characterStatus.Default_goldenTimeBootUpProject * 100)).ToString();
+        text_bonus_base_bootupMotivation.text = ((int)(charactersStatusController.characterStatus.Default_baseBootUpMotivation * 100)).ToString();
+        text_bonus_golden_bootupMotivation.text = ((int)(charactersStatusController.characterStatus.Default_goldenTimeBootUpMotivation * 100)).ToString();
+        text_bonus_base_energy.text = ((int)(charactersStatusController.characterStatus.Default_baseReduceEnergyConsumption * 100)).ToString();
+        text_bonus_golden_energy.text = ((int)(charactersStatusController.characterStatus.Defautl_goldenTimeReduceEnergyConsuption * 100)).ToString();
+        text_bonus_bug_chance.text = ((int)(charactersStatusController.characterStatus.Default_reduceBugChance * 100)).ToString();
+        text_bonus_negative_effect.text = ((int)(charactersStatusController.characterStatus.Default_negativeEventsEffect * 100)).ToString();
+        text_bonus_positive_effect.text = ((int)(charactersStatusController.characterStatus.Default_positiveEventsEffect * 100)).ToString();
+        text_bonus_time_course.text = ((int)(charactersStatusController.characterStatus.Default_reduceTimeTrainCourse * 100)).ToString();
+        text_bonus_time_transport.text = ((int)(charactersStatusController.characterStatus.Default_reduceTimeTransport * 100)).ToString();
+        text_bonus_drop_rate.text = ((int)(charactersStatusController.characterStatus.Default_dropRate * 100)).ToString();
     }
 
     private void UnDisplayedBonusDescription(BaseBonusSlot bonusSlot)
@@ -203,13 +203,13 @@ public class Characters_Menu_Handler : MonoBehaviour
         Reset();
         //title
         DisplayDescriptionBox(true);
-        SetTitleText(hardSkillSlot.HARDSKILL.GetHardSkillName(), INST_HardSkill);
+        SetTitleText(hardSkillSlot.HARDSKILL.Hardskill_name, INST_HardSkill);
 
         hardskill_description.SetActive(true);
-        text_hardskill_level.text = hardSkillSlot.HARDSKILL.GetCurrentHardSkillLevel().ToString();
-        text_hardskill_currentExp.text = hardSkillSlot.HARDSKILL.GetCurrentHardSkillEXP().ToString();
+        text_hardskill_level.text = hardSkillSlot.HARDSKILL.CurrentLevel.ToString();
+        text_hardskill_currentExp.text = hardSkillSlot.HARDSKILL.CurrentExp.ToString();
         text_hardskill_requiredExp.text = hardSkillSlot.HARDSKILL.GetExpRequire().ToString();
-        text_hardskill_description.text = hardSkillSlot.HARDSKILL.GetHardSkillDescription();
+        text_hardskill_description.text = hardSkillSlot.HARDSKILL.Hardskill_description;
         image_hardskill_exp.fillAmount = hardSkillSlot.HARDSKILL.GetExpFillAmount();
 
         status_Generator.CreateTemplate(hardSkillSlot.HARDSKILL);

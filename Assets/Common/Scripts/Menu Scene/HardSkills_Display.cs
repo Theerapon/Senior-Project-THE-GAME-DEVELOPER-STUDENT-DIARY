@@ -11,8 +11,7 @@ public class HardSkills_Display : MonoBehaviour
     public Events.EventOnLeftClickHardSkillSlot OnLeftClickHardSkillSlotEvent;
     #endregion
 
-    protected GameObject found_player;
-    protected HardSkills_DataHandler hardSkills_Handler;
+    protected HardSkillsController hardSkillsController;
 
     [SerializeField] private Transform itemsParent;
     public List<BaseHardSkillSlot> hardSkillSlots;
@@ -31,8 +30,7 @@ public class HardSkills_Display : MonoBehaviour
     void Start()
     {
         //fonud inventory container in main Scene
-        found_player = GameObject.FindGameObjectWithTag("Player");
-        hardSkills_Handler = found_player.GetComponentInChildren<HardSkills_DataHandler>();
+        hardSkillsController = HardSkillsController.Instance;
 
         for (int index = 0; index < hardSkillSlots.Count; index++)
         {
@@ -57,15 +55,15 @@ public class HardSkills_Display : MonoBehaviour
     {
         int i = 0;
         Debug.Log("wait for implementation");
-        //foreach(KeyValuePair<string, HardSkill> hardskill in hardSkills_Handler.GetHardSkillsDic)
-        //{
-        //    HardSkill hardSkill = hardskill.Value;
-        //    if (!ReferenceEquals(hardSkill, null))
-        //    {
-        //        hardSkillSlots[i].HARDSKILL = hardskill.Value;
-        //    }
-        //    i++;
-        //}
+        foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsController.hardskills)
+        {
+            HardSkill hardSkill = hardskill.Value;
+            if (!ReferenceEquals(hardSkill, null))
+            {
+                hardSkillSlots[i].HARDSKILL = hardskill.Value;
+            }
+            i++;
+        }
 
     }
 

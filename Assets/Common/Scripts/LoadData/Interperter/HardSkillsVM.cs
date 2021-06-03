@@ -57,7 +57,7 @@ public class HardSkillsVM : Manager<HardSkillsVM>
 
     private HardSkill_Template CreateTemplate(string line)
     {
-        HardSkillLevel[] hardSkillLevelsList = null;
+        HardSkillLevelRequired[] hardSkillLevelsList = null;
         string hardSkill_ID = "";
         string hardSkill_Name = "";
         string hardSkill_Description = "";
@@ -83,7 +83,7 @@ public class HardSkillsVM : Manager<HardSkillsVM>
                     break;
                 case INST_SET_hardskillMaxLevel:
                     hardSkill_MaxLevel = int.Parse(entries[++i]);
-                    hardSkillLevelsList = new HardSkillLevel[hardSkill_MaxLevel + 1];
+                    hardSkillLevelsList = new HardSkillLevelRequired[hardSkill_MaxLevel + 1];
                     break;
                 case INST_SET_createLevel:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
@@ -114,7 +114,7 @@ public class HardSkillsVM : Manager<HardSkillsVM>
                     int coding = stack_Level_Detail.Pop();
                     int exp = stack_Level_Detail.Pop();
                     int level = stack_Level_Detail.Pop();
-                    hardSkillLevelsList[level] = new HardSkillLevel(exp, coding, design, testing, art, sound);
+                    hardSkillLevelsList[level] = new HardSkillLevelRequired(exp, coding, design, testing, art, sound);
                     break;
                 case INST_SET_icon:
                     icon = Resources.Load<Sprite>(entries[++i]);

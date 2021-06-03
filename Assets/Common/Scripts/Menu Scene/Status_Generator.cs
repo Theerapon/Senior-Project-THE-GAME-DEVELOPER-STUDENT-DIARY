@@ -31,24 +31,24 @@ public class Status_Generator : MonoBehaviour
 
         if (nextCoding > 0)
         {
-            CreateTemplate(INST_CODING_ID, hardSkill.GetTotalBonusCoding(), nextCoding);
+            CreateTemplate(INST_CODING_ID, hardSkill.CurrentTotalBonusCodingStatus, nextCoding);
         }
         if (nextDesign > 0)
         {
-            CreateTemplate(INST_DESIGN_ID, hardSkill.GetTotalBonusDesign(), nextDesign);
+            CreateTemplate(INST_DESIGN_ID, hardSkill.CurrentTotalBonusDesignStatus, nextDesign);
         }
         if (nextTesting > 0)
         {
-            CreateTemplate(INST_TESTING_ID, hardSkill.GetTotalBonusTesting(), nextTesting);
+            CreateTemplate(INST_TESTING_ID, hardSkill.CurrentTotalBonusTestingStatus, nextTesting);
         }
         if (nextArt > 0)
         {
-            CreateTemplate(INST_ART_ID, hardSkill.GetTotalBonusArt(), nextArt);
+            CreateTemplate(INST_ART_ID, hardSkill.CurrentTotalBonusArtStatus, nextArt);
         }
 
         if (nextSound > 0)
         {
-            CreateTemplate(INST_SOUND_ID, hardSkill.GetTotalBonusSound(), nextSound);
+            CreateTemplate(INST_SOUND_ID, hardSkill.CurrentTotalBonusSoundStatus, nextSound);
         }
 
 

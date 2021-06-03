@@ -23,7 +23,7 @@ public class HUD_Info_Display : MonoBehaviour
     [SerializeField] private Sprite image_day;
     [SerializeField] private Sprite image_night;
 
-    private CharacterStatusController character_status;
+    private CharacterStatusController characterStatusController;
     private TimeManager timeManager;
 
     protected void Start()
@@ -37,13 +37,13 @@ public class HUD_Info_Display : MonoBehaviour
             timeManager.NotificationAll();
         }
 
-        character_status = CharacterStatusController.Instance;
+        characterStatusController = CharacterStatusController.Instance;
         
-        if(!ReferenceEquals(character_status, null))
+        if(!ReferenceEquals(characterStatusController, null))
         {
-            character_status.OnEnergyUpdated.AddListener(EnergyHandler);
-            character_status.OnMotivationUpdated.AddListener(MotivationHandler);
-            character_status.OnMoneyUpdated.AddListener(MoneyHandler);
+            characterStatusController.characterStatus.OnEnergyUpdated.AddListener(EnergyHandler);
+            characterStatusController.characterStatus.OnMotivationUpdated.AddListener(MotivationHandler);
+            characterStatusController.characterStatus.OnMoneyUpdated.AddListener(MoneyHandler);
         }
 
         Reset();
@@ -60,7 +60,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private void MoneyHandler()
     {
-        money.text = character_status.CurrentMoney.ToString();
+        money.text = characterStatusController.characterStatus.ToString();
     }
 
     private void MotivationHandler()
@@ -70,7 +70,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)character_status.CurrentMotivation / character_status.Default_maxMotivation;
+        return (float)characterStatusController.characterStatus.CurrentMotivation / characterStatusController.characterStatus.Default_maxMotivation;
     }
 
     private void EnergyHandler()
@@ -80,7 +80,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)character_status.CurrentEnergy / character_status.Default_maxEnergy;
+        return (float)characterStatusController.characterStatus.CurrentEnergy / characterStatusController.characterStatus.Default_maxEnergy;
     }
 
     private void HandlerTimeChange(bool isDay)
