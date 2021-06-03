@@ -49,12 +49,12 @@ public class My_Course_Bonus_Generator : MonoBehaviour
     [Header("Status Icon")]
     [SerializeField] protected Sprite status_icon;
 
-    protected Courses_DataHandler course_handler;
+    protected CoursesController coursesController;
     private Dictionary<string, int> dicBonus;
 
     private void Awake()
     {
-        course_handler = Courses_DataHandler.Instance;
+        coursesController = CoursesController.Instance;
         dicBonus = new Dictionary<string, int>();
     }
 
@@ -137,62 +137,62 @@ public class My_Course_Bonus_Generator : MonoBehaviour
         int bonusCheck = 0;
 
         #region Exp
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultMathExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultMathExpReward;
         
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Math_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultProgrammingExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultProgrammingExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Programming_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultEngineExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultEngineExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Engine_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultAiExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultAiExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Ai_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultNetwordExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultNetwordExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Network_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultDesignExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultDesignExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Design_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultTestingExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultTestingExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Testing_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultArtExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultArtExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Art_Exp, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultSoundExpReward();
+        bonusCheck = coursesController.myCourses[id].DefaultSoundExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Sound_Exp, bonusCheck);
         #endregion
 
         #region Stat
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultCodingStatReward();
+        bonusCheck = coursesController.myCourses[id].DefaultCodingStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Coding_Status, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultDesignStatReward();
+        bonusCheck = coursesController.myCourses[id].DefaultDesignStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Design_Status, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultTestingStatReward();
+        bonusCheck = coursesController.myCourses[id].DefaultTestingStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Testing_Status, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultArtStatReward();
+        bonusCheck = coursesController.myCourses[id].DefaultArtStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Art_Status, bonusCheck);
 
-        bonusCheck = course_handler.GetCourseDic[id].GetdefaultSoundStatReward();
+        bonusCheck = coursesController.myCourses[id].DefaultSoundStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Sound_Status, bonusCheck);
         #endregion

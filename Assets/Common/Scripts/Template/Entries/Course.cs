@@ -3,168 +3,60 @@ using UnityEngine;
 
 public class Course : MonoBehaviour
 {
-    protected Course_Template course_current;
+    protected Course_Template definition;
+    private float courseDiscount;
+    private bool hasCollected;
 
     public Course(Course_Template course_Template)
     {
-        course_current = course_Template;
+        definition = Instantiate(course_Template);
+        Initializing();
     }
-    public void SetDiscountCourse(float discount)
+    private void Initializing()
     {
-        course_current.SetDiscountCourse(discount);
-    }
-    public void IsCollected()
-    {
-        course_current.IsCollected();
-    }
-    public void UnIsCollected()
-    {
-        course_current.UnIsCollected();
+        courseDiscount = 0;
+        hasCollected = false;
     }
 
     #region Reporter
-    public Sprite GetCourseIcon()
-    {
-        return course_current.GetCourseIcon();
-    }
-    public int GetExpForPlayer()
-    {
-        return course_current.GetExpForPlayer();
-    }
+    public float CourseDiscount { get => courseDiscount; }
+    public bool HasCollected { get => hasCollected; }
+    public string Id { get => definition.Id; }
+    public string CourseName { get => definition.CourseName; }
+    public string AuthorName { get => definition.AuthorName; }
+    public string Description { get => definition.Description; }
+    public int CourseOriginalPrice { get => definition.CourseOriginalPrice; }
+    public int SecondTimeUsed { get => definition.SecondTimeUsed; }
+    public int EnergyUsed { get => definition.EnergyUsed; }
+    public int MotivationUsed { get => definition.MotivationUsed; }
+    public int ExpPlayer { get => definition.ExpPlayer; }
+    public Sprite Course_icon { get => definition.Course_icon; }
+    public int DefaultMathExpReward { get => definition.DefaultMathExpReward; }
+    public int DefaultProgrammingExpReward { get => definition.DefaultProgrammingExpReward; }
+    public int DefaultEngineExpReward { get => definition.DefaultEngineExpReward; }
+    public int DefaultAiExpReward { get => definition.DefaultAiExpReward; }
+    public int DefaultNetwordExpReward { get => definition.DefaultNetwordExpReward; }
+    public int DefaultDesignExpReward { get => definition.DefaultDesignExpReward; }
+    public int DefaultArtExpReward { get => definition.DefaultArtExpReward; }
+    public int DefaultSoundExpReward { get => definition.DefaultSoundExpReward; }
+    public int DefaultTestingExpReward { get => definition.DefaultTestingExpReward; }
+    public int DefaultCodingStatReward { get => definition.DefaultCodingStatReward; }
+    public int DefaultDesignStatReward { get => definition.DefaultDesignStatReward; }
+    public int DefaultArtStatReward { get => definition.DefaultArtStatReward; }
+    public int DefaultTestingStatReward { get => definition.DefaultTestingStatReward; }
+    public int DefaultSoundStatReward { get => definition.DefaultSoundStatReward; }
+    public List<CourseTag> CourseTypeNum { get => definition.CourseTypeNum; }
+    public LevelRecommended CourseRecommended { get => definition.CourseRecommended; }
+    #endregion
+
+    #region Set Get
     public int GetDiscountPrice()
     {
-        return course_current.GetDiscountPrice();
+        return Mathf.CeilToInt(definition.CourseOriginalPrice * courseDiscount);
     }
     public int GetTotalPrice()
     {
-        return course_current.GetTotalPrice();
-    }
-    public bool GetCourseCollected()
-    {
-        return course_current.GetCourseCollected();
-    }
-
-    public int GetSecondToConsume()
-    {
-        return course_current.GetSecondToConsume();
-    }
-
-    public int GetEnergyToConsume()
-    {
-        return course_current.GetEnergyToConsume();
-    }
-
-    public int GetdefaultMathExpReward()
-    {
-        return course_current.GetdefaultMathExpReward();
-    }
-
-    public int GetdefaultProgrammingExpReward()
-    {
-        return course_current.GetdefaultProgrammingExpReward();
-    }
-
-    public int GetdefaultEngineExpReward()
-    {
-        return course_current.GetdefaultEngineExpReward();
-    }
-
-    public int GetdefaultAiExpReward()
-    {
-        return course_current.GetdefaultAiExpReward();
-    }
-
-    public int GetdefaultNetwordExpReward()
-    {
-        return course_current.GetdefaultNetwordExpReward();
-    }
-
-    public int GetdefaultDesignExpReward()
-    {
-        return course_current.GetdefaultDesignExpReward();
-    }
-
-    public int GetdefaultArtExpReward()
-    {
-        return course_current.GetdefaultArtExpReward();
-    }
-
-    public int GetdefaultSoundExpReward()
-    {
-        return course_current.GetdefaultSoundExpReward();
-    }
-
-
-    public int GetdefaultTestingExpReward()
-    {
-        return course_current.GetdefaultTestingExpReward();
-    }
-
-    public int GetdefaultCodingStatReward()
-    {
-        return course_current.GetdefaultCodingStatReward();
-    }
-
-    public int GetdefaultDesignStatReward()
-    {
-        return course_current.GetdefaultDesignStatReward();
-    }
-
-    public int GetdefaultArtStatReward()
-    {
-        return course_current.GetdefaultArtStatReward();
-    }
-
-    public int GetdefaultTestingStatReward()
-    {
-        return course_current.GetdefaultTestingStatReward();
-    }
-
-    public int GetdefaultSoundStatReward()
-    {
-        return course_current.GetdefaultSoundStatReward();
-    }
-
-    public int GetOriginalPrice()
-    {
-        return course_current.GetOriginalPrice();
-    }
-
-    public string GetNameAuthor()
-    {
-        return course_current.GetNameAuthor();
-    }
-
-    public string GetDescription()
-    {
-        return course_current.GetDescription();
-    }
-
-    public List<CourseTag> GetCourseTag()
-    {
-        return course_current.GetCourseTag();
-    }
-
-    public LevelRecommended GetLevelRecommended()
-    {
-        return course_current.GetLevelRecommended();
-    }
-
-    public string GetNameCourse()
-    {
-        return course_current.GetNameCourse();
-    }
-    public int GetCountCourseType()
-    {
-        return course_current.GetCountCourseType();
-    }
-    public int GetMotivationConsume()
-    {
-        return course_current.GetMotivationConsume();
+        return definition.CourseOriginalPrice - (GetDiscountPrice());
     }
     #endregion
-    public Course_Template GetCopy()
-    {
-        return course_current.GetCopy();
-    }
 }

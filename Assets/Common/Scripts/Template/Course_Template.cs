@@ -11,15 +11,12 @@ public class Course_Template : MonoBehaviour
     
 
     private string id;
-    public string ID { get { return id; } }
 
     [Header("Detail")]
-    private string nameCourse;
-    private string nameAuthor;
+    private string courseName;
+    private string authorName;
     private string description;
-    private int priceCourse;
-    private float discountCourse = 0f;
-    private bool isCollected = false;
+    private int courseOriginalPrice;
     private int secondTimeUsed;
     private int energyUsed;
     private int motivationUsed;
@@ -58,10 +55,10 @@ public class Course_Template : MonoBehaviour
         List<CourseTag> courseTypeNum, LevelRecommended courseRecommended, Sprite icon)
     {
         this.id = id;
-        this.nameCourse = nameCourse;
-        this.nameAuthor = nameAuthor;
+        this.courseName = nameCourse;
+        this.authorName = nameAuthor;
         this.description = description;
-        this.priceCourse = priceCourse;
+        this.courseOriginalPrice = priceCourse;
         this.secondTimeUsed = secondTimeUsed;
         this.energyUsed = energyUsed;
         this.motivationUsed = motivationUsed;
@@ -85,144 +82,34 @@ public class Course_Template : MonoBehaviour
         this.course_icon = icon;
     }
 
-    public void SetDiscountCourse(float discount)
-    {
-        discountCourse = discount;
-    }
-    public void IsCollected()
-    {
-        isCollected = true;
-    }
-    public void UnIsCollected()
-    {
-        isCollected = false;
-    }
 
     #region Reporter
-    public Sprite GetCourseIcon()
-    {
-        return course_icon;
-    }
-    public int GetExpForPlayer()
-    {
-        return expPlayer;
-    }
-    public int GetDiscountPrice()
-    {
-        return Mathf.CeilToInt(priceCourse * discountCourse);
-    }
-    public int GetTotalPrice()
-    {
-        return priceCourse - (GetDiscountPrice());
-    }
-    public bool GetCourseCollected()
-    {
-        return isCollected;
-    }
-    public int GetSecondToConsume()
-    {
-        return secondTimeUsed;
-    }
-    public int GetEnergyToConsume()
-    {
-        return energyUsed;
-    }
-    public int GetdefaultMathExpReward()
-    {
-        return defaultMathExpReward;
-    }
-    public int GetdefaultProgrammingExpReward()
-    {
-        return defaultProgrammingExpReward;
-    }
-    public int GetdefaultEngineExpReward()
-    {
-        return defaultEngineExpReward;
-    }
-    public int GetdefaultAiExpReward()
-    {
-        return defaultAiExpReward;
-    }
-    public int GetdefaultNetwordExpReward()
-    {
-        return defaultNetwordExpReward;
-    }
-    public int GetdefaultDesignExpReward()
-    {
-        return defaultDesignExpReward;
-    }
-    public int GetdefaultArtExpReward()
-    {
-        return defaultArtExpReward;
-    }
-    public int GetdefaultSoundExpReward()
-    {
-        return defaultSoundExpReward;
-    }
-    public int GetdefaultTestingExpReward()
-    {
-        return defaultTestingExpReward;
-    }
-    public int GetdefaultCodingStatReward()
-    {
-        return defaultCodingStatReward;
-    }
-    public int GetdefaultDesignStatReward()
-    {
-        return defaultDesignStatReward;;
-    }
-    public int GetdefaultArtStatReward()
-    {
-        return defaultArtStatReward;
-    }
-    public int GetdefaultTestingStatReward()
-    {
-        return defaultTestingStatReward;
-    }
-    public int GetdefaultSoundStatReward()
-    {
-        return defaultSoundStatReward;
-    }
-    public int GetOriginalPrice()
-    {
-        return priceCourse;
-    }
-    public string GetNameAuthor()
-    {
-        return nameAuthor;
-    }
-    public string GetDescription()
-    {
-        return description;
-    }
-    public List<CourseTag> GetCourseTag()
-    {
-        return courseTypeNum;
-    }
-    public LevelRecommended GetLevelRecommended()
-    {
-        return courseRecommended;
-    }
-    public int GetCountCourseType()
-    {
-        return courseTypeNum.Count;
-    }
-    public string GetNameCourse()
-    {
-        return nameCourse;
-    }
-
-    public int GetMotivationConsume()
-    {
-        return motivationUsed;
-    }
+    public string Id { get => id; }
+    public string CourseName { get => courseName; }
+    public string AuthorName { get => authorName; }
+    public string Description { get => description; }
+    public int CourseOriginalPrice { get => courseOriginalPrice; }
+    public int SecondTimeUsed { get => secondTimeUsed; }
+    public int EnergyUsed { get => energyUsed; }
+    public int MotivationUsed { get => motivationUsed; }
+    public int ExpPlayer { get => expPlayer; }
+    public Sprite Course_icon { get => course_icon; }
+    public int DefaultMathExpReward { get => defaultMathExpReward; }
+    public int DefaultProgrammingExpReward { get => defaultProgrammingExpReward; }
+    public int DefaultEngineExpReward { get => defaultEngineExpReward; }
+    public int DefaultAiExpReward { get => defaultAiExpReward; }
+    public int DefaultNetwordExpReward { get => defaultNetwordExpReward; }
+    public int DefaultDesignExpReward { get => defaultDesignExpReward; }
+    public int DefaultArtExpReward { get => defaultArtExpReward; }
+    public int DefaultSoundExpReward { get => defaultSoundExpReward; }
+    public int DefaultTestingExpReward { get => defaultTestingExpReward; }
+    public int DefaultCodingStatReward { get => defaultCodingStatReward; }
+    public int DefaultDesignStatReward { get => defaultDesignStatReward; }
+    public int DefaultArtStatReward { get => defaultArtStatReward; }
+    public int DefaultTestingStatReward { get => defaultTestingStatReward; }
+    public int DefaultSoundStatReward { get => defaultSoundStatReward; }
+    public List<CourseTag> CourseTypeNum { get => courseTypeNum; }
+    public LevelRecommended CourseRecommended { get => courseRecommended; }
     #endregion
-
-
-    public virtual Course_Template GetCopy()
-    {
-        return this;
-    }
-
 
 }

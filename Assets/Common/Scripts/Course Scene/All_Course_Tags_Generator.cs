@@ -16,11 +16,11 @@ public class All_Course_Tags_Generator : MonoBehaviour
     [SerializeField] protected Color art_color;
     [SerializeField] protected Color sound_color;
 
-    protected Courses_DataHandler course_handler;
+    protected CoursesController coursesController;
 
     private void Awake()
     {
-        course_handler = Courses_DataHandler.Instance;
+        coursesController = CoursesController.Instance;
     }
 
     private void Start()
@@ -31,8 +31,8 @@ public class All_Course_Tags_Generator : MonoBehaviour
     private void CreateTag(string id)
     {
         GameObject copy;
-        List<CourseTag> types = course_handler.GetCourseDic[id].GetCourseTag();
-        for (int i = 0; i < course_handler.GetCourseDic[id].GetCountCourseType(); i++)
+        List<CourseTag> types = coursesController.allCourses[id].CourseTypeNum;
+        for (int i = 0; i < coursesController.allCourses[id].CourseTypeNum.Count; i++)
         {
             copy = Instantiate(tagTemplate, transform);
             //set border color

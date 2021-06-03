@@ -33,9 +33,9 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [SerializeField] private GameObject my_course;
     private GameObject preDisplay;
 
-    //[Header("Player")]
-    //[SerializeField] private TMP_Text namePlayer;
-    //[SerializeField] private TMP_Text moneyPlayer;
+    [Header("Player")]
+    [SerializeField] private TMP_Text namePlayer;
+    [SerializeField] private TMP_Text moneyPlayer;
 
     //[Header("Time")]
     //[SerializeField] private TMP_Text time;
@@ -55,16 +55,16 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [Header("Course Canvas")]
     [SerializeField] private GameObject courseCanvas;
 
-    private CharacterStatusController character_status;
-    private Courses_DataHandler courses_Handler;
+    private CharacterStatusController characterStatusController;
+    private CoursesController courseController;
 
     protected bool first_displayed;
 
     protected void Start()
     {
-        courses_Handler = Courses_DataHandler.Instance;
+        courseController = CoursesController.Instance;
         //timeManager = TimeManager.Instance;
-        character_status = CharacterStatusController.Instance;
+        characterStatusController = CharacterStatusController.Instance;
 
         courseDisplayed = CourseDisplayed.AllCourse;
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
@@ -169,8 +169,8 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
 
     private void UpdatePlayerData()
     {
-        //namePlayer.text = chracter_handler.STATUS.GetNameCharacter();
-        //moneyPlayer.text = string.Format("{0:n0}", chracter_handler.STATUS.GetCurrentMoney());
+        namePlayer.text = characterStatusController.characterStatus.Character_Name;;
+        moneyPlayer.text = string.Format("{0:n0}", characterStatusController.characterStatus.CurrentMoney);
     }
 
 
@@ -178,7 +178,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     {
         ActivedNotificationCanvas(true);
         confirm_purchase_notification.SetActive(true);
-        confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courses_Handler.GetCourseDic[id].GetNameCourse();
+        confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.allCourses[id].CourseName;
         SwitchScene.Instance.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }
@@ -201,7 +201,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     {
         ActivedNotificationCanvas(true);
         confirm_learn_notification.SetActive(true);
-        confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courses_Handler.GetCourseDic[id].GetNameCourse();
+        confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.myCourses[id].CourseName;
         SwitchScene.Instance.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }

@@ -6,7 +6,7 @@ public class Course_Notification_Controller : MonoBehaviour
 {
     [Header("Course Display")]
     [SerializeField] private Course_Display_Controller courseDisplay;
-    private Courses_DataHandler course_handler;
+    private CoursesController courseController;
 
     private GameObject found_Player;
     private CharacterStatusController characterStatusController;
@@ -19,7 +19,7 @@ public class Course_Notification_Controller : MonoBehaviour
 
     private void Start()
     {
-        course_handler = Courses_DataHandler.Instance;
+        courseController = CoursesController.Instance;
         found_Player = GameObject.FindGameObjectWithTag("Player");
         characterStatusController = CharacterStatusController.Instance;
         playerAction = found_Player.GetComponentInChildren<PlayerAction>();
@@ -62,11 +62,11 @@ public class Course_Notification_Controller : MonoBehaviour
     {
         bool purchaseSuccessful;
         string id = purchase_course_id_temp.GetID();
-        int totalPrice = course_handler.GetCourseDic[id].GetTotalPrice();
+        int totalPrice = courseController.allCourses[id].GetTotalPrice();
         if (totalPrice < characterStatusController.characterStatus.CurrentMoney)
         {
             characterStatusController.characterStatus.TakeMoney(totalPrice);
-            course_handler.GetCourseDic[id].IsCollected();
+            courseController.CollectCourse(id);
             purchaseSuccessful = true;
         }
         else
