@@ -37,33 +37,33 @@ public class SoftSkillsVM : MonoBehaviour
     [SerializeField] private SoftSkills_Loading softskillsLoading;
 
 
-    public Dictionary<string, SoftSkill_Template> Interpert()
+    public Dictionary<string, SoftSkill> Interpert()
     {
         if(!ReferenceEquals(softskillsLoading, null))
         {
-            Dictionary<string, SoftSkill_Template> softSkills = new Dictionary<string, SoftSkill_Template>();
+            Dictionary<string, SoftSkill> softSkills = new Dictionary<string, SoftSkill>();
 
             foreach (KeyValuePair<string, string> line in softskillsLoading.textLists)
             {
-                SoftSkill_Template softSkill = null;
+                SoftSkill softSkill = null;
                 string key = line.Key;
                 string value = line.Value;
                 switch (key)
                 {
                     case "COMMUNICATION":
-                        softSkill = CreateCommunication(value);
+                        softSkill = new SoftSkill(CreateCommunication(value));
                         break;
                     case "CRITICALTHINKING":
-                        softSkill = CreateCriticalThinking(value);
+                        softSkill = new SoftSkill(CreateCriticalThinking(value));
                         break;
                     case "LEADERSHIP":
-                        softSkill = CreateLeadership(value);
+                        softSkill = new SoftSkill(CreateLeadership(value));
                         break;
                     case "TIMEMANAGEMENT":
-                        softSkill = CreateTimeManagement(value);
+                        softSkill = new SoftSkill(CreateTimeManagement(value));
                         break;
                     case "WORKETHIC":
-                        softSkill = CreateWorkEthic(value);
+                        softSkill = new SoftSkill(CreateWorkEthic(value));
                         break;
                     default:
                         break;

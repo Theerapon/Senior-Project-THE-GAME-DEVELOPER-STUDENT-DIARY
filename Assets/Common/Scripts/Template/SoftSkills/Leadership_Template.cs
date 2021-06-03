@@ -27,19 +27,18 @@ public class Leadership_Template : SoftSkill_Template
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
         this.description = description;
-        this.isUnlock = false;
-        this.currentSoftSkillLevel = 0;
         this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.LEADERSHIP;
 
         this.softSkillLevelsList = softSkillLevelsList;
         this.icon = icon;
-        Initiate();
+        Initialzing();
     }
 
     #region Override
-    protected override void Initiate()
+    protected override void Initialzing()
     {
+        base.Initialzing();
         if (currentSoftSkillLevel == 0)
         {
             totalBONUS_negativeEventsEffect = softSkillLevelsList[0].BONUS_negativeEventsEffect;
@@ -89,7 +88,7 @@ public class Leadership_Template : SoftSkill_Template
     }
     #endregion
 
-    protected override void SetSoftSkillLevel(int softSkillLevel)
+    protected override void SetSoftSkillLevelUp(int softSkillLevel)
     {
         currentSoftSkillLevel = softSkillLevel + 1;
 

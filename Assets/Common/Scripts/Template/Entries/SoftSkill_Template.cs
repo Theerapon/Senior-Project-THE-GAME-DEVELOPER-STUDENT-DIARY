@@ -16,11 +16,11 @@ public class SoftSkill_Template : MonoBehaviour
     protected SoftSkillType softSkillType = SoftSkillType.NONE;
 
     #region Bonus Increasers
-    public void UnLockSkill()
+    private void UnLockSkill()
     {
         isUnlock = true;
     }
-    public void UpSoftSkill()
+    public void LevelUpSoftSkill()
     {
         if (currentSoftSkillLevel == 0)
         {
@@ -29,19 +29,12 @@ public class SoftSkill_Template : MonoBehaviour
 
         if (currentSoftSkillLevel < softSkillMaxLevel)
         {
-            SetSoftSkillLevel(currentSoftSkillLevel);
+            SetSoftSkillLevelUp(currentSoftSkillLevel);
         }
         else
         {
             Debug.Log("soft Skill maxlevel");
         }
-    }
-    #endregion
-
-    #region Bonus Reducers
-    public void LockSkill()
-    {
-        isUnlock = false;
     }
     #endregion
 
@@ -74,12 +67,13 @@ public class SoftSkill_Template : MonoBehaviour
 
     #region Must Override
 
-    protected virtual void Initiate()
+    protected virtual void Initialzing()
     {
-        
+        this.isUnlock = false;
+        this.currentSoftSkillLevel = 0;
     }
 
-    protected virtual void SetSoftSkillLevel(int softSkillLevel)
+    protected virtual void SetSoftSkillLevelUp(int softSkillLevel)
     {
 
     }

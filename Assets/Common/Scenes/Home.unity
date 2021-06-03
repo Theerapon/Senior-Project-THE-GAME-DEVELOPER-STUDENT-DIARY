@@ -1358,15 +1358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e7de94bdfff52488807cf9143f4ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnEnergyUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMotivationUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnMoneyUpdated:
-    m_PersistentCalls:
-      m_Calls: []
+  characterStatus: {fileID: 0}
 --- !u!1 &1812931400
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9023088599733477239}
+  - component: {fileID: 7240125889875460148}
   m_Layer: 0
   m_Name: SoftSkills
   m_TagString: HardSkills
@@ -2210,6 +2203,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7240125889875460148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7240125889875460147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425c28efdddd48542ae94ace481783ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9023088599733477239
 Transform:
   m_ObjectHideFlags: 0

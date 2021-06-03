@@ -11,8 +11,7 @@ public class Softskills_Display : MonoBehaviour
     public Events.EventOnLeftClickSoftSkillSlot OnLeftClickSoftSkillSlotEvent;
     #endregion
 
-    protected GameObject found_player;
-    protected SoftSkills_DataHandler softSkills_Handler;
+    protected SoftSkillsController softSkillsController;
 
     [SerializeField] private Transform itemsParent;
     public List<BaseSoftSkillSlot> softSkillSlots;
@@ -29,9 +28,7 @@ public class Softskills_Display : MonoBehaviour
 
     void Start()
     {
-        //fonud inventory container in main Scene
-        found_player = GameObject.FindGameObjectWithTag("Player");
-        softSkills_Handler = found_player.GetComponentInChildren<SoftSkills_DataHandler>();
+        softSkillsController = SoftSkillsController.Instance;
 
         for (int index = 0; index < softSkillSlots.Count; index++)
         {
@@ -56,15 +53,15 @@ public class Softskills_Display : MonoBehaviour
     {
         int i = 0;
         Debug.Log("wair for implementation");
-        //foreach(KeyValuePair<string, SoftSkill> softskill in softSkills_Handler.GetSoftSkillsDic)
-        //{
-        //    SoftSkill copy = softskill.Value;
-        //    if (!ReferenceEquals(copy, null))
-        //    {
-        //        softSkillSlots[i].SOFTSKILL = softskill.Value;
-        //    }
-        //    i++;
-        //}
+        foreach (KeyValuePair<string, SoftSkill> softskill in softSkillsController.softskills)
+        {
+            SoftSkill copy = softskill.Value;
+            if (!ReferenceEquals(copy, null))
+            {
+                softSkillSlots[i].SOFTSKILL = softskill.Value;
+            }
+            i++;
+        }
     }
 
     private void OnLeftClickSoftSkillSlotHandler(BaseSoftSkillSlot softSkillSlot, bool selected)

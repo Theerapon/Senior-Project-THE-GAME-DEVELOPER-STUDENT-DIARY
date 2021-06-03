@@ -26,20 +26,19 @@ public class TimeManagement_Template : SoftSkill_Template
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
         this.description = description;
-        this.isUnlock = false;
-        this.currentSoftSkillLevel = 0;
         this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.TIMEMANAGEMENT;
 
         this.softSkillLevelsList = softSkillLevelsList;
         this.icon = icon;
-        Initiate();
+        Initialzing();
     }
 
     #region Override
-    protected override void Initiate()
+    protected override void Initialzing()
     {
-        if(currentSoftSkillLevel == 0)
+        base.Initialzing();
+        if (currentSoftSkillLevel == 0)
         {
             totalBONUS_reduceTimeTrainCourse = softSkillLevelsList[0].BONUS_reduceTimeTrainCourse;
             totalBONUS_reduceTimeTransport = softSkillLevelsList[0].BONUS_reduceTimeTransport;
@@ -87,7 +86,7 @@ public class TimeManagement_Template : SoftSkill_Template
         return value;
     }
     #endregion
-    protected override void SetSoftSkillLevel(int softSkillLevel)
+    protected override void SetSoftSkillLevelUp(int softSkillLevel)
     {
         currentSoftSkillLevel = softSkillLevel + 1;
 

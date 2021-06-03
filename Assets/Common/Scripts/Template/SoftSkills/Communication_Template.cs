@@ -34,20 +34,19 @@ public class Communication_Template : SoftSkill_Template
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
         this.description = description;
-        this.isUnlock = false;
-        this.currentSoftSkillLevel = 0;
         this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.COMMUNICATION;
 
         this.softSkillLevelsList = softSkillLevelsList;
         this.icon = icon;
-        Initiate();
+        Initialzing();
     }
 
     #region Override
-    protected override void Initiate()
+    protected override void Initialzing()
     {
-        if(currentSoftSkillLevel == 0)
+        base.Initialzing();
+        if (currentSoftSkillLevel == 0)
         {
             totalBONUS_charm = softSkillLevelsList[0].BONUS_charm;
             totalBONUS_baseBootUpProject = softSkillLevelsList[0].BONUS_baseBootUpProject;
@@ -96,7 +95,7 @@ public class Communication_Template : SoftSkill_Template
     }
     #endregion
 
-    protected override void SetSoftSkillLevel(int softSkillLevel)
+    protected override void SetSoftSkillLevelUp(int softSkillLevel)
     {
         currentSoftSkillLevel = softSkillLevel + 1;
 

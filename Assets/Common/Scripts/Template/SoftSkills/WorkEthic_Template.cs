@@ -28,19 +28,17 @@ public class WorkEthic_Template : SoftSkill_Template
         this.softSkill_ID = softSkill_ID;
         this.nameSoftSkill = nameSoftSkill;
         this.description = description;
-        this.isUnlock = false;
-        this.currentSoftSkillLevel = 0;
         this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.WORKETHIC;
-
         this.softSkillLevelsList = softSkillLevelsList;
         this.icon = icon;
-        Initiate();
+        Initialzing();
     }
 
     #region Override
-    protected override void Initiate()
+    protected override void Initialzing()
     {
+        base.Initialzing();
         if (currentSoftSkillLevel == 0)
         {
             totalBONUS_goldenTimeReduceEnergyConsuption = softSkillLevelsList[0].BONUS_goldenTimeReduceEnergyConsuption;
@@ -110,7 +108,7 @@ public class WorkEthic_Template : SoftSkill_Template
         return value;
     }
     #endregion
-    protected override void SetSoftSkillLevel(int softSkillLevel)
+    protected override void SetSoftSkillLevelUp(int softSkillLevel)
     {
         currentSoftSkillLevel = softSkillLevel + 1;
 
