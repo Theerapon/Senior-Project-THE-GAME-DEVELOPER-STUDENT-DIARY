@@ -11,15 +11,15 @@ public class StatusDetailsVM : MonoBehaviour
 
     [SerializeField] private StatusDetail_Loading statusDetailLoading;
 
-    public Dictionary<string, Status> Interpert()
+    public Dictionary<string, Status_Template> Interpert()
     {
         if (!ReferenceEquals(statusDetailLoading, null))
         {
-            Dictionary<string, Status> status_dic = new Dictionary<string, Status>();
+            Dictionary<string, Status_Template> status_dic = new Dictionary<string, Status_Template>();
 
             foreach (KeyValuePair<string, string> line in statusDetailLoading.textLists)
             {
-                Status status = null;
+                Status_Template status = null;
                 string key = line.Key;
                 string value = line.Value;
 
@@ -40,7 +40,7 @@ public class StatusDetailsVM : MonoBehaviour
         return null;
     }
 
-    public Status CreateTemplate(string line)
+    public Status_Template CreateTemplate(string line)
     {
         string id = "";
         string name = "";
@@ -69,6 +69,6 @@ public class StatusDetailsVM : MonoBehaviour
             }
 
         }
-        return new Status(id, name, icon, color);
+        return new Status_Template(id, name, icon, color);
     }
 }

@@ -58,19 +58,19 @@ public class CoursesVM : MonoBehaviour
     [SerializeField] private Courses_Loading coursesLoading;
 
 
-    public Dictionary<string, Course> Interpert()
+    public Dictionary<string, Course_Template> Interpert()
     {
         if (!ReferenceEquals(coursesLoading, null))
         {
-            Dictionary<string, Course> courses = new Dictionary<string, Course>();
+            Dictionary<string, Course_Template> courses = new Dictionary<string, Course_Template>();
 
             foreach (KeyValuePair<string, string> line in coursesLoading.textLists)
             {
-                Course course = null;
+                Course_Template course = null;
                 string key = line.Key;
                 string value = line.Value;
 
-                course = new Course(CreateTemplate(value));
+                course = CreateTemplate(value);
 
                 if (!ReferenceEquals(course, null))
                 {

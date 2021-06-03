@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
 {
-    protected Dictionary<string, Status> status_dic;
+    protected Dictionary<string, Status_Template> status_dic;
     [SerializeField] private StatusDetailsVM statusDetailsVM;
     [SerializeField] private InterpretHandler interpretHandler;
 
 
-    public Dictionary<string, Status> GetStatusDic
+    public Dictionary<string, Status_Template> GetStatusDic
     {
         get { return status_dic; }
     }
@@ -18,7 +18,7 @@ public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
     protected override void Awake()
     {
         base.Awake();
-        status_dic = new Dictionary<string, Status>();
+        status_dic = new Dictionary<string, Status_Template>();
     }
     private void Start()
     {

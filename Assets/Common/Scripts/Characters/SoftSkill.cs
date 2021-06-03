@@ -8,8 +8,6 @@ public class SoftSkill : MonoBehaviour
 
     #region New Object
 
-    public SoftSkill() { }
-
     public SoftSkill(Communication_Template softSkill_Template)
     {
         softSkill_Current = softSkill_Template;

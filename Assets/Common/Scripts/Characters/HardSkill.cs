@@ -6,7 +6,6 @@ public class HardSkill : MonoBehaviour
 {
     private HardSkill_Template hardSkill_current;
 
-    public HardSkill() { }
     public HardSkill(HardSkill_Template hardSkill_Template)
     {
         hardSkill_current = hardSkill_Template;

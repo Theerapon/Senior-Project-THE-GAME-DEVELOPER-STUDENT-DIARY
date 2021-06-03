@@ -26,19 +26,19 @@ public class HardSkillsVM : Manager<HardSkillsVM>
 
 
 
-    public Dictionary<string, HardSkill> Interpert()
+    public Dictionary<string, HardSkill_Template> Interpert()
     {
         if(!ReferenceEquals(hardskillsLoading, null))
         {
-            Dictionary<string, HardSkill> hardSkills = new Dictionary<string, HardSkill>();
+            Dictionary<string, HardSkill_Template> hardSkills = new Dictionary<string, HardSkill_Template>();
 
             foreach (KeyValuePair<string, string> line in hardskillsLoading.textLists)
             {
-                HardSkill hardSkill = null;
+                HardSkill_Template hardSkill = null;
                 string key = line.Key;
                 string value = line.Value;
 
-                hardSkill = new HardSkill(CreateTemplate(value));
+                hardSkill = CreateTemplate(value);
 
                 if(!ReferenceEquals(hardSkill, null))
                 {

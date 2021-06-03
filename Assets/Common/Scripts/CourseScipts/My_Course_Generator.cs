@@ -24,34 +24,35 @@ public class My_Course_Generator : MonoBehaviour
     private void CreateCourse()
     {
         GameObject copy;
-        foreach (KeyValuePair<string, Course> dic in course_handler.GetCourseDic)
-        {
-            if (dic.Value.GetCourseCollected() && !ReferenceEquals(playerAction, null)) //collected = true;
-            {
-                copy = Instantiate(courseTemplate, transform);
+        Debug.Log("wait for Implementation");
+        //foreach (KeyValuePair<string, Course> dic in course_handler.GetCourseDic)
+        //{
+        //    if (dic.Value.GetCourseCollected() && !ReferenceEquals(playerAction, null)) //collected = true;
+        //    {
+        //        copy = Instantiate(courseTemplate, transform);
                 
-                //Course Icon
-                copy.transform.GetChild(0).GetComponentInChildren<Image>().sprite = dic.Value.GetCourseIcon();
-                //Course Name
-                copy.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetNameCourse();
-                //Course Description
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponentInChildren<TMP_Text>().text = dic.Value.GetDescription();
-                //Course Recommend
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetLevelRecommended().ToString();
-                //Course Author
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(2).GetComponent<TMP_Text>().text = dic.Value.GetNameAuthor();
-                //Create Bonus
-                copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetComponentInChildren<My_Course_Bonus_Generator>().CreateTemplate(dic.Key);
+        //        //Course Icon
+        //        copy.transform.GetChild(0).GetComponentInChildren<Image>().sprite = dic.Value.GetCourseIcon();
+        //        //Course Name
+        //        copy.transform.GetChild(1).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetNameCourse();
+        //        //Course Description
+        //        copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(0).GetComponentInChildren<TMP_Text>().text = dic.Value.GetDescription();
+        //        //Course Recommend
+        //        copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(0).GetComponent<TMP_Text>().text = dic.Value.GetLevelRecommended().ToString();
+        //        //Course Author
+        //        copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(1).GetChild(2).GetComponent<TMP_Text>().text = dic.Value.GetNameAuthor();
+        //        //Create Bonus
+        //        copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetComponentInChildren<My_Course_Bonus_Generator>().CreateTemplate(dic.Key);
 
-                //Course Seccond Time
-                copy.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = TimeManager.Instance.GetSecondText(GetTimePlayerAction(dic.Value));
-                //Course Energy
-                copy.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = playerAction.GetEnergyCourse(dic.Value).ToString() + " Energy";
+        //        //Course Seccond Time
+        //        copy.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = TimeManager.Instance.GetSecondText(GetTimePlayerAction(dic.Value));
+        //        //Course Energy
+        //        copy.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = playerAction.GetEnergyCourse(dic.Value).ToString() + " Energy";
 
-                //Set Course ID
-                copy.transform.GetChild(3).GetComponent<CourseID>().SetID(dic.Key); //set ID
-            }
-        }
+        //        //Set Course ID
+        //        copy.transform.GetChild(3).GetComponent<CourseID>().SetID(dic.Key); //set ID
+        //    }
+        //}
 
         courseTemplate.SetActive(false);
     }

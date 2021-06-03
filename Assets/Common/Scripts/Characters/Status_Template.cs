@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Status : MonoBehaviour
+public class Status_Template : MonoBehaviour
 {
     protected string status_id;
     protected string status_name;
     protected Sprite status_icon;
     protected Color32 status_color;
 
-    public Status(string id, string name, Sprite icon, Color32 color)
+    public Status_Template(string id, string name, Sprite icon, Color32 color)
     {
         status_id = id;
         status_name = name;

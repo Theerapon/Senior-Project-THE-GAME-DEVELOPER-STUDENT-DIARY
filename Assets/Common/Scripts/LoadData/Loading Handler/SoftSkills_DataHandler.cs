@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class SoftSkills_DataHandler : Manager<SoftSkills_DataHandler>
 {
-    protected Dictionary<string, SoftSkill> softSkillsDic;
+    protected Dictionary<string, SoftSkill_Template> softSkillsDic;
     [SerializeField] private SoftSkillsVM softSkillsVM;
     [SerializeField] private InterpretHandler interpretHandler;
 
 
-    public Dictionary<string, SoftSkill> GetSoftSkillsDic
+    public Dictionary<string, SoftSkill_Template> GetSoftSkillsDic
     {
         get { return softSkillsDic; }
     }
@@ -18,7 +18,7 @@ public class SoftSkills_DataHandler : Manager<SoftSkills_DataHandler>
     protected override void Awake()
     {
         base.Awake();
-        softSkillsDic = new Dictionary<string, SoftSkill>();
+        softSkillsDic = new Dictionary<string, SoftSkill_Template>();
     }
 
     private void Start()

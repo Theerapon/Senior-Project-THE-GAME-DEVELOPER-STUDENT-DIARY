@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Courses_DataHandler : Manager<Courses_DataHandler>
 {
-    protected Dictionary<string, Course> course_dic;
+    protected Dictionary<string, Course_Template> course_dic;
     [SerializeField] private CoursesVM coursesVM;
     [SerializeField] private InterpretHandler interpretHandler;
 
-    public Dictionary<string, Course> GetCourseDic
+    public Dictionary<string, Course_Template> GetCourseDic
     {
         get { return course_dic; }
     }
@@ -17,7 +17,7 @@ public class Courses_DataHandler : Manager<Courses_DataHandler>
     protected override void Awake()
     {
         base.Awake();
-        course_dic = new Dictionary<string, Course>();
+        course_dic = new Dictionary<string, Course_Template>();
     }
     private void Start()
     {

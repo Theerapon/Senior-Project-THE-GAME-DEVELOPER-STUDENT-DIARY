@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
 {
-    protected Dictionary<string, HardSkill> hardSkillsDic;
+    protected Dictionary<string, HardSkill_Template> hardSkillsDic;
     [SerializeField] private HardSkillsVM hardSkillsVM;
     [SerializeField] private InterpretHandler interpretHandler;
    
 
-    public Dictionary<string, HardSkill> GetHardSkillsDic
+    public Dictionary<string, HardSkill_Template> GetHardSkillsDic
     {
         get { return hardSkillsDic; }
     }
@@ -18,7 +18,7 @@ public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
     protected override void Awake()
     {
         base.Awake();
-        hardSkillsDic = new Dictionary<string, HardSkill>();
+        hardSkillsDic = new Dictionary<string, HardSkill_Template>();
     }
     private void Start()
     {
