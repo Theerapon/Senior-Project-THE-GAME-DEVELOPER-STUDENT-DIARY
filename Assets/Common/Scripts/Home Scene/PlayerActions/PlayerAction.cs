@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 {
-    private CharacterStatus character_status;
+    private CharacterStatusController character_status;
 
     //[Header("Hard Skills")]
     //[SerializeField] private HardSkill mathHardSkill;
@@ -20,7 +20,7 @@ public class PlayerAction : MonoBehaviour, ICourseAction, ISleepAction
 
     private void Start()
     {
-        character_status = CharacterStatus.Instance;
+        character_status = CharacterStatusController.Instance;
 
     }
 

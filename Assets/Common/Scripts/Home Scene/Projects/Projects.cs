@@ -13,7 +13,7 @@ public class Projects : Manager<Projects>
 
     [SerializeField] private Projects_SO project_Template;
     public Projects_SO project_Current;
-    private CharacterStatus characterStats;
+    private CharacterStatusController characterStats;
 
     #endregion
 

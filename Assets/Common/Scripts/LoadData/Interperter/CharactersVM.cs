@@ -6,8 +6,9 @@ using static CharacterStatus_Template;
 public class CharactersVM : Manager<CharactersVM>
 {
     private const string INST_SET_charID = "ID";
-    private const string INST_SET_charName = "charName";
+    private const string INST_SET_charName = "charName"; 
 
+    private const string INST_SET_default_maxEnergy = "default_maxEnergy%";
     private const string INST_SET_default_bReduceEnerg = "default_bReduceEnergy%";
     private const string INST_SET_default_gReduceEnergy = "default_gReduceEnergy%";
     private const string INST_SET_default_maxMotivation = "default_maxMotivation";
@@ -75,10 +76,11 @@ public class CharactersVM : Manager<CharactersVM>
 
     private CharacterStatus_Template CreateCharacterStatsTemplate(string line)
     {
-        CharacterLevel[] characterLevelsList = null;
+        CharacterLevelRequired[] characterLevelsList = null;
         string charID = "";
         string charName = "";
 
+        int default_maxEnergy = 0;
         float default_bReduceEnergy = 0f;
         float default_gReduceEnergy = 0f;
         int default_maxMotivation = 0;
@@ -129,6 +131,9 @@ public class CharactersVM : Manager<CharactersVM>
                     break;
                 case INST_SET_charName:
                     charName = entries[++i];
+                    break;
+                case INST_SET_default_maxEnergy:
+                    default_maxEnergy = int.Parse(entries[++i]);
                     break;
                 case INST_SET_default_bReduceEnerg:
                     default_bReduceEnergy = float.Parse(entries[++i]) / 100f;
@@ -234,7 +239,7 @@ public class CharactersVM : Manager<CharactersVM>
                     break;
                 case INST_SET_maxLevel:
                     maxLevel = int.Parse(entries[++i]);
-                    characterLevelsList = new CharacterLevel[maxLevel + 1];
+                    characterLevelsList = new CharacterLevelRequired[maxLevel + 1];
                     break;
                 case INST_SET_createLevel:
                     stack_Level_Detail.Push(int.Parse(entries[++i]));
@@ -253,20 +258,19 @@ public class CharactersVM : Manager<CharactersVM>
                     int maxEnergy = stack_Level_Detail.Pop();
                     int expRequired = stack_Level_Detail.Pop();
                     int level = stack_Level_Detail.Pop();
-                    characterLevelsList[level] = new CharacterLevel(expRequired, maxEnergy, statsPoints);
+                    characterLevelsList[level] = new CharacterLevelRequired(expRequired, maxEnergy, statsPoints);
                     break;
             }
         }
 
-        return new CharacterStatus_Template(charID, charName, 
-            default_bReduceEnergy, default_gReduceEnergy, default_maxMotivation, default_bMotivation, default_gMotivation, 
-            default_money, default_coding, default_design, default_testing, default_art, default_sound,
-            default_bProject, default_gProject, default_reduceBugChange, default_charm,
-            default_negativeEventEffect, default_positiveEventEffect, default_reduceTimeCourse, default_reduceTimeTransport, default_dropRate,
-            perLevel_bReduceEnergy, perLevel_gReduceEnergy, perLevel_bMotivation, perLevel_gMotivation,
-            perLevel_bProject, perLevel_gProject, perLevel_reduceBugChance, perLevel_charm,
-            perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport,
-            perLevel_softskillPoints, perLevel_dropRate, maxLevel, characterLevelsList);
+        return new CharacterStatus_Template(characterLevelsList, charID, charName, 
+            maxLevel, default_dropRate, default_maxEnergy, default_bReduceEnergy, default_gReduceEnergy, 
+            default_maxMotivation, default_bMotivation, default_gMotivation, default_money, default_coding, 
+            default_design, default_art, default_sound, default_testing, default_bProject, default_gProject, 
+            default_reduceBugChange, default_charm, default_negativeEventEffect, default_positiveEventEffect, 
+            default_reduceTimeCourse, default_reduceTimeTransport, perLevel_bReduceEnergy, perLevel_gReduceEnergy, perLevel_bMotivation,
+            perLevel_gMotivation, perLevel_bProject, perLevel_gProject, perLevel_reduceBugChance, perLevel_charm, 
+            perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport, perLevel_softskillPoints, perLevel_dropRate);
     }
 }
 

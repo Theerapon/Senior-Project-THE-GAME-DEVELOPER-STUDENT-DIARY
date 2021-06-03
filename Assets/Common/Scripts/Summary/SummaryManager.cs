@@ -7,14 +7,14 @@ public class SummaryManager : MonoBehaviour
 {
    
     private GameObject found_Player;
-    private CharacterStatus character_status;
+    private CharacterStatusController character_status;
     private PlayerAction playerAction;
 
     private void Start()
     {
         found_Player = GameObject.FindGameObjectWithTag("Player");
         playerAction = found_Player.GetComponentInChildren<PlayerAction>();
-        character_status = CharacterStatus.Instance;
+        character_status = CharacterStatusController.Instance;
 
         TimeManager.Instance.OnTimeSkip.AddListener(TimeSkilpHandler);
     }

@@ -10,7 +10,7 @@ public class SummaryTimeDisplay : MonoBehaviour
     [SerializeField] private TMP_Text seasonCalendar;
     [SerializeField] private TMP_Text totalTime;
 
-    private CharacterStatus character_status;
+    private CharacterStatusController character_status;
     private GameObject found_Player;
     private PlayerAction playerAction;
 
@@ -24,7 +24,7 @@ public class SummaryTimeDisplay : MonoBehaviour
         }
 
         found_Player = GameObject.FindGameObjectWithTag("Player");
-        character_status = CharacterStatus.Instance;
+        character_status = CharacterStatusController.Instance;
         playerAction = found_Player.GetComponentInChildren<PlayerAction>();
         SetTotalTime();
 

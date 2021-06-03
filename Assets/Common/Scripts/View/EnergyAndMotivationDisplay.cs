@@ -16,12 +16,12 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     [SerializeField] private TMP_Text textMotivation;
 
     private GameObject found_Player;
-    private CharacterStatus chracter_status;
+    private CharacterStatusController chracter_status;
 
     private void Start()
     {
         found_Player = GameObject.FindGameObjectWithTag("Player");
-        chracter_status = CharacterStatus.Instance;
+        chracter_status = CharacterStatusController.Instance;
         chracter_status.OnEnergyUpdated.AddListener(OnEnergyHandler);
         chracter_status.OnMotivationUpdated.AddListener(OnMotivationHandler);
         Reset();
@@ -36,22 +36,22 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     private void OnMotivationHandler()
     {
         imageMotivation.fillAmount = CalculateFillAmountMotivation();
-        textMotivation.text = chracter_status.GetCurrentMotivation() + " / " + chracter_status.GetDEFAULT_MaxMotivation();
+        textMotivation.text = chracter_status.CurrentMotivation + " / " + chracter_status.Default_maxMotivation;
     }
 
     private void OnEnergyHandler()
     {
         imageEnergy.fillAmount = CalculateFillAmountEnergy();
-        textEnergy.text = chracter_status.GetCurrentEnergy() + " / " + chracter_status.GetMaxEnergy();
+        textEnergy.text = chracter_status.CurrentEnergy + " / " + chracter_status.Default_maxEnergy;
     }
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)chracter_status.GetCurrentEnergy()  / chracter_status.GetMaxEnergy();
+        return (float)chracter_status.CurrentEnergy  / chracter_status.Default_maxEnergy;
     }
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)chracter_status.GetCurrentMotivation() / chracter_status.GetDEFAULT_MaxMotivation();
+        return (float)chracter_status.CurrentMotivation / chracter_status.Default_maxMotivation;
     }
 }

@@ -23,7 +23,7 @@ public class HUD_Info_Display : MonoBehaviour
     [SerializeField] private Sprite image_day;
     [SerializeField] private Sprite image_night;
 
-    private CharacterStatus character_status;
+    private CharacterStatusController character_status;
     private TimeManager timeManager;
 
     protected void Start()
@@ -37,7 +37,7 @@ public class HUD_Info_Display : MonoBehaviour
             timeManager.NotificationAll();
         }
 
-        character_status = CharacterStatus.Instance;
+        character_status = CharacterStatusController.Instance;
         
         if(!ReferenceEquals(character_status, null))
         {
@@ -60,7 +60,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private void MoneyHandler()
     {
-        money.text = character_status.GetCurrentMoney().ToString();
+        money.text = character_status.CurrentMoney.ToString();
     }
 
     private void MotivationHandler()
@@ -70,7 +70,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)character_status.GetCurrentMotivation() / character_status.GetDEFAULT_MaxMotivation();
+        return (float)character_status.CurrentMotivation / character_status.Default_maxMotivation;
     }
 
     private void EnergyHandler()
@@ -80,7 +80,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)character_status.GetCurrentEnergy() / character_status.GetMaxEnergy();
+        return (float)character_status.CurrentEnergy / character_status.Default_maxEnergy;
     }
 
     private void HandlerTimeChange(bool isDay)

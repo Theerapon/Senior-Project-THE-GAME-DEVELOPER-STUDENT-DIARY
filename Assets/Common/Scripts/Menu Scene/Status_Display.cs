@@ -19,7 +19,7 @@ public class Status_Display : MonoBehaviour
     public Events.EventOnLeftClickStatusSlot OnLeftClickStatusSlot;
     #endregion
 
-    protected CharacterStatus character_status;
+    protected CharacterStatusController character_status;
 
     [SerializeField] private Transform itemsParent;
     public List<BaseStatusSlot> statusSlots;
@@ -37,7 +37,7 @@ public class Status_Display : MonoBehaviour
     private void Start()
     {
         //fonud inventory container in main Scene
-        character_status = CharacterStatus.Instance;
+        character_status = CharacterStatusController.Instance;
 
         for (int index = 0; index < statusSlots.Count; index++)
         {
@@ -67,23 +67,23 @@ public class Status_Display : MonoBehaviour
                 switch (statusSlots[i].TYPE)
                 {
                     case StatusType.Coding:
-                        statusSlots[i].VALUE = character_status.GetCodingStatus();
+                        statusSlots[i].VALUE = character_status.CurrentCodingStatus;
                         statusSlots[i].DESCRIPTION = INST_CODING;
                         break;
                     case StatusType.Design:
-                        statusSlots[i].VALUE = character_status.GetDesignStatus();
+                        statusSlots[i].VALUE = character_status.CurrentDesignStatus;
                         statusSlots[i].DESCRIPTION = INST_DESIGN;
                         break;
                     case StatusType.Testing:
-                        statusSlots[i].VALUE = character_status.GetTestingStatus();
+                        statusSlots[i].VALUE = character_status.CurrentTestingStatus;
                         statusSlots[i].DESCRIPTION = INST_TESTING;
                         break;
                     case StatusType.Art:
-                        statusSlots[i].VALUE = character_status.GetArtStatus();
+                        statusSlots[i].VALUE = character_status.CurrentArtStatus;
                         statusSlots[i].DESCRIPTION = INST_ART;
                         break;
                     case StatusType.Sound:
-                        statusSlots[i].VALUE = character_status.GetSoundStatus();
+                        statusSlots[i].VALUE = character_status.CurrentSoundStatus;
                         statusSlots[i].DESCRIPTION = INST_SOUND;
                         break;
                     default:
