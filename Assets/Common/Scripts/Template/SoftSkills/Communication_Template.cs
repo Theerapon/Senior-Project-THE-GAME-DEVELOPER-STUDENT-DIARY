@@ -36,7 +36,6 @@ public class Communication_Template : SoftSkill_Template
         this.description = description;
         this.softSkillMaxLevel = softSkillArraySize;
         this.softSkillType = SoftSkillType.COMMUNICATION;
-
         this.softSkillLevelsList = softSkillLevelsList;
         this.icon = icon;
         Initialzing();

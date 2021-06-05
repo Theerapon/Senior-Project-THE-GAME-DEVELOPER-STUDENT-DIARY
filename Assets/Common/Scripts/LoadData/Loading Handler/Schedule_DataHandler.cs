@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Schedule_DataHandler : Manager<Schedule_DataHandler>
+public class Schedule_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Schedule_Template> scheduleDic;
     [SerializeField] private ScheduleVM scheduleVM;
@@ -14,9 +14,8 @@ public class Schedule_DataHandler : Manager<Schedule_DataHandler>
         get { return scheduleDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         scheduleDic = new Dictionary<string, Schedule_Template>();
     }
     private void Start()

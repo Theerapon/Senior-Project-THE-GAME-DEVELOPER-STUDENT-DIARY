@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stores_DataHandler : Manager<Stores_DataHandler>
+public class Stores_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Store_Template> storeDic;
     [SerializeField] private StoresVM storesVM;
@@ -14,9 +14,8 @@ public class Stores_DataHandler : Manager<Stores_DataHandler>
         get { return storeDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         storeDic = new Dictionary<string, Store_Template>();
     }
     private void Start()

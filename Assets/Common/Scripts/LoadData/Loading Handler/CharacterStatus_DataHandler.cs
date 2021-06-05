@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStatus_DataHandler : Manager<CharacterStatus_DataHandler>
+public class CharacterStatus_DataHandler : MonoBehaviour
 {
     protected CharacterStatus_Template characterDeginition_Current;
     [SerializeField] private CharactersVM charactersVM;

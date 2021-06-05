@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemsTemplate_DataHandler : Manager<ItemsTemplate_DataHandler>
+public class ItemsTemplate_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, ItemPickUp_Template> itemTemplateDic;
     [SerializeField] private ItemsVM itemsVM;
@@ -12,9 +12,8 @@ public class ItemsTemplate_DataHandler : Manager<ItemsTemplate_DataHandler>
         get { return itemTemplateDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         itemTemplateDic = new Dictionary<string, ItemPickUp_Template>();
     }
 

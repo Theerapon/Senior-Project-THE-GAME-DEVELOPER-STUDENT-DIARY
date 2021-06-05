@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ideas_DataHandler : Manager<Ideas_DataHandler>
+public class Ideas_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Idea_Template> ideasDic;
     [SerializeField] private IdeasVM ideasVM;
@@ -12,9 +12,8 @@ public class Ideas_DataHandler : Manager<Ideas_DataHandler>
         get { return ideasDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         ideasDic = new Dictionary<string, Idea_Template>();
     }
 

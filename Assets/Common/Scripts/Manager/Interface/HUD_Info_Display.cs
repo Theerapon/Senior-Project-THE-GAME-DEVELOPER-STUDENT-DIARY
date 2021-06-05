@@ -41,9 +41,9 @@ public class HUD_Info_Display : MonoBehaviour
         
         if(!ReferenceEquals(characterStatusController, null))
         {
-            characterStatusController.characterStatus.OnEnergyUpdated.AddListener(EnergyHandler);
-            characterStatusController.characterStatus.OnMotivationUpdated.AddListener(MotivationHandler);
-            characterStatusController.characterStatus.OnMoneyUpdated.AddListener(MoneyHandler);
+            characterStatusController.CharacterStatus.OnEnergyUpdated.AddListener(EnergyHandler);
+            characterStatusController.CharacterStatus.OnMotivationUpdated.AddListener(MotivationHandler);
+            characterStatusController.CharacterStatus.OnMoneyUpdated.AddListener(MoneyHandler);
         }
 
         Reset();
@@ -60,7 +60,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private void MoneyHandler()
     {
-        money.text = characterStatusController.characterStatus.ToString();
+        money.text = characterStatusController.CharacterStatus.ToString();
     }
 
     private void MotivationHandler()
@@ -70,7 +70,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)characterStatusController.characterStatus.CurrentMotivation / characterStatusController.characterStatus.Default_maxMotivation;
+        return (float)characterStatusController.CharacterStatus.CurrentMotivation / characterStatusController.CharacterStatus.Default_maxMotivation;
     }
 
     private void EnergyHandler()
@@ -80,7 +80,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)characterStatusController.characterStatus.CurrentEnergy / characterStatusController.characterStatus.Default_maxEnergy;
+        return (float)characterStatusController.CharacterStatus.CurrentEnergy / characterStatusController.CharacterStatus.Default_maxEnergy;
     }
 
     private void HandlerTimeChange(bool isDay)

@@ -53,7 +53,7 @@ public class Softskills_Display : MonoBehaviour
     {
         int i = 0;
         Debug.Log("wair for implementation");
-        foreach (KeyValuePair<string, SoftSkill> softskill in softSkillsController.softskills)
+        foreach (KeyValuePair<string, SoftSkill> softskill in softSkillsController.Softskills)
         {
             SoftSkill copy = softskill.Value;
             if (!ReferenceEquals(copy, null))

@@ -67,23 +67,23 @@ public class Status_Display : MonoBehaviour
                 switch (statusSlots[i].TYPE)
                 {
                     case StatusType.Coding:
-                        statusSlots[i].VALUE = characterStatusController.characterStatus.CurrentCodingStatus;
+                        statusSlots[i].VALUE = characterStatusController.CharacterStatus.CurrentCodingStatus;
                         statusSlots[i].DESCRIPTION = INST_CODING;
                         break;
                     case StatusType.Design:
-                        statusSlots[i].VALUE = characterStatusController.characterStatus.CurrentDesignStatus;
+                        statusSlots[i].VALUE = characterStatusController.CharacterStatus.CurrentDesignStatus;
                         statusSlots[i].DESCRIPTION = INST_DESIGN;
                         break;
                     case StatusType.Testing:
-                        statusSlots[i].VALUE = characterStatusController.characterStatus.CurrentTestingStatus;
+                        statusSlots[i].VALUE = characterStatusController.CharacterStatus.CurrentTestingStatus;
                         statusSlots[i].DESCRIPTION = INST_TESTING;
                         break;
                     case StatusType.Art:
-                        statusSlots[i].VALUE = characterStatusController.characterStatus.CurrentArtStatus;
+                        statusSlots[i].VALUE = characterStatusController.CharacterStatus.CurrentArtStatus;
                         statusSlots[i].DESCRIPTION = INST_ART;
                         break;
                     case StatusType.Sound:
-                        statusSlots[i].VALUE = characterStatusController.characterStatus.CurrentSoundStatus;
+                        statusSlots[i].VALUE = characterStatusController.CharacterStatus.CurrentSoundStatus;
                         statusSlots[i].DESCRIPTION = INST_SOUND;
                         break;
                     default:

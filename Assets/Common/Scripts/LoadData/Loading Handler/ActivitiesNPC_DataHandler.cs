@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ActivitiesNpc_Template;
 
-public class ActivitiesNPC_DataHandler : Manager<ActivitiesNPC_DataHandler>
+public class ActivitiesNPC_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, ActivitiesNpc_Template> activitiesDic;
     [SerializeField] private ActivitiesNpcVM activitiesNpcVM;
@@ -15,9 +14,8 @@ public class ActivitiesNPC_DataHandler : Manager<ActivitiesNPC_DataHandler>
         get { return activitiesDic; }
     }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         activitiesDic = new Dictionary<string, ActivitiesNpc_Template>();
     }
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
+public class StatusDetails_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Status_Template> status_dic;
     [SerializeField] private StatusDetailsVM statusDetailsVM;
@@ -15,9 +15,8 @@ public class StatusDetails_DataHandler : Manager<StatusDetails_DataHandler>
         get { return status_dic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         status_dic = new Dictionary<string, Status_Template>();
     }
     private void Start()

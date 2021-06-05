@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CourseAnimationManager : MonoBehaviour
 {
-    private Courses_DataHandler course_handler;
-    private Course_Notification_Controller courseController;
+    private CoursesController courseController;
+    private Course_Notification_Controller courseNotificationController;
     private CourseID courseID;
     private GameObject foundPlayerAction;
     private PlayerAction playerAction;
@@ -16,9 +16,9 @@ public class CourseAnimationManager : MonoBehaviour
 
     private void Start()
     {
-        courseController = FindObjectOfType<Course_Notification_Controller>();
-        courseID = courseController.GetIdLearnCourse();
-        course_handler = Courses_DataHandler.Instance;
+        courseNotificationController = FindObjectOfType<Course_Notification_Controller>();
+        courseID = courseNotificationController.GetIdLearnCourse();
+        courseController = CoursesController.Instance;
         foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
         playerAction = foundPlayerAction.GetComponent<PlayerAction>();
 

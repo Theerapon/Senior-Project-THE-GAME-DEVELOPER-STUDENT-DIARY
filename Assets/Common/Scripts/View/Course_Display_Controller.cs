@@ -24,8 +24,8 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     public CourseDisplayed courseDisplayed;
 
     [Header("Course Generator")]
-    [SerializeField] private All_Course_Generator all_course_generator;
-    [SerializeField] private My_Course_Generator my_course_generator;
+    [SerializeField] private AllCourse_Generator all_course_generator;
+    [SerializeField] private MyCourse_Generator my_course_generator;
 
 
     [Header("Displays")]
@@ -169,8 +169,8 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
 
     private void UpdatePlayerData()
     {
-        namePlayer.text = characterStatusController.characterStatus.Character_Name;;
-        moneyPlayer.text = string.Format("{0:n0}", characterStatusController.characterStatus.CurrentMoney);
+        namePlayer.text = characterStatusController.CharacterStatus.Character_Name;;
+        moneyPlayer.text = string.Format("{0:n0}", characterStatusController.CharacterStatus.CurrentMoney);
     }
 
 
@@ -178,7 +178,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     {
         ActivedNotificationCanvas(true);
         confirm_purchase_notification.SetActive(true);
-        confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.allCourses[id].CourseName;
+        confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.AllCourses[id].CourseName;
         SwitchScene.Instance.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }
@@ -201,7 +201,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     {
         ActivedNotificationCanvas(true);
         confirm_learn_notification.SetActive(true);
-        confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.myCourses[id].CourseName;
+        confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.MyCourses[id].CourseName;
         SwitchScene.Instance.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }

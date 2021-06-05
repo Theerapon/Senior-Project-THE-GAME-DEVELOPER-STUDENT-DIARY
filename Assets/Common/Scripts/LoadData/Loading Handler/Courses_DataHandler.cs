@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Courses_DataHandler : Manager<Courses_DataHandler>
+public class Courses_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Course_Template> course_dic;
     [SerializeField] private CoursesVM coursesVM;
@@ -14,9 +14,8 @@ public class Courses_DataHandler : Manager<Courses_DataHandler>
         get { return course_dic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         course_dic = new Dictionary<string, Course_Template>();
     }
     private void Start()

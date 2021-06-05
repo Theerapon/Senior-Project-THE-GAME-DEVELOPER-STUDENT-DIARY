@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class HardSkillsController : Manager<HardSkillsController>
 {
-    public Dictionary<string, HardSkill> hardskills;
+    private HardSkills_DataHandler hardSkills_DataHandler;
+    private Dictionary<string, HardSkill> hardskills;
+    public Dictionary<string, HardSkill> Hardskills { get => hardskills; }
 
     private void Start()
     {
-        if (!ReferenceEquals(HardSkills_DataHandler.Instance.GetHardSkillsDic, null))
+        hardSkills_DataHandler = FindObjectOfType<HardSkills_DataHandler>();
+        if (!ReferenceEquals(hardSkills_DataHandler, null))
         {
-            foreach (KeyValuePair<string, HardSkill_Template> hardskill in HardSkills_DataHandler.Instance.GetHardSkillsDic)
+            foreach (KeyValuePair<string, HardSkill_Template> hardskill in hardSkills_DataHandler.GetHardSkillsDic)
             {
                 hardskills.Add(hardskill.Key, new HardSkill(hardskill.Value));
             }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Npcs_DataHandler : Manager<Npcs_DataHandler>
+public class Npcs_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Npc_Template> npcsDic;
     [SerializeField] private NpcsVM npcsVM;
@@ -14,9 +14,8 @@ public class Npcs_DataHandler : Manager<Npcs_DataHandler>
         get { return npcsDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         npcsDic = new Dictionary<string, Npc_Template>();
     }
     private void Start()

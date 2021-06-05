@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Places_DataHandler : Manager<Places_DataHandler>
+public class Places_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Place_Template> placesDic;
     [SerializeField] private PlacesVM placesVM;
@@ -14,9 +14,8 @@ public class Places_DataHandler : Manager<Places_DataHandler>
         get { return placesDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         placesDic = new Dictionary<string, Place_Template>();
     }
     private void Start()

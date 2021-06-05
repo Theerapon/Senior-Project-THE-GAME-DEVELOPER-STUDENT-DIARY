@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class PaymentDetailGenerator : MonoBehaviour
 {
-    private Courses_DataHandler course_handler;
+    private CoursesController courseController;
     GameObject bonusTemplate;
     private Dictionary<string, int> dicBonus;
 
     private void Awake()
     {
         dicBonus = new Dictionary<string, int>();
-        course_handler = Courses_DataHandler.Instance;
+        courseController = CoursesController.Instance;
     }
 
     private void CreateBonus(string id)
@@ -63,8 +63,8 @@ public class PaymentDetailGenerator : MonoBehaviour
         dicBonus.Clear();
         int bonusCheck = 0;
 
-        #region Exp
-        //bonusCheck = course_handler.courses[id].GetdefaultMathExpReward();
+        //#region Exp
+        //bonusCheck = courseController.courses[id].GetdefaultMathExpReward();
         //if (bonusCheck > 0f)
         //    dicBonus.Add("Mathematics Exp", bonusCheck);
 
@@ -101,9 +101,9 @@ public class PaymentDetailGenerator : MonoBehaviour
         //    dicBonus.Add("Sound Exp", bonusCheck);
 
 
-        #endregion
+        //#endregion
 
-        #region Stat
+        //#region Stat
         //bonusCheck = course_handler.courses[id].GetdefaultCodingStatReward();
         //if (bonusCheck > 0f)
         //    dicBonus.Add("Coding Stat", bonusCheck);
@@ -123,6 +123,6 @@ public class PaymentDetailGenerator : MonoBehaviour
         //bonusCheck = course_handler.courses[id].GetdefaultSoundStatReward();
         //if (bonusCheck > 0f)
         //    dicBonus.Add("Sound Stat", bonusCheck);
-        #endregion
+        
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClassActivities_DataHandler : Manager<ClassActivities_DataHandler>
+public class ClassActivities_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, ClassActivities_Template> classActivitiesDic;
     [SerializeField] private ClassActivitiesVM classActivitiesVM;
@@ -13,9 +13,8 @@ public class ClassActivities_DataHandler : Manager<ClassActivities_DataHandler>
         get { return classActivitiesDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         classActivitiesDic = new Dictionary<string, ClassActivities_Template>();
     }
     private void Start()

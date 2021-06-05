@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguesExploration_DataHandler : Manager<DialoguesExploration_DataHandler>
+public class DialoguesExploration_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, DialoguesExploration_Template> dialoguesExplorationDic;
     [SerializeField] private DialoguesExplorationVM dialoguesExplorationVM;
@@ -13,9 +13,8 @@ public class DialoguesExploration_DataHandler : Manager<DialoguesExploration_Dat
         get { return dialoguesExplorationDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         dialoguesExplorationDic = new Dictionary<string, DialoguesExploration_Template>();
     }
 

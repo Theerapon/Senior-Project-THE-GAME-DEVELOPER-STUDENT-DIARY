@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class SoftSkillsController : Manager<SoftSkillsController>
 {
-    public Dictionary<string, SoftSkill> softskills;
+    SoftSkills_DataHandler softSkills_DataHandler;
+    private Dictionary<string, SoftSkill> softskills;
+
+    public Dictionary<string, SoftSkill> Softskills { get => softskills; set => softskills = value; }
 
     private void Start()
     {
-        if (!ReferenceEquals(SoftSkills_DataHandler.Instance.GetSoftSkillsDic, null))
+        softSkills_DataHandler = FindObjectOfType<SoftSkills_DataHandler>();
+        if (!ReferenceEquals(softSkills_DataHandler, null))
         {
-            foreach (KeyValuePair<string, SoftSkill> softskill in SoftSkills_DataHandler.Instance.GetSoftSkillsDic)
+
+            foreach (KeyValuePair<string, SoftSkill> softskill in softSkills_DataHandler.GetSoftSkillsDic)
             {
                 softskills.Add(softskill.Key, Instantiate(softskill.Value));
             }

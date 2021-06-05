@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static DialoguesNPC_Template;
 
-public class DialoguesNPC_DataHandler : Manager<DialoguesNPC_DataHandler>
+public class DialoguesNPC_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, List<DialoguesNPC_Template>> dialoguesNpcDic;
     [SerializeField] private DialoguesNpcVM dialoguesNpcVM;
@@ -13,9 +12,8 @@ public class DialoguesNPC_DataHandler : Manager<DialoguesNPC_DataHandler>
         get { return dialoguesNpcDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         dialoguesNpcDic = new Dictionary<string, List<DialoguesNPC_Template>>();
     }
 

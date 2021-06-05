@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class CharacterStatusController : Manager<CharacterStatusController>
 {
-    public CharacterStatus characterStatus;
+    private CharacterStatus_DataHandler characterStatus_DataHandler;
+    private CharacterStatus characterStatus;
+    public CharacterStatus CharacterStatus { get => characterStatus; }
 
     private void Start()
     {
-        if(!ReferenceEquals(CharacterStatus_DataHandler.Instance.GetCharacterTemplate, null))
+        characterStatus_DataHandler = FindObjectOfType<CharacterStatus_DataHandler>();
+        if (!ReferenceEquals(characterStatus_DataHandler, null))
         {
-            characterStatus = new CharacterStatus(CharacterStatus_DataHandler.Instance.GetCharacterTemplate);
+            characterStatus = new CharacterStatus(characterStatus_DataHandler.GetCharacterTemplate);
             Debug.Log("wait implementation for load save data");
         }
 

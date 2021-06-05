@@ -137,62 +137,62 @@ public class My_Course_Bonus_Generator : MonoBehaviour
         int bonusCheck = 0;
 
         #region Exp
-        bonusCheck = coursesController.myCourses[id].DefaultMathExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultMathExpReward;
         
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Math_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultProgrammingExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultProgrammingExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Programming_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultEngineExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultEngineExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Engine_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultAiExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultAiExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Ai_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultNetwordExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultNetwordExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Network_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultDesignExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultDesignExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Design_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultTestingExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultTestingExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Testing_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultArtExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultArtExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Art_Exp, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultSoundExpReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultSoundExpReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Sound_Exp, bonusCheck);
         #endregion
 
         #region Stat
-        bonusCheck = coursesController.myCourses[id].DefaultCodingStatReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultCodingStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Coding_Status, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultDesignStatReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultDesignStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Design_Status, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultTestingStatReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultTestingStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Testing_Status, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultArtStatReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultArtStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Art_Status, bonusCheck);
 
-        bonusCheck = coursesController.myCourses[id].DefaultSoundStatReward;
+        bonusCheck = coursesController.MyCourses[id].DefaultSoundStatReward;
         if (bonusCheck > 0f)
             dicBonus.Add(INST_Sound_Status, bonusCheck);
         #endregion

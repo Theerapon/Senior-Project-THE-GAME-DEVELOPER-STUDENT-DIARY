@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemProperty_DataHandler : Manager<ItemProperty_DataHandler>
+public class ItemProperty_DataHandler : MonoBehaviour
 {
     protected Dictionary<ItemPropertyType, ItemProperty_Template> itemPropertyDic;
     [SerializeField] private ItemPropertyVM itemPropertyVM;
@@ -14,9 +14,8 @@ public class ItemProperty_DataHandler : Manager<ItemProperty_DataHandler>
         get { return itemPropertyDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         itemPropertyDic = new Dictionary<ItemPropertyType, ItemProperty_Template>();
     }
     private void Start()

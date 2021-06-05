@@ -55,7 +55,7 @@ public class HardSkills_Display : MonoBehaviour
     {
         int i = 0;
         Debug.Log("wait for implementation");
-        foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsController.hardskills)
+        foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsController.Hardskills)
         {
             HardSkill hardSkill = hardskill.Value;
             if (!ReferenceEquals(hardSkill, null))

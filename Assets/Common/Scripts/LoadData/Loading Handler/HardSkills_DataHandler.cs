@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
+public class HardSkills_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, HardSkill_Template> hardSkillsDic;
     [SerializeField] private HardSkillsVM hardSkillsVM;
@@ -15,9 +15,8 @@ public class HardSkills_DataHandler : Manager<HardSkills_DataHandler>
         get { return hardSkillsDic; }
     }
     
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         hardSkillsDic = new Dictionary<string, HardSkill_Template>();
     }
     private void Start()

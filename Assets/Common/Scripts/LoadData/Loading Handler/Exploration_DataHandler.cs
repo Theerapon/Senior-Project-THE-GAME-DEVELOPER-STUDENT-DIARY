@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Exploration_DataHandler : Manager<Exploration_DataHandler>
+public class Exploration_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Exploration_Template> explorationDic;
     [SerializeField] private ExplorationVM explorationVM;
@@ -12,9 +12,8 @@ public class Exploration_DataHandler : Manager<Exploration_DataHandler>
         get { return explorationDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         explorationDic = new Dictionary<string, Exploration_Template>();
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomBoxs_DataHandler : Manager<RandomBoxs_DataHandler>
+public class RandomBoxs_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, RandomBox_Template> randomboxDic;
     [SerializeField] private RandomBoxsVM randomBoxsVM;
@@ -14,9 +14,8 @@ public class RandomBoxs_DataHandler : Manager<RandomBoxs_DataHandler>
         get { return randomboxDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         randomboxDic = new Dictionary<string, RandomBox_Template>();
     }
     private void Start()

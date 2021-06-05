@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusDetails_DataHandler : Manager<BonusDetails_DataHandler>
+public class BonusDetails_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, Bonus_Template> bonus_dic;
     [SerializeField] private BonusDetailsVM bonusDetailsVM;
@@ -14,9 +14,8 @@ public class BonusDetails_DataHandler : Manager<BonusDetails_DataHandler>
         get { return bonus_dic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         bonus_dic = new Dictionary<string, Bonus_Template>();
     }
     private void Start()

@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class CoursesController : Manager<CoursesController>
 {
-    public Dictionary<string, Course> allCourses;
-    public Dictionary<string, Course> myCourses;
+    private Courses_DataHandler courses_DataHandler;
+
+    private Dictionary<string, Course> allCourses;
+    private Dictionary<string, Course> myCourses;
+
+    public Dictionary<string, Course> AllCourses { get => allCourses; }
+    public Dictionary<string, Course> MyCourses { get => myCourses; }
 
     protected override void Awake()
     {
@@ -16,9 +21,10 @@ public class CoursesController : Manager<CoursesController>
 
     private void Start()
     {
-        if (!ReferenceEquals(Courses_DataHandler.Instance.GetCourseDic, null))
+        courses_DataHandler = FindObjectOfType<Courses_DataHandler>();
+        if (!ReferenceEquals(courses_DataHandler, null))
         {
-            foreach (KeyValuePair<string, Course_Template> course in Courses_DataHandler.Instance.GetCourseDic)
+            foreach (KeyValuePair<string, Course_Template> course in courses_DataHandler.GetCourseDic)
             {
                 allCourses.Add(course.Key, new Course(course.Value));
             }

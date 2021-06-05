@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FavoriteItems_DataHandler : Manager<FavoriteItems_DataHandler>
+public class FavoriteItems_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, FavoriteItems_Template> favoriteItemsDic;
     [SerializeField] private FavoriteItemsVM favoriteItemsVM;
@@ -12,9 +12,8 @@ public class FavoriteItems_DataHandler : Manager<FavoriteItems_DataHandler>
         get { return favoriteItemsDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         favoriteItemsDic = new Dictionary<string, FavoriteItems_Template>();
     }
 

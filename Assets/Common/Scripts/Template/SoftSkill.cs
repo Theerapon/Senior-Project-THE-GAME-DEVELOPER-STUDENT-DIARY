@@ -7,39 +7,12 @@ public class SoftSkill : MonoBehaviour
     private SoftSkill_Template definition;
 
     #region New Object
-    public SoftSkill(Communication_Template softSkill_Template)
+    public SoftSkill(SoftSkill_Template softSkillEntry)
     {
-        definition = softSkill_Template;
+        definition = softSkillEntry;
     }
-    public SoftSkill(CriticalThinking_Template softSkill_Template)
-    {
-        definition = softSkill_Template;
 
-    }
-    public SoftSkill(TimeManagement_Template softSkill_Template)
-    {
-        definition = softSkill_Template;
-
-    }
-    public SoftSkill(Leadership_Template softSkill_Template)
-    {
-        definition = softSkill_Template;
-
-    }
-    public SoftSkill(WorkEthic_Template softSkill_Template)
-    {
-        definition = softSkill_Template;
-
-    }
     #endregion
-
-    #region Bonus Increasers
-    public void LevelUpSoftSkill()
-    {
-        definition.LevelUpSoftSkill();
-    }
-    #endregion
-
 
     #region Reporter
     public string GetSoftSkillDescription()

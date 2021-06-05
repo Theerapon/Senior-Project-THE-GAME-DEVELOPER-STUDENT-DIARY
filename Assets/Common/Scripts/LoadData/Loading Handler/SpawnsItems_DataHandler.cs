@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnsItems_DataHandler : Manager<SpawnsItems_DataHandler>
+public class SpawnsItems_DataHandler : MonoBehaviour
 {
     protected Dictionary<string, SpawnsItems_Template> spawnsItemsDic;
     [SerializeField] private SpawnsItemsVM spawnsItemsVM;
@@ -14,9 +14,8 @@ public class SpawnsItems_DataHandler : Manager<SpawnsItems_DataHandler>
         get { return spawnsItemsDic; }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         spawnsItemsDic = new Dictionary<string, SpawnsItems_Template>();
     }
     private void Start()
