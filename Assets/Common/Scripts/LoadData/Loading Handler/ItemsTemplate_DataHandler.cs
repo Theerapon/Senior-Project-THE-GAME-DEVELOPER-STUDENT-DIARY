@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemsTemplate_DataHandler : MonoBehaviour
+public class ItemsTemplate_DataHandler : DataHandler
 {
     protected Dictionary<string, ItemPickUp_Template> itemTemplateDic;
     [SerializeField] private ItemsVM itemsVM;
@@ -15,16 +15,23 @@ public class ItemsTemplate_DataHandler : MonoBehaviour
     protected void Awake()
     {
         itemTemplateDic = new Dictionary<string, ItemPickUp_Template>();
-    }
-
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
+
+
 
     private void EventInterpretHandler()
     {
         itemTemplateDic = itemsVM.Interpert();
+        if (!ReferenceEquals(itemTemplateDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Items interpret completed");
         //foreach (KeyValuePair<string, ItemPickUp_Template> item in itemTemplateDic)
         //{

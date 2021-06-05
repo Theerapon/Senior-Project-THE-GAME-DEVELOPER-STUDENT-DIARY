@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClassActivities_DataHandler : MonoBehaviour
+public class ClassActivities_DataHandler : DataHandler
 {
     protected Dictionary<string, ClassActivities_Template> classActivitiesDic;
     [SerializeField] private ClassActivitiesVM classActivitiesVM;
@@ -16,16 +16,21 @@ public class ClassActivities_DataHandler : MonoBehaviour
     protected void Awake()
     {
         classActivitiesDic = new Dictionary<string, ClassActivities_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
-
     }
 
     private void EventInterpretHandler()
     {
         classActivitiesDic = classActivitiesVM.Interpert();
+        if (!ReferenceEquals(classActivitiesDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Class Activities interpret completed");
         //foreach (KeyValuePair<string, ClassActivities_Template> classAcitivity in classActivitiesDic)
         //{

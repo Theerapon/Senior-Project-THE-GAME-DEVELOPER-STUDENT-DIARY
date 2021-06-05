@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Places_DataHandler : MonoBehaviour
+public class Places_DataHandler : DataHandler
 {
     protected Dictionary<string, Place_Template> placesDic;
     [SerializeField] private PlacesVM placesVM;
@@ -17,15 +17,21 @@ public class Places_DataHandler : MonoBehaviour
     protected void Awake()
     {
         placesDic = new Dictionary<string, Place_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         placesDic = placesVM.Interpert();
+        if (!ReferenceEquals(placesDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Place interpret completed");
         //foreach (KeyValuePair<string, Place_Template> place in placesDic)
         //{

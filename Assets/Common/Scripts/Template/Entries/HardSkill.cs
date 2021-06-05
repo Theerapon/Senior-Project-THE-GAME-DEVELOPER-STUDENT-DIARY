@@ -16,7 +16,7 @@ public class HardSkill : MonoBehaviour
 
     public HardSkill(HardSkill_Template hardSkill_Template)
     {
-        definition = Instantiate(hardSkill_Template);
+        definition = hardSkill_Template;
         Initializing();
     }
 

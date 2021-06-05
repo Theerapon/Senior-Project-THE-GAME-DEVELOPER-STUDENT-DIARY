@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivitiesNPC_DataHandler : MonoBehaviour
+public class ActivitiesNPC_DataHandler : DataHandler
 {
     protected Dictionary<string, ActivitiesNpc_Template> activitiesDic;
     [SerializeField] private ActivitiesNpcVM activitiesNpcVM;
@@ -17,18 +17,23 @@ public class ActivitiesNPC_DataHandler : MonoBehaviour
     private void Awake()
     {
         activitiesDic = new Dictionary<string, ActivitiesNpc_Template>();
-    }
-
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         activitiesDic = activitiesNpcVM.Interpert();
+        if (!ReferenceEquals(activitiesDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("activities NPC interpret completed");
-        //foreach(KeyValuePair<string, ActivitiesNpc_Template> npc in activitiesDic)
+        //foreach (KeyValuePair<string, ActivitiesNpc_Template> npc in activitiesDic)
         //{
         //    foreach (KeyValuePair<Day, List<Activity>> day in npc.Value.GetActivitiesDic())
         //    {
@@ -39,8 +44,8 @@ public class ActivitiesNPC_DataHandler : MonoBehaviour
         //                npc.Key, activities[i].day, activities[i].start_time_hour, activities[i].start_time_minute,
         //                activities[i].end_time_hour, activities[i].end_time_minute, activities[i].place));
         //        }
-        //    } 
-        //    
+        //    }
+
         //}
     }
 }

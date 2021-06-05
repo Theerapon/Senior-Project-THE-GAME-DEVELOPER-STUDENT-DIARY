@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusDetails_DataHandler : MonoBehaviour
+public class BonusDetails_DataHandler : DataHandler
 {
     protected Dictionary<string, Bonus_Template> bonus_dic;
     [SerializeField] private BonusDetailsVM bonusDetailsVM;
@@ -17,16 +15,22 @@ public class BonusDetails_DataHandler : MonoBehaviour
     protected void Awake()
     {
         bonus_dic = new Dictionary<string, Bonus_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
-
     }
+
 
     private void EventInterpretHandler()
     {
         bonus_dic = bonusDetailsVM.Interpert();
+        if (!ReferenceEquals(bonus_dic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("BonusDetail interpret completed");
         //foreach (KeyValuePair<string, Bonus_Template> bonus in bonus_dic)
         //{

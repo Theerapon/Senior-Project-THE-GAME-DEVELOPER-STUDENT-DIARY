@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Schedule_DataHandler : MonoBehaviour
+public class Schedule_DataHandler : DataHandler
 {
     protected Dictionary<string, Schedule_Template> scheduleDic;
     [SerializeField] private ScheduleVM scheduleVM;
@@ -17,15 +17,22 @@ public class Schedule_DataHandler : MonoBehaviour
     protected void Awake()
     {
         scheduleDic = new Dictionary<string, Schedule_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
+
 
     private void EventInterpretHandler()
     {
         scheduleDic = scheduleVM.Interpert();
+        if (!ReferenceEquals(scheduleDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Schedule interpret completed");
         //foreach (KeyValuePair<string, Schedule_Template> schedule in scheduleDic)
         //{

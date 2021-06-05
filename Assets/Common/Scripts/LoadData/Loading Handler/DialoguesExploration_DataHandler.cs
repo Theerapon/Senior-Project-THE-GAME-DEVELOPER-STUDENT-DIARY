@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguesExploration_DataHandler : MonoBehaviour
+public class DialoguesExploration_DataHandler : DataHandler
 {
     protected Dictionary<string, DialoguesExploration_Template> dialoguesExplorationDic;
     [SerializeField] private DialoguesExplorationVM dialoguesExplorationVM;
@@ -16,16 +15,22 @@ public class DialoguesExploration_DataHandler : MonoBehaviour
     protected void Awake()
     {
         dialoguesExplorationDic = new Dictionary<string, DialoguesExploration_Template>();
-    }
-
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
+
 
     private void EventInterpretHandler()
     {
         dialoguesExplorationDic = dialoguesExplorationVM.Interpert();
+        if (!ReferenceEquals(dialoguesExplorationDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("DialoguesExploration interpret completed");
         //foreach (KeyValuePair<string, DialoguesExploration_Template> diaExploration in dialoguesExplorationDic)
         //{
@@ -33,3 +38,5 @@ public class DialoguesExploration_DataHandler : MonoBehaviour
         //}
     }
 }
+
+

@@ -7,20 +7,22 @@ public class SoftSkillsController : Manager<SoftSkillsController>
     SoftSkills_DataHandler softSkills_DataHandler;
     private Dictionary<string, SoftSkill> softskills;
 
-    public Dictionary<string, SoftSkill> Softskills { get => softskills; set => softskills = value; }
+    public Dictionary<string, SoftSkill> Softskills { get => softskills; }
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         softSkills_DataHandler = FindObjectOfType<SoftSkills_DataHandler>();
-        if (!ReferenceEquals(softSkills_DataHandler, null))
+        softskills = new Dictionary<string, SoftSkill>();
+        if (!ReferenceEquals(softSkills_DataHandler.GetSoftSkillsDic, null))
         {
-
             foreach (KeyValuePair<string, SoftSkill> softskill in softSkills_DataHandler.GetSoftSkillsDic)
             {
-                softskills.Add(softskill.Key, Instantiate(softskill.Value));
+                softskills.Add(softskill.Key, softskill.Value);
             }
             Debug.Log("wait implementation for load save data");
         }
-
     }
+
+
 }

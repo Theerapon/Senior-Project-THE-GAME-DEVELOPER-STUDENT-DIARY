@@ -33,9 +33,9 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [SerializeField] private GameObject my_course;
     private GameObject preDisplay;
 
-    [Header("Player")]
-    [SerializeField] private TMP_Text namePlayer;
-    [SerializeField] private TMP_Text moneyPlayer;
+    //[Header("Player")]
+    //[SerializeField] private TMP_Text namePlayer;
+    //[SerializeField] private TMP_Text moneyPlayer;
 
     //[Header("Time")]
     //[SerializeField] private TMP_Text time;
@@ -169,8 +169,8 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
 
     private void UpdatePlayerData()
     {
-        namePlayer.text = characterStatusController.CharacterStatus.Character_Name;;
-        moneyPlayer.text = string.Format("{0:n0}", characterStatusController.CharacterStatus.CurrentMoney);
+        //namePlayer.text = characterStatusController.CharacterStatus.Character_Name;;
+        //moneyPlayer.text = string.Format("{0:n0}", characterStatusController.CharacterStatus.CurrentMoney);
     }
 
 

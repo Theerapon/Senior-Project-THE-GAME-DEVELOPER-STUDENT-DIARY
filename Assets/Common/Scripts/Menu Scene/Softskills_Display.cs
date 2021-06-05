@@ -11,8 +11,6 @@ public class Softskills_Display : MonoBehaviour
     public Events.EventOnLeftClickSoftSkillSlot OnLeftClickSoftSkillSlotEvent;
     #endregion
 
-    protected SoftSkillsController softSkillsController;
-
     [SerializeField] private Transform itemsParent;
     public List<BaseSoftSkillSlot> softSkillSlots;
 
@@ -26,10 +24,10 @@ public class Softskills_Display : MonoBehaviour
             itemsParent.GetComponentsInChildren(includeInactive: true, result: softSkillSlots);
     }
 
+
+
     void Start()
     {
-        softSkillsController = SoftSkillsController.Instance;
-
         for (int index = 0; index < softSkillSlots.Count; index++)
         {
             softSkillSlots[index].OnLeftClickSoftSkillSlotEvent.AddListener(OnLeftClickSoftSkillSlotHandler);
@@ -53,7 +51,8 @@ public class Softskills_Display : MonoBehaviour
     {
         int i = 0;
         Debug.Log("wair for implementation");
-        foreach (KeyValuePair<string, SoftSkill> softskill in softSkillsController.Softskills)
+        Debug.Log(ReferenceEquals(SoftSkillsController.Instance.Softskills, null));
+        foreach (KeyValuePair<string, SoftSkill> softskill in SoftSkillsController.Instance.Softskills)
         {
             SoftSkill copy = softskill.Value;
             if (!ReferenceEquals(copy, null))

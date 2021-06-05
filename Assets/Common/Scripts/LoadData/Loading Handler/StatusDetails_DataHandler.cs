@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusDetails_DataHandler : MonoBehaviour
+public class StatusDetails_DataHandler : DataHandler
 {
     protected Dictionary<string, Status_Template> status_dic;
     [SerializeField] private StatusDetailsVM statusDetailsVM;
@@ -18,16 +18,21 @@ public class StatusDetails_DataHandler : MonoBehaviour
     protected void Awake()
     {
         status_dic = new Dictionary<string, Status_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
-
     }
 
     private void EventInterpretHandler()
     {
         status_dic = statusDetailsVM.Interpert();
+        if (!ReferenceEquals(status_dic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Status Detail interpret completed");
         //foreach (KeyValuePair<string, Status> status in status_dic)
         //{

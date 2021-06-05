@@ -9,7 +9,7 @@ public class Course : MonoBehaviour
 
     public Course(Course_Template course_Template)
     {
-        definition = Instantiate(course_Template);
+        definition = course_Template;
         Initializing();
     }
     private void Initializing()

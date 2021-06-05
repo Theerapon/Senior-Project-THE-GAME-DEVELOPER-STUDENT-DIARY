@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class CharacterStatus : MonoBehaviour
 {
-    #region Events
-    public Events.EventOnEnergyUpdated OnEnergyUpdated;
-    public Events.EventOnMotivationUpdated OnMotivationUpdated;
-    public Events.EventOnMoneyUpdated OnMoneyUpdated;
-    #endregion
 
     #region Fields
     private CharacterStatus_Template definition;
@@ -28,7 +23,7 @@ public class CharacterStatus : MonoBehaviour
 
     public CharacterStatus(CharacterStatus_Template characterStatus_Template)
     {
-        definition = Instantiate(characterStatus_Template);
+        definition = characterStatus_Template;
         Initializing();
     }
 
@@ -53,7 +48,6 @@ public class CharacterStatus : MonoBehaviour
     public void IncreaseMaxEnergy(int newEnergyAmount)
     {
         definition.Default_maxEnergy = newEnergyAmount;
-        OnEnergyUpdated?.Invoke();
     }
 
     public void IncreaseCurrentEnergy(int energyAmount)
@@ -66,7 +60,6 @@ public class CharacterStatus : MonoBehaviour
         {
             currentEnergy += energyAmount;
         }
-        OnEnergyUpdated?.Invoke();
     }
     public void IncreaseEXP(int xp)
     {
@@ -95,13 +88,11 @@ public class CharacterStatus : MonoBehaviour
             this.currentMotivation += currentMotivation;
         }
         MotivationCalculated();
-        OnMotivationUpdated?.Invoke();
     }
 
     public void IncreaseCurrentMoney(int currentMoney)
     {
         this.currentMoney += currentMoney;
-        OnMoneyUpdated?.Invoke();
     }
 
     public void IncreaseCodingStatus(int codingAmount)
@@ -141,7 +132,6 @@ public class CharacterStatus : MonoBehaviour
         {
             currentEnergy -= energyAmount;
         }
-        OnEnergyUpdated?.Invoke();
     }
 
     public void TakeStatusPoint()
@@ -179,7 +169,6 @@ public class CharacterStatus : MonoBehaviour
             this.currentMotivation -= currentMotivation;
         }
         MotivationCalculated();
-        OnMotivationUpdated?.Invoke();
     }
 
     public void ReducedCodingStatus(int codingAmount)
@@ -245,12 +234,11 @@ public class CharacterStatus : MonoBehaviour
     public void TakeMoney(int currentMoney)
     {
         this.currentMoney -= currentMoney;
-        OnMoneyUpdated?.Invoke();
     }
     #endregion
 
     #region Character Level Up
-    public void SetCharacterLevelUp(int characterLevel)
+    private void SetCharacterLevelUp(int characterLevel)
     {
         currentLevel = characterLevel + 1;
 

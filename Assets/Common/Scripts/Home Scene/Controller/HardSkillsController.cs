@@ -8,10 +8,12 @@ public class HardSkillsController : Manager<HardSkillsController>
     private Dictionary<string, HardSkill> hardskills;
     public Dictionary<string, HardSkill> Hardskills { get => hardskills; }
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         hardSkills_DataHandler = FindObjectOfType<HardSkills_DataHandler>();
-        if (!ReferenceEquals(hardSkills_DataHandler, null))
+        hardskills = new Dictionary<string, HardSkill>();
+        if (!ReferenceEquals(hardSkills_DataHandler.GetHardSkillsDic, null))
         {
             foreach (KeyValuePair<string, HardSkill_Template> hardskill in hardSkills_DataHandler.GetHardSkillsDic)
             {
@@ -20,5 +22,8 @@ public class HardSkillsController : Manager<HardSkillsController>
             Debug.Log("wait implementation for load save data");
         }
 
+
     }
+
+
 }

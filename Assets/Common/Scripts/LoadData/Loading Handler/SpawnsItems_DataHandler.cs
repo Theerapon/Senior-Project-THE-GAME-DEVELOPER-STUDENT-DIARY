@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnsItems_DataHandler : MonoBehaviour
+public class SpawnsItems_DataHandler : DataHandler
 {
     protected Dictionary<string, SpawnsItems_Template> spawnsItemsDic;
     [SerializeField] private SpawnsItemsVM spawnsItemsVM;
@@ -17,15 +17,21 @@ public class SpawnsItems_DataHandler : MonoBehaviour
     protected void Awake()
     {
         spawnsItemsDic = new Dictionary<string, SpawnsItems_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         spawnsItemsDic = spawnsItemsVM.Interpert();
+        if (!ReferenceEquals(spawnsItemsDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("SpawnsItem interpret completed");
         //foreach (KeyValuePair<string, SpawnsItems_Template> spawnItem in spawnsItemsDic)
         //{

@@ -27,6 +27,7 @@ public class HardSkills_Display : MonoBehaviour
     }
 
 
+
     void Start()
     {
         //fonud inventory container in main Scene

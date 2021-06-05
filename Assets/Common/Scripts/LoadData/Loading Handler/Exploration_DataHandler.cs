@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Exploration_DataHandler : MonoBehaviour
+public class Exploration_DataHandler : DataHandler
 {
     protected Dictionary<string, Exploration_Template> explorationDic;
     [SerializeField] private ExplorationVM explorationVM;
@@ -15,16 +15,21 @@ public class Exploration_DataHandler : MonoBehaviour
     protected void Awake()
     {
         explorationDic = new Dictionary<string, Exploration_Template>();
-    }
-
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         explorationDic = explorationVM.Interpert();
+        if (!ReferenceEquals(explorationDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Exploration interpret completed");
         //foreach (KeyValuePair<string, Exploration_Template> exploration in explorationDic)
         //{

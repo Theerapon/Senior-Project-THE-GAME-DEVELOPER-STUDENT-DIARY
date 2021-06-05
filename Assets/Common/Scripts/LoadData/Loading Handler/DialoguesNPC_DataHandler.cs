@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguesNPC_DataHandler : MonoBehaviour
+public class DialoguesNPC_DataHandler : DataHandler
 {
     protected Dictionary<string, List<DialoguesNPC_Template>> dialoguesNpcDic;
     [SerializeField] private DialoguesNpcVM dialoguesNpcVM;
@@ -15,16 +15,22 @@ public class DialoguesNPC_DataHandler : MonoBehaviour
     protected void Awake()
     {
         dialoguesNpcDic = new Dictionary<string, List<DialoguesNPC_Template>>();
-    }
-
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
+
 
     private void EventInterpretHandler()
     {
         dialoguesNpcDic = dialoguesNpcVM.Interpert();
+        if (!ReferenceEquals(dialoguesNpcDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Dialogues NPC interpret completed");
         //foreach (KeyValuePair<string, List<DialogueNPC>> npc in dialoguesNpcDic)
         //{

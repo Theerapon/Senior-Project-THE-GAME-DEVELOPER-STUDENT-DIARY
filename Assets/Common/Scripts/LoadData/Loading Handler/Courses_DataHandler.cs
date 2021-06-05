@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Courses_DataHandler : MonoBehaviour
+public class Courses_DataHandler : DataHandler
 {
     protected Dictionary<string, Course_Template> course_dic;
     [SerializeField] private CoursesVM coursesVM;
@@ -17,16 +17,21 @@ public class Courses_DataHandler : MonoBehaviour
     protected void Awake()
     {
         course_dic = new Dictionary<string, Course_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
-
     }
 
     private void EventInterpretHandler()
     {
         course_dic = coursesVM.Interpert();
+        if (!ReferenceEquals(course_dic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Course interpret completed");
         //foreach (KeyValuePair<string, Course> course in course_dic)
         //{

@@ -7,7 +7,23 @@ public class SoftSkill : MonoBehaviour
     private SoftSkill_Template definition;
 
     #region New Object
-    public SoftSkill(SoftSkill_Template softSkillEntry)
+    public SoftSkill(Communication_Template softSkillEntry)
+    {
+        definition = softSkillEntry;
+    }
+    public SoftSkill(WorkEthic_Template softSkillEntry)
+    {
+        definition = softSkillEntry;
+    }
+    public SoftSkill(TimeManagement_Template softSkillEntry)
+    {
+        definition = softSkillEntry;
+    }
+    public SoftSkill(Leadership_Template softSkillEntry)
+    {
+        definition = softSkillEntry;
+    }
+    public SoftSkill(CriticalThinking_Template softSkillEntry)
     {
         definition = softSkillEntry;
     }

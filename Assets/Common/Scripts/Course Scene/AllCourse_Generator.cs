@@ -18,7 +18,6 @@ public class AllCourse_Generator : MonoBehaviour
     {
 
         GameObject copy;
-        Debug.Log("wait for Implementation");
         foreach (KeyValuePair<string, Course> dic in courseController.AllCourses)
         {
             if (!dic.Value.HasCollected) //collected == false

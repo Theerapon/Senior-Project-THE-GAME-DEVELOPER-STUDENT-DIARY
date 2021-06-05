@@ -41,9 +41,9 @@ public class HUD_Info_Display : MonoBehaviour
         
         if(!ReferenceEquals(characterStatusController, null))
         {
-            characterStatusController.CharacterStatus.OnEnergyUpdated.AddListener(EnergyHandler);
-            characterStatusController.CharacterStatus.OnMotivationUpdated.AddListener(MotivationHandler);
-            characterStatusController.CharacterStatus.OnMoneyUpdated.AddListener(MoneyHandler);
+            characterStatusController.OnEnergyUpdated.AddListener(EnergyHandler);
+            characterStatusController.OnMotivationUpdated.AddListener(MotivationHandler);
+            characterStatusController.OnMoneyUpdated.AddListener(MoneyHandler);
         }
 
         Reset();

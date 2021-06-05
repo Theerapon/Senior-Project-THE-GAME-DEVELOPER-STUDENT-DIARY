@@ -17,10 +17,6 @@ public class CoursesController : Manager<CoursesController>
         base.Awake();
         allCourses = new Dictionary<string, Course>();
         myCourses = new Dictionary<string, Course>();
-    }
-
-    private void Start()
-    {
         courses_DataHandler = FindObjectOfType<Courses_DataHandler>();
         if (!ReferenceEquals(courses_DataHandler, null))
         {
@@ -32,6 +28,8 @@ public class CoursesController : Manager<CoursesController>
         }
 
     }
+
+
 
     public void CollectCourse(string id)
     {

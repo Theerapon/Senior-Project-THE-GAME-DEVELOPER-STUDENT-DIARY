@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stores_DataHandler : MonoBehaviour
+public class Stores_DataHandler : DataHandler
 {
     protected Dictionary<string, Store_Template> storeDic;
     [SerializeField] private StoresVM storesVM;
@@ -17,15 +17,22 @@ public class Stores_DataHandler : MonoBehaviour
     protected void Awake()
     {
         storeDic = new Dictionary<string, Store_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         storeDic = storesVM.Interpert();
+        if (!ReferenceEquals(storeDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
+
         //Debug.Log("Store interpret completed");
         //foreach (KeyValuePair<string, Store_Template> store in storeDic)
         //{

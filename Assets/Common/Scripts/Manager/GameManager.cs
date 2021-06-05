@@ -21,7 +21,6 @@ public class GameManager : Manager<GameManager>
     public enum GameScene
     {
         Boot,
-        Loading,
         Home,
         Summary,
         COM_Course,
@@ -38,7 +37,7 @@ public class GameManager : Manager<GameManager>
         Map,
         Saving,
         Diary,
-
+        PreparingData
     }
 
 
@@ -54,7 +53,7 @@ public class GameManager : Manager<GameManager>
     public enum GameState
     {
         PREGAME,
-        LOADING,
+        PREPARINGDATA,
         FIRST_SCENE,
         HOME,
         HOME_ACTION,
@@ -134,12 +133,10 @@ public class GameManager : Manager<GameManager>
         }
         #endregion
 
-        #region Loading
-        if (scene == GameScene.Loading)
+        if(scene == GameScene.PreparingData)
         {
-            UpdateState(GameState.LOADING);
+            UpdateState(GameState.PREPARINGDATA);
         }
-        #endregion
 
         #region Home
         if (scene == GameScene.Home && !SceneManager.GetSceneByName(GameScene.HUD_Info.ToString()).isLoaded)
@@ -231,17 +228,6 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
-    public void LoadLevelWithLoadingScene(GameScene sceneName)
-    {
-        onLoaderCallback = () => {
-            StartCoroutine(LoadingScene(sceneName));
-        };
-
-        // Load the loading scene
-        UpdateState(GameState.LOADING);
-        SceneManager.LoadSceneAsync(GameScene.Loading.ToString(), LoadSceneMode.Additive);
-    }
-
     IEnumerator LoadingScene(GameScene sceneName)
     {
         yield return null;
@@ -259,8 +245,6 @@ public class GameManager : Manager<GameManager>
             yield return null;
         }
 
-        //after loading scene finished then unload loading scene
-        UnLoadLevel(GameScene.Loading);
 
         _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
@@ -323,12 +307,17 @@ public class GameManager : Manager<GameManager>
     #region Scenes
     public void StartGameWithNewGame()
     {
-        LoadLevelWithLoadingScene(GameScene.Home);
+        LoadLevelSceneWithOutLoadingScene(GameScene.PreparingData);
     }
 
     public void StartGameWithContiniueGame()
     {
-        LoadLevelWithLoadingScene(GameScene.Home);
+        LoadLevelSceneWithOutLoadingScene(GameScene.PreparingData);
+    }
+
+    public void DisplayHome()
+    {
+        LoadLevelSceneWithOutLoadingScene(GameScene.Home);
     }
 
     public void DisplayHomeAction(bool actived, GameScene scene)

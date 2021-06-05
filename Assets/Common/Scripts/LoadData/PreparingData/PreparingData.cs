@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PreparingData : MonoBehaviour
 {
@@ -10,15 +11,43 @@ public class PreparingData : MonoBehaviour
     #endregion
 
     [SerializeField] private DataLoading [] dataLoadings;
+    [SerializeField] private DataHandler [] dataHandlers;
 
     protected void Awake()
     {
         foreach (DataLoading datasLoading in dataLoadings)
         {
             datasLoading.onLoadDataCompleted.AddListener(HandlerLoadDataCompleted);
+            //Debug.Log("DataLoading");
+        }
+
+        foreach (DataHandler dataHandler in dataHandlers)
+        {
+            dataHandler.EventOnInterpretDataComplete.AddListener(HandlerEventOnInterpretDataComplete);
+            //Debug.Log("DataHandler " + dataHandler.gameObject.name);
         }
     }
 
+
+    private void HandlerEventOnInterpretDataComplete()
+    {
+        int countInterpretComplete = 0;
+        foreach (DataHandler dataHandler in dataHandlers)
+        {
+            if (dataHandler.HasFinished)
+            {
+                countInterpretComplete++;
+                //Debug.Log(dataHandler.gameObject.name);
+            }
+        }
+
+        //Debug.Log(string.Format("Interpreting {0}/{1}", countInterpretComplete, dataHandlers.Length));
+
+        if (countInterpretComplete >= dataHandlers.Length && !SceneManager.GetSceneByName(GameManager.GameScene.Home.ToString()).isLoaded)
+        {
+            GameManager.Instance.DisplayHome();
+        }
+    }
 
     private void HandlerLoadDataCompleted()
     {

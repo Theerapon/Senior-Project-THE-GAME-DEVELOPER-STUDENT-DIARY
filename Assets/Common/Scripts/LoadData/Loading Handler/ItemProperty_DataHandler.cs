@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemProperty_DataHandler : MonoBehaviour
+public class ItemProperty_DataHandler : DataHandler
 {
     protected Dictionary<ItemPropertyType, ItemProperty_Template> itemPropertyDic;
     [SerializeField] private ItemPropertyVM itemPropertyVM;
@@ -17,15 +17,21 @@ public class ItemProperty_DataHandler : MonoBehaviour
     protected void Awake()
     {
         itemPropertyDic = new Dictionary<ItemPropertyType, ItemProperty_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         itemPropertyDic = itemPropertyVM.Interpert();
+        if (!ReferenceEquals(itemPropertyDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Item property interpret completed");
         //foreach (KeyValuePair<ItemPropertyType, ItemProperty_Template> itemProperty in itemPropertyDic)
         //{

@@ -22,8 +22,8 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     {
         found_Player = GameObject.FindGameObjectWithTag("Player");
         characterStatusController = CharacterStatusController.Instance;
-        characterStatusController.CharacterStatus.OnEnergyUpdated.AddListener(OnEnergyHandler);
-        characterStatusController.CharacterStatus.OnMotivationUpdated.AddListener(OnMotivationHandler);
+        characterStatusController.OnEnergyUpdated.AddListener(OnEnergyHandler);
+        characterStatusController.OnMotivationUpdated.AddListener(OnMotivationHandler);
         Reset();
     }
 

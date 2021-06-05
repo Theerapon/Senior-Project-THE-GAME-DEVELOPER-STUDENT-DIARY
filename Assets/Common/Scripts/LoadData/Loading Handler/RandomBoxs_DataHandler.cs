@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomBoxs_DataHandler : MonoBehaviour
+public class RandomBoxs_DataHandler : DataHandler
 {
     protected Dictionary<string, RandomBox_Template> randomboxDic;
     [SerializeField] private RandomBoxsVM randomBoxsVM;
@@ -17,15 +17,21 @@ public class RandomBoxs_DataHandler : MonoBehaviour
     protected void Awake()
     {
         randomboxDic = new Dictionary<string, RandomBox_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         randomboxDic = randomBoxsVM.Interpert();
+        if (!ReferenceEquals(randomboxDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("RandomBox interpret completed");
         //foreach (KeyValuePair<string, RandomBox_Template> randombox in randomboxDic)
         //{

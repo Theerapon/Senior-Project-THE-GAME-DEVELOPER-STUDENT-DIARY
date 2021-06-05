@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FavoriteItems_DataHandler : MonoBehaviour
+public class FavoriteItems_DataHandler : DataHandler
 {
     protected Dictionary<string, FavoriteItems_Template> favoriteItemsDic;
     [SerializeField] private FavoriteItemsVM favoriteItemsVM;
@@ -15,16 +15,22 @@ public class FavoriteItems_DataHandler : MonoBehaviour
     protected void Awake()
     {
         favoriteItemsDic = new Dictionary<string, FavoriteItems_Template>();
-    }
-
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
+
 
     private void EventInterpretHandler()
     {
         favoriteItemsDic = favoriteItemsVM.Interpert();
+        if (!ReferenceEquals(favoriteItemsDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Favorite Item interpret completed");
         //foreach (KeyValuePair<string, FavortieItems_Template> favoriteItem in favoriteItemsDic)
         //{

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoreItemSets_DataHandler : MonoBehaviour
+public class StoreItemSets_DataHandler : DataHandler
 {
     protected Dictionary<string, StoreItemSets_Template> storeItemSetDic;
     [SerializeField] private StoreItemSetsVM storeItemSetsVM;
@@ -17,15 +17,21 @@ public class StoreItemSets_DataHandler : MonoBehaviour
     protected void Awake()
     {
         storeItemSetDic = new Dictionary<string, StoreItemSets_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         storeItemSetDic = storeItemSetsVM.Interpert();
+        if (!ReferenceEquals(storeItemSetDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("Store Item Set interpret completed");
         //foreach (KeyValuePair<string, StoreItemSets_Template> storeItemSet in storeItemSetDic)
         //{

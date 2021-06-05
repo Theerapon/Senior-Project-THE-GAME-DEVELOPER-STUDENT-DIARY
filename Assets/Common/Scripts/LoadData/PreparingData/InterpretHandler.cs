@@ -12,7 +12,7 @@ public class InterpretHandler : MonoBehaviour
     [SerializeField] private PreparingData preparingData;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected void Awake()
     {
         preparingData.EventOnInterpretData.AddListener(OnEventInterpretHandler);
     }

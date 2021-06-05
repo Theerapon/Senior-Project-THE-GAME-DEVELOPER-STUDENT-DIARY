@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardSkills_DataHandler : MonoBehaviour
+public class HardSkills_DataHandler : DataHandler
 {
     protected Dictionary<string, HardSkill_Template> hardSkillsDic;
     [SerializeField] private HardSkillsVM hardSkillsVM;
@@ -18,15 +18,21 @@ public class HardSkills_DataHandler : MonoBehaviour
     protected void Awake()
     {
         hardSkillsDic = new Dictionary<string, HardSkill_Template>();
-    }
-    private void Start()
-    {
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
         hardSkillsDic = hardSkillsVM.Interpert();
+        if (!ReferenceEquals(hardSkillsDic, null))
+        {
+            hasFinished = true;
+            EventOnInterpretDataComplete?.Invoke();
+        }
+        else
+        {
+            Debug.Log("Fail");
+        }
         //Debug.Log("HardSkill interpret completed");
         //foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsDic)
         //{

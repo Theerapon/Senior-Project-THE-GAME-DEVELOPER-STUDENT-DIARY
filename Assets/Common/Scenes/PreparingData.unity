@@ -198,6 +198,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e836e6d84ae009a4c817c595cc34cb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   npcsVM: {fileID: 50814415}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &58113883
@@ -275,6 +278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac5ab37fc1821db4c8b4050afea0d9ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   spawnsItemsVM: {fileID: 58113886}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &212041625
@@ -352,6 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b444bf1ad276047b9b4673018a3e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   activitiesNpcVM: {fileID: 212041628}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &215361633
@@ -429,6 +438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397ff6550720b8d4dad92b1b9093e8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   bonusDetailsVM: {fileID: 215361635}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &266759041
@@ -476,6 +488,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ffe99071fbad5a4c9bc0f25c9f1feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   scheduleVM: {fileID: 266759044}
   interpretHandler: {fileID: 948092574}
 --- !u!114 &266759044
@@ -583,6 +598,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c298e2e9d105f4d4f919754c5ba7d3b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   dialoguesNpcVM: {fileID: 471104956}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &474132172
@@ -660,6 +678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4224656edeb85284b82ad940125de597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   storeItemSetsVM: {fileID: 474132175}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &560237297
@@ -737,6 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a3c9ca1921308b4cb713c6e797fc1c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   coursesVM: {fileID: 560237299}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &660789999
@@ -814,6 +838,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2715b97376378a44b1dd2b4e267d411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   randomBoxsVM: {fileID: 660790002}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &670667919
@@ -891,6 +918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6fda6735f052f49a55ce15ac89a2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   classActivitiesVM: {fileID: 670667922}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &844140400
@@ -968,6 +998,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66fc2cdf07f2b943a1f9ef9a72401d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   itemsVM: {fileID: 844140402}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &948092571
@@ -1027,6 +1060,30 @@ MonoBehaviour:
   - {fileID: 1483880172}
   - {fileID: 266759045}
   - {fileID: 1714787876}
+  dataHandlers:
+  - {fileID: 212041629}
+  - {fileID: 215361637}
+  - {fileID: 2038748267}
+  - {fileID: 670667923}
+  - {fileID: 560237301}
+  - {fileID: 2102936882}
+  - {fileID: 471104957}
+  - {fileID: 1113204575}
+  - {fileID: 1934333528}
+  - {fileID: 1291890009}
+  - {fileID: 1658250813}
+  - {fileID: 844140404}
+  - {fileID: 50814416}
+  - {fileID: 1696740298}
+  - {fileID: 660790003}
+  - {fileID: 1247469758}
+  - {fileID: 58113887}
+  - {fileID: 1458093867}
+  - {fileID: 474132176}
+  - {fileID: 1173128232}
+  - {fileID: 1483880170}
+  - {fileID: 266759043}
+  - {fileID: 1714787874}
 --- !u!4 &948092573
 Transform:
   m_ObjectHideFlags: 0
@@ -1155,6 +1212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccb703e0a008884b9a11c957fea1840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   explorationVM: {fileID: 1113204574}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1173128228
@@ -1232,6 +1292,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d04b2b5cd32174e9963144da0b19a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   storesVM: {fileID: 1173128231}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1247469754
@@ -1309,6 +1372,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26fb5a5e240d924f87161beeab74b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   softSkillsVM: {fileID: 1247469756}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1291890005
@@ -1386,6 +1452,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd394aa9cdbfd94c8608e92587a5729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   hardSkillsVM: {fileID: 1291890007}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1458093863
@@ -1463,6 +1532,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72756430c12eea743aa8b5f7c0de25cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   statusDetailsVM: {fileID: 1458093865}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1483880168
@@ -1510,6 +1582,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b895526090e9a1543a18289c2e99e597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   itemPropertyVM: {fileID: 1483880171}
   interpretHandler: {fileID: 948092574}
 --- !u!114 &1483880171
@@ -1617,6 +1692,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac39921bbb5542845b7236bec3055af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   ideasVM: {fileID: 1658250812}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1696740294
@@ -1694,6 +1772,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7b2c21e9987464eb940aac6cf83b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   placesVM: {fileID: 1696740297}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &1714787872
@@ -1741,6 +1822,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d81b27db9b35ee4caf9127afffdb08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   scheduleRegisterVM: {fileID: 1714787875}
   interpretHandler: {fileID: 948092574}
 --- !u!114 &1714787875
@@ -1848,6 +1932,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec12d5bd1d6db54da2cbc7faf30d00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   favoriteItemsVM: {fileID: 1934333527}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &2038748263
@@ -1925,6 +2012,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc3e6bf852842e43b6db50693280699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   charactersVM: {fileID: 2038748265}
   interpretHandler: {fileID: 948092574}
 --- !u!1 &2102936878
@@ -1940,7 +2030,7 @@ GameObject:
   - component: {fileID: 2102936881}
   - component: {fileID: 2102936882}
   m_Layer: 0
-  m_Name: DialoguesExploration loading
+  m_Name: DialoguesExplorationloading
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1999,8 +2089,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2102936878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e23c772725701741b5f34b883fb0098, type: 3}
+  m_Script: {fileID: 11500000, guid: 31d0cefa09a92664085b97e83f428559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
   dialoguesExplorationVM: {fileID: 2102936881}
   interpretHandler: {fileID: 948092574}
