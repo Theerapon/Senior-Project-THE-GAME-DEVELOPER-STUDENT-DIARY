@@ -10,8 +10,9 @@ public class IdeasVM : MonoBehaviour
     private const string INST_SET_IdeaType = "ideaType";
     private const string INST_SET_IdeaName = "ideaName";
     private const string INST_SET_IdeaDescription = "ideaDescription";
-    private const string INST_SET_IconPath = "iconPath";
+    private const string INST_SET_IconPath = "iconPath"; 
     private const string INST_SET_DefaultCollected = "defaultCollected";
+    private const string INST_SET_Message = "Message";
     #endregion
 
     [SerializeField] private Ideas_Loading ideas_Loading;
@@ -53,6 +54,7 @@ public class IdeasVM : MonoBehaviour
         string description = string.Empty;
         Sprite icon = null;
         bool collected = false;
+        string message = string.Empty;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -78,11 +80,14 @@ public class IdeasVM : MonoBehaviour
                 case INST_SET_DefaultCollected:
                     collected = bool.Parse(entries[++i]);
                     break;
+                case INST_SET_Message:
+                    message = entries[++i];
+                    break;
 
             }
 
         }
 
-        return new Idea_Template(id, ideaType, ideaName, description, icon, collected);
+        return new Idea_Template(id, ideaType, ideaName, description, icon, collected, message);
     }
 }

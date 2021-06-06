@@ -10,6 +10,7 @@ public class Idea_Template : MonoBehaviour
     private string description = string.Empty;
     private Sprite icon = null;
     private bool collected = false;
+    private string message = string.Empty;
 
     public string Id { get => id; }
     public IdeaType IdeaType { get => ideaType; }
@@ -17,8 +18,9 @@ public class Idea_Template : MonoBehaviour
     public string Description { get => description; }
     public Sprite Icon { get => icon; }
     public bool Collected { get => collected; set => collected = value; }
+    public string Message { get => message; }
 
-    public Idea_Template(string id, IdeaType ideaType, string ideaName, string description, Sprite icon, bool collected)
+    public Idea_Template(string id, IdeaType ideaType, string ideaName, string description, Sprite icon, bool collected, string message)
     {
         this.id = id;
         this.ideaType = ideaType;
@@ -26,5 +28,6 @@ public class Idea_Template : MonoBehaviour
         this.description = description;
         this.icon = icon;
         this.collected = collected;
+        this.message = message;
     }
 }
