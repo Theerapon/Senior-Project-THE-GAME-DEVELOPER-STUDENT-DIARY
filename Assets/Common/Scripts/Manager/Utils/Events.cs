@@ -53,6 +53,8 @@ public class Events
     [System.Serializable] public class EventOnPointExitSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnLeftClickSoftSkillSlot : UnityEvent<BaseSoftSkillSlot, bool> { }
     [System.Serializable] public class EventOnGoalIdeasContainerCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnMechanicIeasContainerCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnThemeIdeasContainerCompleted : UnityEvent { }
 
 
 }

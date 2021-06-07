@@ -1,53 +1,53 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static BaseIdeaSlot;
 
-public class GoalIdeaDisplay : IdeasDisplay
-{ 
-    [SerializeField] private GoalIdeaContainer goalIdeaContainer;
+public class ThemeIdeasDisplay : IdeasDisplay
+{
+    [SerializeField] private ThemeIdeasContainer themeIdeasContainer;
     private IdeasController ideasController;
 
     protected override void Awake()
     {
         base.Awake();
-        goalIdeaContainer.OnGoalIdeasContainerCompleted.AddListener(GoalIdeasCompletedHandler);
+        themeIdeasContainer.OnThemeIdeasContainerCompleted.AddListener(ThemeIdeasContainerCompletedHandler);
         ideasController = FindObjectOfType<IdeasController>();
     }
 
 
-    private void GoalIdeasCompletedHandler()
+    private void ThemeIdeasContainerCompletedHandler()
     {
         baseIdeaSlots.Clear();
-        if (goalIdeaContainer.transform != null)
+        if (themeIdeasContainer.transform != null)
         {
-            goalIdeaContainer.transform.GetComponentsInChildren(includeInactive: true, result: baseIdeaSlots);
+            themeIdeasContainer.transform.GetComponentsInChildren(includeInactive: true, result: baseIdeaSlots);
         }
+
         for (int index = 0; index < baseIdeaSlots.Count; index++)
         {
             baseIdeaSlots[index].OnPointEnterIdeaSlotEvent.AddListener(OnPointEnterIdeaSlotEventHandler);
             baseIdeaSlots[index].OnPointExitIdeaSlotEvent.AddListener(OnPointExitIdeaSlotEventHandler);
         }
 
-        DisplayedGoalIdeas();
+        DisplayedThemeIdeas();
     }
 
-    private void DisplayedGoalIdeas()
+    private void DisplayedThemeIdeas()
     {
         int i = 0;
-        if(ideasController.GoalIdeas.Count + 1 == goalIdeaContainer.transform.childCount)
+        if (ideasController.ThemeIdeas.Count + 1 == themeIdeasContainer.transform.childCount)
         {
             i = 1;
         }
         else
         {
-            i = ideasController.GoalIdeas.Count + 1;
+            i = ideasController.ThemeIdeas.Count + 1;
         }
 
-        if (!ReferenceEquals(ideasController.GoalIdeas, null))
+        if (!ReferenceEquals(ideasController.ThemeIdeas, null))
         {
-            foreach (KeyValuePair<string, Idea> idea in ideasController.GoalIdeas)
+            foreach (KeyValuePair<string, Idea> idea in ideasController.ThemeIdeas)
             {
                 if (idea.Value.Collected)
                 {
@@ -62,5 +62,4 @@ public class GoalIdeaDisplay : IdeasDisplay
         }
 
     }
-
 }

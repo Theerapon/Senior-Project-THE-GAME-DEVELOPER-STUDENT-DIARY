@@ -10,11 +10,18 @@ public class IdeasController : Manager<IdeasController>
     private Dictionary<string, Idea> themeIdeas;
     private Dictionary<string, Idea> platformIdeas;
     private Dictionary<string, Idea> playerIdeas;
+    private int amountGoalIdeasHasCollected;
+    private int amountMechanicIdeasHasCollected;
+    private int amountThemeIdeasHasCollected;
     public Dictionary<string, Idea> GoalIdeas { get => goalIdeas; }
     public Dictionary<string, Idea> MechanicIdeas { get => mechanicIdeas; }
     public Dictionary<string, Idea> ThemeIdeas { get => themeIdeas; }
     public Dictionary<string, Idea> PlatformIdeas { get => platformIdeas; }
     public Dictionary<string, Idea> PlayerIdeas { get => playerIdeas; }
+    public int AmountGoalIdeasHasCollected { get => amountGoalIdeasHasCollected; }
+    public int AmountMechanicIdeasHasCollected { get => amountMechanicIdeasHasCollected; }
+    public int AmountThemeIdeasHasCollected { get => amountThemeIdeasHasCollected; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -33,12 +40,15 @@ public class IdeasController : Manager<IdeasController>
                 {
                     case IdeaType.Goal:
                         goalIdeas.Add(idea.Key, new Idea(idea.Value));
+                        if (idea.Value.Collected) amountGoalIdeasHasCollected++;
                         break;
                     case IdeaType.Mechanic:
                         mechanicIdeas.Add(idea.Key, new Idea(idea.Value));
+                        if (idea.Value.Collected) amountMechanicIdeasHasCollected++;
                         break;
                     case IdeaType.Theme:
                         themeIdeas.Add(idea.Key, new Idea(idea.Value));
+                        if (idea.Value.Collected) amountThemeIdeasHasCollected++;
                         break;
                     case IdeaType.Platform:
                         platformIdeas.Add(idea.Key, new Idea(idea.Value));

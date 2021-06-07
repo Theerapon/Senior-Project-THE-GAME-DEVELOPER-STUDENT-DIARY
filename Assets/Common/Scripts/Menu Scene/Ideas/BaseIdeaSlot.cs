@@ -75,13 +75,12 @@ public class BaseIdeaSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 if (ideaSlot.Collected)
                 {
                     Display();
-                    Debug.Log("sdfsdf");
                 }
                 else
                 {
                     UnDisplay();
                 }
-                
+
             }
 
             if (isPointerOver)
@@ -95,12 +94,9 @@ public class BaseIdeaSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void UnDisplay()
     {
-        if (_image != null)
-        {
-            _image.color = disabledColor;
-            _image.enabled = false;
-            _image.sprite = null;
-        }
+        _image.color = disabledColor;
+        _image.sprite = null;
+        _image.enabled = false;
 
         if (_uncollected != null)
         {
@@ -119,12 +115,10 @@ public class BaseIdeaSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             _uncollected.enabled = false;
         }
 
-        if (_image != null)
-        {
-            _image.enabled = true;
-            _image.sprite = ideaSlot.IdeaImage;
-            _image.color = normalColor;
-        }
+        _image.sprite = ideaSlot.IdeaImage;
+        _image.color = normalColor;
+        _image.enabled = true;
+
     }
 
     private void Start()
