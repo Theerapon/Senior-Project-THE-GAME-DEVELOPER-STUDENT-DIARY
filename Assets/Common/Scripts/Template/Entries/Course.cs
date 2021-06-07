@@ -58,5 +58,17 @@ public class Course : MonoBehaviour
     {
         return definition.CourseOriginalPrice - (GetDiscountPrice());
     }
+    public bool BuyCourse()
+    {
+        if (hasCollected == false)
+        {
+            hasCollected = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     #endregion
 }

@@ -43,6 +43,8 @@ public class Events
     [System.Serializable] public class EventOnLeftClickStatusSlot : UnityEvent<BaseStatusSlot, bool> { }
     [System.Serializable] public class EventOnPointEnterBonusSlot : UnityEvent<BaseBonusSlot> { }
     [System.Serializable] public class EventOnPointExitBonusSlot : UnityEvent<BaseBonusSlot> { }
+    [System.Serializable] public class EventOnPointEnterIdeaSlot : UnityEvent<BaseIdeaSlot> { }
+    [System.Serializable] public class EventOnPointExitIdeaSlot : UnityEvent<BaseIdeaSlot> { }
     [System.Serializable] public class EventOnLeftClickBonusSlot : UnityEvent<BaseBonusSlot, bool> { }
     [System.Serializable] public class EventOnPointEnterHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
     [System.Serializable] public class EventOnPointExitHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
@@ -50,6 +52,7 @@ public class Events
     [System.Serializable] public class EventOnPointEnterSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnPointExitSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnLeftClickSoftSkillSlot : UnityEvent<BaseSoftSkillSlot, bool> { }
-    
+    [System.Serializable] public class EventOnGoalIdeasContainerCompleted : UnityEvent { }
+
 
 }

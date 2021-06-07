@@ -18,6 +18,7 @@ public class CoursesController : Manager<CoursesController>
         allCourses = new Dictionary<string, Course>();
         myCourses = new Dictionary<string, Course>();
         courses_DataHandler = FindObjectOfType<Courses_DataHandler>();
+        int i = 0;
         if (!ReferenceEquals(courses_DataHandler, null))
         {
             foreach (KeyValuePair<string, Course_Template> course in courses_DataHandler.GetCourseDic)
@@ -31,7 +32,7 @@ public class CoursesController : Manager<CoursesController>
 
 
 
-    public void CollectCourse(string id)
+    public void BuyCourse(string id)
     {
         Debug.Log("Implementation");
     }

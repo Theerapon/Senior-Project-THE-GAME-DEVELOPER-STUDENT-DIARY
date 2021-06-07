@@ -66,7 +66,7 @@ public class Course_Notification_Controller : MonoBehaviour
         if (totalPrice < characterStatusController.CharacterStatus.CurrentMoney)
         {
             characterStatusController.CharacterStatus.TakeMoney(totalPrice);
-            courseController.CollectCourse(id);
+            courseController.BuyCourse(id);
             purchaseSuccessful = true;
         }
         else
