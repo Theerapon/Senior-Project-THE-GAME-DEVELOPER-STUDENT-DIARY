@@ -96,14 +96,14 @@ public class SwitchScene : Manager<SwitchScene>
     public void DisplayHomeAction(bool actived, GameManager.GameScene scene)
     {
         //---Not Fade Out---
-        GameManager.Instance.DisplayHomeAction(actived, scene);
+        gameManager.DisplayHomeAction(actived, scene);
     }
 
 
     public void DisplayMenu(bool actived, GameManager.GameScene currentScene, GameManager.GameState toState)
     {
         //---Not Fade Out
-        GameManager.Instance.DisplayMenu(actived, currentScene, toState);
+        gameManager.DisplayMenu(actived, currentScene, toState);
     }
 
     public void DispleyMap(bool actived)
@@ -115,13 +115,13 @@ public class SwitchScene : Manager<SwitchScene>
     public void DisplayCourse(bool actived)
     {
         //---Not Fand Out---
-        GameManager.Instance.DisplayCourse(actived);
+        gameManager.DisplayCourse(actived);
     }
 
     public void DisplayCourseNotification(bool actived)
     {
         //---Not Fade Out---
-        GameManager.Instance.DisplayCourseNotification(actived);
+        gameManager.DisplayCourseNotification(actived);
     }
 
     public void DisplaySaving(bool actived)
@@ -139,7 +139,12 @@ public class SwitchScene : Manager<SwitchScene>
     public void DisplayWorkProject(bool actived)
     {
         //---Not Fand Out---
-        GameManager.Instance.DisplayWorkProject(actived);
+        gameManager.DisplayWorkProject(actived);
+    }
+    public void DisplayWorkProjectDesign(bool actived)
+    {
+        //---Not Fand Out---
+        gameManager.DisplayWorkProjectDesign(actived);
     }
     #endregion
 }

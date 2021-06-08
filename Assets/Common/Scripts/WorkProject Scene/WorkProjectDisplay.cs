@@ -57,12 +57,7 @@ public class WorkProjectDisplay : MonoBehaviour
         projectController = ProjectController.Instance;
     }
 
-    private void Start()
-    {
-        Initializing();
-    }
-
-    private void Initializing()
+    public void Initializing()
     {
         if(!projectController.ProjectIsNull)
         {

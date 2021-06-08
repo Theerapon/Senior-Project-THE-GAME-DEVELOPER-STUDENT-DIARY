@@ -25,6 +25,7 @@ public class GameManager : Manager<GameManager>
         Summary,
         COM_Course,
         COM_WorkProject,
+        COM_WorkProject_Design,
         HUD_Info,
         Menu_Bag,
         Menu_Characters,
@@ -37,7 +38,7 @@ public class GameManager : Manager<GameManager>
         Map,
         Saving,
         Diary,
-        PreparingData
+        PreparingData,
     }
 
 
@@ -205,7 +206,13 @@ public class GameManager : Manager<GameManager>
         {
             UpdateState(GameState.WORK_PROJECT);
         }
+
+        if(scene == GameScene.COM_WorkProject_Design)
+        {
+            UpdateState(GameState.WORK_PROJECT_DESIGN);
+        }
         #endregion
+
 
         /*
         if (scene == GameScene.CourseAnimation)
@@ -433,9 +440,9 @@ public class GameManager : Manager<GameManager>
         }
     }
 
-    public void DisplayWorkProject(bool actived)
+    public void DisplayWorkProject(bool active)
     {
-        if (actived)
+        if (active)
         {
             UnLoadLevel(GameScene.Home_COMPUTER);
             LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject);
@@ -444,6 +451,19 @@ public class GameManager : Manager<GameManager>
         {
             UnLoadLevel(GameScene.COM_WorkProject);
             UpdateState(GameState.HOME);
+        }
+    }
+
+    public void DisplayWorkProjectDesign(bool active)
+    {
+        if (active)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject_Design);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.COM_WorkProject_Design);
+            UpdateState(GameState.WORK_PROJECT);
         }
     }
 

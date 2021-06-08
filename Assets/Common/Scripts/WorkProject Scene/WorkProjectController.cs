@@ -11,6 +11,7 @@ public class WorkProjectController : MonoBehaviour
     [SerializeField] private GameObject lockObj;
     [SerializeField] private GameObject docObj;
     [SerializeField] private GameObject workingObj;
+    [SerializeField] private GameObject canvas;
 
     [Header("Buttons")]
     [SerializeField] private GameObject[] buttons;
@@ -45,11 +46,26 @@ public class WorkProjectController : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
         Initializing();
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.WORK_PROJECT)
+        {
+            DisplayCanvas(true);
+        }
+        else
+        {
+            DisplayCanvas(false);
+        }
     }
 
     private void Initializing()
     {
+        workProjectDisplay.Initializing();
+
         if (!projectController.ProjectIsNull)
         {
             if (projectController.HasDesigned)
@@ -116,6 +132,27 @@ public class WorkProjectController : MonoBehaviour
         }
 
         OnButtonClicked(choice, GetMaxTimeCanSelect(), seccond);
+    }
+    public void Working()
+    {
+        switch (projectController.ProjectPhase)
+        {
+            case ProjectPhase.Design:
+                SwitchScene.Instance.DisplayWorkProjectDesign(true);
+                break;
+            case ProjectPhase.FirstPlayable:
+                break;
+            case ProjectPhase.Prototype:
+                break;
+            case ProjectPhase.VerticalSlice:
+                break;
+            case ProjectPhase.AlphaTest:
+                break;
+            case ProjectPhase.BetaTest:
+                break;
+            case ProjectPhase.Master:
+                break;
+        }
     }
 
     private void LockBotton(int maxLevelCanselect)
@@ -256,6 +293,15 @@ public class WorkProjectController : MonoBehaviour
         avgMotivationCalculated = (float) Math.Round((avgMotivationCalculated + 0.005f), 2);
 
         workProjectDisplay.DisplayEfficiency(avgMotivationCalculated);
+    }
+
+    private void DisplayCanvas(bool active)
+    {
+        canvas.SetActive(active);
+        if (active)
+        {
+            Initializing();
+        }
     }
 
 }
