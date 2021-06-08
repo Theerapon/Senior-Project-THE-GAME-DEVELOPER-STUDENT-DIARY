@@ -127,12 +127,12 @@ public class Project : MonoBehaviour
         levelArtSkillRequired = 0;
         levelSoundSkillRequired = 0;
 
-        projectPhase = ProjectPhase.Decision;
+        projectPhase = ProjectPhase.Design;
         hasDesigned = false;
         startDate = "Unknown";
         deadlineDate = "Unknown";
         baseEnergyConsumePer30Minute = 5;
-        baseMotivationConsumePer30Minute = 5;
+        baseMotivationConsumePer30Minute = 3;
     }
 
     public void DesignGameDucument(string name, Idea goal, Idea[] machenic, Idea theme, Idea platform, Idea player, string detailMessage, string contextMessage, string developerMessage)

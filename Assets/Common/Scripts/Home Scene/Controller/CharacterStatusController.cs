@@ -42,6 +42,11 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnMoneyUpdated?.Invoke();
     }
 
+    public float CalMotivation(int amount)
+    {
+        return characterStatus.CalMotivation(amount);
+    }
+
     #region Stat Increasers
     public void IncreaseMaxEnergy(int newEnergyAmount)
     {

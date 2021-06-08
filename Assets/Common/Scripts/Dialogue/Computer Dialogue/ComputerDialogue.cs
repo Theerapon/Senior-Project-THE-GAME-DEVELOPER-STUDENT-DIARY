@@ -13,7 +13,7 @@ public class ComputerDialogue : MonoBehaviour, IDialogue
                 SwitchScene.Instance.DisplayCourse(true);
                 break;
             case 2:
-                //GameManager.Instance.GotoWorkProject();
+                SwitchScene.Instance.DisplayWorkProject(true);
                 break;
         }
     }

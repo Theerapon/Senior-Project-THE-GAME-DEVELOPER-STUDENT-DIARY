@@ -200,6 +200,13 @@ public class GameManager : Manager<GameManager>
         }
         #endregion
 
+        #region WorkProject
+        if(scene == GameScene.COM_WorkProject)
+        {
+            UpdateState(GameState.WORK_PROJECT);
+        }
+        #endregion
+
         /*
         if (scene == GameScene.CourseAnimation)
         {
@@ -423,6 +430,20 @@ public class GameManager : Manager<GameManager>
         {
             UnLoadLevel(GameScene.Diary);
             UpdateScene(GameScene.Home);
+        }
+    }
+
+    public void DisplayWorkProject(bool actived)
+    {
+        if (actived)
+        {
+            UnLoadLevel(GameScene.Home_COMPUTER);
+            LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.COM_WorkProject);
+            UpdateState(GameState.HOME);
         }
     }
 

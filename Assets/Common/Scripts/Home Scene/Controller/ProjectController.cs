@@ -49,5 +49,19 @@ public class ProjectController : Manager<ProjectController>
     public string DeadlineDate { get => project.DeadlineDate; }
     public int BaseEnergyConsumePer30Minute { get => project.BaseEnergyConsumePer30Minute; }
     public int BaseMotivationConsumePer30Minute { get => project.BaseMotivationConsumePer30Minute; }
+    public bool ProjectIsNull 
+    { 
+        get
+        {
+            if(ReferenceEquals(project, null))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }  
+    }
     #endregion
 }

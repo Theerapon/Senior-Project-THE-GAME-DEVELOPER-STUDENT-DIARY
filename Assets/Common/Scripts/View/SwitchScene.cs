@@ -132,7 +132,14 @@ public class SwitchScene : Manager<SwitchScene>
 
     public void DisplayDiary(bool actived)
     {
+        //---Fade Out---
         FadeToLevel(INST_Display_Diary, actived);
+    }
+
+    public void DisplayWorkProject(bool actived)
+    {
+        //---Not Fand Out---
+        GameManager.Instance.DisplayWorkProject(actived);
     }
     #endregion
 }

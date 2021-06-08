@@ -5,6 +5,18 @@ using UnityEngine;
 public class CharacterStatus : MonoBehaviour
 {
 
+    #region Motivaltion Calculation
+    private const int Phase1 = 79;
+    private const int Phase2 = 59;
+    private const int Phase3 = 39;
+    private const int Phase4 = 19;
+    private const float EfficiencyPhase1 = 1f;
+    private const float EfficiencyPhase2 = 0.9f;
+    private const float EfficiencyPhase3 = 0.7f;
+    private const float EfficiencyPhase4 = 0.5f;
+    private const float EfficiencyPhase5 = 0.3f;
+    #endregion
+
     #region Fields
     private CharacterStatus_Template definition;
     private int currentLevel;
@@ -87,7 +99,6 @@ public class CharacterStatus : MonoBehaviour
         {
             this.currentMotivation += currentMotivation;
         }
-        MotivationCalculated();
     }
 
     public void IncreaseCurrentMoney(int currentMoney)
@@ -168,7 +179,6 @@ public class CharacterStatus : MonoBehaviour
         {
             this.currentMotivation -= currentMotivation;
         }
-        MotivationCalculated();
     }
 
     public void ReducedCodingStatus(int codingAmount)
@@ -285,28 +295,28 @@ public class CharacterStatus : MonoBehaviour
     #endregion
 
     #region Calculated Motivation
-    private float MotivationCalculated()
+    public float CalMotivation(int motivation)
     {
         float motivationCalculated;
-        if (currentMotivation > 79)
+        if (motivation > Phase1)
         {
-            motivationCalculated = 1f;
+            motivationCalculated = EfficiencyPhase1;
         }
-        else if (currentMotivation > 59)
+        else if (motivation > Phase2)
         {
-            motivationCalculated = 0.9f;
+            motivationCalculated = EfficiencyPhase2;
         }
-        else if (currentMotivation > 39)
+        else if (motivation > Phase3)
         {
-            motivationCalculated = 0.7f;
+            motivationCalculated = EfficiencyPhase3;
         }
-        else if (currentMotivation > 19)
+        else if (motivation > Phase4)
         {
-            motivationCalculated = 0.5f;
+            motivationCalculated = EfficiencyPhase4;
         }
         else
         {
-            motivationCalculated = 0.3f;
+            motivationCalculated = EfficiencyPhase5;
         }
         return motivationCalculated;
     }
