@@ -11,6 +11,8 @@ public class IdeasDisplay : MonoBehaviour
     #endregion
 
     protected List<BaseIdeaSlot> baseIdeaSlots;
+    [SerializeField] protected GameObject canvas;
+
 
     protected virtual void Awake()
     {
@@ -19,11 +21,19 @@ public class IdeasDisplay : MonoBehaviour
 
     protected void OnPointExitIdeaSlotEventHandler(BaseIdeaSlot baseIdeaSlot)
     {
-        OnPointEnterIdeaSlotEvent?.Invoke(baseIdeaSlot);
+        OnPointExitIdeaSlotEvent?.Invoke(baseIdeaSlot);
     }
 
     protected void OnPointEnterIdeaSlotEventHandler(BaseIdeaSlot baseIdeaSlot)
     {
         OnPointEnterIdeaSlotEvent?.Invoke(baseIdeaSlot);
+    }
+
+    private void OnValidate()
+    {
+        if(canvas != null)
+        {
+            canvas.SetActive(false);
+        }
     }
 }

@@ -29,7 +29,6 @@ public class Project : MonoBehaviour
     private Idea playerIdea;
     private string detailMessage;
     private string contextMessage;
-    private string developerMessage;
 
     private int levelMathSkillRequired;
     private int levelProgramingSkillRequired;
@@ -69,7 +68,6 @@ public class Project : MonoBehaviour
     public Idea PlayerIdea { get => playerIdea; }
     public string DetailMessage { get => detailMessage; }
     public string ContextMessage { get => contextMessage; }
-    public string DeveloperMessage { get => developerMessage; }
     public int LevelMathSkillRequired { get => levelMathSkillRequired; }
     public int LevelProgramingSkillRequired { get => levelProgramingSkillRequired; }
     public int LevelEngineSkillRequired { get => levelEngineSkillRequired; }
@@ -115,7 +113,6 @@ public class Project : MonoBehaviour
         playerIdea = null;
         detailMessage = string.Empty;
         contextMessage = string.Empty;
-        developerMessage = string.Empty;
 
         levelMathSkillRequired = 0; 
         levelProgramingSkillRequired = 0;
@@ -145,7 +142,6 @@ public class Project : MonoBehaviour
         playerIdea = player;
         this.detailMessage = detailMessage;
         this.contextMessage = contextMessage;
-        this.developerMessage = developerMessage;
         GenerateLevelSkillRequire();
         hasDesigned = true;
     }

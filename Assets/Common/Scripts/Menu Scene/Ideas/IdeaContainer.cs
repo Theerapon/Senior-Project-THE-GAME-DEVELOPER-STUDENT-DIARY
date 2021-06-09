@@ -6,15 +6,6 @@ public class IdeaContainer : MonoBehaviour
 {
     [SerializeField] protected GameObject _template;
 
-    private IdeasController ideasController;
-
-    public IdeasController IdeasController { get => ideasController; }
-
-    protected virtual void Awake()
-    {
-        ideasController = FindObjectOfType<IdeasController>();
-    }
-
     protected virtual void CreateIdeasSlot()
     {
         

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThemeIdeasContainer : IdeaContainer
+public class WorkProjectThemeIdeaContainer : IdeaContainer
 {
-    public Events.EventOnThemeIdeasContainerCompleted OnThemeIdeasContainerCompleted;
+    public Events.EventOnWorkProjectThemeIdeasContainerCompleted OnThemeIdeasContainerCompleted;
 
     protected override void CreateIdeasSlot()
     {
@@ -13,10 +13,14 @@ public class ThemeIdeasContainer : IdeaContainer
         {
             foreach (KeyValuePair<string, Idea> idea in IdeasController.Instance.ThemeIdeas)
             {
-                copy = Instantiate(_template, transform);
+                if (idea.Value.Collected)
+                {
+                    copy = Instantiate(_template, transform);
+                }
+
             }
             _template.SetActive(false);
             OnThemeIdeasContainerCompleted?.Invoke();
-        } 
+        }
     }
 }

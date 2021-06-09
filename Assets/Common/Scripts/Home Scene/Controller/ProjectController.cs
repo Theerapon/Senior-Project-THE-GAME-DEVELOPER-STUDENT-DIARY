@@ -34,7 +34,6 @@ public class ProjectController : Manager<ProjectController>
     public Idea PlayerIdea { get => project.PlayerIdea; }
     public string DetailMessage { get => project.DetailMessage; }
     public string ContextMessage { get => project.ContextMessage; }
-    public string DeveloperMessage { get => project.DeveloperMessage; }
     public int LevelMathSkillRequired { get => project.LevelMathSkillRequired; }
     public int LevelProgramingSkillRequired { get => project.LevelProgramingSkillRequired; }
     public int LevelEngineSkillRequired { get => project.LevelEngineSkillRequired; }

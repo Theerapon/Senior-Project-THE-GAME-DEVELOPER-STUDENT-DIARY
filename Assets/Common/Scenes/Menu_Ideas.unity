@@ -204,7 +204,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 195794137}
   m_HandleRect: {fileID: 195794136}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -740,10 +740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f89e89b442d42b44a5793bcb590fb7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  INST_Goal: "\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22"
-  INST_Mechanic: "\u0E01\u0E25\u0E44\u0E01"
-  INST_Theme: "\u0E18\u0E35\u0E21"
-  INST_Default: "\u0E44\u0E2D\u0E40\u0E14\u0E35\u0E22"
   INST_DefaultDescription: "\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E1B\u0E25\u0E14\u0E25\u0E47\u0E2D\u0E04"
   INST_Sprite: {fileID: 21300000, guid: 5ea3095122241674ea1e7e40bfa059e8, type: 3}
   buttons:
@@ -1006,7 +1002,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00000036035718}
-  m_SizeDelta: {x: 0, y: 26}
+  m_SizeDelta: {x: 0, y: 14}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &437336419
 MonoBehaviour:
@@ -1801,7 +1797,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 823576735}
   m_HandleRect: {fileID: 823576734}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2400,7 +2396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &884612591
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2764,7 +2760,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00000036035718}
-  m_SizeDelta: {x: 0, y: 26}
+  m_SizeDelta: {x: 0, y: 14}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1020716596
 MonoBehaviour:
@@ -3050,7 +3046,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00000036035718}
-  m_SizeDelta: {x: 0, y: 256}
+  m_SizeDelta: {x: 0, y: 14}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1090104359
 MonoBehaviour:
@@ -3729,6 +3725,7 @@ MonoBehaviour:
   OnPointExitIdeaSlotEvent:
     m_PersistentCalls:
       m_Calls: []
+  canvas: {fileID: 1327015483}
   mechanicIdeasContainer: {fileID: 1020716596}
 --- !u!1 &1347820219
 GameObject:
@@ -4226,6 +4223,7 @@ MonoBehaviour:
   OnPointExitIdeaSlotEvent:
     m_PersistentCalls:
       m_Calls: []
+  canvas: {fileID: 1462216850}
   themeIdeasContainer: {fileID: 437336419}
 --- !u!1 &1572063141
 GameObject:
@@ -4432,6 +4430,7 @@ MonoBehaviour:
   OnPointExitIdeaSlotEvent:
     m_PersistentCalls:
       m_Calls: []
+  canvas: {fileID: 1674611948}
   goalIdeaContainer: {fileID: 1090104361}
 --- !u!1 &1701768708
 GameObject:

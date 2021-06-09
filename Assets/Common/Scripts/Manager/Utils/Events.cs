@@ -45,6 +45,9 @@ public class Events
     [System.Serializable] public class EventOnPointExitBonusSlot : UnityEvent<BaseBonusSlot> { }
     [System.Serializable] public class EventOnPointEnterIdeaSlot : UnityEvent<BaseIdeaSlot> { }
     [System.Serializable] public class EventOnPointExitIdeaSlot : UnityEvent<BaseIdeaSlot> { }
+    [System.Serializable] public class EventOnPointEnterWorkProjectIdeaSlot : UnityEvent<BaseWorkingProjectIdeaSlot> { }
+    [System.Serializable] public class EventOnPointExitWorkProjectIdeaSlot : UnityEvent<BaseWorkingProjectIdeaSlot> { }
+    [System.Serializable] public class EventOnClickWorkProjectIdeaSlot : UnityEvent<BaseWorkingProjectIdeaSlot> { }
     [System.Serializable] public class EventOnLeftClickBonusSlot : UnityEvent<BaseBonusSlot, bool> { }
     [System.Serializable] public class EventOnPointEnterHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
     [System.Serializable] public class EventOnPointExitHardSkillSlot : UnityEvent<BaseHardSkillSlot> { }
@@ -55,6 +58,9 @@ public class Events
     [System.Serializable] public class EventOnGoalIdeasContainerCompleted : UnityEvent { }
     [System.Serializable] public class EventOnMechanicIeasContainerCompleted : UnityEvent { }
     [System.Serializable] public class EventOnThemeIdeasContainerCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnWorkProjectGoalIdeasContainerCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnWorkProjectMechanicIeasContainerCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnWorkProjectThemeIdeasContainerCompleted : UnityEvent { }
 
 
 }

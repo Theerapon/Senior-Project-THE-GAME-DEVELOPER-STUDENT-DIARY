@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MechanicIdeasContainer : IdeaContainer
+public class WorkProjectMechanicIdeaContainer : IdeaContainer
 {
-    public Events.EventOnMechanicIeasContainerCompleted OnMechanicIeasContainerCompleted;
+    public Events.EventOnWorkProjectMechanicIeasContainerCompleted OnMechanicIeasContainerCompleted;
 
     protected override void CreateIdeasSlot()
     {
@@ -13,7 +13,11 @@ public class MechanicIdeasContainer : IdeaContainer
         {
             foreach (KeyValuePair<string, Idea> idea in IdeasController.Instance.MechanicIdeas)
             {
-                copy = Instantiate(_template, transform);
+                if (idea.Value.Collected)
+                {
+                    copy = Instantiate(_template, transform);
+                }
+
             }
             _template.SetActive(false);
             OnMechanicIeasContainerCompleted?.Invoke();

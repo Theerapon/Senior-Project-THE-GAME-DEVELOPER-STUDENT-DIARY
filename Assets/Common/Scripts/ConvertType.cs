@@ -592,4 +592,29 @@ public class ConvertType : MonoBehaviour
         }
         return temp;
     }
+
+    private const string INST_Goal = "เป้าหมาย";
+    private const string INST_Mechanic = "กลไก";
+    private const string INST_Theme = "ธีม";
+    private const string INST_Default = "ไอเดีย";
+    public static string ConvertIdeaTypeToString(IdeaType ideaType)
+    {
+        string unit = string.Empty;
+        switch (ideaType)
+        {
+            case IdeaType.Goal:
+                unit = INST_Goal;
+                break;
+            case IdeaType.Mechanic:
+                unit = INST_Mechanic;
+                break;
+            case IdeaType.Theme:
+                unit = INST_Theme;
+                break;
+            default:
+                unit = INST_Default;
+                break;
+        }
+        return unit;
+    }
 }

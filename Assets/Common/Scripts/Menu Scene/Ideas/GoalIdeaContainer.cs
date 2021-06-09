@@ -6,13 +6,14 @@ using UnityEngine;
 public class GoalIdeaContainer : IdeaContainer
 {
     public Events.EventOnGoalIdeasContainerCompleted OnGoalIdeasContainerCompleted;
-    
+
+
     protected override void CreateIdeasSlot()
     {
         GameObject copy = null;
-        if(!ReferenceEquals(IdeasController.GoalIdeas, null))
+        if(!ReferenceEquals(IdeasController.Instance.GoalIdeas, null))
         {
-            foreach (KeyValuePair<string, Idea> idea in IdeasController.GoalIdeas)
+            foreach (KeyValuePair<string, Idea> idea in IdeasController.Instance.GoalIdeas)
             {
                 copy = Instantiate(_template, transform);
             }

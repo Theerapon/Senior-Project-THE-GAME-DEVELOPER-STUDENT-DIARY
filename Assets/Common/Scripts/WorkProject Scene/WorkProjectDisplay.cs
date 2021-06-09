@@ -43,7 +43,6 @@ public class WorkProjectDisplay : MonoBehaviour
     [SerializeField] private TMP_Text nameProjectTMP;
     [SerializeField] private TMP_Text detailMessageTMP;
     [SerializeField] private TMP_Text contextMessageTMP;
-    [SerializeField] private TMP_Text developerMessageTMP;
 
     [Header("Working")]
     [SerializeField] private TMP_Text energyWorkingTMP;
