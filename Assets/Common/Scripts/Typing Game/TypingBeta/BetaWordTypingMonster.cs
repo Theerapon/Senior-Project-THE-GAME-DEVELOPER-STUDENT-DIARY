@@ -3,13 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static BetaTypingPlayerManager;
 
 public class BetaWordTypingMonster : WordBox
 {
+    #region Instace tag
+    private const string INST_Player = "BetaPlayer";
+    #endregion
+
     private float screenHalfWidth;
     private float screenHalfHeight;
 
     private BetaTypingManager wordManager;
+    private BetaTypingPlayerManager playerManager;
+
     [SerializeField] private float speed;
     [SerializeField] private GameObject shootingPosition;
     [SerializeField] private Image _bg;
@@ -19,6 +26,7 @@ public class BetaWordTypingMonster : WordBox
 
     private bool finishWord;
     private bool outOffScreen = false;
+    private bool hasActived = true;
     private const int TIMESCALE = 1;
     private string id;
 
@@ -31,6 +39,7 @@ public class BetaWordTypingMonster : WordBox
     protected void Start()
     {
         wordManager = BetaTypingManager.Instance;
+        playerManager = BetaTypingPlayerManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
         screenHalfHeight = wordManager.GetCanvasHeight() / 2;
         finishWord = false;
@@ -42,14 +51,16 @@ public class BetaWordTypingMonster : WordBox
 
     private void Update()
     {
-        if (!outOffScreen)
+        if (!outOffScreen && hasActived)
         {
             transform.position -= normalizeDirection * speed * Time.deltaTime;
             if (transform.position.x < -screenHalfWidth || transform.position.x > screenHalfWidth
                 || transform.position.y <- screenHalfHeight || transform.position.y > screenHalfHeight)
             {
+                playerManager.TakeDamage();
                 outOffScreen = true;
-                wordManager.OutOffScreen(this);
+                hasActived = false;
+                wordManager.RemoveWordFromList(this);
             }
 
             if (finishWord)
@@ -102,5 +113,28 @@ public class BetaWordTypingMonster : WordBox
     {
         speed *= 1.8f;
         _bg.color = _bgUpgrade;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case INST_Player:
+                BetaTypingPlayerManager player = collision.gameObject.GetComponentInChildren<BetaTypingPlayerManager>();
+                if (player.HasAlive())
+                {
+                    player.TakeDamage();
+                    hasActived = false;
+                    finishWord = true;
+                    wordManager.RemoveWordFromList(this);
+                }
+                break;
+        }
+    }
+
+    public override void RemoveWord()
+    {
+        base.RemoveWord();
+        playerManager.KillMonster();
     }
 }

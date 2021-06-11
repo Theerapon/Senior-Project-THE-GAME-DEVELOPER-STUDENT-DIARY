@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WordInputBetaTyping : MonoBehaviour
 {
-    public BetaTypingManager wordManager;
+    [SerializeField] private BetaTypingManager wordManager;
+    [SerializeField] private BetaTypingPlayerManager playerManager;
 
     void Update()
     {
@@ -17,9 +18,12 @@ public class WordInputBetaTyping : MonoBehaviour
                 }
                 break;
             case BetaTypingManager.TypingGameState.Playing:
-                foreach (char letter in Input.inputString)
+                if (playerManager.HasAlive())
                 {
-                    wordManager.TypeLetterManager(letter);
+                    foreach (char letter in Input.inputString)
+                    {
+                        wordManager.TypeLetterManager(letter);
+                    }
                 }
                 break;
         }

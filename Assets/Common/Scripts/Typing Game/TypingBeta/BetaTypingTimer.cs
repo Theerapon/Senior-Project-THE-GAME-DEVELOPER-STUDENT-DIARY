@@ -8,6 +8,7 @@ public class BetaTypingTimer : MonoBehaviour
 
     [SerializeField] private BossManager bossManager;
     [SerializeField] private BetaTypingManager wordManager;
+    [SerializeField] private BetaTypingPlayerManager playerManager;
 
     [Header("Time")]
     [SerializeField] private float maxTotalTime = 60;
@@ -43,6 +44,13 @@ public class BetaTypingTimer : MonoBehaviour
                 break;
             case BetaTypingManager.TypingGameState.Playing:
                 gameTime += Time.deltaTime * Time.timeScale;
+                OnBetaTypingTimerUpdate?.Invoke();
+                if(gameTime >= maxTotalTime)
+                {
+                    playerManager.GameOver();
+                    break;
+                }
+                
                 int ran = Random.Range(minChangeGenerateBox, bossManager.MaxChangeGenerateBox[(int)bossManager.GetBossState]);
                 if (ran < 10)
                 {
@@ -72,4 +80,10 @@ public class BetaTypingTimer : MonoBehaviour
 
         return str;
     }
+    public float GetTimeFillAmount()
+    {
+        return (float)gameTime / maxTotalTime;
+    }
+
+
 }

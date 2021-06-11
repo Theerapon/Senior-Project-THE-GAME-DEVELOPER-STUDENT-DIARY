@@ -38,4 +38,5 @@ public class BaseWordBetaTypingBoss : baseWord
         return wordDisplayHandler.GetShootingPosition();
     }
 
+
 }

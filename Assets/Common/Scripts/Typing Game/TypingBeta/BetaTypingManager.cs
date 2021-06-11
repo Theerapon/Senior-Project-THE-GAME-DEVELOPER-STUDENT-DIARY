@@ -20,8 +20,6 @@ public class BetaTypingManager : Manager<BetaTypingManager>
     #endregion
     private TypingGameState typingGameState;
 
-    private int score;
-    private int comboCount;
 
     public Dictionary<string, baseWord> mainWordlist;
     private bool hasActivedWord;
@@ -55,7 +53,17 @@ public class BetaTypingManager : Manager<BetaTypingManager>
     {
         base.Awake();
         mainWordlist = new Dictionary<string, baseWord>();
+        betaTypingPlayerManager.OnBetaTypingPlayerStateChange.AddListener(OnBetaTypingPlayerStateChangeHandler);
     }
+
+    private void OnBetaTypingPlayerStateChangeHandler(BetaTypingPlayerManager.BetaPlayerState state)
+    {
+        if(state == BetaTypingPlayerManager.BetaPlayerState.Dead)
+        {
+            UpdateTypingGameState(TypingGameState.PostGame);
+        }
+    }
+
 
     private void Start()
     {
@@ -94,10 +102,15 @@ public class BetaTypingManager : Manager<BetaTypingManager>
             {
                 activeWord.TypeLetterEachWord();
             }
+            else
+            {
+                betaTypingPlayerManager.ReduceCombo();
+            }
 
         }
         else
         {
+            bool found = false;
             //check for index 0 each Word in wordList
             foreach (KeyValuePair<string, baseWord> eachWord in mainWordlist)
             {
@@ -108,8 +121,15 @@ public class BetaTypingManager : Manager<BetaTypingManager>
                     hasActivedWord = true;
                     eachWord.Value.TypeLetterEachWord();
                     eachWord.Value.UpdatedOrderLayer();
+                    found = true;
                     break;
+                    
                 }
+            }
+
+            if (!found)
+            {
+                betaTypingPlayerManager.ReduceCombo();
             }
         }
 
@@ -168,7 +188,7 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         betaTypingTimer.PlaysGame();
     }
 
-    public void OutOffScreen(BetaWordTypingMonster word)
+    public void RemoveWordFromList(BetaWordTypingMonster word)
     {
         string id = word.Id;
 
@@ -183,4 +203,5 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         mainWordlist[id].RemoveWord();
         mainWordlist.Remove(id);
     }
+
 }

@@ -17,13 +17,15 @@ public class BossManager : Manager<BossManager>
     }
     private BossState bossState;
 
-    private int[] maxHp = { 50000, 37500, 25000, 12500, 2500 };
+    private int[] hpPhase = { 50000, 45000, 25000, 12500, 2500 };
     private int[] maxChangeGenerateBox = { 7500, 5000, 3000, 2000, 750 };
+    private int maxHp;
     private int currentHp;
     private const int INST_TimeHealCooldown = 45;
     private float healCooldown;
     private bool canHeal;
     private int totalDamaged;
+    private int maxBossState;
 
     private const int TIMESCALE = 1;
 
@@ -31,6 +33,7 @@ public class BossManager : Manager<BossManager>
     public int CurrentHp { get => currentHp; }
     public int[] MaxChangeGenerateBox { get => maxChangeGenerateBox; }
     public int TotalDamaged { get => totalDamaged; }
+    public int MaxHp { get => maxHp; }
 
     protected override void Awake()
     {
@@ -41,10 +44,12 @@ public class BossManager : Manager<BossManager>
 
     private void Initializing()
     {
-        currentHp = maxHp[0];
+        currentHp = hpPhase[0];
+        maxHp = hpPhase[0];
         bossState = BossState.Phase1;
         healCooldown = 0f;
         totalDamaged = 0;
+        maxBossState = 5;
         canHeal = true;
     }
 
@@ -66,22 +71,14 @@ public class BossManager : Manager<BossManager>
             currentHp -= damaged;
         }
 
-        if(currentHp <= maxHp[1])
+        if ((int)bossState < maxBossState)
         {
-            bossState = BossState.Phase2;
+            if (currentHp <= hpPhase[(int)bossState + 1])
+            {
+                UpdateBossState(bossState + 1);
+            }
         }
-        else if(currentHp <= maxHp[2])
-        {
-            bossState = BossState.Phase3;
-        }
-        else if(currentHp <= maxHp[3])
-        {
-            bossState = BossState.Phase4;
-        }
-        else if (currentHp <= maxHp[4])
-        {
-            bossState = BossState.Phase5;
-        }
+
         onBetaTypingBossUpdate?.Invoke();
     }
 
@@ -89,7 +86,15 @@ public class BossManager : Manager<BossManager>
     {
         if (canHeal)
         {
-            currentHp += (int)(maxHp[(int)bossState] * 0.08f);
+            int heal = (int)(hpPhase[(int)bossState] * 0.08f);
+            if(currentHp + heal >= maxHp)
+            {
+                currentHp = maxHp;
+            }
+            else
+            {
+                currentHp += heal;
+            }
             canHeal = false;
             healCooldown = INST_TimeHealCooldown;
         }
@@ -107,5 +112,10 @@ public class BossManager : Manager<BossManager>
                 canHeal = true;
             }
         }
+    }
+
+    private void UpdateBossState(BossState state)
+    {
+        bossState = state;
     }
 }
