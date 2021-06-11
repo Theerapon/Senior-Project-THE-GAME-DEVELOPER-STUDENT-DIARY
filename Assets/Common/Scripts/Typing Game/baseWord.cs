@@ -47,4 +47,9 @@ public class baseWord
     {
 
     }
+
+    public virtual Vector3 GetPositionParent()
+    {
+        return Vector3.zero;
+    }
 }

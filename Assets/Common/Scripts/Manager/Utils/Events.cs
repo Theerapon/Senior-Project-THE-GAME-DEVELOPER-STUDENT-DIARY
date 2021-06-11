@@ -26,7 +26,8 @@ public class Events
     [System.Serializable] public class EventOnMotivationUpdated : UnityEvent { }
     [System.Serializable] public class EventOnMoneyUpdated : UnityEvent { }
     [System.Serializable] public class EventOnCheckedWordUpdate : UnityEvent { }
-    [System.Serializable] public class EventOnTypingGameStateChanged : UnityEvent<TypingGame2Manager.TypingGameState> { }
+    [System.Serializable] public class EventOnAlphaTypingGameStateChanged : UnityEvent<AlphaTypingManager.TypingGameState> { }
+    [System.Serializable] public class EventOnBetaTypingGameStateChanged : UnityEvent<BetaTypingManager.TypingGameState> { }
     [System.Serializable] public class EventOnInventoryUpdated : UnityEvent { }
     [System.Serializable] public class EventOnEquipmentUpdated : UnityEvent { }
     [System.Serializable] public class EventOnStorageUpdated : UnityEvent { }
@@ -61,6 +62,9 @@ public class Events
     [System.Serializable] public class EventOnWorkProjectGoalIdeasContainerCompleted : UnityEvent { }
     [System.Serializable] public class EventOnWorkProjectMechanicIeasContainerCompleted : UnityEvent { }
     [System.Serializable] public class EventOnWorkProjectThemeIdeasContainerCompleted : UnityEvent { }
+    [System.Serializable] public class EventOnBetaTypingTimerUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnAlphaTypingTimerUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnBetaTypingBossUpdate : UnityEvent { }
 
 
 }

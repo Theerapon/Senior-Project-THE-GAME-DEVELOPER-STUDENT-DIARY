@@ -9,11 +9,21 @@ public class WordBox : MonoBehaviour
 {
     [SerializeField] protected TMP_Text tmp_Text;
     [SerializeField] protected Canvas canvas;
+    [SerializeField] protected Color normal;
+    [SerializeField] protected Color highlight;
 
     public virtual void SetWord(string word)
     {
         if(tmp_Text != null)
+        {
             tmp_Text.text = word;
+            tmp_Text.color = normal;
+        }
+    }
+
+    protected virtual void Reset()
+    {
+        canvas.gameObject.SetActive(true);
     }
 
     public virtual void RemoveLetter()
@@ -21,7 +31,7 @@ public class WordBox : MonoBehaviour
         if (tmp_Text != null)
         {
             tmp_Text.text = tmp_Text.text.Remove(0, 1);
-            tmp_Text.color = Color.red;
+            tmp_Text.color = highlight;
         }
     }
 
