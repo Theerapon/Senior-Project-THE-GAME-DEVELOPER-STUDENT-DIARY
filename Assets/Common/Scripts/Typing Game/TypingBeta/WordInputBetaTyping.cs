@@ -12,7 +12,7 @@ public class WordInputBetaTyping : MonoBehaviour
         switch (wordManager.GetTypingGameState())
         {
             case BetaTypingManager.TypingGameState.PreGame:
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.anyKeyDown)
                 {
                     wordManager.PlaysGame();
                 }
@@ -20,10 +20,25 @@ public class WordInputBetaTyping : MonoBehaviour
             case BetaTypingManager.TypingGameState.Playing:
                 if (playerManager.HasAlive())
                 {
-                    foreach (char letter in Input.inputString)
+                    if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        wordManager.TypeLetterManager(letter);
+                        if (playerManager.CanUseUltimateSkill())
+                        {
+                            playerManager.UseUlitmateSkill();
+                        }
                     }
+                    else
+                    {
+                        if(wordManager.mainWordlist.Count > 0)
+                        {
+                            foreach (char letter in Input.inputString)
+                            {
+                                wordManager.TypeLetterManager(letter);
+                            }
+                        }
+
+                    }
+
                 }
                 break;
         }

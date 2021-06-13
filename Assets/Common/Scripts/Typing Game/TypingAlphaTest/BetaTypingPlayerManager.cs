@@ -10,7 +10,8 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
     public enum BetaPlayerState
     {
         Alive,
-        Dead
+        Dead,
+        Timeout
     }
     private BetaPlayerState playerState;
 
@@ -66,7 +67,7 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         life = 3;
         countMonsterKilledToUltimateSkill = 0;
         //damage = characterStatusController.CurrentTestingStatus * INST_DamageMultiplier;
-        damage = 20 * INST_DamageMultiplier;
+        damage = 40 * INST_DamageMultiplier;
         UpdatePlayerState(BetaPlayerState.Alive);
         UpdateComboPhase(ComboPhase.Phase1);
     }
@@ -83,11 +84,11 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         bullet.GetComponent<BetaTypingBullet>().Shooting(positionTarget, damage);
     }
 
-    public void Shooting(Vector3 positionTarget, baseWord baseWord)
+    public void Shooting(Vector3 positionTarget, string id)
     {
         GameObject bullet = Instantiate(bulletPrefab, positionShooting, Quaternion.identity, rectCanvas);
         int damage = this.damage * (int)(comboDamageMultiplier[(int)comboPhase]);
-        bullet.GetComponent<BetaTypingBullet>().Shooting(positionTarget, damage, baseWord);
+        bullet.GetComponent<BetaTypingBullet>().Shooting(positionTarget, damage, id);
     }
 
     public void KillMonster()
@@ -123,15 +124,9 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         return countMonsterKilledToUltimateSkill >= INST_UltimateSkill;
     }
 
-    public void UseUlitmateSkill(List<Vector3> positionTarget, List<baseWord> baseWords)
+    public void UseUlitmateSkill()
     {
-        GameObject bullet = null;
-        int damage = this.damage * (int)(comboDamageMultiplier[(int)comboPhase]);
-        for(int i = 0; i < positionTarget.Count; i++)
-        {
-            bullet = Instantiate(bulletPrefab, positionShooting, Quaternion.identity, rectCanvas);
-            bullet.GetComponent<BetaTypingBullet>().Shooting(positionTarget[i], damage, baseWords[i]);
-        }
+        betaTypingManager.UseUltimateSKill(2);
         countMonsterKilledToUltimateSkill = 0;
         OnBetaTypingPlayerUpdate?.Invoke();
     }
@@ -154,6 +149,12 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
     {
         UpdatePlayerState(BetaPlayerState.Dead);
     }
+
+    public void TimeOut()
+    {
+        UpdatePlayerState(BetaPlayerState.Timeout);
+    }
+
 
     private void UpdatePlayerState(BetaPlayerState state)
     {

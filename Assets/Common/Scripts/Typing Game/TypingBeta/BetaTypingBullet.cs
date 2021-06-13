@@ -26,7 +26,7 @@ public class BetaTypingBullet : MonoBehaviour
     [SerializeField] private int speed;
 
     private int damage;
-    private baseWord baseWord;
+    private string baseWordID;
 
     private bool shootBoss;
     private bool outOffScreen = false;
@@ -37,12 +37,12 @@ public class BetaTypingBullet : MonoBehaviour
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
         screenHalfHeight = wordManager.GetCanvasHeight() / 2;
     }
-    public void Shooting(Vector3 position, int damage, baseWord baseWord)
+    public void Shooting(Vector3 position, int damage, string baseWordId)
     {
         this.damage = damage;
         direction = (transform.position - position).normalized;
         UpdateState(BulletState.Shoting);
-        this.baseWord = baseWord;
+        this.baseWordID = baseWordId;
         shootBoss = false;
     }
     public void Shooting(Vector3 position, int damage)
@@ -83,15 +83,19 @@ public class BetaTypingBullet : MonoBehaviour
             case INST_BOSS:
                 if (shootBoss)
                 {
-                    collision.gameObject.GetComponent<BossManager>().TakeDamaged(damage);
+                    collision.gameObject.GetComponent<BetaTypingGameBossManager>().TakeDamaged(damage);
                     UpdateState(BulletState.Explosion);
                 }
                 break;
             case INST_Monster:
                 if (!shootBoss)
                 {
-                    collision.gameObject.GetComponentInChildren<BetaWordTypingMonster>().TakeDamage(damage, baseWord);
-                    UpdateState(BulletState.Explosion);
+                    BetaWordTypingMonster betaWordTypingMonster = collision.gameObject.GetComponentInChildren<BetaWordTypingMonster>();
+                    if (betaWordTypingMonster.Id.Equals(baseWordID))
+                    {
+                        collision.gameObject.GetComponentInChildren<BetaWordTypingMonster>().TakeDamage();
+                        UpdateState(BulletState.Explosion);
+                    }
                 }
                 break;
         }

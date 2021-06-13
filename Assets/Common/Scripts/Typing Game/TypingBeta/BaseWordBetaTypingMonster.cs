@@ -38,6 +38,11 @@ public class BaseWordBetaTypingMonster : baseWord
         wordDisplayHandler.Id = id;
     }
 
+    public string GetId()
+    {
+        return wordDisplayHandler.Id;
+    }
+
     public override void UpdatedOrderLayer()
     {
         base.UpdatedOrderLayer();

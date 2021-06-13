@@ -52,4 +52,9 @@ public class baseWord
     {
         return Vector3.zero;
     }
+
+    public virtual int GetTypeIndex()
+    {
+        return typeIndex;
+    }
 }

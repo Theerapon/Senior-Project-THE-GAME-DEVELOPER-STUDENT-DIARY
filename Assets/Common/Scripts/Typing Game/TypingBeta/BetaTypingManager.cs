@@ -27,6 +27,10 @@ public class BetaTypingManager : Manager<BetaTypingManager>
     private string activeID;
     private baseWord activeWord;
     private baseWord activeBossWord;
+    private string bossWordID;
+
+    [Header("Statistics")]
+    [SerializeField] private WordStatistics wordStatistics;
 
     [Header("Player")]
     [SerializeField] private BetaTypingPlayerManager betaTypingPlayerManager;
@@ -45,6 +49,9 @@ public class BetaTypingManager : Manager<BetaTypingManager>
     [Header("Timer")]
     [SerializeField] private BetaTypingTimer betaTypingTimer;
 
+    [Header("Boss")]
+    [SerializeField] private BetaTypingGameBossManager bossManager;
+
     public GameObject BossPosition { get => bossPosition; }
     public GameObject PlayerPosition { get => playerPosition; }
 
@@ -54,27 +61,44 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         base.Awake();
         mainWordlist = new Dictionary<string, baseWord>();
         betaTypingPlayerManager.OnBetaTypingPlayerStateChange.AddListener(OnBetaTypingPlayerStateChangeHandler);
+        bossManager.OnBetaTypingBossStateChange.AddListener(OnBetaTypingBossStateChangeHandler);
     }
 
-    private void OnBetaTypingPlayerStateChangeHandler(BetaTypingPlayerManager.BetaPlayerState state)
+    private void OnBetaTypingBossStateChangeHandler(BetaTypingGameBossManager.BossState state)
     {
-        if(state == BetaTypingPlayerManager.BetaPlayerState.Dead)
+        if(state == BetaTypingGameBossManager.BossState.Weekness)
+        {
+            KillAllMonster();
+        }
+
+        if (state == BetaTypingGameBossManager.BossState.Dead)
         {
             UpdateTypingGameState(TypingGameState.PostGame);
         }
     }
 
 
+    private void OnBetaTypingPlayerStateChangeHandler(BetaTypingPlayerManager.BetaPlayerState state)
+    {
+        if(state == BetaTypingPlayerManager.BetaPlayerState.Dead || state == BetaTypingPlayerManager.BetaPlayerState.Timeout)
+        {
+            UpdateTypingGameState(TypingGameState.PostGame);
+        }
+
+    }
+
+
+
     private void Start()
     {
         UpdateTypingGameState(TypingGameState.PreGame);
-        //OnCheckedWordUpdate?.Invoke();
     }
 
     public void AddBossWordBox()
     {
         BaseWordBetaTypingBoss word = new BaseWordBetaTypingBoss(WordGenerater.GetRandomWord(), betaTypingWordBossSpawner.SpawnWord());
-        mainWordlist.Add(word.GetHashCode().ToString(), word);
+        bossWordID = word.GetHashCode().ToString();
+        mainWordlist.Add(bossWordID, word);
         activeBossWord = word;
 
 
@@ -83,8 +107,9 @@ public class BetaTypingManager : Manager<BetaTypingManager>
     public void AddMonsterWordBox()
     {
         BaseWordBetaTypingMonster word = new BaseWordBetaTypingMonster(WordGenerater.GetRandomWord(), betaTypingWordMonsterSpawner.SpawnWord());
-        mainWordlist.Add(word.GetHashCode().ToString(), word);
-        word.SetID(word.GetHashCode().ToString());
+        string id = word.GetHashCode().ToString();
+        mainWordlist.Add(id, word);
+        word.SetID(id);
     }
 
     public void AddWordToList(BaseWordBetaTypingMonster word)
@@ -101,9 +126,11 @@ public class BetaTypingManager : Manager<BetaTypingManager>
             if (activeWord.GetNexLetter() == letter)
             {
                 activeWord.TypeLetterEachWord();
+                TypingCorrect();
             }
             else
             {
+                TypingIncorrect();
                 betaTypingPlayerManager.ReduceCombo();
             }
 
@@ -114,28 +141,32 @@ public class BetaTypingManager : Manager<BetaTypingManager>
             //check for index 0 each Word in wordList
             foreach (KeyValuePair<string, baseWord> eachWord in mainWordlist)
             {
-                if (eachWord.Value.GetNexLetter() == letter)
+                if(eachWord.Value.GetTypeIndex() < eachWord.Value.GetWord().Length)
                 {
-                    activeID = eachWord.Key;
-                    activeWord = eachWord.Value;
-                    hasActivedWord = true;
-                    eachWord.Value.TypeLetterEachWord();
-                    eachWord.Value.UpdatedOrderLayer();
-                    found = true;
-                    break;
-                    
+                    if (eachWord.Value.GetNexLetter() == letter)
+                    {
+                        activeID = eachWord.Key;
+                        activeWord = eachWord.Value;
+                        hasActivedWord = true;
+                        eachWord.Value.TypeLetterEachWord();
+                        eachWord.Value.UpdatedOrderLayer();
+                        found = true;
+                        TypingCorrect();
+                        break;
+
+                    }
                 }
             }
 
             if (!found)
             {
+                TypingIncorrect();
                 betaTypingPlayerManager.ReduceCombo();
             }
         }
 
         if (hasActivedWord && activeWord.WordTypedEnd())
         {
-            //OnCheckedWordUpdate?.Invoke();
             hasActivedWord = false;
 
             if (activeWord.GetWord().Equals(activeBossWord.GetWord()))
@@ -146,8 +177,7 @@ public class BetaTypingManager : Manager<BetaTypingManager>
             }
             else
             {
-                betaTypingPlayerManager.Shooting(mainWordlist[activeID].GetPositionParent(), activeWord);
-                mainWordlist.Remove(activeID);
+                betaTypingPlayerManager.Shooting(mainWordlist[activeID].GetPositionParent(), activeID);
             }
         }
     }
@@ -192,16 +222,109 @@ public class BetaTypingManager : Manager<BetaTypingManager>
     {
         string id = word.Id;
 
-        if (activeWord != null)
+        if (mainWordlist.ContainsKey(id))
         {
-            if (mainWordlist[id].GetWord().Equals(activeWord.GetWord()) && hasActivedWord == true)
+            if (activeWord != null)
             {
-                hasActivedWord = false;
+                if (mainWordlist[id].GetWord().Equals(activeWord.GetWord()) && hasActivedWord == true)
+                {
+                    hasActivedWord = false;
+                }
             }
-        }
 
-        mainWordlist[id].RemoveWord();
-        mainWordlist.Remove(id);
+            mainWordlist[id].RemoveWord();
+            mainWordlist.Remove(id);
+        }
+        
     }
 
+    public void DestroyWordFromList(BetaWordTypingMonster word)
+    {
+        string id = word.Id;
+
+        if (mainWordlist.ContainsKey(id))
+        {
+            if (activeWord != null)
+            {
+                if (mainWordlist[id].GetWord().Equals(activeWord.GetWord()) && hasActivedWord == true)
+                {
+                    hasActivedWord = false;
+                }
+            }
+
+            int wordIncorrect = 0;
+            if (mainWordlist[id].GetTypeIndex() + 1 <= mainWordlist[id].GetWord().Length)
+            {
+                wordIncorrect = (mainWordlist[id].GetWord().Length - (mainWordlist[id].GetTypeIndex() + 1));
+            }
+
+            wordStatistics.WordIsIncorrect(wordIncorrect);
+
+            mainWordlist[id].RemoveWord();
+            mainWordlist.Remove(id);
+        }
+
+
+    }
+
+    private void TypingCorrect()
+    {
+        wordStatistics.WordIsCorrect();
+    }
+
+    private void TypingIncorrect()
+    {
+        wordStatistics.WordIsIncorrect();
+    }
+
+    private void KillAllMonster()
+    {
+        hasActivedWord = false;
+        if (mainWordlist.Count > 0)
+        {
+            foreach (KeyValuePair<string, baseWord> eachWord in mainWordlist)
+            {
+                string id = eachWord.Key;
+                if (!id.Equals(bossWordID))
+                {
+                    betaTypingPlayerManager.Shooting(mainWordlist[id].GetPositionParent(), id);
+                }
+            }
+        }
+    }
+
+    public void UseUltimateSKill(int amount)
+    {
+        KillMonsters(amount);
+        betaTypingTimer.ReduceGameTime(5);
+    }
+
+    private void KillMonsters(int amount)
+    {
+
+        if (mainWordlist.Count > amount)
+        {
+            int i = 0;
+            foreach (KeyValuePair<string, baseWord> eachWord in mainWordlist)
+            {
+                string id = eachWord.Key;
+                if (!id.Equals(bossWordID) && i < amount)
+                {
+                    betaTypingPlayerManager.Shooting(mainWordlist[id].GetPositionParent(), id);
+                    i++;
+                }
+            }
+        }
+        else
+        {
+            foreach (KeyValuePair<string, baseWord> eachWord in mainWordlist)
+            {
+                string id = eachWord.Key;
+                if (!id.Equals(bossWordID))
+                {
+                    betaTypingPlayerManager.Shooting(mainWordlist[id].GetPositionParent(), id);
+                }
+            }
+        }
+    }
 }

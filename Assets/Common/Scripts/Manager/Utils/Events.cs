@@ -65,6 +65,7 @@ public class Events
     [System.Serializable] public class EventOnBetaTypingTimerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnAlphaTypingTimerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnBetaTypingBossUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnBetaTypingBossStateChange : UnityEvent<BetaTypingGameBossManager.BossState> { }
     [System.Serializable] public class EventOnBetaTypingPlayerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnBetaTypingPlayerStateChange : UnityEvent<BetaTypingPlayerManager.BetaPlayerState> { }
 

@@ -37,7 +37,8 @@ public class WordBox : MonoBehaviour
 
     public virtual void RemoveWord()
     {
-        Destroy(gameObject);
+        if(gameObject != null)
+            Destroy(gameObject);
     }
 
     public virtual void UpdatedOrderLayer()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +7,15 @@ public class BetaTypingTimer : MonoBehaviour
 {
     public Events.EventOnBetaTypingTimerUpdate OnBetaTypingTimerUpdate;
 
-    [SerializeField] private BossManager bossManager;
+    [SerializeField] private BetaTypingGameBossManager bossManager;
     [SerializeField] private BetaTypingManager wordManager;
     [SerializeField] private BetaTypingPlayerManager playerManager;
 
     [Header("Time")]
     [SerializeField] private float maxTotalTime = 60;
     private float gameTime;
-
+    private float countSecondTime;
+    private float cooldownGenerateMonster;
 
     private int minChangeGenerateBox = 0;
     private const int TIMESCALE = 1;
@@ -22,9 +24,24 @@ public class BetaTypingTimer : MonoBehaviour
     private float timeCountDown;
     private const float minTimeCountDown = 0;
 
+    public float MaxTotalTime { get => maxTotalTime; }
+
+    private void Awake()
+    {
+        bossManager.OnBetaTypingBossStateChange.AddListener(BossStateChangeHandler);
+    }
+
     private void Start()
     {
         timeCountDown = maxtimeCoutDown;
+    }
+
+    private void BossStateChangeHandler(BetaTypingGameBossManager.BossState state)
+    {
+        if(state != BetaTypingGameBossManager.BossState.Dead && state != BetaTypingGameBossManager.BossState.Weekness)
+        {
+            UpdateMonsterGeneratorphase(bossManager.MaxCooldownChangeMonsterGenerator[(int)state]);
+        }
     }
 
     void Update()
@@ -44,18 +61,36 @@ public class BetaTypingTimer : MonoBehaviour
                 break;
             case BetaTypingManager.TypingGameState.Playing:
                 gameTime += Time.deltaTime * Time.timeScale;
+                countSecondTime += Time.deltaTime * Time.timeScale;
                 OnBetaTypingTimerUpdate?.Invoke();
-                if(gameTime >= maxTotalTime)
+
+                if(bossManager.GetBossState != BetaTypingGameBossManager.BossState.Dead && bossManager.GetBossState != BetaTypingGameBossManager.BossState.Weekness)
                 {
-                    playerManager.GameOver();
-                    break;
+                    if (gameTime >= maxTotalTime)
+                    {
+                        playerManager.GameOver();
+                        break;
+                    }
+
+                    if(countSecondTime >= cooldownGenerateMonster)
+                    {
+                        wordManager.AddMonsterWordBox();
+                        countSecondTime = 0;
+                    }
+
                 }
-                
-                int ran = Random.Range(minChangeGenerateBox, bossManager.MaxChangeGenerateBox[(int)bossManager.GetBossState]);
-                if (ran < 10)
+                else
                 {
-                    wordManager.AddMonsterWordBox();
-                }
+                    if(bossManager.GetBossState == BetaTypingGameBossManager.BossState.Weekness)
+                    {
+                        if (gameTime >= maxTotalTime)
+                        {
+                            bossManager.Dead();
+                            break;
+                        }
+                    }
+                }                
+
                 break;
         }
     }
@@ -85,5 +120,13 @@ public class BetaTypingTimer : MonoBehaviour
         return (float)gameTime / maxTotalTime;
     }
 
+    private void UpdateMonsterGeneratorphase(float time)
+    {
+        cooldownGenerateMonster = time;
+    }
 
+    public void ReduceGameTime(int second)
+    {
+        gameTime -= second;
+    }
 }

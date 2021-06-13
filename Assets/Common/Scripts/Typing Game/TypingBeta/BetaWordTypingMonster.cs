@@ -16,14 +16,17 @@ public class BetaWordTypingMonster : WordBox
 
     private BetaTypingManager wordManager;
     private BetaTypingPlayerManager playerManager;
+    private BetaTypingGameBossManager bossManager;
 
     [SerializeField] private float speed;
     [SerializeField] private GameObject shootingPosition;
     [SerializeField] private Image _bg;
     [SerializeField] private Color _bgUpgrade;
+    
 
     private Vector3 normalizeDirection;
 
+    private bool isCollision = false;
     private bool finishWord;
     private bool outOffScreen = false;
     private bool hasActived = true;
@@ -40,6 +43,7 @@ public class BetaWordTypingMonster : WordBox
     {
         wordManager = BetaTypingManager.Instance;
         playerManager = BetaTypingPlayerManager.Instance;
+        bossManager = BetaTypingGameBossManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
         screenHalfHeight = wordManager.GetCanvasHeight() / 2;
         finishWord = false;
@@ -60,7 +64,7 @@ public class BetaWordTypingMonster : WordBox
                 playerManager.TakeDamage();
                 outOffScreen = true;
                 hasActived = false;
-                wordManager.RemoveWordFromList(this);
+                wordManager.DestroyWordFromList(this);
             }
 
             if (finishWord)
@@ -71,15 +75,15 @@ public class BetaWordTypingMonster : WordBox
                 }
                 else
                 {
-                    SetWordAgain();
+                    RemoveWord();
                 }
             }
         }
     }
 
-    public void TakeDamage(int damage, baseWord baseWord)
+    public void TakeDamage()
     {
-        baseWord.RemoveWord();
+        wordManager.RemoveWordFromList(this);
     }
 
     public Vector3 GetShootingPosition()
@@ -93,26 +97,9 @@ public class BetaWordTypingMonster : WordBox
         tmp_Text.gameObject.SetActive(false);
         _bg.gameObject.SetActive(false);
         finishWord = true;
+        isCollision = false;
+        outOffScreen = false;
         countTime = INST_CountTime;
-    }
-
-    private void SetWordAgain()
-    {
-        Upgrade();
-        string word = WordGenerater.GetRandomWord();
-        baseWord.ResetWord(word);
-        wordManager.AddWordToList(baseWord);
-        SetWord(word);
-        finishWord = false;
-        _bg.gameObject.SetActive(true);
-        tmp_Text.gameObject.SetActive(true);
-
-    }
-
-    private void Upgrade()
-    {
-        speed *= 1.8f;
-        _bg.color = _bgUpgrade;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -126,7 +113,8 @@ public class BetaWordTypingMonster : WordBox
                     player.TakeDamage();
                     hasActived = false;
                     finishWord = true;
-                    wordManager.RemoveWordFromList(this);
+                    isCollision = true;
+                    wordManager.DestroyWordFromList(this);
                 }
                 break;
         }
@@ -135,6 +123,13 @@ public class BetaWordTypingMonster : WordBox
     public override void RemoveWord()
     {
         base.RemoveWord();
-        playerManager.KillMonster();
+
+        if(!(isCollision || outOffScreen))
+        {
+            Debug.Log(string.Format("check {0}, {1}", isCollision, outOffScreen));
+            playerManager.KillMonster();
+        }
+        
+        bossManager.MonsterDead();
     }
 }

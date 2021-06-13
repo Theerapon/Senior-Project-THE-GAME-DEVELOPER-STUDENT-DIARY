@@ -10,7 +10,7 @@ public class BetaTypingScreenHandler : MonoBehaviour
     [SerializeField] private BetaTypingPlayerManager playerManager;
     [SerializeField] private BetaTypingManager typingGameManager;
     [SerializeField] private BetaTypingTimer typingGameTimer;
-    [SerializeField] private BossManager bossManager;
+    [SerializeField] private BetaTypingGameBossManager bossManager;
 
     [Header("count down time")]
     [SerializeField] private Image imageTran;
@@ -30,6 +30,9 @@ public class BetaTypingScreenHandler : MonoBehaviour
     [Header("Time")]
     [SerializeField] private Image timeBarImage;
 
+    [Header("Summary Canvas")]
+    [SerializeField] private GameObject summaryObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +40,17 @@ public class BetaTypingScreenHandler : MonoBehaviour
         typingGameManager.OnTypingGameStateChanged.AddListener(OnTypingGameStateChangedHandler);
         typingGameTimer.OnBetaTypingTimerUpdate.AddListener(OnBetaTypingTimerUpdateHandler);
         bossManager.onBetaTypingBossUpdate.AddListener(onBetaTypingBossUpdateHandler);
+        bossManager.OnBetaTypingBossStateChange.AddListener(OnBetaTypingBossStateChangeHandler);
         playerManager.OnBetaTypingPlayerUpdate.AddListener(OnBetaTypingPlayerUpdateHandler);
         Reset();
+    }
+
+    private void OnBetaTypingBossStateChangeHandler(BetaTypingGameBossManager.BossState state)
+    {
+        if (state == BetaTypingGameBossManager.BossState.Weekness)
+        {
+            
+        }
     }
 
     private void OnBetaTypingPlayerUpdateHandler()
@@ -52,6 +64,7 @@ public class BetaTypingScreenHandler : MonoBehaviour
     {
         SetActiveTimeCountTime(true);
         SetActiveImageTran(true);
+        SetActiveSummary(false);
         UpdateBossInfo();
         UpdatePlayerInfo();
     }
@@ -88,6 +101,7 @@ public class BetaTypingScreenHandler : MonoBehaviour
                 break;
             case BetaTypingManager.TypingGameState.PostGame:
                 SetActiveImageTran(true);
+                SetActiveSummary(true);
                 break;
         }
     }
@@ -127,6 +141,11 @@ public class BetaTypingScreenHandler : MonoBehaviour
     {
         textCountObj.SetActive(active);
     }
+    private void SetActiveSummary(bool active)
+    {
+        summaryObj.SetActive(active);
+    }
+
     private void SetTimeFillBar()
     {
         timeBarImage.fillAmount = 1 - typingGameTimer.GetTimeFillAmount();
