@@ -15,7 +15,7 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
     }
     private BetaPlayerState playerState;
 
-    public enum ComboPhase : int
+    public enum BetaComboPhase : int
     {
         Phase1,
         Phase2,
@@ -23,7 +23,7 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         Phase4,
         Phase5
     }
-    private ComboPhase comboPhase;
+    private BetaComboPhase comboPhase;
 
     private CharacterStatusController characterStatusController;
 
@@ -44,32 +44,40 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
     private int countMonsterKilledToUltimateSkill;
     private int life;
     private int damage = 0;
-    private int combo;
+    private int currentCombo;
+    private int maxCombo;
     private readonly int maxComboPhase = 5;
-
     private int[] countCombo = { 0, 14, 25, 50, 75 };
     private float[] comboDamageMultiplier = { 1f, 1.5f, 2.5f, 4f, 8f };
 
     public BetaPlayerState PlayerState { get => playerState; }
-    public ComboPhase GetComboPhase { get => comboPhase; }
-    public int Combo { get => combo; }
+    public BetaComboPhase GetComboPhase { get => comboPhase; }
+    public int Combo { get => currentCombo; }
     public int Life { get => life; }
     public int CountMonsterKilledToUltimateSkill { get => countMonsterKilledToUltimateSkill; }
     public int[] CountCombo { get => countCombo; }
 
     public int MaxComboPhase => maxComboPhase;
 
+    public int MaxCombo { get => maxCombo; }
 
     protected override void Awake()
     {
         base.Awake();
         characterStatusController = CharacterStatusController.Instance;
+        Initailzing();
+    }
+
+    private void Initailzing()
+    {
         life = 3;
         countMonsterKilledToUltimateSkill = 0;
+        currentCombo = 0;
+        maxCombo = currentCombo;
         //damage = characterStatusController.CurrentTestingStatus * INST_DamageMultiplier;
         damage = 40 * INST_DamageMultiplier;
         UpdatePlayerState(BetaPlayerState.Alive);
-        UpdateComboPhase(ComboPhase.Phase1);
+        UpdateComboPhase(BetaComboPhase.Phase1);
     }
 
     private void Start()
@@ -102,10 +110,15 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
 
     public void IncreaseCombo()
     {
-        combo++;
+        currentCombo++;
+        if(currentCombo > maxCombo)
+        {
+            maxCombo = currentCombo;
+        }
+
         if((int)comboPhase < maxComboPhase)
         {
-            if (combo >= countCombo[(int)comboPhase + 1])
+            if (currentCombo >= countCombo[(int)comboPhase + 1])
             {
                 UpdateComboPhase(comboPhase + 1);
             }
@@ -115,8 +128,8 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
 
     public void ReduceCombo()
     {
-        combo = 0;
-        UpdateComboPhase(ComboPhase.Phase1);
+        currentCombo = 0;
+        UpdateComboPhase(BetaComboPhase.Phase1);
     }
 
     public bool CanUseUltimateSkill()
@@ -145,11 +158,6 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         ReduceCombo();
     }
 
-    public void GameOver()
-    {
-        UpdatePlayerState(BetaPlayerState.Dead);
-    }
-
     public void TimeOut()
     {
         UpdatePlayerState(BetaPlayerState.Timeout);
@@ -164,7 +172,7 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
 
     }
 
-    private void UpdateComboPhase(ComboPhase phase)
+    private void UpdateComboPhase(BetaComboPhase phase)
     {
         comboPhase = phase;
         OnBetaTypingPlayerUpdate?.Invoke();  

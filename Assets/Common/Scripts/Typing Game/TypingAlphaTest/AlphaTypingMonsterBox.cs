@@ -12,7 +12,12 @@ public class AlphaTypingMonsterBox : WordBox
     }
     private MoveDirection moveDirection;
     private bool outOffScreen = false;
+
     private AlphaTypingManager wordManager;
+    private AlphaTypingPlayerManager playerManager;
+    private CharacterStatusController characterStatusController;
+    private int wordLength;
+    private int score;
 
     [SerializeField] private float speed = 80f;
 
@@ -33,8 +38,13 @@ public class AlphaTypingMonsterBox : WordBox
     protected void Start()
     {
         wordManager = AlphaTypingManager.Instance;
+        playerManager = AlphaTypingPlayerManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
+        //score = (int)(((characterStatusController.CurrentCodingStatus * 2.8f) + (characterStatusController.CurrentTestingStatus * 3.5f) / 10));
+        score = 30;
+        wordLength = tmp_Text.text.Length;
     }
+
 
     private void Update()
     {
@@ -76,6 +86,13 @@ public class AlphaTypingMonsterBox : WordBox
     public void SetNormalizeDirection(Vector3 normolized)
     {
         normalizeDirection = normolized;
+    }
+
+    public override void RemoveWord()
+    {
+        base.RemoveWord();
+        playerManager.IncreaseScore(score, wordLength);
+        playerManager.IncreaseCombo();
     }
 
 }

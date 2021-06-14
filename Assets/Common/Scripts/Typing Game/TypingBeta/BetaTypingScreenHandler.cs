@@ -42,7 +42,7 @@ public class BetaTypingScreenHandler : MonoBehaviour
         bossManager.onBetaTypingBossUpdate.AddListener(onBetaTypingBossUpdateHandler);
         bossManager.OnBetaTypingBossStateChange.AddListener(OnBetaTypingBossStateChangeHandler);
         playerManager.OnBetaTypingPlayerUpdate.AddListener(OnBetaTypingPlayerUpdateHandler);
-        Reset();
+        Initializing();
     }
 
     private void OnBetaTypingBossStateChangeHandler(BetaTypingGameBossManager.BossState state)
@@ -60,7 +60,7 @@ public class BetaTypingScreenHandler : MonoBehaviour
 
     
 
-    private void Reset()
+    private void Initializing()
     {
         SetActiveTimeCountTime(true);
         SetActiveImageTran(true);
@@ -94,10 +94,12 @@ public class BetaTypingScreenHandler : MonoBehaviour
             case BetaTypingManager.TypingGameState.PreGame:
                 SetActiveImageTran(true);
                 SetActiveTimeCountTime(true);
+                SetActiveSummary(true);
                 break;
             case BetaTypingManager.TypingGameState.Playing:
                 SetActiveTimeCountTime(false);
                 SetActiveImageTran(false);
+                SetActiveSummary(true);
                 break;
             case BetaTypingManager.TypingGameState.PostGame:
                 SetActiveImageTran(true);

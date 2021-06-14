@@ -68,7 +68,7 @@ public class BetaTypingTimer : MonoBehaviour
                 {
                     if (gameTime >= maxTotalTime)
                     {
-                        playerManager.GameOver();
+                        playerManager.TimeOut();
                         break;
                     }
 

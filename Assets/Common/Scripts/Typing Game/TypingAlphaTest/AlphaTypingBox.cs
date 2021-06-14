@@ -16,7 +16,10 @@ public class AlphaTypingBox : WordBox
     private bool outOffScreen = false;
 
     private AlphaTypingManager wordManager;
-
+    private AlphaTypingPlayerManager playerManager;
+    private CharacterStatusController characterStatusController;
+    private int wordLength;
+    private int score;
     private const int TIMESCALE = 1;
 
     [SerializeField] private float speed = 30f;
@@ -38,7 +41,12 @@ public class AlphaTypingBox : WordBox
     protected void Start()
     {
         wordManager = AlphaTypingManager.Instance;
+        playerManager = AlphaTypingPlayerManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
+        //score = (int)(((characterStatusController.CurrentCodingStatus * 1.2f) + (characterStatusController.CurrentTestingStatus * 2f) / 10));
+        score = 18;
+        wordLength = tmp_Text.text.Length;
+        Debug.Log("; " + wordLength);
     }
 
     private void Update()
@@ -89,5 +97,13 @@ public class AlphaTypingBox : WordBox
     public void CreatedMonsterBox()
     {
         wordManager.AddWordMonsterBox(transform.position, normalizeDirection, (int)moveDirection);
+    }
+
+    public override void RemoveWord()
+    {
+        base.RemoveWord();
+        wordManager.VerifiedWord();
+        playerManager.IncreaseScore(score, wordLength);
+        playerManager.IncreaseCombo();
     }
 }

@@ -2,13 +2,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SummaryHandler : MonoBehaviour
+public class BetaTypingSummaryHandler : MonoBehaviour
 {
     [Header("Manager")]
     [SerializeField] BetaTypingManager typingManager;
     [SerializeField] WordStatistics wordStatistics;
     [SerializeField] BetaTypingGameBossManager bossManager;
     [SerializeField] BetaTypingTimer timer;
+    [SerializeField] BetaTypingPlayerManager playerManager;
 
 
     [Header("TMP")]
@@ -19,6 +20,7 @@ public class SummaryHandler : MonoBehaviour
     [SerializeField] private TMP_Text currentBossHpTMP;
     [SerializeField] private TMP_Text maxBossHpTMP;
     [SerializeField] private Image bossHpFillBar;
+    [SerializeField] private TMP_Text maxCombo;
 
 
     private void Awake()
@@ -44,6 +46,7 @@ public class SummaryHandler : MonoBehaviour
         currentBossHpTMP.text = bossManager.CurrentHp.ToString();
         maxBossHpTMP.text = bossManager.MaxHp.ToString();
         bossHpFillBar.fillAmount = (float) bossManager.CurrentHp / bossManager.MaxHp;
+        maxCombo.text = playerManager.MaxCombo.ToString();
     }
 
 }
