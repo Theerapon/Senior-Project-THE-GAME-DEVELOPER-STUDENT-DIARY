@@ -46,4 +46,8 @@ public class WordBox : MonoBehaviour
         canvas.sortingOrder = 10;
     }
 
+    public virtual void TypedCompleted()
+    {
+
+    }
 }

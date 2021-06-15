@@ -2,7 +2,7 @@
 
 public class baseWordAlphaTypingNormal : baseWord
 {
-    protected AlphaTypingBox wordDisplayHandler;
+    protected AlphaTypingBox wordBox;
     
 
     public baseWordAlphaTypingNormal(string word, AlphaTypingSpawner spawner)
@@ -10,26 +10,26 @@ public class baseWordAlphaTypingNormal : baseWord
         this._word = word;
         typeIndex = 0;
 
-        wordDisplayHandler = spawner.SpawnWord();
-        wordDisplayHandler.SetWord(word);
-        wordDisplayHandler.setMoveDirection(spawner.GetIsRight());
-        wordDisplayHandler.SetNormalizeDirection(spawner.GetGoldPosition());
+        wordBox = spawner.SpawnWord();
+        wordBox.SetWord(word);
+        wordBox.setMoveDirection(spawner.GetIsRight());
+        wordBox.SetNormalizeDirection(spawner.GetGoldPosition());
     }
 
     public override void TypeLetterEachWord()
     {
         base.TypeLetterEachWord();
-        wordDisplayHandler.RemoveLetter();
+        wordBox.RemoveLetter();
     }
     public override void RemoveWord()
     {
         base.RemoveWord();
-        wordDisplayHandler.RemoveWord();
+        wordBox.RemoveWord();
     }
 
     public void SetID(string id)
     {
-        wordDisplayHandler.SetID(id);
+        wordBox.SetID(id);
     }
 
     public override void CreatedMonsterBox()
@@ -37,13 +37,19 @@ public class baseWordAlphaTypingNormal : baseWord
         base.CreatedMonsterBox();
         if (Random.Range(0, 50) < 10)
         {
-            wordDisplayHandler.CreatedMonsterBox();
+            wordBox.CreatedMonsterBox();
         }
     }
 
     public override void UpdatedOrderLayer()
     {
         base.UpdatedOrderLayer();
-        wordDisplayHandler.UpdatedOrderLayer();
+        wordBox.UpdatedOrderLayer();
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        wordBox.TypedCompleted();
     }
 }

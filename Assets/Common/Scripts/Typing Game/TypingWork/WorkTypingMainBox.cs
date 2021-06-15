@@ -10,9 +10,13 @@ public class WorkTypingMainBox : WordBox
     [Header("Word Time")]
     [SerializeField] private Image timeFillBar;
 
+    private WorkTypingPlayerManager playerManager;
     private WorkTypingTimer wordTypingWorkTimer;
-
     private WorkTypingManager wordManager;
+
+    private int wordLength;
+    private int score;
+    private float multiply;
 
     private float time;
     private const int TIMESCALE = 1;
@@ -22,6 +26,11 @@ public class WorkTypingMainBox : WordBox
     {
         wordTypingWorkTimer = FindObjectOfType<WorkTypingTimer>();
         wordManager = WorkTypingManager.Instance;
+        playerManager = WorkTypingPlayerManager.Instance;
+        //score = (int)(((characterStatusController.CurrentCodingStatus * 2.8f) + (characterStatusController.CurrentTestingStatus * 3.5f) / 10));
+        score = 30;
+        wordLength = tmp_Text.text.Length;
+        multiply = playerManager.NormalBoxMultiply;
     }
 
 
@@ -48,6 +57,13 @@ public class WorkTypingMainBox : WordBox
     private void SetTimeFillBar()
     {
         timeFillBar.fillAmount = 1 - (time / wordTypingWorkTimer.GetWordTimeDelay());
+    }
+
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        playerManager.IncreaseScore(score, wordLength, multiply);
     }
 
 }

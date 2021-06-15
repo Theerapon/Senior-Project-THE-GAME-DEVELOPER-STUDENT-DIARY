@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static BetaTypingPlayerManager;
 
-public class BetaWordTypingMonster : WordBox
+public class BetaWordTypingMonsterBox : WordBox
 {
     #region Instace tag
     private const string INST_Player = "BetaPlayer";
@@ -122,14 +122,13 @@ public class BetaWordTypingMonster : WordBox
 
     public override void RemoveWord()
     {
-        base.RemoveWord();
-
-        if(!(isCollision || outOffScreen))
-        {
-            Debug.Log(string.Format("check {0}, {1}", isCollision, outOffScreen));
-            playerManager.KillMonster();
-        }
-        
+        base.RemoveWord();        
         bossManager.MonsterDead();
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        playerManager.KillMonster();
     }
 }

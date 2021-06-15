@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,11 +16,15 @@ public class WorkTypingRandomBox : WordBox
     private MoveDirection moveDirection;
     private bool outOffScreen = false;
 
+    private WorkTypingPlayerManager playerManager;
     private WorkTypingManager wordManager;
 
     private const int TIMESCALE = 1;
 
-    [SerializeField] private float speed = 30f;
+    [SerializeField] private float speed;
+    private int wordLength;
+    private int score;
+    private float multiply;
 
     private string id;
 
@@ -34,10 +39,16 @@ public class WorkTypingRandomBox : WordBox
         }
     }
 
+
     protected void Start()
     {
         wordManager = WorkTypingManager.Instance;
+        playerManager = WorkTypingPlayerManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
+        //score = (int)(((characterStatusController.CurrentCodingStatus * 2.8f) + (characterStatusController.CurrentTestingStatus * 3.5f) / 10));
+        score = 30;
+        wordLength = tmp_Text.text.Length;
+        multiply = playerManager.BoxGenerateMultiplier[(int)playerManager.ChancePhase];
     }
 
     private void Update()
@@ -77,6 +88,13 @@ public class WorkTypingRandomBox : WordBox
     public string GetID()
     {
         return id;
+    }
+
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        playerManager.IncreaseScore(score, wordLength, multiply);
     }
 
 }

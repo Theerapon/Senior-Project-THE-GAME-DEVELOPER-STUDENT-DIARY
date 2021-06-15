@@ -90,10 +90,10 @@ public class BetaTypingBullet : MonoBehaviour
             case INST_Monster:
                 if (!shootBoss)
                 {
-                    BetaWordTypingMonster betaWordTypingMonster = collision.gameObject.GetComponentInChildren<BetaWordTypingMonster>();
+                    BetaWordTypingMonsterBox betaWordTypingMonster = collision.gameObject.GetComponentInChildren<BetaWordTypingMonsterBox>();
                     if (betaWordTypingMonster.Id.Equals(baseWordID))
                     {
-                        collision.gameObject.GetComponentInChildren<BetaWordTypingMonster>().TakeDamage();
+                        collision.gameObject.GetComponentInChildren<BetaWordTypingMonsterBox>().TakeDamage();
                         UpdateState(BulletState.Explosion);
                     }
                 }

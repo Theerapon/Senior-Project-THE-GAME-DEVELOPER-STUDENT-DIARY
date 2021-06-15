@@ -28,6 +28,7 @@ public class Events
     [System.Serializable] public class EventOnCheckedWordUpdate : UnityEvent { }
     [System.Serializable] public class EventOnAlphaTypingGameStateChanged : UnityEvent<AlphaTypingManager.TypingGameState> { }
     [System.Serializable] public class EventOnBetaTypingGameStateChanged : UnityEvent<BetaTypingManager.TypingGameState> { }
+    [System.Serializable] public class EventOnWorkTypingGameStateChanged : UnityEvent<WorkTypingManager.TypingGameState> { }
     [System.Serializable] public class EventOnInventoryUpdated : UnityEvent { }
     [System.Serializable] public class EventOnEquipmentUpdated : UnityEvent { }
     [System.Serializable] public class EventOnStorageUpdated : UnityEvent { }
@@ -64,12 +65,16 @@ public class Events
     [System.Serializable] public class EventOnWorkProjectThemeIdeasContainerCompleted : UnityEvent { }
     [System.Serializable] public class EventOnBetaTypingTimerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnAlphaTypingTimerUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnWorkTypingTimerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnBetaTypingBossUpdate : UnityEvent { }
     [System.Serializable] public class EventOnBetaTypingBossStateChange : UnityEvent<BetaTypingGameBossManager.BossState> { }
     [System.Serializable] public class EventOnBetaTypingPlayerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnBetaTypingPlayerStateChange : UnityEvent<BetaTypingPlayerManager.BetaPlayerState> { }
     [System.Serializable] public class EventOnAlphaTypingPlayerUpdate : UnityEvent { }
     [System.Serializable] public class EventOnAlphaTypingPlayerStateChange : UnityEvent<AlphaTypingPlayerManager.AlphaPlayerState> { }
+    [System.Serializable] public class EventOnWorkTypingPlayerUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnWorkTypingPlayerGeneratorBoxStateChange : UnityEvent { }
+    [System.Serializable] public class EventOnWorkTypingPlayerStateChange : UnityEvent<WorkTypingPlayerManager.WorkPlayerState> { }
 
 
 }

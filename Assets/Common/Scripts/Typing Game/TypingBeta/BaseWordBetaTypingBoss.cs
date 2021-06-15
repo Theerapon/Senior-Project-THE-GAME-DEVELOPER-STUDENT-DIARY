@@ -4,38 +4,44 @@ using UnityEngine;
 
 public class BaseWordBetaTypingBoss : baseWord
 {
-    protected BetaWordBossBox wordDisplayHandler;
+    protected BetaWordBossBox wordBox;
 
     public BaseWordBetaTypingBoss(string word, BetaWordBossBox spawner)
     {
         this._word = word;
         typeIndex = 0;
 
-        wordDisplayHandler = spawner;
+        wordBox = spawner;
         spawner.SetWord(word);
     }
 
     public override void TypeLetterEachWord()
     {
         base.TypeLetterEachWord();
-        wordDisplayHandler.RemoveLetter();
+        wordBox.RemoveLetter();
     }
 
     public override void RemoveWord()
     {
         base.RemoveWord();
-        wordDisplayHandler.RemoveWord();
+        wordBox.RemoveWord();
     }
 
     public override void UpdatedOrderLayer()
     {
         base.UpdatedOrderLayer();
-        wordDisplayHandler.UpdatedOrderLayer();
+        wordBox.UpdatedOrderLayer();
     }
 
     public override Vector3 GetPositionParent()
     {
-        return wordDisplayHandler.GetShootingPosition();
+        return wordBox.GetShootingPosition();
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        wordBox.TypedCompleted();
     }
 
 

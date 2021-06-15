@@ -67,11 +67,6 @@ public class AlphaTypingManager : Manager<AlphaTypingManager>
         }
     }
 
-    private void Start()
-    {
-        Initializing();
-    }
-
     private void Initializing()
     {
         UpdateTypingGameState(TypingGameState.PreGame);

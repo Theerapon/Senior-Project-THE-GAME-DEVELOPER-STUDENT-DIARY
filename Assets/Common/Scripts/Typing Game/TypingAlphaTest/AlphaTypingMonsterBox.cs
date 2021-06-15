@@ -91,8 +91,12 @@ public class AlphaTypingMonsterBox : WordBox
     public override void RemoveWord()
     {
         base.RemoveWord();
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
         playerManager.IncreaseScore(score, wordLength);
-        playerManager.IncreaseCombo();
     }
 
 }

@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class WorkTypingManager : Manager<WorkTypingManager>
 {
     #region Events
-    public Events.EventOnCheckedWordUpdate OnCheckedWordUpdate;
+    public Events.EventOnWorkTypingGameStateChanged OnTypingGameStateChanged;
     #endregion
 
-    private int score;
-    private int wordCorrect;
-    private int wordIncorrect;
-    private int comboCount;
+    #region TypingGameState
+    public enum TypingGameState
+    {
+        PreGame,
+        Playing,
+        PostGame,
+    }
+    #endregion
+    private TypingGameState typingGameState;
 
     public Dictionary<string, baseWord> mainWordlist;
 
@@ -24,20 +30,56 @@ public class WorkTypingManager : Manager<WorkTypingManager>
 
     [SerializeField] private RectTransform canvas;
 
+    [Header("Position spawner")]
     [SerializeField] private WorkTypingMainSpawner wordMainSpawner;
     [SerializeField] private WorkTypingRandomSpawner wordRandomSpawner;
+    
+    [Header("Manager")]
+    [SerializeField] private WorkTypingPlayerManager playerManager;
+    [SerializeField] private WordStatistics wordStatistics;
+    [SerializeField] private WorkTypingTimer wordTypingWorkTimer;
 
-    private WorkTypingTimer wordTypingWorkTimer;
+    public TypingGameState GetTypingGameState { get => typingGameState; }
 
     protected override void Awake()
     {
         base.Awake();
         mainWordlist = new Dictionary<string, baseWord>();
+        playerManager.OnWorkTypingPlayerStateChange.AddListener(OnWorkTypingPlayerStateChangehandler);
+        Initializing();
     }
-    private void Start()
+
+    private void Initializing()
     {
-        wordTypingWorkTimer = FindObjectOfType<WorkTypingTimer>();
+        UpdateTypingGameState(TypingGameState.PreGame);
     }
+
+    public void UpdateTypingGameState(TypingGameState typingGameState)
+    {
+        this.typingGameState = typingGameState;
+        switch (typingGameState)
+        {
+            case TypingGameState.PreGame:
+                Time.timeScale = 0f;
+                break;
+            case TypingGameState.Playing:
+                Time.timeScale = 1f;
+                break;
+            case TypingGameState.PostGame:
+                Time.timeScale = 0f;
+                break;
+        }
+        OnTypingGameStateChanged?.Invoke(this.typingGameState);
+    }
+
+    private void OnWorkTypingPlayerStateChangehandler(WorkTypingPlayerManager.WorkPlayerState state)
+    {
+        if (state == WorkTypingPlayerManager.WorkPlayerState.Timeout)
+        {
+            UpdateTypingGameState(TypingGameState.PostGame);
+        }
+    }
+
 
     public void AddMainWordBox()
     {
@@ -64,17 +106,19 @@ public class WorkTypingManager : Manager<WorkTypingManager>
             if(activeWord.GetNexLetter() == letter)
             {
                 activeWord.TypeLetterEachWord();
+                TypingCorrect();
             }
             else
             {
-                wordIncorrect++;
-                OnCheckedWordUpdate?.Invoke();
+                TypingIncorrect();
+                playerManager.ReduceCombo();
             }
 
         } else
         {
+            bool found = false;
             //check for index 0 each Word in wordList
-            foreach(KeyValuePair<string, baseWord> eachWord in mainWordlist)
+            foreach (KeyValuePair<string, baseWord> eachWord in mainWordlist)
             {
                 if(eachWord.Value.GetNexLetter() == letter)
                 {
@@ -83,20 +127,22 @@ public class WorkTypingManager : Manager<WorkTypingManager>
                     hasActivedWord = true;
                     eachWord.Value.TypeLetterEachWord();
                     eachWord.Value.UpdatedOrderLayer();
+                    found = true;
+                    TypingCorrect();
                     break;
                 }
-                else
-                {
-                    wordIncorrect++;
-                    OnCheckedWordUpdate?.Invoke();
-                }
+                
+            }
+
+            if (!found)
+            {
+                TypingIncorrect();
+                playerManager.ReduceCombo();
             }
         }
 
         if(hasActivedWord && activeWord.WordTypedEnd())
         {
-            wordCorrect++;
-            OnCheckedWordUpdate?.Invoke();
             hasActivedWord = false;       
 
             if (activeWord.GetWord().Equals(mainWord.GetWord()))
@@ -115,8 +161,6 @@ public class WorkTypingManager : Manager<WorkTypingManager>
 
     public void WordOutOffTime()
     {
-        wordIncorrect++;
-        OnCheckedWordUpdate?.Invoke();
 
         if(hasActivedWord == true && activeWord.GetWord().Equals(mainWord.GetWord()))
         {
@@ -126,26 +170,10 @@ public class WorkTypingManager : Manager<WorkTypingManager>
         mainWordlist[mainID].RemoveWord();
         mainWordlist.Remove(mainID);
 
+        IncreaseBadIdea();
         wordTypingWorkTimer.IncreaseWordTimeDelay();
         AddMainWordBox();
         
-    }
-
-    public int GetScore()
-    {
-        return score;
-    }
-    public int GetWordCorrent()
-    {
-        return wordCorrect; 
-    }
-    public int GetWordIncorrect()
-    {
-        return wordIncorrect;
-    }
-    public int GetComboCount()
-    {
-        return comboCount;
     }
 
     public void OutOffScreen(WorkTypingRandomBox typingGame1RandomBox)
@@ -162,10 +190,26 @@ public class WorkTypingManager : Manager<WorkTypingManager>
 
         mainWordlist[id].RemoveWord();
         mainWordlist.Remove(id);
+        IncreaseBadIdea();
     }
 
     public float GetCanvasWidth()
     {
         return canvas.rect.width;
+    }
+
+    private void TypingCorrect()
+    {
+        wordStatistics.WordIsCorrect();
+    }
+
+    private void TypingIncorrect()
+    {
+        wordStatistics.WordIsIncorrect();
+    }
+
+    private void IncreaseBadIdea()
+    {
+        playerManager.IncreaseBadIdea();
     }
 }

@@ -94,12 +94,12 @@ public class BetaTypingScreenHandler : MonoBehaviour
             case BetaTypingManager.TypingGameState.PreGame:
                 SetActiveImageTran(true);
                 SetActiveTimeCountTime(true);
-                SetActiveSummary(true);
+                SetActiveSummary(false);
                 break;
             case BetaTypingManager.TypingGameState.Playing:
                 SetActiveTimeCountTime(false);
                 SetActiveImageTran(false);
-                SetActiveSummary(true);
+                SetActiveSummary(false);
                 break;
             case BetaTypingManager.TypingGameState.PostGame:
                 SetActiveImageTran(true);

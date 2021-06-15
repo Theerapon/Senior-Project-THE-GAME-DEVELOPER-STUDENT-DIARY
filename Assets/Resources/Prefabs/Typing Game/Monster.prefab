@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 657898074258067976}
   - component: {fileID: 807963434}
-  - component: {fileID: 807963436}
   - component: {fileID: 1921113392084036459}
   - component: {fileID: 6136755050369657965}
+  - component: {fileID: 232710588844684164}
   m_Layer: 5
   m_Name: Monster
   m_TagString: BetaMonster
@@ -63,26 +63,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &807963436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2750555302649233921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6d113271f8f934458fa7aa0e3bf8572, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tmp_Text: {fileID: 5472037539156384568}
-  canvas: {fileID: 807963434}
-  normal: {r: 0.9333334, g: 0.9294118, b: 0.86666673, a: 1}
-  highlight: {r: 0.94509804, g: 0.05490196, b: 0.20392157, a: 1}
-  speed: 30
-  shootingPosition: {fileID: 3841280290266789111}
-  _bg: {fileID: 4631940259313931619}
-  _bgUpgrade: {r: 0.06763968, g: 0.5660378, b: 0.48260552, a: 1}
 --- !u!50 &1921113392084036459
 Rigidbody2D:
   serializedVersion: 4
@@ -120,6 +100,26 @@ CapsuleCollider2D:
   m_Offset: {x: -1.6145793, y: -7.222428}
   m_Size: {x: 116.450714, y: 86.1717}
   m_Direction: 1
+--- !u!114 &232710588844684164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750555302649233921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 456327ba97465fc479bcb504f7911f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tmp_Text: {fileID: 5472037539156384568}
+  canvas: {fileID: 807963434}
+  normal: {r: 0.93333334, g: 0.92941177, b: 0.8666667, a: 1}
+  highlight: {r: 0.8962264, g: 0.76658356, b: 0.78828585, a: 1}
+  speed: 30
+  shootingPosition: {fileID: 3841280290266789111}
+  _bg: {fileID: 4631940259313931619}
+  _bgUpgrade: {r: 0.11955614, g: 0.6132076, b: 0.43335012, a: 1}
 --- !u!1 &3841280290266789111
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,12 +28,18 @@ public class baseWord
         bool wordTypeCheck = (typeIndex >= _word.Length);
         if (wordTypeCheck)
         {
+            TypedCompleted();
             RemoveWord();
         }
         return wordTypeCheck;
     }
 
     public virtual void RemoveWord()
+    {
+
+    }
+
+    public virtual void TypedCompleted()
     {
 
     }

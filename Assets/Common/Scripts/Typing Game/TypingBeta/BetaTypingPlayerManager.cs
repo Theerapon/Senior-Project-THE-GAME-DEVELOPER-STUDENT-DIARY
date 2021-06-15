@@ -108,7 +108,12 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         IncreaseCombo();
     }
 
-    public void IncreaseCombo()
+    public void AttackBoss()
+    {
+        IncreaseCombo();
+    }
+
+    private void IncreaseCombo()
     {
         currentCombo++;
         if(currentCombo > maxCombo)
@@ -116,7 +121,7 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
             maxCombo = currentCombo;
         }
 
-        if((int)comboPhase < maxComboPhase)
+        if((int)comboPhase < maxComboPhase - 1)
         {
             if (currentCombo >= countCombo[(int)comboPhase + 1])
             {

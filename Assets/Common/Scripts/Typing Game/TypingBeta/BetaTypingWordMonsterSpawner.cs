@@ -10,7 +10,7 @@ public class BetaTypingWordMonsterSpawner : MonoBehaviour
     [SerializeField] private GameObject originalRightPosition;
     private bool isRight = false;
 
-    public BetaWordTypingMonster SpawnWord()
+    public BetaWordTypingMonsterBox SpawnWord()
     {
         int random = Random.Range(0, 2);
         GameObject wordObj = null;
@@ -29,7 +29,7 @@ public class BetaTypingWordMonsterSpawner : MonoBehaviour
                 break;
         }
 
-        BetaWordTypingMonster wordDisplay = wordObj.GetComponent<BetaWordTypingMonster>();
+        BetaWordTypingMonsterBox wordDisplay = wordObj.GetComponent<BetaWordTypingMonsterBox>();
 
         return wordDisplay;
     }

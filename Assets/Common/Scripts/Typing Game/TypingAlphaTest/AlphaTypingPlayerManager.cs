@@ -77,7 +77,7 @@ public class AlphaTypingPlayerManager : Manager<AlphaTypingPlayerManager>
             maxCombo = currentCombo;
         }
 
-        if ((int)comboPhase < maxComboPhase)
+        if ((int)comboPhase < maxComboPhase - 1)
         {
             if (currentCombo >= countCombo[(int)comboPhase + 1])
             {
@@ -136,6 +136,7 @@ public class AlphaTypingPlayerManager : Manager<AlphaTypingPlayerManager>
     public void IncreaseScore(int score, int wordLength)
     {
         this.score += score * (int)(comboDamageMultiplier[(int)comboPhase]) + (wordLength * INST_MultiplyScoreWordLength);
+        IncreaseCombo();
         OnAlphaTypingPlayerUpdate?.Invoke();
     }
 }

@@ -17,7 +17,6 @@ public class BetaTypingTimer : MonoBehaviour
     private float countSecondTime;
     private float cooldownGenerateMonster;
 
-    private int minChangeGenerateBox = 0;
     private const int TIMESCALE = 1;
 
     private const float maxtimeCoutDown = 3f;

@@ -4,39 +4,44 @@ using UnityEngine;
 
 public class BaseWordWorkTypingRandom : baseWord
 {
-    protected WorkTypingRandomBox wordDisplayHandler;
+    protected WorkTypingRandomBox wordBox;
 
     public BaseWordWorkTypingRandom(string word, WorkTypingRandomSpawner spawner)
     {
         this._word = word;
         typeIndex = 0;
 
-        wordDisplayHandler = spawner.SpawnWord();
-        wordDisplayHandler.SetWord(word);
-        wordDisplayHandler.setMoveDirection(spawner.GetIsRight());
+        wordBox = spawner.SpawnWord();
+        wordBox.SetWord(word);
+        wordBox.setMoveDirection(spawner.GetIsRight());
     }
 
     public override void TypeLetterEachWord()
     {
         base.TypeLetterEachWord();
-        wordDisplayHandler.RemoveLetter();
+        wordBox.RemoveLetter();
     }
 
     public override void RemoveWord()
     {
         base.RemoveWord();
-        wordDisplayHandler.RemoveWord();
+        wordBox.RemoveWord();
     }
 
     public void SetID(string id)
     {
-        wordDisplayHandler.SetID(id);
+        wordBox.SetID(id);
     }
 
     public override void UpdatedOrderLayer()
     {
         base.UpdatedOrderLayer();
-        wordDisplayHandler.UpdatedOrderLayer();
+        wordBox.UpdatedOrderLayer();
     }
 
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        wordBox.TypedCompleted();
+    }
 }

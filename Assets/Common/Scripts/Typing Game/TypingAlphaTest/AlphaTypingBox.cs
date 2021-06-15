@@ -102,8 +102,12 @@ public class AlphaTypingBox : WordBox
     public override void RemoveWord()
     {
         base.RemoveWord();
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
         wordManager.VerifiedWord();
         playerManager.IncreaseScore(score, wordLength);
-        playerManager.IncreaseCombo();
     }
 }

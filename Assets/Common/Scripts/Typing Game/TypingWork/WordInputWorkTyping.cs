@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class WordInputWorkTyping : MonoBehaviour
 {
-    public WorkTypingManager wordManager;
+    [SerializeField] private WorkTypingManager wordManager;
+    [SerializeField] private WorkTypingPlayerManager playerManager;
 
     void Update()
     {
-        foreach(char letter in Input.inputString)
+        if (playerManager.HasAlive() && wordManager.GetTypingGameState == WorkTypingManager.TypingGameState.Playing)
         {
-            wordManager.TypeLetterManager(letter);
+            foreach (char letter in Input.inputString)
+            {
+                wordManager.TypeLetterManager(letter);
+            }
         }
+
     }
 }

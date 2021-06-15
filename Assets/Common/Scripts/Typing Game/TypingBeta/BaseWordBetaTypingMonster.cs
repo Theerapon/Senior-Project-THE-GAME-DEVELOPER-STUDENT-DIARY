@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BaseWordBetaTypingMonster : baseWord
 {
-    protected BetaWordTypingMonster wordDisplayHandler;
+    protected BetaWordTypingMonsterBox wordBox;
 
-    public BaseWordBetaTypingMonster(string word, BetaWordTypingMonster spawner)
+    public BaseWordBetaTypingMonster(string word, BetaWordTypingMonsterBox spawner)
     {
         this._word = word;
         typeIndex = 0;
 
-        wordDisplayHandler = spawner;
+        wordBox = spawner;
         spawner.SetWord(word);
     }
 
@@ -24,34 +24,34 @@ public class BaseWordBetaTypingMonster : baseWord
     public override void TypeLetterEachWord()
     {
         base.TypeLetterEachWord();
-        wordDisplayHandler.RemoveLetter();
+        wordBox.RemoveLetter();
     }
 
     public override void RemoveWord()
     {
         base.RemoveWord();
-        wordDisplayHandler.RemoveWord();
+        wordBox.RemoveWord();
     }
 
     public void SetID(string id)
     {
-        wordDisplayHandler.Id = id;
+        wordBox.Id = id;
     }
 
     public string GetId()
     {
-        return wordDisplayHandler.Id;
+        return wordBox.Id;
     }
 
     public override void UpdatedOrderLayer()
     {
         base.UpdatedOrderLayer();
-        wordDisplayHandler.UpdatedOrderLayer();
+        wordBox.UpdatedOrderLayer();
     }
 
     public override Vector3 GetPositionParent()
     {
-        return wordDisplayHandler.GetShootingPosition();
+        return wordBox.GetShootingPosition();
     }
 
     public override bool WordTypedEnd()
@@ -59,9 +59,16 @@ public class BaseWordBetaTypingMonster : baseWord
         bool wordTypeCheck = (typeIndex >= _word.Length);
         if (wordTypeCheck)
         {
-            wordDisplayHandler.FinishWord(this);
+            TypedCompleted();
+            wordBox.FinishWord(this);
         }
         return wordTypeCheck;
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        wordBox.TypedCompleted();
     }
 
 }

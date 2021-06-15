@@ -51,7 +51,7 @@ public class AlphaTypingScreenHandle : MonoBehaviour
         switch (typingGameManager.GetTypingGameState())
         {
             case AlphaTypingManager.TypingGameState.PreGame:
-                SetTimeCountTime();
+                SetPregameCountdownTime();
                 break;
             case AlphaTypingManager.TypingGameState.Playing:
                 SetTimeFillBar();
@@ -95,7 +95,7 @@ public class AlphaTypingScreenHandle : MonoBehaviour
         SetTimeFillBar();
     }
 
-    private void SetTimeCountTime()
+    private void SetPregameCountdownTime()
     {
         textCountTime.text = typingGameTimer.GetTimeCountDown();
     }

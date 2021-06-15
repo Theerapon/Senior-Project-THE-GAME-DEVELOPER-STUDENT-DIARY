@@ -218,7 +218,7 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         betaTypingTimer.PlaysGame();
     }
 
-    public void RemoveWordFromList(BetaWordTypingMonster word)
+    public void RemoveWordFromList(BetaWordTypingMonsterBox word)
     {
         string id = word.Id;
 
@@ -238,7 +238,7 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         
     }
 
-    public void DestroyWordFromList(BetaWordTypingMonster word)
+    public void DestroyWordFromList(BetaWordTypingMonsterBox word)
     {
         string id = word.Id;
 

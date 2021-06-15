@@ -22,6 +22,11 @@ public class BetaWordBossBox : WordBox
     public override void RemoveWord()
     {
         base.RemoveWord();
-        playerManager.IncreaseCombo();
+    }
+
+    public override void TypedCompleted()
+    {
+        base.TypedCompleted();
+        playerManager.AttackBoss();
     }
 }
