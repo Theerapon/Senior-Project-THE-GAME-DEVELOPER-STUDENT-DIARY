@@ -118,14 +118,14 @@ public class WorkProjectDisplay : MonoBehaviour
 
     }
 
-    public void DisplayEnergy(int amount)
+    public void DisplayEnergy(float amount)
     {
-        energyWorkingTMP.text = amount.ToString();
+        energyWorkingTMP.text = string.Format("{0:n0}", amount);
     }
 
     public void DisplayEfficiency(float amount)
     {
-        efficiencyWorkingTMP.text = string.Format("{0}%", amount * 100f);
+        efficiencyWorkingTMP.text = string.Format("{0:p2}", amount);
     }
 
     private string ConvertPhaseTypeToString(ProjectPhase projectPhase)

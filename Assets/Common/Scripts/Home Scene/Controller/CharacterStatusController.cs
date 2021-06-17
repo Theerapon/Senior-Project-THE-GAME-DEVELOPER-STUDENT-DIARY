@@ -42,9 +42,13 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnMoneyUpdated?.Invoke();
     }
 
-    public float CalMotivation(int amount)
+    public float GetEfficiencyToDo()
     {
-        return characterStatus.CalMotivation(amount);
+        return characterStatus.GetEfficiencyToDo();
+    }
+    public float CalEfficiencyToDo(float motivation)
+    {
+        return characterStatus.CalEfficiencyToDo(motivation);
     }
 
     #region Stat Increasers
@@ -154,8 +158,8 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     public int CurrentExp { get => characterStatus.CurrentExp; }
     public int CurrentStatusPoints { get => characterStatus.CurrentStatusPoints; }
     public int CurrentSoftSkillPoints { get => characterStatus.CurrentSoftSkillPoints; }
-    public int CurrentEnergy { get => characterStatus.CurrentEnergy; }
-    public int CurrentMotivation { get => characterStatus.CurrentMotivation; }
+    public float CurrentEnergy { get => characterStatus.CurrentEnergy; }
+    public float CurrentMotivation { get => characterStatus.CurrentMotivation; }
     public int CurrentMoney { get => characterStatus.CurrentMoney; }
     public int CurrentCodingStatus { get => characterStatus.CurrentCodingStatus; }
     public int CurrentDesignStatus { get => characterStatus.CurrentDesignStatus; }
@@ -163,8 +167,8 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     public int CurrentArtStatus { get => characterStatus.CurrentArtStatus; }
     public int CurrentSoundStatus { get => characterStatus.CurrentSoundStatus; }
     public string Character_Name { get => characterStatus.Character_Name; }
-    public int Default_maxMotivation { get => characterStatus.Default_maxMotivation; }
-    public int Default_maxEnergy { get => characterStatus.Default_maxEnergy; }
+    public float Default_maxMotivation { get => characterStatus.Default_maxMotivation; }
+    public float Default_maxEnergy { get => characterStatus.Default_maxEnergy; }
     public float Default_dropRate { get => characterStatus.Default_dropRate; }
     public float Default_baseReduceEnergyConsumption { get => characterStatus.Default_baseReduceEnergyConsumption; }
     public float Defautl_goldenTimeReduceEnergyConsuption { get => characterStatus.Defautl_goldenTimeReduceEnergyConsuption; }

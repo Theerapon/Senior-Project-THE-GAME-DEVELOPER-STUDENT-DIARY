@@ -6,6 +6,15 @@ using UnityEngine;
 public class ProjectController : Manager<ProjectController>
 {
     private Project project;
+    private int secondToWork;
+    private float bonusEfficiency;
+
+    private const int INST_HalfHour = 1800;
+    private const float INST_Energy_Reduce = 0.09f;
+    private const float INST_Min_EnergyMultiply = 1f;
+
+    [SerializeField] PlayerAction playerAction;
+    [SerializeField] CharacterStatusController characterStatusController;
 
     protected override void Awake()
     {
@@ -47,8 +56,6 @@ public class ProjectController : Manager<ProjectController>
     public bool HasDesigned { get => project.HasDesigned; }
     public string StartDate { get => project.StartDate; }
     public string DeadlineDate { get => project.DeadlineDate; }
-    public int BaseEnergyConsumePer30Minute { get => project.BaseEnergyConsumePer30Minute; }
-    public int BaseMotivationConsumePer30Minute { get => project.BaseMotivationConsumePer30Minute; }
     public bool ProjectIsNull 
     { 
         get
@@ -63,5 +70,86 @@ public class ProjectController : Manager<ProjectController>
             }
         }  
     }
+
+    public int SecondToWork { get => secondToWork; set => secondToWork = value; }
     #endregion
+
+    public float CalTotalEnergyToConsumeByTime(int seccond)
+    {
+        int times = seccond / INST_HalfHour;
+        float baseEnergy = playerAction.CalReduceEnergyToCunsume(project.BaseEnergyConsumePer30Minute);
+        float energy = 0;
+        float energyMultiply = INST_Min_EnergyMultiply;
+        for (int i = 0; i < times; i++)
+        {
+            energy += baseEnergy * energyMultiply;
+            if (i % 2 == 0)
+            {
+                energyMultiply -= INST_Energy_Reduce;
+            }
+        }
+        return energy;
+    }
+    public float CalAvgEfficiencyByTime(int seccond)
+    {
+        int times = seccond / INST_HalfHour;
+        float currentMotivation = characterStatusController.CurrentMotivation;
+
+        float motivationConsume = project.BaseMotivationConsumePer30Minute;
+
+        float[] tempMotivationCalculated = new float[times];
+        for (int i = 0; i < tempMotivationCalculated.Length; i++)
+        {
+            tempMotivationCalculated[i] = characterStatusController.CalEfficiencyToDo(currentMotivation);
+            if (currentMotivation - motivationConsume <= playerAction.CalMinMotivation())
+            {
+                currentMotivation = playerAction.CalMinMotivation();
+            }
+            else
+            {
+                currentMotivation -= motivationConsume;
+            }
+        }
+
+        float sumCalculated = 0;
+        foreach (int motivationCalculated in tempMotivationCalculated)
+        {
+            sumCalculated += motivationCalculated;
+        }
+        float avgMotivationCalculated = (sumCalculated / tempMotivationCalculated.Length);
+        return avgMotivationCalculated;
+    }
+
+    public int GetSecondTimeToWork()
+    {
+        return secondToWork;
+    }
+    public int GetMiniuteTimeToWork()
+    {
+        return secondToWork / 60;
+    }
+    public List<float> GetListEnergyToConsumeByHalfHour()
+    {
+        List<float> energyList = new List<float>();
+        int times = secondToWork / INST_HalfHour;
+        float baseEnergy = playerAction.CalReduceEnergyToCunsume(project.BaseEnergyConsumePer30Minute);
+        float energyMultiply = INST_Min_EnergyMultiply;
+        for (int i = 0; i < times; i++)
+        {
+            energyList.Add((baseEnergy * energyMultiply));
+            if (i % 2 == 0)
+            {
+                energyMultiply -= INST_Energy_Reduce;
+            }
+        }
+        return energyList;
+    }
+    public float GetMotivationToConsumeByHalfHour()
+    {
+        return project.BaseMotivationConsumePer30Minute;
+    }
+    public float GetBonusEfficiency()
+    {
+        return bonusEfficiency;
+    }
 }

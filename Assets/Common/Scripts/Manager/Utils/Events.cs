@@ -76,5 +76,17 @@ public class Events
     [System.Serializable] public class EventOnWorkTypingPlayerGeneratorBoxStateChange : UnityEvent { }
     [System.Serializable] public class EventOnWorkTypingPlayerStateChange : UnityEvent<WorkTypingPlayerManager.WorkPlayerState> { }
 
-
+    #region Work Project Summary
+    [System.Serializable] public class EventOnProjectSummaryTimeUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummaryCharacterLevelUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummaryCharacterExpUpdate : UnityEvent<int, int> { }
+    [System.Serializable] public class EventOnProjectSummaryEfficiencyUpdate : UnityEvent<float, float, float> { }
+    [System.Serializable] public class EventOnProjectSummaryCodingStatusUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummaryDesignStatusUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummaryTestingStatusUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummaryArtStatusUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummarySoundStatusUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnProjectSummaryBugStatusUpdate : UnityEvent<string> { }
+    [System.Serializable] public class EventOnOneMiniuteTimePassed : UnityEvent<GameManager.GameState> { }
+    #endregion
 }

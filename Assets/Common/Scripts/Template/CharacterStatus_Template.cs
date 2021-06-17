@@ -6,10 +6,10 @@ public class CharacterStatus_Template : MonoBehaviour
     public class CharacterLevelRequired
     {
         public int exp_required;
-        public int maxEnergy;
+        public float maxEnergy;
         public int stats_points;
 
-        public CharacterLevelRequired(int exp, int maxEnergy, int point)
+        public CharacterLevelRequired(int exp, float maxEnergy, int point)
         {
             exp_required = exp;
             this.maxEnergy = maxEnergy;
@@ -72,12 +72,12 @@ public class CharacterStatus_Template : MonoBehaviour
     private float default_dropRate;
 
     [Header("Energy")]
-    private int default_maxEnergy;
+    private float default_maxEnergy;
     private float default_baseReduceEnergyConsumption; // 0%
     private float defautl_goldenTimeReduceEnergyConsuption; // 5%
 
     [Header("Motivation")]
-    private int default_maxMotivation;
+    private float default_maxMotivation;
     private float default_baseBootUpMotivation;
     private float default_goldenTimeBootUpMotivation;
 
@@ -136,10 +136,10 @@ public class CharacterStatus_Template : MonoBehaviour
     public string Character_Name { get => character_Name; }
     public int Default_max_level { get => default_max_level; }
     public float Default_dropRate { get => default_dropRate; set => default_dropRate = value; }
-    public int Default_maxEnergy { get => default_maxEnergy; set => default_maxEnergy = value; }
+    public float Default_maxEnergy { get => default_maxEnergy; set => default_maxEnergy = value; }
     public float Default_baseReduceEnergyConsumption { get => default_baseReduceEnergyConsumption; set => default_baseReduceEnergyConsumption = value; }
     public float Defautl_goldenTimeReduceEnergyConsuption { get => defautl_goldenTimeReduceEnergyConsuption; set => defautl_goldenTimeReduceEnergyConsuption = value; }
-    public int Default_maxMotivation { get => default_maxMotivation; set => default_maxMotivation = value; }
+    public float Default_maxMotivation { get => default_maxMotivation; set => default_maxMotivation = value; }
     public float Default_baseBootUpMotivation { get => default_baseBootUpMotivation; set => default_baseBootUpMotivation = value; }
     public float Default_goldenTimeBootUpMotivation { get => default_goldenTimeBootUpMotivation; set => default_goldenTimeBootUpMotivation = value; }
     public int DefaultMoney { get => defaultMoney; set => defaultMoney = value; }

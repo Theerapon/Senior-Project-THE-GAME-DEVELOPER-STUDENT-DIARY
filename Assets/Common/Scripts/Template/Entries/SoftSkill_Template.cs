@@ -83,30 +83,30 @@ public class SoftSkill_Template : MonoBehaviour
     //current
     public virtual float GetTotalBONUS_goldenTimeReduceEnergyConsuption()
     {
-        return -1f;
+        return 0;
     }
 
     public virtual float GetTotalBONUS_goldenTimeBootUpMotivation()
     {
-        return -1f;
+        return 0f;
     }
     public virtual float GetTotalBONUS_goldenTimeBootUpProject()
     {
-        return -1f;
+        return 0;
     }
     //next
     public virtual float GetNextBONUS_goldenTimeReduceEnergyConsuption()
     {
-        return -1f;
+        return 0;
     }
 
     public virtual float GetNextBONUS_goldenTimeBootUpMotivation()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetNextBONUS_goldenTimeBootUpProject()
     {
-        return -1f;
+        return 0;
     }
     #endregion
 
@@ -114,20 +114,20 @@ public class SoftSkill_Template : MonoBehaviour
     //current
     public virtual float GetTotalBONUS_reduceTimeTrainCourse()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetTotalBONUS_reduceTimeTransport()
     {
-        return -1f;
+        return 0;
     }
     //next
     public virtual float GetNextBONUS_reduceTimeTrainCourse()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetNextBONUS_reduceTimeTransport()
     {
-        return -1f;
+        return 0;
     }
     #endregion
 
@@ -135,20 +135,20 @@ public class SoftSkill_Template : MonoBehaviour
     //current
     public virtual float GetTotalBONUS_negativeEventsEffect()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetTotalBONUS_positiveEventsEffect()
     {
-        return -1f;
+        return 0;
     }
     //next
     public virtual float GetNextBONUS_negativeEventsEffect()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetNextBONUS_positiveEventsEffect()
     {
-        return -1f;
+        return 0;
     }
     #endregion
 
@@ -156,20 +156,20 @@ public class SoftSkill_Template : MonoBehaviour
     //current
     public virtual float GetTotalBONUS_baseBootUpProject()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetTotalBONUS_charm()
     {
-        return -1f;
+        return 0;
     }
     //next
     public virtual float GetNextBONUS_baseBootUpProject()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetNextBONUS_charm()
     {
-        return -1f;
+        return 0;
     }
     #endregion
 
@@ -177,28 +177,28 @@ public class SoftSkill_Template : MonoBehaviour
     //current
     public virtual float GetTotalBONUS_baseBootUpMotivation()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetTotalBONUS_baseReduceEnergyConsumption()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetTotalBONUS_reduceBugChance()
     {
-        return -1f;
+        return 0;
     }
     //next
     public virtual float GetNextBONUS_baseBootUpMotivation()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetNextBONUS_baseReduceEnergyConsumption()
     {
-        return -1f;
+        return 0;
     }
     public virtual float GetNextBONUS_reduceBugChance()
     {
-        return -1f;
+        return 0;
     }
     #endregion
 }

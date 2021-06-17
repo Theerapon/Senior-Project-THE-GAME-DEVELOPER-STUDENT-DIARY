@@ -26,31 +26,34 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowAll();
         }
-
-        if (current_game_state == GameManager.GameState.HOME || current_game_state == GameManager.GameState.MAP)
+        else if (current_game_state == GameManager.GameState.HOME || current_game_state == GameManager.GameState.MAP)
         {
             Reset();
         }
-
-        if(current_game_state == GameManager.GameState.HOME_ACTION 
+        else if(current_game_state == GameManager.GameState.HOME_ACTION 
             && GameManager.Instance.CurrentGameScene == GameManager.GameScene.Home_Storage)
         {
             ShowForHomeAction();
         }
-
-        if (current_game_state == GameManager.GameState.COURSE)
+        else if (current_game_state == GameManager.GameState.COURSE)
         {
             ShowForCourse();
         }
-
-        if (current_game_state == GameManager.GameState.COURSE_NOTIFICATION)
+        else if (current_game_state == GameManager.GameState.COURSE_NOTIFICATION)
         {
             ShowForCourseNotification();
         }
-
-        if(current_game_state == GameManager.GameState.Diary)
+        else if(current_game_state == GameManager.GameState.Diary)
         {
             ShowForDiary();
+        }
+        else if (current_game_state == GameManager.GameState.WORK_PROJECT)
+        {
+            ShowForWorkProject();
+        }
+        else if (current_game_state == GameManager.GameState.WORK_PROJECT_DESIGN)
+        {
+            ShowForWorkProjectDesign();
         }
 
     }
@@ -151,6 +154,25 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayDateTime(false);
         DisplayButtonBack(false);
         DisplayMoney(false);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+    }
+
+    private void ShowForWorkProject()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(true);
+        DisplayButtonBack(true);
+        DisplayMoney(true);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+    }
+    private void ShowForWorkProjectDesign()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(true);
+        DisplayButtonBack(false);
+        DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
     }

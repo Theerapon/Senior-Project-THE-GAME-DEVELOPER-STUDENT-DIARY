@@ -60,7 +60,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private void MoneyHandler()
     {
-        money.text = characterStatusController.CharacterStatus.ToString();
+        money.text = characterStatusController.CharacterStatus.CurrentMoney.ToString();
     }
 
     private void MotivationHandler()

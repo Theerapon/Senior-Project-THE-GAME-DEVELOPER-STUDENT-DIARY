@@ -45,8 +45,8 @@ public class Project : MonoBehaviour
     private bool hasDesigned;
     private string startDate;
     private string deadlineDate;
-    private int baseEnergyConsumePer30Minute;
-    private int baseMotivationConsumePer30Minute;
+    private float baseEnergyConsumePer30Minute;
+    private float baseMotivationConsumePer30Minute;
 
     public int LasttimeCodingStatus { get => lasttimeCodingStatus; set => lasttimeCodingStatus = value; }
     public int LasttimeDesignStatus { get => lasttimeDesignStatus; set => lasttimeDesignStatus = value; }
@@ -81,8 +81,8 @@ public class Project : MonoBehaviour
     public bool HasDesigned { get => hasDesigned; }
     public string StartDate { get => startDate; }
     public string DeadlineDate { get => deadlineDate; }
-    public int BaseEnergyConsumePer30Minute { get => baseEnergyConsumePer30Minute; }
-    public int BaseMotivationConsumePer30Minute { get => baseMotivationConsumePer30Minute; }
+    public float BaseEnergyConsumePer30Minute { get => baseEnergyConsumePer30Minute; }
+    public float BaseMotivationConsumePer30Minute { get => baseMotivationConsumePer30Minute; }
 
     public Project()
     {

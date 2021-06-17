@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SummaryTimeDisplay : MonoBehaviour
+public class DiaryTimeDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text dateCalendar;
     [SerializeField] private TMP_Text timeCalendar;

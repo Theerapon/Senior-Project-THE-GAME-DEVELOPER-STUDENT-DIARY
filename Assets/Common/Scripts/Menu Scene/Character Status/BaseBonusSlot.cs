@@ -10,7 +10,7 @@ public class BaseBonusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public Events.EventOnPointExitBonusSlot OnPointExitBonusSlotEvent;
     public Events.EventOnLeftClickBonusSlot OnLeftClickBonusSlotEvent;
 
-    private const string INST_TITLE = "ผลรวมโบนัสตัวละคร";
+    private const string INST_TITLE = "สถานะตัวละครปัจจุบัน";
 
     [SerializeField] protected string _Title;
     [SerializeField] protected Image _border;

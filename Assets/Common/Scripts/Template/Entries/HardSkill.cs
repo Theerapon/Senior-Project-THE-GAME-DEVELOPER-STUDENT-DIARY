@@ -5,7 +5,6 @@ using UnityEngine;
 public class HardSkill : MonoBehaviour
 {
     private HardSkill_Template definition;
-
     private int currentLevel;
     private int currentExp;
     private int currentTotalBonusCodingStatus;

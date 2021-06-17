@@ -55,7 +55,6 @@ public class HardSkills_Display : MonoBehaviour
     private void DisplayedHardSkill()
     {
         int i = 0;
-        Debug.Log("wait for implementation");
         foreach (KeyValuePair<string, HardSkill> hardskill in hardSkillsController.Hardskills)
         {
             HardSkill hardSkill = hardskill.Value;

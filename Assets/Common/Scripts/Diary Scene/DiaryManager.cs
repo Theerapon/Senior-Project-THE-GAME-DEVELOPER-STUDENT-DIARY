@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SummaryManager : MonoBehaviour
+public class DiaryManager : MonoBehaviour
 {
    
     private GameObject found_Player;

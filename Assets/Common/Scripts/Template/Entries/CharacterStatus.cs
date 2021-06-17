@@ -23,8 +23,8 @@ public class CharacterStatus : MonoBehaviour
     private int currentExp;
     private int currentStatusPoints;
     private int currentSoftSkillPoints;
-    private int currentEnergy;
-    private int currentMotivation;
+    private float currentEnergy;
+    private float currentMotivation;
     private int currentMoney;
     private int currentCodingStatus;
     private int currentDesignStatus;
@@ -294,31 +294,35 @@ public class CharacterStatus : MonoBehaviour
     }
     #endregion
 
-    #region Calculated Motivation
-    public float CalMotivation(int motivation)
+    #region Calculated Efficiency
+    public float GetEfficiencyToDo()
     {
-        float motivationCalculated;
+        return CalEfficiencyToDo(currentMotivation);
+    }
+    public float CalEfficiencyToDo(float motivation)
+    {
+        float efficiency;
         if (motivation > Phase1)
         {
-            motivationCalculated = EfficiencyPhase1;
+            efficiency = EfficiencyPhase1;
         }
         else if (motivation > Phase2)
         {
-            motivationCalculated = EfficiencyPhase2;
+            efficiency = EfficiencyPhase2;
         }
         else if (motivation > Phase3)
         {
-            motivationCalculated = EfficiencyPhase3;
+            efficiency = EfficiencyPhase3;
         }
         else if (motivation > Phase4)
         {
-            motivationCalculated = EfficiencyPhase4;
+            efficiency = EfficiencyPhase4;
         }
         else
         {
-            motivationCalculated = EfficiencyPhase5;
+            efficiency = EfficiencyPhase5;
         }
-        return motivationCalculated;
+        return efficiency;
     }
     #endregion
 
@@ -327,8 +331,8 @@ public class CharacterStatus : MonoBehaviour
     public int CurrentExp { get => currentExp; }
     public int CurrentStatusPoints { get => currentStatusPoints; }
     public int CurrentSoftSkillPoints { get => currentSoftSkillPoints; }
-    public int CurrentEnergy { get => currentEnergy; }
-    public int CurrentMotivation { get => currentMotivation; }
+    public float CurrentEnergy { get => currentEnergy; }
+    public float CurrentMotivation { get => currentMotivation; }
     public int CurrentMoney { get => currentMoney; }
     public int CurrentCodingStatus { get => currentCodingStatus; }
     public int CurrentDesignStatus { get => currentDesignStatus; }
@@ -336,8 +340,8 @@ public class CharacterStatus : MonoBehaviour
     public int CurrentArtStatus { get => currentArtStatus; }
     public int CurrentSoundStatus { get => currentSoundStatus; }
     public string Character_Name { get => definition.Character_Name; }
-    public int Default_maxMotivation { get => definition.Default_maxMotivation; }
-    public int Default_maxEnergy { get => definition.Default_maxEnergy; }
+    public float Default_maxMotivation { get => definition.Default_maxMotivation; }
+    public float Default_maxEnergy { get => definition.Default_maxEnergy; }
     public float Default_dropRate { get => definition.Default_dropRate; }
     public float Default_baseReduceEnergyConsumption { get => definition.Default_baseReduceEnergyConsumption; }
     public float Defautl_goldenTimeReduceEnergyConsuption { get => definition.Defautl_goldenTimeReduceEnergyConsuption; }

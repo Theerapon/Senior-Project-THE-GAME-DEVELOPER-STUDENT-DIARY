@@ -72,8 +72,8 @@ public class Bonus_Generator : MonoBehaviour
         copy = Instantiate(_template, transform);
         copy.transform.GetChild(0).GetComponent<Image>().sprite = bonus.BonusIcon; //icon
         copy.transform.GetChild(1).GetComponent<TMP_Text>().text = bonus.BonusName; //name
-        copy.transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0}% >", (currentValue * 100)); //current value
-        copy.transform.GetChild(2).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0}%", (nextValue * 100)); //next value
+        copy.transform.GetChild(2).GetChild(0).GetComponent<TMP_Text>().text = string.Format("{0:n0} >", currentValue * 100); //current value
+        copy.transform.GetChild(2).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:p0}", nextValue); //next value
     }
 
     public void CreateTemplate(SoftSkill softSkill)

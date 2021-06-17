@@ -13,19 +13,12 @@ public class ButtonHover : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(GameStateChangedHandler);
+        Normal();
     }
 
     private void GameStateChangedHandler(GameManager.GameState currentGameState, GameManager.GameState previousGameState)
     {
-        if(currentGameState == GameManager.GameState.MENU)
-        {
-            Normal();
-        }
-
-        if(currentGameState == GameManager.GameState.COURSE_NOTIFICATION)
-        {
-            Normal();
-        }
+        Normal();
     }
 
     public void Highlight()

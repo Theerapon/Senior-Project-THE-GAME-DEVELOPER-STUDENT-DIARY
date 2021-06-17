@@ -24,7 +24,7 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected Bonus_Generator bonus_Generator;
     [SerializeField] protected Status_Generator status_Generator;
 
-    protected GameObject found_player;
+    protected PlayerAction playerAction;
     protected CharacterStatusController charactersStatusController;
 
     #region GameObjects
@@ -83,11 +83,10 @@ public class Characters_Menu_Handler : MonoBehaviour
 
     private void Start()
     {
-        //fonud inventory container in main Scene
-        found_player = GameObject.FindGameObjectWithTag("Player");
         charactersStatusController = CharacterStatusController.Instance;
+        playerAction = PlayerAction.Instance;
 
-        if(!ReferenceEquals(status_display, null))
+        if (!ReferenceEquals(status_display, null))
         {
             //Events status
             status_display.OnLeftClickStatusSlot.AddListener(SelectedStatusDisplayed);
@@ -172,19 +171,19 @@ public class Characters_Menu_Handler : MonoBehaviour
         
         //description
         bonus_description.SetActive(true);
-        text_bonus_charm.text = ((int)(charactersStatusController.CharacterStatus.Default_charm * 100)).ToString();
-        text_bonus_base_bootupProject.text = ((int)(charactersStatusController.CharacterStatus.Default_baseBootUpProject * 100)).ToString();
-        text_bonus_golden_bootupProject.text = ((int)(charactersStatusController.CharacterStatus.Default_goldenTimeBootUpProject * 100)).ToString();
-        text_bonus_base_bootupMotivation.text = ((int)(charactersStatusController.CharacterStatus.Default_baseBootUpMotivation * 100)).ToString();
-        text_bonus_golden_bootupMotivation.text = ((int)(charactersStatusController.CharacterStatus.Default_goldenTimeBootUpMotivation * 100)).ToString();
-        text_bonus_base_energy.text = ((int)(charactersStatusController.CharacterStatus.Default_baseReduceEnergyConsumption * 100)).ToString();
-        text_bonus_golden_energy.text = ((int)(charactersStatusController.CharacterStatus.Defautl_goldenTimeReduceEnergyConsuption * 100)).ToString();
-        text_bonus_bug_chance.text = ((int)(charactersStatusController.CharacterStatus.Default_reduceBugChance * 100)).ToString();
-        text_bonus_negative_effect.text = ((int)(charactersStatusController.CharacterStatus.Default_negativeEventsEffect * 100)).ToString();
-        text_bonus_positive_effect.text = ((int)(charactersStatusController.CharacterStatus.Default_positiveEventsEffect * 100)).ToString();
-        text_bonus_time_course.text = ((int)(charactersStatusController.CharacterStatus.Default_reduceTimeTrainCourse * 100)).ToString();
-        text_bonus_time_transport.text = ((int)(charactersStatusController.CharacterStatus.Default_reduceTimeTransport * 100)).ToString();
-        text_bonus_drop_rate.text = ((int)(charactersStatusController.CharacterStatus.Default_dropRate * 100)).ToString();
+        text_bonus_charm.text = string.Format("{0:p2}", playerAction.GetTotalBonusCharm());
+        text_bonus_base_bootupProject.text = string.Format("{0:p2}", playerAction.GetTotalBonusBootUpProject()); 
+        text_bonus_golden_bootupProject.text = string.Format("{0:p2}", playerAction.GetTotalBonusBootUpProjectGoldenTime());
+        text_bonus_base_bootupMotivation.text = string.Format("{0:p2}", playerAction.GetTotalBonusBootUpMotivation());
+        text_bonus_golden_bootupMotivation.text = string.Format("{0:p2}", playerAction.GetTotalBonusBootUpMotivationGoldenTime());
+        text_bonus_base_energy.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceEnergyConsume());
+        text_bonus_golden_energy.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceEnergyConsumeGoldenTime());
+        text_bonus_bug_chance.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceBugChance());
+        text_bonus_negative_effect.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceEffectNegativeEvent());
+        text_bonus_positive_effect.text = string.Format("{0:p2}", playerAction.GetTotalBonusIncreaseEffectPositiveEvent());
+        text_bonus_time_course.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceTimeCourse());
+        text_bonus_time_transport.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceTimeTransport());
+        text_bonus_drop_rate.text = string.Format("{0:p2}", playerAction.GetTotalBonusIncreaseDropRate());
     }
 
     private void UnDisplayedBonusDescription(BaseBonusSlot bonusSlot)

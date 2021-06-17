@@ -32,16 +32,26 @@ public class WorkProjectController : MonoBehaviour
     private const int fourHours_seccond = 14400;
     private const int eightHours_seccond = 28800;
 
+    private float totalEnergy;
+    private int totalSecond;
+
     [Header("WorkProject Display")]
     [SerializeField] private WorkProjectDisplay workProjectDisplay;
 
+    private TimeManager timeManager;
     private ProjectController projectController;
     private CharacterStatusController characterStatusController;
+    private GameObject foundNotificationControllerObject;
+    private NotificationController notificationController;
 
     private void Awake()
     {
         projectController = ProjectController.Instance;
         characterStatusController = CharacterStatusController.Instance;
+        timeManager = TimeManager.Instance;
+        foundNotificationControllerObject = GameObject.FindGameObjectWithTag("NotificationController");
+        notificationController = foundNotificationControllerObject.GetComponentInChildren<NotificationController>();
+
     }
 
     private void Start()
@@ -108,50 +118,94 @@ public class WorkProjectController : MonoBehaviour
     
     public void SelectTime(int choice)
     {
-        int seccond = 0;
+        int second = 0;
         switch (choice)
         {
             case 0:
-                seccond = eightHours_seccond;
+                second = eightHours_seccond;
                 break;
             case 1:
-                seccond = fourHours_seccond;
+                second = fourHours_seccond;
                 break;
             case 2:
-                seccond = twoHours_seccond;
+                second = twoHours_seccond;
                 break;
             case 3:
-                seccond = hour_seccond;
+                second = hour_seccond;
                 break;
             case 4:
-                seccond = Halfhour_seccond;
+                second = Halfhour_seccond;
                 break;
             default:
-                seccond = eightHours_seccond;
+                second = eightHours_seccond;
                 break;
         }
 
-        OnButtonClicked(choice, GetMaxTimeCanSelect(), seccond);
+        totalSecond = second;
+        OnButtonClicked(choice, GetMaxTimeCanSelect(), second);
     }
     public void Working()
     {
-        switch (projectController.ProjectPhase)
+        bool time = CheckTimeToAction(totalSecond);
+        bool energy = CheckEnergyToAction(totalEnergy);
+
+        if (!time)
         {
-            case ProjectPhase.Design:
-                SwitchScene.Instance.DisplayWorkProjectDesign(true);
-                break;
-            case ProjectPhase.FirstPlayable:
-                break;
-            case ProjectPhase.Prototype:
-                break;
-            case ProjectPhase.VerticalSlice:
-                break;
-            case ProjectPhase.AlphaTest:
-                break;
-            case ProjectPhase.BetaTest:
-                break;
-            case ProjectPhase.Master:
-                break;
+            notificationController.TimeNotEnough();
+        }
+
+        if (!energy)
+        {
+            notificationController.EnergyNotEnough();
+        }
+
+        if(time && energy)
+        {
+            projectController.SecondToWork = totalSecond;
+
+            switch (projectController.ProjectPhase)
+            {
+                case ProjectPhase.Design:
+                    SwitchScene.Instance.DisplayWorkProjectDesign(true);
+                    break;
+                case ProjectPhase.FirstPlayable:
+                    break;
+                case ProjectPhase.Prototype:
+                    break;
+                case ProjectPhase.VerticalSlice:
+                    break;
+                case ProjectPhase.AlphaTest:
+                    break;
+                case ProjectPhase.BetaTest:
+                    break;
+                case ProjectPhase.Master:
+                    break;
+            }
+        }
+
+
+    }
+
+    private bool CheckTimeToAction(int totalSecond)
+    {
+        if (timeManager.HasTimeEnough(totalSecond))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    private bool CheckEnergyToAction(float energyToConsume)
+    {
+        if (characterStatusController.CurrentEnergy >= energyToConsume)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -248,51 +302,16 @@ public class WorkProjectController : MonoBehaviour
 
     private void CalEnergy(int seccond)
     {
-        int times = seccond / Halfhour_seccond;
-        int baseEnergy = projectController.BaseEnergyConsumePer30Minute;
-        float energy = 0;
-        float value = 1f;
-        for (int i = 0; i < times; i++)
-        {
-            energy += baseEnergy * value;
-            if (i % 2 == 0)
-            {
-                value -= 0.045f;
-            }
-        }
-        workProjectDisplay.DisplayEnergy((int)Math.Round(energy + 0.005f));
+        float energy = projectController.CalTotalEnergyToConsumeByTime(seccond);
+        this.totalEnergy = energy;
+        workProjectDisplay.DisplayEnergy(energy);
     }
 
     private void CalEfficiency(int seccond)
     {
-        int times = seccond / Halfhour_seccond;
-        int currentMotivation = characterStatusController.CurrentMotivation;
+        float avgEfficiency = projectController.CalAvgEfficiencyByTime(seccond);
 
-        int motivationConsume = projectController.BaseMotivationConsumePer30Minute;
-        
-        float[] tempMotivationCalculated = new float[times];
-        for(int i = 0; i < tempMotivationCalculated.Length; i++)
-        {
-            tempMotivationCalculated[i] = characterStatusController.CalMotivation(currentMotivation);
-            if(currentMotivation - motivationConsume <= 0)
-            {
-                currentMotivation = 0;
-            }
-            else
-            {
-                currentMotivation -= motivationConsume;
-            }
-        }
-
-        float sumCalculated = 0;
-        foreach(int motivationCalculated in tempMotivationCalculated)
-        {
-            sumCalculated += motivationCalculated;
-        }
-        float avgMotivationCalculated = (sumCalculated / tempMotivationCalculated.Length);
-        avgMotivationCalculated = (float) Math.Round((avgMotivationCalculated + 0.005f), 2);
-
-        workProjectDisplay.DisplayEfficiency(avgMotivationCalculated);
+        workProjectDisplay.DisplayEfficiency(avgEfficiency);
     }
 
     private void DisplayCanvas(bool active)

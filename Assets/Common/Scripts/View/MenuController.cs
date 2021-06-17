@@ -132,6 +132,10 @@ public class MenuController : MonoBehaviour
         {
             SwitchScene.Instance.DisplayCourse(ActivedBlur(false));
             hasDisplayed = false;
+        }else if (gameManager.CurrentGameState == GameManager.GameState.WORK_PROJECT)
+        {
+            SwitchScene.Instance.DisplayWorkProject(ActivedBlur(false));
+            hasDisplayed = false;
         }
 
     }
