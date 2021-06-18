@@ -47,15 +47,6 @@ public class ProjectController : Manager<ProjectController>
     public Idea PlayerIdea { get => project.PlayerIdea; }
     public string DetailMessage { get => project.DetailMessage; }
     public string ContextMessage { get => project.ContextMessage; }
-    public int LevelMathSkillRequired { get => project.LevelMathSkillRequired; }
-    public int LevelProgramingSkillRequired { get => project.LevelProgramingSkillRequired; }
-    public int LevelEngineSkillRequired { get => project.LevelEngineSkillRequired; }
-    public int LevelNetworkSkillRequired { get => project.LevelNetworkSkillRequired; }
-    public int LevelAiSkillRequired { get => project.LevelAiSkillRequired; }
-    public int LevelDesignSkillRequired { get => project.LevelDesignSkillRequired; }
-    public int LevelTestingSkillRequired { get => project.LevelTestingSkillRequired; }
-    public int LevelArtSkillRequired { get => project.LevelArtSkillRequired; }
-    public int LevelSoundSkillRequired { get => project.LevelSoundSkillRequired; }
     public ProjectPhase ProjectPhase { get => project.ProjectPhase; }
     public bool HasDesigned { get => project.HasDesigned; }
     public string StartDate { get => project.StartDate; }

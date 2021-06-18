@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,14 @@ public class Project : MonoBehaviour
     private int currentBugStatus;
     #endregion
 
+    #region Instace
+    private const int Inst_MaxSkillAmount = 9;
+    private const int Inst_MaxAmountSkill = 3;
+    private const int Inst_MaxPhase = 4;
+    private const int Inst_MaxLevelRequire = 4;
+    private int[] tempLevelRequire = { 1, 1, 1, 2, 2, 2, 3, 3, 4 };
+    #endregion
+
     #region Project Design Phase
     private string projectName;
     private Idea goalIdea;
@@ -30,15 +39,7 @@ public class Project : MonoBehaviour
     private string detailMessage;
     private string contextMessage;
 
-    private int levelMathSkillRequired;
-    private int levelProgramingSkillRequired;
-    private int levelEngineSkillRequired;
-    private int levelNetworkSkillRequired;
-    private int levelAiSkillRequired;
-    private int levelDesignSkillRequired;
-    private int levelTestingSkillRequired;
-    private int levelArtSkillRequired;
-    private int levelSoundSkillRequired;
+    private static Dictionary<HardSkillId, int> levelHardSkillRequired;
     #endregion
 
     private ProjectPhase projectPhase;
@@ -68,15 +69,6 @@ public class Project : MonoBehaviour
     public Idea PlayerIdea { get => playerIdea; }
     public string DetailMessage { get => detailMessage; }
     public string ContextMessage { get => contextMessage; }
-    public int LevelMathSkillRequired { get => levelMathSkillRequired; }
-    public int LevelProgramingSkillRequired { get => levelProgramingSkillRequired; }
-    public int LevelEngineSkillRequired { get => levelEngineSkillRequired; }
-    public int LevelNetworkSkillRequired { get => levelNetworkSkillRequired; }
-    public int LevelAiSkillRequired { get => levelAiSkillRequired; }
-    public int LevelDesignSkillRequired { get => levelDesignSkillRequired; }
-    public int LevelTestingSkillRequired { get => levelTestingSkillRequired; }
-    public int LevelArtSkillRequired { get => levelArtSkillRequired; }
-    public int LevelSoundSkillRequired { get => levelSoundSkillRequired; }
     public ProjectPhase ProjectPhase { get => projectPhase; set => projectPhase = value; }
     public bool HasDesigned { get => hasDesigned; }
     public string StartDate { get => startDate; }
@@ -86,6 +78,7 @@ public class Project : MonoBehaviour
 
     public Project()
     {
+        levelHardSkillRequired = new Dictionary<HardSkillId, int>();
         Initializing();
     }
 
@@ -114,15 +107,15 @@ public class Project : MonoBehaviour
         detailMessage = string.Empty;
         contextMessage = string.Empty;
 
-        levelMathSkillRequired = 0; 
-        levelProgramingSkillRequired = 0;
-        levelEngineSkillRequired = 0;
-        levelNetworkSkillRequired = 0;
-        levelAiSkillRequired = 0;
-        levelDesignSkillRequired = 0;
-        levelTestingSkillRequired = 0;
-        levelArtSkillRequired = 0;
-        levelSoundSkillRequired = 0;
+        levelHardSkillRequired.Add(HardSkillId.MATH, 0);
+        levelHardSkillRequired.Add(HardSkillId.PROGRAMMING, 0);
+        levelHardSkillRequired.Add(HardSkillId.GAMEENGINE, 0);
+        levelHardSkillRequired.Add(HardSkillId.AI, 0);
+        levelHardSkillRequired.Add(HardSkillId.NETWORK, 0);
+        levelHardSkillRequired.Add(HardSkillId.DESIGN, 0);
+        levelHardSkillRequired.Add(HardSkillId.TESTING, 0);
+        levelHardSkillRequired.Add(HardSkillId.ART, 0);
+        levelHardSkillRequired.Add(HardSkillId.SOUND, 0);
 
         projectPhase = ProjectPhase.Design;
         hasDesigned = false;
@@ -134,6 +127,11 @@ public class Project : MonoBehaviour
 
     public void DesignGameDucument(string name, Idea goal, Idea[] machenic, Idea theme, Idea platform, Idea player, string detailMessage, string contextMessage)
     {
+        foreach (KeyValuePair<HardSkillId, int> hardskill in levelHardSkillRequired)
+        {
+            Debug.Log(string.Format("Before {0} = {1}", hardskill.Key, hardskill.Value));
+        }
+
         projectName = name;
         goalIdea = goal;
         mechanicIdea = machenic;
@@ -144,22 +142,42 @@ public class Project : MonoBehaviour
         this.contextMessage = contextMessage;
         GenerateLevelSkillRequire();
         hasDesigned = true;
-        Debug.Log(detailMessage);
-        Debug.Log(contextMessage);
+
+        foreach (KeyValuePair<HardSkillId, int> hardskill in levelHardSkillRequired)
+        {
+            Debug.Log(string.Format("After {0} = {1}", hardskill.Key, hardskill.Value));
+        }
     }
 
+    
     private void GenerateLevelSkillRequire()
     {
-        levelMathSkillRequired = 2;
-        levelProgramingSkillRequired = 2;
-        levelEngineSkillRequired = 1;
-        levelNetworkSkillRequired = 3;
-        levelAiSkillRequired = 4;
-        levelDesignSkillRequired = 1;
-        levelTestingSkillRequired = 2;
-        levelArtSkillRequired = 4;
-        levelSoundSkillRequired = 3;
+        tempLevelRequire = SufferArray(tempLevelRequire);
+        levelHardSkillRequired[HardSkillId.MATH] = tempLevelRequire[0];
+        levelHardSkillRequired[HardSkillId.PROGRAMMING] = tempLevelRequire[1];
+        levelHardSkillRequired[HardSkillId.GAMEENGINE] = tempLevelRequire[2];
+        levelHardSkillRequired[HardSkillId.AI] = tempLevelRequire[3];
+        levelHardSkillRequired[HardSkillId.NETWORK] = tempLevelRequire[4];
+        levelHardSkillRequired[HardSkillId.DESIGN] = tempLevelRequire[5];
+        levelHardSkillRequired[HardSkillId.TESTING] = tempLevelRequire[6];
+        levelHardSkillRequired[HardSkillId.ART] = tempLevelRequire[7];
+        levelHardSkillRequired[HardSkillId.SOUND] = tempLevelRequire[8];
+
+
+
     }
 
-       
+
+    public int[] SufferArray(int[] array)
+    {
+        for(int i = array.Length - 1; i > 0; i--)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, i + 1);
+            int temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+        return array;
+    }
+
 }
