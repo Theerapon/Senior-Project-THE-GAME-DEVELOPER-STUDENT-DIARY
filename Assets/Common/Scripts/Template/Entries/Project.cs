@@ -132,7 +132,7 @@ public class Project : MonoBehaviour
         baseMotivationConsumePer30Minute = 3;
     }
 
-    public void DesignGameDucument(string name, Idea goal, Idea[] machenic, Idea theme, Idea platform, Idea player, string detailMessage, string contextMessage, string developerMessage)
+    public void DesignGameDucument(string name, Idea goal, Idea[] machenic, Idea theme, Idea platform, Idea player, string detailMessage, string contextMessage)
     {
         projectName = name;
         goalIdea = goal;
@@ -144,6 +144,8 @@ public class Project : MonoBehaviour
         this.contextMessage = contextMessage;
         GenerateLevelSkillRequire();
         hasDesigned = true;
+        Debug.Log(detailMessage);
+        Debug.Log(contextMessage);
     }
 
     private void GenerateLevelSkillRequire()

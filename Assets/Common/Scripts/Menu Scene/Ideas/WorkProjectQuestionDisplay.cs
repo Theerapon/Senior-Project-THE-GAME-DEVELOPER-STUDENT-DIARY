@@ -21,13 +21,13 @@ public class WorkProjectQuestionDisplay : MonoBehaviour
     [SerializeField] private TMP_Dropdown platformIdeasTMP;
     [SerializeField] private TMP_Dropdown playerIdeasTMP;
 
-    private List<string> platformNameIdeas;
-    private List<string> playerNameIdeas;
+    //private List<string> platformNameIdeas;
+    //private List<string> playerNameIdeas;
 
     private void Awake()
     {
-        platformNameIdeas = new List<string>();
-        playerNameIdeas = new List<string>();
+        //platformNameIdeas = new List<string>();
+        //playerNameIdeas = new List<string>();
         Initializing();
     }
 
@@ -123,5 +123,25 @@ public class WorkProjectQuestionDisplay : MonoBehaviour
             }
             mechanicIdeasTMP.text = str;
         }
+    }
+
+    public string GetNameProject()
+    {
+        if(projectNameTMP.text != string.Empty)
+        {
+            return projectNameTMP.text;
+        }
+
+        return string.Empty;
+    }
+
+    public int GetIndexPlatformDropdownSelect()
+    {
+        return platformIdeasTMP.value;
+    }
+
+    public int GetIndexPlayerDropdownSelect()
+    {
+        return playerIdeasTMP.value;
     }
 }

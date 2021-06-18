@@ -48,7 +48,6 @@ public class GameDocMessageVM : MonoBehaviour
         string id = string.Empty;
         string detailMessage = string.Empty;
         string contextMessage = string.Empty;
-        string developerMessage = string.Empty;
         string nameReplace = string.Empty;
         string goalReplace = string.Empty;
         string mechanic1Replace = string.Empty;
@@ -73,10 +72,10 @@ public class GameDocMessageVM : MonoBehaviour
                     contextMessage = entries[++i];
                     break;
                 case INST_SET_nameCheck:
-                    developerMessage = entries[++i];
+                    nameReplace = entries[++i];
                     break;
                 case INST_SET_goalCheck:
-                    nameReplace = entries[++i];
+                    goalReplace = entries[++i];
                     break;
                 case INST_SET_mechanic1Check:
                     mechanic1Replace = entries[++i];
@@ -99,6 +98,6 @@ public class GameDocMessageVM : MonoBehaviour
 
         }
 
-        return new GameDocMessage_Template(id, detailMessage, contextMessage, developerMessage, nameReplace, goalReplace, mechanic1Replace, mechanic2Replace, themeReplace, platformReplace, playerReplace);
+        return new GameDocMessage_Template(id, detailMessage, contextMessage, nameReplace, goalReplace, mechanic1Replace, mechanic2Replace, themeReplace, platformReplace, playerReplace);
     }
 }

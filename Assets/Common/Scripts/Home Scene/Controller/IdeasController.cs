@@ -87,4 +87,31 @@ public class IdeasController : Manager<IdeasController>
         }
         return check;
     }
+
+    public Idea GetPlatformIdeaByName(string name)
+    {
+        Idea ideacopy = null;
+        foreach(KeyValuePair<string, Idea> idea in PlatformIdeas)
+        {
+            if (idea.Value.IdeaName.Equals(name))
+            {
+                ideacopy = idea.Value;
+                return ideacopy;
+            }
+        }
+        return null;
+    }
+    public Idea GetPlayerIdeaByName(string name)
+    {
+        Idea ideacopy = null;
+        foreach (KeyValuePair<string, Idea> idea in playerIdeas)
+        {
+            if (idea.Value.IdeaName.Equals(name))
+            {
+                ideacopy = idea.Value;
+                return ideacopy;
+            }
+        }
+        return null;
+    }
 }

@@ -39,6 +39,8 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
     private ProjectController projectController;
     private CharacterStatusController characterStatusController;
     private IdeasController ideasController;
+    private NotificationController notificationController;
+
 
     #region Temp Question
     [Header("Question")]
@@ -48,7 +50,6 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
     private BaseWorkingProjectIdeaSlot[] mechanicSlots;
     private int countMechanicSlots;
     private BaseWorkingProjectIdeaSlot themeSlots;
-    private string developerMessage;
     #endregion
 
     #region Dropdown Question
@@ -61,6 +62,7 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
         projectController = ProjectController.Instance;
         characterStatusController = CharacterStatusController.Instance;
         ideasController = IdeasController.Instance;
+        notificationController = GameObject.FindGameObjectWithTag("NotificationController").GetComponentInChildren<NotificationController>();
         platformNameIdeas = new List<string>();
         playerNameIdeas = new List<string>();
 
@@ -444,6 +446,44 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
     public void CancelDesignDocument()
     {
         SwitchScene.Instance.DisplayWorkProjectDesign(false);
+    }
+
+    public void ConfirmDesignDocument()
+    {
+
+        projectName = workProjectQuestionDisplay.GetNameProject();
+        bool projectNameIsEmpty = projectName.Equals(string.Empty);
+        bool goalIsEmpty = (goalSlot == null);
+        bool mechanicIsEmpty = (mechanicSlots[0] == null || mechanicSlots[1] == null);
+        bool themeIsEmpty = themeSlots == null;
+
+        if (projectNameIsEmpty)
+        {
+            notificationController.ProjectNameIsEmtyp();
+        }
+        else if (goalIsEmpty)
+        {
+            notificationController.GoalIdeaIsEmpty();
+        }
+        else if (mechanicIsEmpty)
+        {
+            notificationController.MechanicIdeaIsEmpty();
+        }
+        else if (themeIsEmpty)
+        {
+            notificationController.ThemeIdeaIsEmpty();
+        }
+        else
+        {
+            int platformDropdownIndex = workProjectQuestionDisplay.GetIndexPlatformDropdownSelect();
+            int playerDropdownIndex = workProjectQuestionDisplay.GetIndexPlayerDropdownSelect();
+
+            string[] mechanicsSlotsId = { mechanicSlots[0].IDEASLOT.Id, mechanicSlots[1].IDEASLOT.Id };
+
+            projectController.DesignGameDucument(projectName, goalSlot.IDEASLOT.Id, mechanicsSlotsId, themeSlots.IDEASLOT.Id, platformNameIdeas[platformDropdownIndex], playerNameIdeas[playerDropdownIndex]);
+        }
+
+        
     }
 
     private void SetAllButtonsInteractable(int index)

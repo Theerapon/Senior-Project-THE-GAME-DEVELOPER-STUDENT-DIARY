@@ -15,12 +15,16 @@ public class ProjectController : Manager<ProjectController>
 
     [SerializeField] PlayerAction playerAction;
     [SerializeField] CharacterStatusController characterStatusController;
+    [SerializeField] IdeasController ideasController;
+    [SerializeField] GameDesignMessageController gameDesignMessageController;
 
     protected override void Awake()
     {
         base.Awake();
         project = new Project();
+        
     }
+
 
     #region Get
     public int LasttimeCodingStatus { get => project.LasttimeCodingStatus; }
@@ -151,5 +155,17 @@ public class ProjectController : Manager<ProjectController>
     public float GetBonusEfficiency()
     {
         return bonusEfficiency;
+    }
+    public void DesignGameDucument(string name, string goalId, string[] machenicId, string themeId, string platformSelectName, string playerSelectName)
+    {
+        string projectName = name;
+        Idea goal = ideasController.GoalIdeas[goalId];
+        Idea[] mechanics = { ideasController.MechanicIdeas[machenicId[0]], ideasController.MechanicIdeas[machenicId[1]] };
+        Idea theme = ideasController.ThemeIdeas[themeId];
+        Idea platform = ideasController.GetPlatformIdeaByName(platformSelectName);
+        Idea player = ideasController.GetPlayerIdeaByName(playerSelectName);
+        string detailMessage = gameDesignMessageController.GetDetailMessage(platform.Message, player.Message);
+        string contextMessage = gameDesignMessageController.GetContextMessage(projectName, mechanics[0].Message, mechanics[1].Message, goal.Message, theme.Message);
+        project.DesignGameDucument(projectName, goal, mechanics, theme, platform, player, detailMessage, contextMessage);
     }
 }
