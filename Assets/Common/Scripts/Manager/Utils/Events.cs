@@ -15,6 +15,7 @@ public class Events
     [System.Serializable] public class EventDateCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventTimeCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventTimeDayOrNight : UnityEvent<bool> { }
+    [System.Serializable] public class EventOnGodenTime : UnityEvent<bool> { }
     [System.Serializable] public class EventGameObject : UnityEvent<GameObject> { }
     [System.Serializable] public class EventSaveInitiated : UnityEvent { }
     [System.Serializable] public class EventProjectValueUpdated : UnityEvent { }
@@ -22,9 +23,7 @@ public class Events
     [System.Serializable] public class EventSoftSkillsValueShowed : UnityEvent { }
     [System.Serializable] public class EventHardSkillsValueShowed : UnityEvent { }
     [System.Serializable] public class EventOnTimeSkilpValidation : UnityEvent<GameManager.GameState> { }
-    [System.Serializable] public class EventOnEnergyUpdated : UnityEvent { }
-    [System.Serializable] public class EventOnMotivationUpdated : UnityEvent { }
-    [System.Serializable] public class EventOnMoneyUpdated : UnityEvent { }
+    
     [System.Serializable] public class EventOnCheckedWordUpdate : UnityEvent { }
     [System.Serializable] public class EventOnAlphaTypingGameStateChanged : UnityEvent<AlphaTypingManager.TypingGameState> { }
     [System.Serializable] public class EventOnBetaTypingGameStateChanged : UnityEvent<BetaTypingManager.TypingGameState> { }
@@ -77,16 +76,18 @@ public class Events
     [System.Serializable] public class EventOnWorkTypingPlayerStateChange : UnityEvent<WorkTypingPlayerManager.WorkPlayerState> { }
 
     #region Work Project Summary
-    [System.Serializable] public class EventOnProjectSummaryTimeUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummaryCharacterLevelUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummaryCharacterExpUpdate : UnityEvent<int, int> { }
-    [System.Serializable] public class EventOnProjectSummaryEfficiencyUpdate : UnityEvent<float, float, float> { }
-    [System.Serializable] public class EventOnProjectSummaryCodingStatusUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummaryDesignStatusUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummaryTestingStatusUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummaryArtStatusUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummarySoundStatusUpdate : UnityEvent<string> { }
-    [System.Serializable] public class EventOnProjectSummaryBugStatusUpdate : UnityEvent<string> { }
     [System.Serializable] public class EventOnOneMiniuteTimePassed : UnityEvent<GameManager.GameState> { }
+    #endregion
+
+    #region Porject
+    [System.Serializable] public class EventOnProjectUpdate : UnityEvent { }
+    #endregion
+
+    #region Character Status
+    [System.Serializable] public class EventOnEnergyUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnMotivationUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnMoneyUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnExpUpdated : UnityEvent { }
+    [System.Serializable] public class EventOnStatusUpdated : UnityEvent { }
     #endregion
 }

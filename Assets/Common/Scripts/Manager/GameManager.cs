@@ -26,6 +26,7 @@ public class GameManager : Manager<GameManager>
         COM_Course,
         COM_WorkProject,
         COM_WorkProject_Design,
+        COM_WorkProject_Summary,
         HUD_Info,
         Menu_Bag,
         Menu_Characters,
@@ -88,7 +89,6 @@ public class GameManager : Manager<GameManager>
         WORK_PROJECT,
         WORK_PROJECT_DESIGN,
         WORK_PROJECT_MINI_GAME,
-        WORK_PROJECT_MINI_GAME_SUMMARY,
         WORK_PROJECT_ANIMATION,
         WORK_PROJECT_DIALOUGE,
         WORK_PROJECT_SUMMARY,
@@ -182,6 +182,7 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.COM_Course)
         {
             UpdateState(GameState.COURSE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
 
@@ -205,11 +206,18 @@ public class GameManager : Manager<GameManager>
         if(scene == GameScene.COM_WorkProject)
         {
             UpdateState(GameState.WORK_PROJECT);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
 
         if(scene == GameScene.COM_WorkProject_Design)
         {
             UpdateState(GameState.WORK_PROJECT_DESIGN);
+        }
+
+        if(scene == GameScene.COM_WorkProject_Summary)
+        {
+            UpdateState(GameState.WORK_PROJECT_SUMMARY);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
 
@@ -397,6 +405,7 @@ public class GameManager : Manager<GameManager>
         {
             UnLoadLevel(GameScene.COM_Course);
             UpdateScene(GameScene.Home);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
     }
 
@@ -451,6 +460,7 @@ public class GameManager : Manager<GameManager>
         {
             UnLoadLevel(GameScene.COM_WorkProject);
             UpdateState(GameState.HOME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
     }
 
@@ -464,6 +474,21 @@ public class GameManager : Manager<GameManager>
         {
             UnLoadLevel(GameScene.COM_WorkProject_Design);
             UpdateState(GameState.WORK_PROJECT);
+        }
+    }
+
+    public void DisplayWorkProjectSummary(bool active)
+    {
+        if (active)
+        {
+            UnLoadLevel(CurrentGameScene);
+            LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject_Summary);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.COM_WorkProject_Summary);
+            UpdateState(GameState.WORK_PROJECT);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
     }
 

@@ -9,9 +9,14 @@ public class TimeManager : Manager<TimeManager>
     public Events.EventDateCalendar OnDateCalendar;
     public Events.EventTimeCalendar OnTimeCalendar;
     public Events.EventTimeDayOrNight OnTimeChange;
+    public Events.EventOnGodenTime OnGodenTime;
     public Events.EventOnTimeSkilpValidation OnTimeSkip;
     public Events.EventOnOneMiniuteTimePassed OnOneMiniuteTimePassed;
     #endregion
+
+    [Header("Image")]
+    [SerializeField] private Sprite dayImage;
+    [SerializeField] private Sprite nightImage;
 
     #region Default
     [Header("Time Default")]
@@ -73,6 +78,9 @@ public class TimeManager : Manager<TimeManager>
     private bool isDay;
 
     private bool goldenTime = false;
+
+    public Sprite DayImage { get => dayImage; }
+    public Sprite NightImage { get => nightImage; }
     #endregion
 
     protected void Start()
@@ -131,6 +139,7 @@ public class TimeManager : Manager<TimeManager>
             minute++;
             second = second - DEFAULT_SECOND;
             setText();
+            OnOneMiniuteTimePassed?.Invoke(GameManager.Instance.CurrentGameState);
             OnTimeCalendar?.Invoke(onTime);
             
         }
@@ -142,7 +151,6 @@ public class TimeManager : Manager<TimeManager>
             minute = minute - DEFAULT_MINUTE;
             setText();
             OnTimeCalendar?.Invoke(onTime);
-            OnOneMiniuteTimePassed?.Invoke(GameManager.Instance.CurrentGameState);
             CalGoldenTime();
         }
 
@@ -186,11 +194,14 @@ public class TimeManager : Manager<TimeManager>
         if (hour >= DEFAULT_STARTGOLDENTIME && hour <= DEFAULT_ENDGOLDENTIME)
         {
             goldenTime = true;
+            OnGodenTime?.Invoke(true);
         }
         else
         {
             goldenTime = false;
+            OnGodenTime?.Invoke(false);
         }
+        
     }
     private void CalculateMonth()
     {
@@ -356,6 +367,8 @@ public class TimeManager : Manager<TimeManager>
         setText();
         OnDateCalendar?.Invoke(onDate);
         OnTimeCalendar?.Invoke(onTime);
+        SetTimezone();
+        CalGoldenTime();
     }
     #endregion
 

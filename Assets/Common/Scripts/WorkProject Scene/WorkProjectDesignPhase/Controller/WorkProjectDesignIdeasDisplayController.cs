@@ -261,7 +261,7 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
             {
                 themeSlots = new BaseWorkingProjectIdeaSlot();
                 LoopSetSelectThemeNormal(baseSlotId, false);
-                workProjectQuestionDisplay.DisplayTheme(themeSlots.IDEASLOT.IdeaName, false);
+                workProjectQuestionDisplay.DisplayTheme(string.Empty, false);
             }
             else
             {
@@ -326,7 +326,7 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
             {
                 goalSlot = new BaseWorkingProjectIdeaSlot();
                 LoopSetSelectGoalNormal(baseSlotId, false);
-                workProjectQuestionDisplay.DisplayGoal(goalSlot.IDEASLOT.IdeaName, false);
+                workProjectQuestionDisplay.DisplayGoal(string.Empty, false);
             }
             else 
             {
@@ -481,8 +481,10 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
             string[] mechanicsSlotsId = { mechanicSlots[0].IDEASLOT.Id, mechanicSlots[1].IDEASLOT.Id };
 
             projectController.DesignGameDucument(projectName, goalSlot.IDEASLOT.Id, mechanicsSlotsId, themeSlots.IDEASLOT.Id, platformNameIdeas[platformDropdownIndex], playerNameIdeas[playerDropdownIndex]);
+            SwitchScene.Instance.DisplayWorkProjectSummary(true);
         }
 
+        
         
     }
 

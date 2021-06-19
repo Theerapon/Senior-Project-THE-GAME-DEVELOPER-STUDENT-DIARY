@@ -50,8 +50,6 @@ public class Softskills_Display : MonoBehaviour
     private void DisplayedSoftSkills()
     {
         int i = 0;
-        Debug.Log("wair for implementation");
-        Debug.Log(ReferenceEquals(SoftSkillsController.Instance.Softskills, null));
         foreach (KeyValuePair<string, SoftSkill> softskill in SoftSkillsController.Instance.Softskills)
         {
             SoftSkill copy = softskill.Value;

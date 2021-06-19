@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class ProjectController : Manager<ProjectController>
 {
+    public Events.EventOnProjectUpdate OnProjectUpdate;
+
     private Project project;
     private int secondToWork;
-    private float bonusEfficiency;
+    private float minigameBonusEfficiency;
 
     private const int INST_HalfHour = 1800;
     private const float INST_Energy_Reduce = 0.09f;
@@ -22,7 +24,12 @@ public class ProjectController : Manager<ProjectController>
     {
         base.Awake();
         project = new Project();
-        
+
+    }
+
+    private void OnProjectUpdateHandler()
+    {
+        OnProjectUpdate?.Invoke();
     }
 
 
@@ -51,6 +58,7 @@ public class ProjectController : Manager<ProjectController>
     public bool HasDesigned { get => project.HasDesigned; }
     public string StartDate { get => project.StartDate; }
     public string DeadlineDate { get => project.DeadlineDate; }
+    public int BaseExp { get => project.BaseExpPer30Minute; }
     public bool ProjectIsNull 
     { 
         get
@@ -67,6 +75,7 @@ public class ProjectController : Manager<ProjectController>
     }
 
     public int SecondToWork { get => secondToWork; set => secondToWork = value; }
+    public float GetMiniGameBonusEfficiency { get => minigameBonusEfficiency; set => minigameBonusEfficiency = value; }
     #endregion
 
     public float CalTotalEnergyToConsumeByTime(int seccond)
@@ -96,9 +105,9 @@ public class ProjectController : Manager<ProjectController>
         for (int i = 0; i < tempMotivationCalculated.Length; i++)
         {
             tempMotivationCalculated[i] = characterStatusController.CalEfficiencyToDo(currentMotivation);
-            if (currentMotivation - motivationConsume <= playerAction.CalMinMotivation())
+            if (currentMotivation - motivationConsume <= playerAction.GetMinMotivation())
             {
-                currentMotivation = playerAction.CalMinMotivation();
+                currentMotivation = playerAction.GetMinMotivation();
             }
             else
             {
@@ -143,10 +152,6 @@ public class ProjectController : Manager<ProjectController>
     {
         return project.BaseMotivationConsumePer30Minute;
     }
-    public float GetBonusEfficiency()
-    {
-        return bonusEfficiency;
-    }
     public void DesignGameDucument(string name, string goalId, string[] machenicId, string themeId, string platformSelectName, string playerSelectName)
     {
         string projectName = name;
@@ -158,5 +163,43 @@ public class ProjectController : Manager<ProjectController>
         string detailMessage = gameDesignMessageController.GetDetailMessage(platform.Message, player.Message);
         string contextMessage = gameDesignMessageController.GetContextMessage(projectName, mechanics[0].Message, mechanics[1].Message, goal.Message, theme.Message);
         project.DesignGameDucument(projectName, goal, mechanics, theme, platform, player, detailMessage, contextMessage);
+        OnProjectUpdate?.Invoke();
     }
+    #region Set
+    public void IncreaseCodingStatus(int status)
+    {
+        project.IncreaseCodingStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    public void IncreaseDesignStatus(int status)
+    {
+        project.IncreaseDesignStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    public void IncreaseTestingStatus(int status)
+    {
+        project.IncreaseTestingStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    public void IncreaseArtStatus(int status)
+    {
+        project.IncreaseArtStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    public void IncreaseSoundStatus(int status)
+    {
+        project.IncreaseSoundStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    public void IncreaseBugStatus(int status)
+    {
+        project.IncreaseBugStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    public void ReduceBugStatus(int status)
+    {
+        project.ReduceBugStatus(status);
+        OnProjectUpdate?.Invoke();
+    }
+    #endregion
 }

@@ -27,6 +27,9 @@ public class Project : MonoBehaviour
     private const int Inst_MaxPhase = 4;
     private const int Inst_MaxLevelRequire = 4;
     private int[] tempLevelRequire = { 1, 1, 1, 2, 2, 2, 3, 3, 4 };
+    private const float Inst_BaseEnergy = 5;
+    private const float Inst_BaseMotivation = 3;
+    private const int Inst_BaseExp = 50;
     #endregion
 
     #region Project Design Phase
@@ -48,6 +51,7 @@ public class Project : MonoBehaviour
     private string deadlineDate;
     private float baseEnergyConsumePer30Minute;
     private float baseMotivationConsumePer30Minute;
+    private int baseExpPer30Minute;
 
     public int LasttimeCodingStatus { get => lasttimeCodingStatus; set => lasttimeCodingStatus = value; }
     public int LasttimeDesignStatus { get => lasttimeDesignStatus; set => lasttimeDesignStatus = value; }
@@ -75,6 +79,7 @@ public class Project : MonoBehaviour
     public string DeadlineDate { get => deadlineDate; }
     public float BaseEnergyConsumePer30Minute { get => baseEnergyConsumePer30Minute; }
     public float BaseMotivationConsumePer30Minute { get => baseMotivationConsumePer30Minute; }
+    public int BaseExpPer30Minute { get => baseExpPer30Minute; }
 
     public Project()
     {
@@ -121,16 +126,13 @@ public class Project : MonoBehaviour
         hasDesigned = false;
         startDate = "Unknown";
         deadlineDate = "Unknown";
-        baseEnergyConsumePer30Minute = 5;
-        baseMotivationConsumePer30Minute = 3;
+        baseEnergyConsumePer30Minute = Inst_BaseEnergy;
+        baseMotivationConsumePer30Minute = Inst_BaseMotivation;
+        baseExpPer30Minute = Inst_BaseExp;
     }
 
     public void DesignGameDucument(string name, Idea goal, Idea[] machenic, Idea theme, Idea platform, Idea player, string detailMessage, string contextMessage)
     {
-        foreach (KeyValuePair<HardSkillId, int> hardskill in levelHardSkillRequired)
-        {
-            Debug.Log(string.Format("Before {0} = {1}", hardskill.Key, hardskill.Value));
-        }
 
         projectName = name;
         goalIdea = goal;
@@ -142,11 +144,6 @@ public class Project : MonoBehaviour
         this.contextMessage = contextMessage;
         GenerateLevelSkillRequire();
         hasDesigned = true;
-
-        foreach (KeyValuePair<HardSkillId, int> hardskill in levelHardSkillRequired)
-        {
-            Debug.Log(string.Format("After {0} = {1}", hardskill.Key, hardskill.Value));
-        }
     }
 
     
@@ -163,8 +160,6 @@ public class Project : MonoBehaviour
         levelHardSkillRequired[HardSkillId.ART] = tempLevelRequire[7];
         levelHardSkillRequired[HardSkillId.SOUND] = tempLevelRequire[8];
 
-
-
     }
 
 
@@ -180,4 +175,41 @@ public class Project : MonoBehaviour
         return array;
     }
 
+    #region Set
+    public void IncreaseCodingStatus(int status)
+    {
+        currentCodingStatus += status;
+    }
+    public void IncreaseDesignStatus(int status)
+    {
+        currentDesignStatus += status;
+    }
+    public void IncreaseTestingStatus(int status)
+    {
+        currentTestingStatus += status;
+    }
+    public void IncreaseArtStatus(int status)
+    {
+        currentArtStatus += status;
+    }
+    public void IncreaseSoundStatus(int status)
+    {
+        currentSoundStatus += status;
+    }
+    public void IncreaseBugStatus(int status)
+    {
+        currentBugStatus += status;
+    }
+    public void ReduceBugStatus(int status)
+    {
+        if(currentBugStatus - status <= 0)
+        {
+            currentBugStatus = 0;
+        }
+        else
+        {
+            currentBugStatus -= status;
+        }
+    }
+    #endregion
 }

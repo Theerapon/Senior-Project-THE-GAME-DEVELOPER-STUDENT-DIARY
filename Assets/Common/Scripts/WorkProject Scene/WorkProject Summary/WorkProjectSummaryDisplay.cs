@@ -8,8 +8,22 @@ using UnityEngine.UI;
 public class WorkProjectSummaryDisplay : MonoBehaviour
 {
     [SerializeField] private WorkProjectSummaryManager summaryManager;
+    ProjectController projectController;
+    TimeManager timeManager;
+    CharacterStatusController characterStatusController;
+    PlayerAction playerAction;
 
-    [SerializeField] private TMP_Text workingTimeTMP;
+    private const string goden = "Golden Time";
+    private const string normal = "Normal Time";
+
+    [Header("Time Manager")]
+    [SerializeField] private Image icon;
+    [SerializeField] private TMP_Text dateTMP;
+    [SerializeField] private TMP_Text timeTMP;
+    [SerializeField] private TMP_Text godenTime;
+
+    [Header("Contents")]
+    [SerializeField] private TMP_Text projectWorkingTimeTMP;
     [SerializeField] private TMP_Text characterLevelTMP;
     [SerializeField] private TMP_Text currentExpTMP;
     [SerializeField] private TMP_Text goalExpTMP;
@@ -20,71 +34,122 @@ public class WorkProjectSummaryDisplay : MonoBehaviour
     [SerializeField] private TMP_Text currentSoundStatusTMP;
     [SerializeField] private TMP_Text currentBugStatusTMP;
     [SerializeField] private TMP_Text efficiencyFormMotivationTMP;
+    [SerializeField] private TMP_Text efficiencyMiniGameBonusTMP;
     [SerializeField] private TMP_Text efficiencyBonusTMP;
     [SerializeField] private TMP_Text efficiencySum;
     [SerializeField] private Image fillCharacterExpImage;
 
     protected void Awake()
     {
-        summaryManager.OnProjectSummaryTimeUpdate.AddListener(OnProjectSummaryTimeUpdateHandler);
-        summaryManager.OnProjectSummaryTestingStatusUpdate.AddListener(OnProjectSummaryTestingStatusUpdateHandler);
-        summaryManager.OnProjectSummarySoundStatusUpdate.AddListener(OnProjectSummarySoundStatusUpdateHandler);
-        summaryManager.OnProjectSummaryEfficiencyUpdate.AddListener(OnProjectSummaryEfficiencyUpdateHandler);
-        summaryManager.OnProjectSummaryDesignStatusUpdate.AddListener(OnProjectSummaryDesignStatusUpdateHandler);
-        summaryManager.OnProjectSummaryCodingStatusUpdate.AddListener(OnProjectSummaryCodingStatusUpdateHandler);
-        summaryManager.OnProjectSummaryCharacterLevelUpdate.AddListener(OnProjectSummaryCharacterLevelUpdateHandler);
-        summaryManager.OnProjectSummaryCharacterExpUpdate.AddListener(OnProjectSummaryCharacterExpUpdateHandler);
-        summaryManager.OnProjectSummaryBugStatusUpdate.AddListener(OnProjectSummaryBugStatusUpdateHandler);
-        summaryManager.OnProjectSummaryArtStatusUpdate.AddListener(OnProjectSummaryArtStatusUpdateHandler);
+        if(TimeManager.Instance != null)
+        {
+            timeManager = TimeManager.Instance;
+            timeManager.OnTimeCalendar.AddListener(OnTimeCalendarHandler);
+            timeManager.OnDateCalendar.AddListener(OnDateCalendarHandler);
+            timeManager.OnTimeChange.AddListener(OnTimeChangeHandler);
+            timeManager.OnGodenTime.AddListener(OnGodenTimeHandler);
+            timeManager.ValidationDisplay();
+        }
+
+        if(ProjectController.Instance != null)
+        {
+            projectController = ProjectController.Instance;
+            projectController.OnProjectUpdate.AddListener(OnProjectUpdateHandler);
+        }
+
+        if(CharacterStatusController.Instance != null)
+        {
+            characterStatusController = CharacterStatusController.Instance;
+            characterStatusController.OnExpUpdated.AddListener(OnExpUpdatedHandler);
+            characterStatusController.OnMotivationUpdated.AddListener(OnMotivationUpdatedHandler);
+        }
+
+        if (PlayerAction.Instance != null)
+        {
+            playerAction = PlayerAction.Instance;
+        }
+        Initializing();
     }
 
-    private void OnProjectSummaryArtStatusUpdateHandler(string value)
+    
+
+    private void Initializing()
     {
-        throw new NotImplementedException();
+        projectWorkingTimeTMP.text = string.Format("{0}", projectController.GetMiniuteTimeToWork());
+        efficiencyMiniGameBonusTMP.text = string.Format("{0:p}", projectController.GetMiniGameBonusEfficiency);
+        OnMotivationUpdatedHandler();
+        OnExpUpdatedHandler();
+        OnProjectUpdateHandler();
     }
 
-    private void OnProjectSummaryBugStatusUpdateHandler(string value)
+    private void OnMotivationUpdatedHandler()
     {
-        throw new NotImplementedException();
+        efficiencyFormMotivationTMP.text = string.Format("{0:p}", characterStatusController.GetEfficiencyToDo());
+        SumEfficienc();
     }
 
-    private void OnProjectSummaryCharacterExpUpdateHandler(int currentExp, int goalExp)
+    private void SumEfficienc()
     {
-        throw new NotImplementedException();
+        float minigame = projectController.GetMiniGameBonusEfficiency;
+        float skill = playerAction.GetTotalBonusBootupProjectByTime();
+        float motivation = characterStatusController.GetEfficiencyToDo();
+        efficiencySum.text = string.Format("{0:p}", minigame + skill + motivation);
     }
 
-    private void OnProjectSummaryCharacterLevelUpdateHandler(string level)
+    private void OnExpUpdatedHandler()
     {
-        throw new NotImplementedException();
+        fillCharacterExpImage.fillAmount = (float) characterStatusController.CurrentExp / characterStatusController.GetNextExpRequire();
+        goalExpTMP.text = string.Format("{0}", characterStatusController.GetNextExpRequire());
+        currentExpTMP.text = string.Format("{0}", characterStatusController.CurrentExp);
+        characterLevelTMP.text = string.Format("{0}", characterStatusController.CurrentLevel);
+        efficiencyBonusTMP.text = string.Format("{0:p}", playerAction.GetTotalBonusBootupProjectByTime());
+        SumEfficienc();
     }
 
-    private void OnProjectSummaryCodingStatusUpdateHandler(string value)
+    private void OnProjectUpdateHandler()
     {
-        throw new NotImplementedException();
+        currentArtStatusTMP.text = string.Format("{0}", projectController.CurrentArtStatus);
+        currentBugStatusTMP.text = string.Format("{0}", projectController.CurrentBugStatus);
+        currentCodingStatusTMP.text = string.Format("{0}", projectController.CurrentCodingStatus);
+        currentDesignStatusTMP.text = string.Format("{0}", projectController.CurrentDesignStatus);
+        currentSoundStatusTMP.text = string.Format("{0}", projectController.CurrentSoundStatus);
+        currentTestingStatusTMP.text = string.Format("{0}", projectController.CurrentTestingStatus);
     }
 
-    private void OnProjectSummaryDesignStatusUpdateHandler(string value)
+
+    #region Time Manager
+    private void OnGodenTimeHandler(bool isTime)
     {
-        throw new NotImplementedException();
+        if (isTime)
+        {
+            godenTime.text = goden;
+        }
+        else
+        {
+            godenTime.text = normal;
+        }
     }
 
-    private void OnProjectSummaryEfficiencyUpdateHandler(float efficiencyMotivation, float efficiencyBonus, float efficiencySum)
+    private void OnTimeChangeHandler(bool day)
     {
-        throw new NotImplementedException();
+        if (day)
+        {
+            icon.sprite = timeManager.DayImage;
+        }
+        else
+        {
+            icon.sprite = timeManager.NightImage;
+        }
     }
 
-    private void OnProjectSummarySoundStatusUpdateHandler(string value)
+    private void OnDateCalendarHandler(string date)
     {
-        throw new NotImplementedException();
+        dateTMP.text = timeManager.GetOnDate();
     }
 
-    private void OnProjectSummaryTestingStatusUpdateHandler(string value)
+    private void OnTimeCalendarHandler(string time)
     {
-        throw new NotImplementedException();
+        timeTMP.text = timeManager.GetOnTime();
     }
-
-    private void OnProjectSummaryTimeUpdateHandler(string time)
-    {
-        throw new NotImplementedException();
-    }
+    #endregion
 }

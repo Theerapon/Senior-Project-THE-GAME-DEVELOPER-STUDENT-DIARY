@@ -115,7 +115,9 @@ public class WorkProjectDisplay : MonoBehaviour
 
     private void SetTextDesignDocument()
     {
-
+        nameProjectTMP.text = projectController.ProjectName;
+        detailMessageTMP.text = projectController.DetailMessage;
+        contextMessageTMP.text = projectController.ContextMessage;
     }
 
     public void DisplayEnergy(float amount)

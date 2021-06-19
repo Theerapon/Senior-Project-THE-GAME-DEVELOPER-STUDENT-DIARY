@@ -15,6 +15,8 @@ public class HUD_Info_Display : MonoBehaviour
     [Header("Energy and Motivation")]
     [SerializeField] private Image energy_bar;
     [SerializeField] private Image motivation_bar;
+    [SerializeField] private TMP_Text energy;
+    [SerializeField] private TMP_Text motivation;
 
     [Header("Money")]
     [SerializeField] private TMP_Text money;
@@ -44,18 +46,9 @@ public class HUD_Info_Display : MonoBehaviour
             characterStatusController.OnEnergyUpdated.AddListener(EnergyHandler);
             characterStatusController.OnMotivationUpdated.AddListener(MotivationHandler);
             characterStatusController.OnMoneyUpdated.AddListener(MoneyHandler);
+            characterStatusController.ValidateDisplay();
         }
 
-        Reset();
-    }
-
-    
-
-    private void Reset()
-    {
-        MoneyHandler();
-        MotivationHandler();
-        EnergyHandler();
     }
 
     private void MoneyHandler()
@@ -66,6 +59,7 @@ public class HUD_Info_Display : MonoBehaviour
     private void MotivationHandler()
     {
         motivation_bar.fillAmount = CalculateFillAmountMotivation();
+        motivation.text = string.Format("{0:n0} / {1:n0}", characterStatusController.CurrentMotivation, characterStatusController.Default_maxMotivation);
     }
 
     private float CalculateFillAmountMotivation()
@@ -76,6 +70,7 @@ public class HUD_Info_Display : MonoBehaviour
     private void EnergyHandler()
     {
         energy_bar.fillAmount = CalculateFillAmountEnergy();
+        energy.text = string.Format("{0:n0} / {1:n0}", characterStatusController.CurrentEnergy, characterStatusController.Default_maxEnergy);
     }
 
     private float CalculateFillAmountEnergy()

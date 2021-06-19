@@ -16,6 +16,8 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Course_Notification = 6;
     private const int INST_Display_Saving = 7;
     private const int INST_Display_Diary = 8;
+    private const int INST_Display_WorkProject = 9;
+    private const int INST_Display_WorkProject_Summary = 10;
     #endregion
 
     #region Animator Parameters
@@ -35,6 +37,16 @@ public class SwitchScene : Manager<SwitchScene>
     private void OnloadCompleteHandler(GameManager.GameState currentGameState, GameManager.GameState previousGameState)
     {
         if(previousGameState != GameManager.GameState.HOME_ACTION || currentGameState == GameManager.GameState.SAVEING)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+
+        if(previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.WORK_PROJECT)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+
+        if (previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.COURSE)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -76,6 +88,16 @@ public class SwitchScene : Manager<SwitchScene>
             case INST_Display_Diary:
                 gameManager.DisplayDiary(active);
                 break;
+            case INST_Display_WorkProject:
+                gameManager.DisplayWorkProject(active);
+                break;
+            case INST_Display_Course:
+                gameManager.DisplayCourse(active);
+                break;
+            case INST_Display_WorkProject_Summary:
+                gameManager.DisplayWorkProjectSummary(active);
+                break;
+
         }
         //LoadScene
     }
@@ -114,8 +136,8 @@ public class SwitchScene : Manager<SwitchScene>
 
     public void DisplayCourse(bool actived)
     {
-        //---Not Fand Out---
-        gameManager.DisplayCourse(actived);
+        //---Fand Out---
+        FadeToLevel(INST_Display_Course, actived);
     }
 
     public void DisplayCourseNotification(bool actived)
@@ -138,13 +160,19 @@ public class SwitchScene : Manager<SwitchScene>
 
     public void DisplayWorkProject(bool actived)
     {
-        //---Not Fand Out---
-        gameManager.DisplayWorkProject(actived);
+        //---Fand Out---
+        FadeToLevel(INST_Display_WorkProject, actived);
+        
     }
     public void DisplayWorkProjectDesign(bool actived)
     {
         //---Not Fand Out---
         gameManager.DisplayWorkProjectDesign(actived);
+    }
+    public void DisplayWorkProjectSummary(bool actived)
+    {
+        //---Fand Out---
+        FadeToLevel(INST_Display_WorkProject_Summary, actived);
     }
     #endregion
 }

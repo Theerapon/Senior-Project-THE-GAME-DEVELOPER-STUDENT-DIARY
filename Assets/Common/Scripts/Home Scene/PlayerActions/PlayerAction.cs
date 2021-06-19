@@ -357,10 +357,10 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         }
         return energy;
     }
-    public float CalMinMotivation()
+    public float GetMinMotivation()
     {
         float motivation = 0;
-        if (!timeManager.GetGoldenTime())
+        if (timeManager.GetGoldenTime())
         {
             motivation = GetTotalBonusBootUpMotivationGoldenTime();
         }
@@ -369,6 +369,19 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
             motivation = GetTotalBonusBootUpMotivation();
         }
         return motivation * characterStatusController.Default_maxMotivation;
+    }
+    public float GetTotalBonusBootupProjectByTime()
+    {
+        float bonus = 0f;
+        if (timeManager.GetGoldenTime())
+        {
+            bonus = GetTotalBonusBootUpProjectGoldenTime();
+        }
+        else
+        {
+            bonus = GetTotalBonusBootUpProject();
+        }
+        return bonus;
     }
     #endregion
 

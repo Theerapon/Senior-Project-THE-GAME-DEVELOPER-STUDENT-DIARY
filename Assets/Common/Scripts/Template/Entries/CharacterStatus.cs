@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterStatus : MonoBehaviour
 {
-
     #region Motivaltion Calculation
     private const int Phase1 = 79;
     private const int Phase2 = 59;
@@ -57,12 +56,12 @@ public class CharacterStatus : MonoBehaviour
     }
 
     #region Stat Increasers
-    public void IncreaseMaxEnergy(int newEnergyAmount)
+    public void IncreaseMaxEnergy(float newEnergyAmount)
     {
         definition.Default_maxEnergy = newEnergyAmount;
     }
 
-    public void IncreaseCurrentEnergy(int energyAmount)
+    public void IncreaseCurrentEnergy(float energyAmount)
     {
         if ((currentEnergy + energyAmount) > definition.Default_maxEnergy)
         {
@@ -89,7 +88,7 @@ public class CharacterStatus : MonoBehaviour
         }
     }
 
-    public void IncreaseCurrentMotivation(int currentMotivation)
+    public void IncreaseCurrentMotivation(float currentMotivation)
     {
         if ((this.currentMotivation + currentMotivation) > definition.Default_maxMotivation)
         {
@@ -133,7 +132,7 @@ public class CharacterStatus : MonoBehaviour
     #endregion
 
     #region Stat Reducers
-    public void TakeEnergy(int energyAmount)
+    public void TakeEnergy(float energyAmount)
     {
         if (currentEnergy - energyAmount <= 0)
         {
@@ -169,7 +168,7 @@ public class CharacterStatus : MonoBehaviour
         }
     }
 
-    public void TakeMotivation(int currentMotivation)
+    public void TakeMotivation(float currentMotivation)
     {
         if (this.currentMotivation - currentMotivation <= 0)
         {
@@ -261,7 +260,7 @@ public class CharacterStatus : MonoBehaviour
 
         currentSoftSkillPoints += definition.LevelUp_softskillPoints;
 
-        if (characterLevel > 1)
+        if (currentLevel > 1)
         {
             definition.Default_baseReduceEnergyConsumption += definition.LevelUp_baseReduceEnergyConsumption;
             definition.Defautl_goldenTimeReduceEnergyConsuption += definition.LevelUp_goldenTimeReduceEnergyConsuption;
@@ -283,7 +282,6 @@ public class CharacterStatus : MonoBehaviour
             definition.Default_reduceTimeTransport += definition.LevelUp_reduceTimeTransport;
 
             definition.Default_dropRate += definition.LevelUp_dropRate;
-            //OnLevelUp.Invoke(charLevel);
         }
 
         int levelTarget = definition.CharacterLevelRequiedList[currentLevel + 1].exp_required;
@@ -361,5 +359,16 @@ public class CharacterStatus : MonoBehaviour
     public float Default_positiveEventsEffect { get => definition.Default_positiveEventsEffect; }
     public float Default_reduceTimeTrainCourse { get => definition.Default_reduceTimeTrainCourse; }
     public float Default_reduceTimeTransport { get => definition.Default_reduceTimeTransport; }
+    public int GetNextExpRequire()
+    {
+        if(currentLevel + 1 < definition.CharacterLevelRequiedList.Length)
+        {
+            return definition.CharacterLevelRequiedList[currentLevel + 1].exp_required;
+        }
+        else
+        {
+            return definition.CharacterLevelRequiedList[currentLevel].exp_required;
+        }
+    }
     #endregion
 }
