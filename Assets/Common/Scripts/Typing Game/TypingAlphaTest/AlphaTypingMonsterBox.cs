@@ -40,8 +40,15 @@ public class AlphaTypingMonsterBox : WordBox
         wordManager = AlphaTypingManager.Instance;
         playerManager = AlphaTypingPlayerManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
-        //score = (int)(((characterStatusController.CurrentCodingStatus * 2.8f) + (characterStatusController.CurrentTestingStatus * 3.5f) / 10));
-        score = 30;
+        characterStatusController = CharacterStatusController.Instance;
+        if (characterStatusController != null)
+        {
+            score = (int)(((characterStatusController.CurrentCodingStatus * 1.6f) + (characterStatusController.CurrentTestingStatus * 1.4f) / 10));
+        }
+        else
+        {
+            score = 200;
+        }
         wordLength = tmp_Text.text.Length;
     }
 

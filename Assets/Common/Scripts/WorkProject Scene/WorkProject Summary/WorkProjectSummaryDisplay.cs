@@ -76,7 +76,7 @@ public class WorkProjectSummaryDisplay : MonoBehaviour
     private void Initializing()
     {
         projectWorkingTimeTMP.text = string.Format("{0}", projectController.GetMiniuteTimeToWork());
-        efficiencyMiniGameBonusTMP.text = string.Format("{0:p}", projectController.GetMiniGameBonusEfficiency);
+        efficiencyMiniGameBonusTMP.text = string.Format("{0:p}", projectController.MiniGameBonusEfficiency);
         OnMotivationUpdatedHandler();
         OnExpUpdatedHandler();
         OnProjectUpdateHandler();
@@ -90,7 +90,7 @@ public class WorkProjectSummaryDisplay : MonoBehaviour
 
     private void SumEfficienc()
     {
-        float minigame = projectController.GetMiniGameBonusEfficiency;
+        float minigame = projectController.MiniGameBonusEfficiency;
         float skill = playerAction.GetTotalBonusBootupProjectByTime();
         float motivation = characterStatusController.GetEfficiencyToDo();
         efficiencySum.text = string.Format("{0:p}", minigame + skill + motivation);

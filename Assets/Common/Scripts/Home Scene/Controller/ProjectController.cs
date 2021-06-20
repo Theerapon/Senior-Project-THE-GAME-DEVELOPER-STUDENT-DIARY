@@ -75,7 +75,7 @@ public class ProjectController : Manager<ProjectController>
     }
 
     public int SecondToWork { get => secondToWork; set => secondToWork = value; }
-    public float GetMiniGameBonusEfficiency { get => minigameBonusEfficiency; set => minigameBonusEfficiency = value; }
+    public float MiniGameBonusEfficiency { get => minigameBonusEfficiency; set => minigameBonusEfficiency = value; }
     #endregion
 
     public float CalTotalEnergyToConsumeByTime(int seccond)

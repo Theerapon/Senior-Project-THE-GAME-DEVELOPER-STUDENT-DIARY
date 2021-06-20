@@ -130,18 +130,14 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
     {
         if(state == GameManager.GameState.WORK_PROJECT_SUMMARY)
         {
-            Debug.Log(string.Format("times {0}, count {1}", times, countHalfHour));
-            if ((countHalfHour != 0 && countHalfHour == times))
-            {
-                SetButtonActive(true);
-            }
+            SetButtonActive(true);
         }
     }
     
     private void UpdateProjectStatusSummary()
     {
         float motivation = characterStatusController.GetEfficiencyToDo();
-        float minigame = projectController.GetMiniGameBonusEfficiency;
+        float minigame = projectController.MiniGameBonusEfficiency;
         float skill = playerAction.GetTotalBonusBootupProjectByTime();
         float sumEfficiency = motivation + minigame + skill;
         int rnd = Random.Range(0, 5);

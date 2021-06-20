@@ -18,6 +18,7 @@ public class WorkTypingRandomBox : WordBox
 
     private WorkTypingPlayerManager playerManager;
     private WorkTypingManager wordManager;
+    private CharacterStatusController characterStatusController;
 
     private const int TIMESCALE = 1;
 
@@ -44,9 +45,16 @@ public class WorkTypingRandomBox : WordBox
     {
         wordManager = WorkTypingManager.Instance;
         playerManager = WorkTypingPlayerManager.Instance;
+        characterStatusController = CharacterStatusController.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
-        //score = (int)(((characterStatusController.CurrentCodingStatus * 2.8f) + (characterStatusController.CurrentTestingStatus * 3.5f) / 10));
-        score = 30;
+        if (characterStatusController != null)
+        {
+            score = (int)(((characterStatusController.CurrentCodingStatus * 1.8f) + (characterStatusController.Default_designStatus) + (characterStatusController.CurrentTestingStatus) + (characterStatusController.Default_artStats) + (characterStatusController.Default_soundStats) / 10));
+        }
+        else
+        {
+            score = 200;
+        }
         wordLength = tmp_Text.text.Length;
         multiply = playerManager.BoxGenerateMultiplier[(int)playerManager.ChancePhase];
     }

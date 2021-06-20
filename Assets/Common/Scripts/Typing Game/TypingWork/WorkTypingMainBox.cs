@@ -13,6 +13,7 @@ public class WorkTypingMainBox : WordBox
     private WorkTypingPlayerManager playerManager;
     private WorkTypingTimer wordTypingWorkTimer;
     private WorkTypingManager wordManager;
+    private CharacterStatusController characterStatusController;
 
     private int wordLength;
     private int score;
@@ -27,8 +28,16 @@ public class WorkTypingMainBox : WordBox
         wordTypingWorkTimer = FindObjectOfType<WorkTypingTimer>();
         wordManager = WorkTypingManager.Instance;
         playerManager = WorkTypingPlayerManager.Instance;
-        //score = (int)(((characterStatusController.CurrentCodingStatus * 2.8f) + (characterStatusController.CurrentTestingStatus * 3.5f) / 10));
-        score = 30;
+        characterStatusController = CharacterStatusController.Instance;
+        if(characterStatusController != null)
+        {
+            score = (int)(((characterStatusController.CurrentCodingStatus * 1.2f) + (characterStatusController.Default_designStatus) + (characterStatusController.CurrentTestingStatus) + (characterStatusController.Default_artStats) + (characterStatusController.Default_soundStats) / 10));
+        }
+        else
+        {
+            score = 200;
+        }
+        
         wordLength = tmp_Text.text.Length;
         multiply = playerManager.NormalBoxMultiply;
     }

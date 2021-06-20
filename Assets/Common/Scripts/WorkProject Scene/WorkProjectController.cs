@@ -168,11 +168,11 @@ public class WorkProjectController : MonoBehaviour
                 case ProjectPhase.Design:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                        SwitchScene.Instance.DisplayWorkProjectDesign(true);
                     }
                     else
                     {
-                        SwitchScene.Instance.DisplayWorkProjectDesign(true);
+                        SwitchScene.Instance.DisplayWorkProject(true);
                     }
                     
                     break;

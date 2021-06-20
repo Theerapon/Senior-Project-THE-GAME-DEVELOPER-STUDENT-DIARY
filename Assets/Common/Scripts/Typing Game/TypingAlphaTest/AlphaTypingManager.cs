@@ -51,6 +51,7 @@ public class AlphaTypingManager : Manager<AlphaTypingManager>
     public int CountTotalWordGenerate { get => countTotalWordGenerate; }
     public int CountWordVerified { get => countWordVerified; }
     public int CountFoundWordBug { get => countFoundWordBug; }
+    public int CurrentLevel { get => currentLevel; }
 
     protected override void Awake()
     {

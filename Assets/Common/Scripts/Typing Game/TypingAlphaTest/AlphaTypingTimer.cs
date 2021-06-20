@@ -24,10 +24,12 @@ public class AlphaTypingTimer : MonoBehaviour
     [SerializeField] private int totalTimeToFinishedGerator = 30;
     private float timeCountGenerator;
     private int amountGenerator;
-    private float timeEachWordGenerated;
+
+    private readonly float[] cooldown = { 1f, 1f, 1f, 1.25f, 1.35f, 1.45f, 1.5f, 1.60f, 1.65f, 1.75f, };
 
     private void Start()
     {
+        timeCountGenerator = cooldown[0];
         canPlaying = false;
         timeCountDown = maxtimeCoutDown;
         SetLevel();
@@ -63,11 +65,12 @@ public class AlphaTypingTimer : MonoBehaviour
                 {
                     
                     timeCountGenerator += Time.deltaTime * Time.timeScale;
-                    if (timeCountGenerator >= timeEachWordGenerated && amountGenerator > 0)
+                    if (timeCountGenerator >= cooldown[wordManager.CurrentLevel] && amountGenerator > 0)
                     {
                         GeneratedBox();
                         timeCountGenerator = 0;
                     }
+
                 }
                 break;
         }
@@ -104,8 +107,6 @@ public class AlphaTypingTimer : MonoBehaviour
     private void SetLevel()
     {
         amountGenerator = wordManager.GetAmountTypingLevel();
-        timeEachWordGenerated = (totalTimeToFinishedGerator / amountGenerator);
-        timeCountGenerator = timeEachWordGenerated;
     }
 
     public int GetAmountGenerator()

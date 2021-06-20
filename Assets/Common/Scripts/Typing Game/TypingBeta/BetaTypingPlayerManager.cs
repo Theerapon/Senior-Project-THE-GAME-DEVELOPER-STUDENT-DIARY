@@ -74,8 +74,15 @@ public class BetaTypingPlayerManager : Manager<BetaTypingPlayerManager>
         countMonsterKilledToUltimateSkill = 0;
         currentCombo = 0;
         maxCombo = currentCombo;
-        //damage = characterStatusController.CurrentTestingStatus * INST_DamageMultiplier;
-        damage = 40 * INST_DamageMultiplier;
+        if (characterStatusController != null)
+        {
+            damage = characterStatusController.CurrentTestingStatus * INST_DamageMultiplier;
+        }
+        else
+        {
+            damage = 40 * INST_DamageMultiplier;
+        }
+
         UpdatePlayerState(BetaPlayerState.Alive);
         UpdateComboPhase(BetaComboPhase.Phase1);
     }

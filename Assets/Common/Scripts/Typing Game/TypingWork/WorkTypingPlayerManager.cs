@@ -41,7 +41,7 @@ public class WorkTypingPlayerManager : Manager<WorkTypingPlayerManager>
     private int minChanceGenerateBox = 0;
     private int[] countComboToGenerate = { 0, 25, 45, 55, 80};
     private int[] cooldownToGenerate = { 14, 12, 8, 6, 5 };
-    private readonly float[] boxGenerateMultiply = { 0.5f, 1f, 2.2f, 2.8f, 4f };
+    private readonly float[] boxGenerateMultiply = { 1f, 1.5f, 2.2f, 2.8f, 4f };
     private readonly float normalBoxMultiply = 1f;
     private readonly int maxChanceGenerator = 5;
 

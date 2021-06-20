@@ -43,10 +43,16 @@ public class AlphaTypingBox : WordBox
         wordManager = AlphaTypingManager.Instance;
         playerManager = AlphaTypingPlayerManager.Instance;
         screenHalfWidth = wordManager.GetCanvasWidth() / 2;
-        //score = (int)(((characterStatusController.CurrentCodingStatus * 1.2f) + (characterStatusController.CurrentTestingStatus * 2f) / 10));
-        score = 18;
+        characterStatusController = CharacterStatusController.Instance;
+        if (characterStatusController != null)
+        {
+            score = (int)(((characterStatusController.CurrentCodingStatus * 1.2f) + (characterStatusController.CurrentTestingStatus * 1.1f) / 10));
+        }
+        else
+        {
+            score = 200;
+        }
         wordLength = tmp_Text.text.Length;
-        Debug.Log("; " + wordLength);
     }
 
     private void Update()
