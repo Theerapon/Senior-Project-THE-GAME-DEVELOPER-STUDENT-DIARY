@@ -16,6 +16,7 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         PreGame,
         Playing,
         PostGame,
+        Summary
     }
     #endregion
     private TypingGameState typingGameState;
@@ -197,13 +198,16 @@ public class BetaTypingManager : Manager<BetaTypingManager>
         switch (typingGameState)
         {
             case TypingGameState.PreGame:
-                Time.timeScale = 0f;
+                Time.timeScale = 1f;
                 break;
             case TypingGameState.Playing:
                 Time.timeScale = 1f;
                 break;
             case TypingGameState.PostGame:
                 Time.timeScale = 0f;
+                break;
+            case TypingGameState.Summary:
+                Time.timeScale = 1f;
                 break;
         }
         OnTypingGameStateChanged?.Invoke(this.typingGameState);

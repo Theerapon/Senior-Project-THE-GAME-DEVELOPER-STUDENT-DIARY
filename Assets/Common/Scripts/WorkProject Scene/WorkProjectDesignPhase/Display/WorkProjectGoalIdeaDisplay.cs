@@ -24,8 +24,6 @@ public class WorkProjectGoalIdeaDisplay : WorkProjectIdeasDisplay
             workProjectGoalIdeaContainer.transform.GetComponentsInChildren(includeInactive: true, result: baseIdeaSlots);
         }
 
-        Debug.Log("count = " + workProjectGoalIdeaContainer.transform.childCount);
-        Debug.Log("slots = " + baseIdeaSlots.Count);
         for (int index = 0; index < baseIdeaSlots.Count; index++)
         {
             baseIdeaSlots[index].OnPointEnterIdeaSlotEvent.AddListener(OnPointEnterIdeaSlotEventHandler);

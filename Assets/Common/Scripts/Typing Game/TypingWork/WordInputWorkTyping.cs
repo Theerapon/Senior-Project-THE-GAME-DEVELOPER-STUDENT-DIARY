@@ -9,13 +9,26 @@ public class WordInputWorkTyping : MonoBehaviour
 
     void Update()
     {
-        if (playerManager.HasAlive() && wordManager.GetTypingGameState == WorkTypingManager.TypingGameState.Playing)
+        switch (wordManager.GetTypingGameState)
         {
-            foreach (char letter in Input.inputString)
-            {
-                wordManager.TypeLetterManager(letter);
-            }
+            case WorkTypingManager.TypingGameState.PreGame:
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    wordManager.PlaysGame();
+                }
+                break;
+            case WorkTypingManager.TypingGameState.Playing:
+                if (playerManager.HasAlive() && wordManager.GetTypingGameState == WorkTypingManager.TypingGameState.Playing)
+                {
+                    foreach (char letter in Input.inputString)
+                    {
+                        wordManager.TypeLetterManager(letter);
+                    }
+                }
+                break;
         }
+
+        
 
     }
 }

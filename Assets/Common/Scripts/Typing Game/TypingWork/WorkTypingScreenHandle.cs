@@ -32,6 +32,7 @@ public class WorkTypingScreenHandle : MonoBehaviour
     [SerializeField] private GameObject summaryObj;
 
 
+
     void Start()
     {
         typingGameManager.OnTypingGameStateChanged.AddListener(OnTypingGameStateChangedHandler);

@@ -16,6 +16,7 @@ public class WorkTypingManager : Manager<WorkTypingManager>
         PreGame,
         Playing,
         PostGame,
+        Summary
     }
     #endregion
     private TypingGameState typingGameState;
@@ -60,13 +61,16 @@ public class WorkTypingManager : Manager<WorkTypingManager>
         switch (typingGameState)
         {
             case TypingGameState.PreGame:
-                Time.timeScale = 0f;
+                Time.timeScale = 1f;
                 break;
             case TypingGameState.Playing:
                 Time.timeScale = 1f;
                 break;
             case TypingGameState.PostGame:
                 Time.timeScale = 0f;
+                break;
+            case TypingGameState.Summary:
+                Time.timeScale = 1f;
                 break;
         }
         OnTypingGameStateChanged?.Invoke(this.typingGameState);
@@ -96,6 +100,10 @@ public class WorkTypingManager : Manager<WorkTypingManager>
         BaseWordWorkTypingRandom word = new BaseWordWorkTypingRandom(WordGenerater.GetRandomWord(), wordRandomSpawner);
         mainWordlist.Add(word.GetHashCode().ToString(), word);
         word.SetID(word.GetHashCode().ToString());
+    }
+    public void PlaysGame()
+    {
+        wordTypingWorkTimer.PlaysGame();
     }
 
     public void TypeLetterManager(char letter)

@@ -48,6 +48,21 @@ public class MenuController : MonoBehaviour
             ActivedBlur(false);
             _camera.SetActive(true);
         }
+
+        if(currentState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
+        {
+            ActivedBlur(false);
+            _camera.SetActive(false);
+        }
+
+       if(currentState == GameManager.GameState.WORK_PROJECT_SUMMARY)
+        {
+            ActivedBlur(true);
+            if (_camera.activeSelf == false)
+            {
+                _camera.SetActive(true);
+            }
+        }
     }
 
     void Update()

@@ -12,6 +12,7 @@ public class AlphaTypingTimer : MonoBehaviour
     [SerializeField] private float maxTotalTime = 60;
     [SerializeField] private float bonusTime = 30;
     private float gameTime;
+    private bool canPlaying;
 
     private const float maxtimeCoutDown = 3f;
     private float timeCountDown;
@@ -27,6 +28,7 @@ public class AlphaTypingTimer : MonoBehaviour
 
     private void Start()
     {
+        canPlaying = false;
         timeCountDown = maxtimeCoutDown;
         SetLevel();
     }
@@ -36,12 +38,15 @@ public class AlphaTypingTimer : MonoBehaviour
         switch (wordManager.GetTypingGameState())
         {
             case AlphaTypingManager.TypingGameState.PreGame:
-                timeCountDown -= Time.deltaTime * Time.timeScale;
-                OnAlphaTypingTimerUpdate?.Invoke();
-                if (timeCountDown <= minTimeCountDown)
+                if (canPlaying)
                 {
-                    timeCountDown = maxtimeCoutDown;
-                    wordManager.UpdateTypingGameState(AlphaTypingManager.TypingGameState.Playing);
+                    timeCountDown -= Time.deltaTime * Time.timeScale;
+                    OnAlphaTypingTimerUpdate?.Invoke();
+                    if (timeCountDown <= minTimeCountDown)
+                    {
+                        timeCountDown = maxtimeCoutDown;
+                        wordManager.UpdateTypingGameState(AlphaTypingManager.TypingGameState.Playing);
+                    }    
                 }
                 break;
             case AlphaTypingManager.TypingGameState.Playing:
@@ -72,7 +77,7 @@ public class AlphaTypingTimer : MonoBehaviour
 
     public void PlaysGame()
     {
-        Time.timeScale = TIME_SCALE;
+        canPlaying = true;
     }
 
     public string GetTimeCountDown()

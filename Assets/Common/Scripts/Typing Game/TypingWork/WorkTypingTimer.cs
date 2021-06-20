@@ -27,6 +27,8 @@ public class WorkTypingTimer : MonoBehaviour
     private float countSecondTime;
     private float cooldownGenerateBox;
 
+    private bool canPlaying;
+
     private void Awake()
     {
         playerManager.OnWorkTypingPlayerGeneratorBoxStateChange.AddListener(GeneratorBoxHandler);
@@ -35,7 +37,8 @@ public class WorkTypingTimer : MonoBehaviour
     private void Start()
     {
         currentWordDelay = maxWordDelay;
-        wordManager.AddMainWordBox();
+        timeCountDown = maxtimeCoutDown;
+        canPlaying = false;
     }
 
     private void GeneratorBoxHandler()
@@ -49,20 +52,23 @@ public class WorkTypingTimer : MonoBehaviour
         switch (wordManager.GetTypingGameState)
         {
             case WorkTypingManager.TypingGameState.PreGame:
-                timeCountDown -= Time.deltaTime * Time.timeScale;
-                OnworkTypingTimerUpdate?.Invoke();
-                if (timeCountDown <= minTimeCountDown)
+                if (canPlaying)
                 {
-                    timeCountDown = maxtimeCoutDown;
-                    wordManager.UpdateTypingGameState(WorkTypingManager.TypingGameState.Playing);
+                    timeCountDown -= Time.deltaTime * Time.timeScale;
+                    OnworkTypingTimerUpdate?.Invoke();
+                    if (timeCountDown <= minTimeCountDown)
+                    {
+                        timeCountDown = maxtimeCoutDown;
+                        wordManager.UpdateTypingGameState(WorkTypingManager.TypingGameState.Playing);
+                        wordManager.AddMainWordBox();
+                    }
+
                 }
                 break;
             case WorkTypingManager.TypingGameState.Playing:
                 OnworkTypingTimerUpdate?.Invoke();
                 gameTime += Time.deltaTime * Time.timeScale;
                 countSecondTime += Time.deltaTime * Time.timeScale;
-
-
 
                 if (gameTime >= maxTotalTime)
                 {
@@ -133,6 +139,10 @@ public class WorkTypingTimer : MonoBehaviour
     {
         cooldownGenerateBox = time;
         countSecondTime = time;
-        Debug.Log("Cooltime = " + time);
+    }
+
+    public void PlaysGame()
+    {
+        canPlaying = true;
     }
 }

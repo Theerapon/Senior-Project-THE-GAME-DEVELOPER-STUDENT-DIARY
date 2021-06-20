@@ -16,6 +16,7 @@ public class BetaTypingTimer : MonoBehaviour
     private float gameTime;
     private float countSecondTime;
     private float cooldownGenerateMonster;
+    private bool canPlaying;
 
     private const int TIMESCALE = 1;
 
@@ -33,6 +34,7 @@ public class BetaTypingTimer : MonoBehaviour
     private void Start()
     {
         timeCountDown = maxtimeCoutDown;
+        canPlaying = false;
     }
 
     private void BossStateChangeHandler(BetaTypingGameBossManager.BossState state)
@@ -48,15 +50,19 @@ public class BetaTypingTimer : MonoBehaviour
         switch (wordManager.GetTypingGameState())
         {
             case BetaTypingManager.TypingGameState.PreGame:
-                timeCountDown -= Time.deltaTime * Time.timeScale;
-                OnBetaTypingTimerUpdate?.Invoke();
-                if (timeCountDown <= minTimeCountDown)
+                if (canPlaying)
                 {
-                    timeCountDown = maxtimeCoutDown;
-                    wordManager.UpdateTypingGameState(BetaTypingManager.TypingGameState.Playing);
-                    wordManager.AddBossWordBox();
-                    wordManager.AddMonsterWordBox();
+                    timeCountDown -= Time.deltaTime * Time.timeScale;
+                    OnBetaTypingTimerUpdate?.Invoke();
+                    if (timeCountDown <= minTimeCountDown)
+                    {
+                        timeCountDown = maxtimeCoutDown;
+                        wordManager.UpdateTypingGameState(BetaTypingManager.TypingGameState.Playing);
+                        wordManager.AddBossWordBox();
+                        wordManager.AddMonsterWordBox();
+                    }
                 }
+                
                 break;
             case BetaTypingManager.TypingGameState.Playing:
                 gameTime += Time.deltaTime * Time.timeScale;
@@ -96,7 +102,7 @@ public class BetaTypingTimer : MonoBehaviour
 
     public void PlaysGame()
     {
-        Time.timeScale = TIMESCALE;
+        canPlaying = true;
     }
 
     public string GetTimeCountDown()

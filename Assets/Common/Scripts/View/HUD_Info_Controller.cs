@@ -59,6 +59,10 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowForWorkProjectSummary();
         }
+        else if (current_game_state == GameManager.GameState.WORK_PROJECT_MINI_GAME)
+        {
+            ShowForMiniGame();
+        }
 
     }
     private void DisplayEnergyAndMotivation(bool actived)
@@ -186,6 +190,15 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayDateTime(false);
         DisplayButtonBack(false);
         DisplayMoney(true);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+    }
+    private void ShowForMiniGame()
+    {
+        DisplayEnergyAndMotivation(false);
+        DisplayDateTime(false);
+        DisplayButtonBack(false);
+        DisplayMoney(false);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
     }

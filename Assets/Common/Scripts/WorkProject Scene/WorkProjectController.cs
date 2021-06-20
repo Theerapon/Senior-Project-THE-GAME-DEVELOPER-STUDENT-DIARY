@@ -166,19 +166,64 @@ public class WorkProjectController : MonoBehaviour
             switch (projectController.ProjectPhase)
             {
                 case ProjectPhase.Design:
-                    SwitchScene.Instance.DisplayWorkProjectDesign(true);
+                    if (projectController.HasDesigned)
+                    {
+                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                    }
+                    else
+                    {
+                        SwitchScene.Instance.DisplayWorkProjectDesign(true);
+                    }
+                    
                     break;
                 case ProjectPhase.FirstPlayable:
+                    if (projectController.HasDesigned)
+                    {
+                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                    }
                     break;
                 case ProjectPhase.Prototype:
+                    if (projectController.HasDesigned)
+                    {
+                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                    }
                     break;
                 case ProjectPhase.VerticalSlice:
+                    if (projectController.HasDesigned)
+                    {
+                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                    }
                     break;
                 case ProjectPhase.AlphaTest:
+                    if (projectController.HasDesigned)
+                    {
+                        SwitchScene.Instance.DisplayAlphaTypingGmae(true);
+                    }
                     break;
                 case ProjectPhase.BetaTest:
+                    if (projectController.HasDesigned)
+                    {
+                        SwitchScene.Instance.DisplayBetaTypingGmae(true);
+                    }
                     break;
                 case ProjectPhase.Master:
+                    if (projectController.HasDesigned)
+                    {
+                        int rnd = UnityEngine.Random.Range(0, 3);
+                        if (rnd >= 2)
+                        {
+                            SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                        }
+                        else if (rnd >= 1)
+                        {
+                            SwitchScene.Instance.DisplayAlphaTypingGmae(true);
+                        }
+                        else
+                        {
+                            SwitchScene.Instance.DisplayBetaTypingGmae(true);
+                        }
+                        
+                    }
                     break;
             }
         }

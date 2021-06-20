@@ -1461,6 +1461,12 @@ MonoBehaviour:
   OnMoneyUpdated:
     m_PersistentCalls:
       m_Calls: []
+  OnExpUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStatusUpdated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1803865494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e4433a70ce99845950ecacea1e6fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnProjectUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   playerAction: {fileID: 2079842010}
   characterStatusController: {fileID: 1694228983}
   ideasController: {fileID: 1533797267}
@@ -1803,6 +1812,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: bg_home
+      objectReference: {fileID: 0}
+    - target: {fileID: 315555995618459271, guid: db6eacebf14e1f14394c194db34f4bef,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 315555995618459289, guid: db6eacebf14e1f14394c194db34f4bef,
         type: 3}

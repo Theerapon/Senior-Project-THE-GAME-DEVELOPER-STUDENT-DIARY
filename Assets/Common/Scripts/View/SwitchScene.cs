@@ -18,6 +18,9 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Diary = 8;
     private const int INST_Display_WorkProject = 9;
     private const int INST_Display_WorkProject_Summary = 10;
+    private const int INST_Display_WorkTypingGame = 11;
+    private const int INST_Display_AlphaTypingGame = 12;
+    private const int INST_Display_BetaTypingGame = 13;
     #endregion
 
     #region Animator Parameters
@@ -47,6 +50,11 @@ public class SwitchScene : Manager<SwitchScene>
         }
 
         if (previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.COURSE)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+
+        if (previousGameState == GameManager.GameState.WORK_PROJECT && currentGameState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -96,6 +104,15 @@ public class SwitchScene : Manager<SwitchScene>
                 break;
             case INST_Display_WorkProject_Summary:
                 gameManager.DisplayWorkProjectSummary(active);
+                break;
+            case INST_Display_WorkTypingGame:
+                gameManager.DisplayWorkTypingGame(active);
+                break;
+            case INST_Display_AlphaTypingGame:
+                gameManager.DisplayAlphaTypingGame(active);
+                break;
+            case INST_Display_BetaTypingGame:
+                gameManager.DisplayBetaTypingGame(active);
                 break;
 
         }
@@ -173,6 +190,21 @@ public class SwitchScene : Manager<SwitchScene>
     {
         //---Fand Out---
         FadeToLevel(INST_Display_WorkProject_Summary, actived);
+    }
+    public void DisplayWorkTypingGmae(bool actived)
+    {
+        //---Fand Out---
+        FadeToLevel(INST_Display_WorkTypingGame, actived);
+    }
+    public void DisplayAlphaTypingGmae(bool actived)
+    {
+        //---Fand Out---
+        FadeToLevel(INST_Display_AlphaTypingGame, actived);
+    }
+    public void DisplayBetaTypingGmae(bool actived)
+    {
+        //---Fand Out---
+        FadeToLevel(INST_Display_BetaTypingGame, actived);
     }
     #endregion
 }

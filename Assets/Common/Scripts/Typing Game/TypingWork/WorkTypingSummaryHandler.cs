@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static WorkTypingManager;
 
 public class WorkTypingSummaryHandler : MonoBehaviour
 {
@@ -44,5 +45,11 @@ public class WorkTypingSummaryHandler : MonoBehaviour
         countGoodIdeaTMP.text = playerManager.WordGoodIdea.ToString();
         countBadIdeaTMP.text = playerManager.WordBadIdea.ToString();
         maxComboTMP.text = playerManager.MaxCombo.ToString();
+    }
+
+    public void Next()
+    {
+        typingManager.UpdateTypingGameState(TypingGameState.Summary);
+        SwitchScene.Instance.DisplayWorkProjectSummary(true);
     }
 }

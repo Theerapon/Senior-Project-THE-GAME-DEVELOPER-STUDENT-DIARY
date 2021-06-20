@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static AlphaTypingManager;
 
 public class AlphaTypingSummaryHandler : MonoBehaviour
 {
@@ -46,5 +47,11 @@ public class AlphaTypingSummaryHandler : MonoBehaviour
         countWordVerifiedTMP.text = typingManager.CountWordVerified.ToString();
         countFoundWordBugTMP.text = typingManager.CountFoundWordBug.ToString();
         maxComboTMP.text = playerManager.MaxCombo.ToString();
+    }
+
+    public void Next()
+    {
+        typingManager.UpdateTypingGameState(TypingGameState.Summary);
+        SwitchScene.Instance.DisplayWorkProjectSummary(true);
     }
 }

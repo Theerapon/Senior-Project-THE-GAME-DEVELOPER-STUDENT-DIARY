@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static BetaTypingManager;
 
 public class BetaTypingSummaryHandler : MonoBehaviour
 {
@@ -49,4 +50,9 @@ public class BetaTypingSummaryHandler : MonoBehaviour
         maxCombo.text = playerManager.MaxCombo.ToString();
     }
 
+    public void Next()
+    {
+        typingManager.UpdateTypingGameState(TypingGameState.Summary);
+        SwitchScene.Instance.DisplayWorkProjectSummary(true);
+    }
 }

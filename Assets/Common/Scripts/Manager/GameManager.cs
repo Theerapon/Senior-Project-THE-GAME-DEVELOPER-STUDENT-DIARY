@@ -40,6 +40,9 @@ public class GameManager : Manager<GameManager>
         Saving,
         Diary,
         PreparingData,
+        TypingAlphaTest,
+        TypingBetaTest,
+        TypingWork
     }
 
 
@@ -221,6 +224,23 @@ public class GameManager : Manager<GameManager>
         }
         #endregion
 
+        #region mini Game
+        if (scene == GameScene.TypingWork)
+        {
+            UpdateState(GameState.WORK_PROJECT_MINI_GAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.TypingAlphaTest)
+        {
+            UpdateState(GameState.WORK_PROJECT_MINI_GAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.TypingBetaTest)
+        {
+            UpdateState(GameState.WORK_PROJECT_MINI_GAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
 
         /*
         if (scene == GameScene.CourseAnimation)
@@ -489,6 +509,39 @@ public class GameManager : Manager<GameManager>
             UnLoadLevel(GameScene.COM_WorkProject_Summary);
             UpdateState(GameState.WORK_PROJECT);
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+    }
+    public void DisplayWorkTypingGame(bool active)
+    {
+        if (active)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.TypingWork);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.TypingWork);
+        }
+    }
+    public void DisplayAlphaTypingGame(bool active)
+    {
+        if (active)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.TypingAlphaTest);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.TypingAlphaTest);
+        }
+    }
+    public void DisplayBetaTypingGame(bool active)
+    {
+        if (active)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.TypingBetaTest);
+        }
+        else
+        {
+            UnLoadLevel(GameScene.TypingBetaTest);
         }
     }
 
