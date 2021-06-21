@@ -13,6 +13,7 @@ public class Store_Template : MonoBehaviour
     private List<string> storeItemSetOnSat = new List<string>();
     private List<string> storeItemSetOnSun = new List<string>();
     private Dictionary<string, string> storeItemSetOnEvent = new Dictionary<string, string>();
+    private string defaultStoreItemId;
 
     public string Id { get => id; }
     public List<string> StoreItemSetOnMon { get => storeItemSetOnMon; }
@@ -23,8 +24,9 @@ public class Store_Template : MonoBehaviour
     public List<string> StoreItemSetOnSat { get => storeItemSetOnSat; }
     public List<string> StoreItemSetOnSun { get => storeItemSetOnSun; }
     public Dictionary<string, string> StoreItemSetOnEvent { get => storeItemSetOnEvent; }
+    public string DefaultStoreItemId { get => defaultStoreItemId; }
 
-    public Store_Template(string id, List<string> storeItemSetOnMon, List<string> storeItemSetOnTue, List<string> storeItemSetOnWed, List<string> storeItemSetOnThu, List<string> storeItemSetOnFri, List<string> storeItemSetOnSat, List<string> storeItemSetOnSun, Dictionary<string, string> storeItemSetOnEvent)
+    public Store_Template(string id, List<string> storeItemSetOnMon, List<string> storeItemSetOnTue, List<string> storeItemSetOnWed, List<string> storeItemSetOnThu, List<string> storeItemSetOnFri, List<string> storeItemSetOnSat, List<string> storeItemSetOnSun, Dictionary<string, string> storeItemSetOnEvent, string defaultId)
     {
         this.id = id;
         this.storeItemSetOnMon = storeItemSetOnMon;
@@ -35,5 +37,6 @@ public class Store_Template : MonoBehaviour
         this.storeItemSetOnSat = storeItemSetOnSat;
         this.storeItemSetOnSun = storeItemSetOnSun;
         this.storeItemSetOnEvent = storeItemSetOnEvent;
+        defaultStoreItemId = defaultId;
     }
 }

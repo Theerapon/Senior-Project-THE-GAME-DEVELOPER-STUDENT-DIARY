@@ -13,6 +13,7 @@ public class StoresVM : MonoBehaviour
     private const string INST_SET_ItemSetOnSat = "Sat";
     private const string INST_SET_ItemSetOnSun = "Sun";
     private const string INST_SET_Event = "Event";
+    private const string INST_SET_Default = "default";
     #endregion
 
     [SerializeField] private Stores_Loading stores_Loading;
@@ -57,6 +58,7 @@ public class StoresVM : MonoBehaviour
         List<string> storeItemSetOnSat = new List<string>();
         List<string> storeItemSetOnSun = new List<string>();
         Dictionary<string, string> storeItemSetOnEvent = new Dictionary<string, string>();
+        string defaultStoreId = string.Empty;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -91,11 +93,14 @@ public class StoresVM : MonoBehaviour
                 case INST_SET_Event:
                     storeItemSetOnEvent.Add(entries[++i], entries[++i]);
                     break;
+                case INST_SET_Default:
+                    defaultStoreId = entries[++i];
+                    break;
 
             }
 
         }
 
-        return new Store_Template(id, storeItemSetOnMon, storeItemSetOnTue, storeItemSetOnWed, storeItemSetOnThu, storeItemSetOnFri, storeItemSetOnSat, storeItemSetOnSun, storeItemSetOnEvent);
+        return new Store_Template(id, storeItemSetOnMon, storeItemSetOnTue, storeItemSetOnWed, storeItemSetOnThu, storeItemSetOnFri, storeItemSetOnSat, storeItemSetOnSun, storeItemSetOnEvent, defaultStoreId);
     }
 }
