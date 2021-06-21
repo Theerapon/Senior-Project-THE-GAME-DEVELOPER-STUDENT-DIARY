@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MouseManager : Manager<MouseManager>
 {
@@ -8,12 +9,11 @@ public class MouseManager : Manager<MouseManager>
     private const string INST_Obj_Computer = "obj_com";
     private const string INST_Obj_Door = "obj_door";
     private const string INST_Obj_Storage = "obj_storage";
-    private const string INST_Place_Clothing = "Place_Cloting";
-    private const string INST_Place_Exploration = "Place_Exploration";
+    private const string INST_Place_Clothing = "Place_Clothing";
     private const string INST_Place_Food = "Place_Food";
     private const string INST_Place_Home = "Place_Home";
     private const string INST_Place_Material = "Place_Material";
-    private const string INST_Place_Mystic = "lace_Mystic";
+    private const string INST_Place_Mystic = "Place_Mystic";
     private const string INST_Place_Park = "Place_Park";
     private const string INST_Place_Teacher = "Place_Teacher";
     private const string INST_Place_University = "Place_University";
@@ -45,9 +45,10 @@ public class MouseManager : Manager<MouseManager>
 
     private void Update()
     {
-        if(GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
+        if (GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
         {
             MouseHandler();
+
         }
     }
 
@@ -117,9 +118,6 @@ public class MouseManager : Manager<MouseManager>
             case INST_Place_Clothing:
                 objClicked.GetComponent<ClotingClickable>().OnClick();
                 break;
-            case INST_Place_Exploration:
-                objClicked.GetComponent<ExplrationClickable>().OnClick();
-                break;
             case INST_Place_Food:
                 objClicked.GetComponent<FoodClickable>().OnClick();
                 break;
@@ -141,10 +139,8 @@ public class MouseManager : Manager<MouseManager>
             case INST_Place_University:
                 objClicked.GetComponent<UniversityClickable>().OnClick();
                 break;
-
         }
+    }
+
 }
 
-
-}
-    

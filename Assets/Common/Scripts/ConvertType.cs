@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Day { None, Mon, Tue, Wed, Thu, Fri, Sat, Sun }
-public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University, Exploration }
+public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University }
 public enum CreateEvent { Null, CreateIdea, CreateItem }
 public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
 public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
 public enum ItemDefinitionsType { Food, Treasure, Equipment}; 
 public enum ItemEquipmentType { NONE, Hat, Shirt, Pant, Shoes }
-public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ExplorationScene, ParkScene }
+public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ParkScene }
 public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
 public enum BonusCharacter { Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate }
 public enum ClassActivityType { Project, Class }
@@ -89,7 +89,6 @@ public class ConvertType : MonoBehaviour
     private const string INST_Place_Park = "Park";
     private const string INST_Place_Teacher = "Teacher";
     private const string INST_Place_University = "University";
-    private const string INST_Place_Exploration = "Exploration";
     #endregion
     public static Place CheckPlace(string place)
     {
@@ -126,9 +125,6 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Place_University:
                 placeTemp = Place.University;
-                break;
-            case INST_Place_Exploration:
-                placeTemp = Place.Exploration;
                 break;
             default:
                 placeTemp = Place.Secret;
@@ -337,7 +333,6 @@ public class ConvertType : MonoBehaviour
     private const string INST_Scene_TeacherScene = "TeacherScene";
     private const string INST_Scene_MysticScene = "MysticScene";
     private const string INST_Scene_SellScene = "SellScene";
-    private const string INST_Scene_ExplorationScene = "ExplorationScene";
     private const string INST_Scene_ParkScene = "ParkScene";
 
     #endregion
@@ -363,9 +358,6 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Scene_SellScene:
                 temp = OnClickSwitchScene.SellScene;
-                break;
-            case INST_Scene_ExplorationScene:
-                temp = OnClickSwitchScene.ExplorationScene;
                 break;
             case INST_Scene_ParkScene:
                 temp = OnClickSwitchScene.ParkScene;
@@ -621,5 +613,48 @@ public class ConvertType : MonoBehaviour
                 break;
         }
         return unit;
+    }
+
+    #region Instace Place Id
+    private const string Inst_PlaceId_University = "place001";
+    private const string Inst_PlaceId_FoodScene = "place002";
+    private const string Inst_PlaceId_Clothing = "place003";
+    private const string Inst_PlaceId_Teacher = "place004";
+    private const string Inst_PlaceId_Mystic = "place005";
+    private const string Inst_PlaceId_Sell = "place006";
+    private const string Inst_PlaceId_Park = "place007";
+    #endregion
+
+    public static string GetPlaceId(Place place)
+    {
+        string str = string.Empty;
+        switch (place)
+        {
+            case Place.Clothing:
+                str = Inst_PlaceId_Clothing;
+                break;
+            case Place.Food:
+                str = Inst_PlaceId_FoodScene;
+                break;
+            case Place.Mystic:
+                str = Inst_PlaceId_Mystic;
+                break;
+            case Place.Park:
+                str = Inst_PlaceId_Park;
+                break;
+            case Place.Sell:
+                str = Inst_PlaceId_Sell;
+                break;
+            case Place.Teacher:
+                str = Inst_PlaceId_Teacher;
+                break;
+            case Place.University:
+                str = Inst_PlaceId_University;
+                break;
+            default:
+                str = string.Empty;
+                break;
+        }
+        return str;
     }
 }

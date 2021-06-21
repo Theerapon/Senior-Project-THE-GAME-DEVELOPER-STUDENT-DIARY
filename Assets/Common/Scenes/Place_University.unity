@@ -782,7 +782,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 72714516}
-  - component: {fileID: 72714517}
   m_Layer: 5
   m_Name: Store
   m_TagString: Untagged
@@ -811,41 +810,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1200, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &72714517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 72714515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a4e28109747e469bb357f8ab2e737, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnBeginDragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndDragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDropEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnRightClickEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemsParent: {fileID: 72714516}
-  EquipItemSlots: []
 --- !u!1 &75985369
 GameObject:
   m_ObjectHideFlags: 0
@@ -9609,7 +9573,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 812837961}
-  - component: {fileID: 812837962}
   m_Layer: 5
   m_Name: Material Store
   m_TagString: Untagged
@@ -9638,27 +9601,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 0, y: 750}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &812837962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 812837960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1030f52fe6486e34f8abd4c530327698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inv_container_display: {fileID: 0}
-  equip_container_display: {fileID: 72714517}
-  drag_gameobject: {fileID: 0}
-  draggableItem: {fileID: 0}
-  item_description_gameobject: {fileID: 0}
-  item_name: {fileID: 0}
-  item_type: {fileID: 0}
-  item_description: {fileID: 0}
-  item_icon: {fileID: 0}
 --- !u!1 &823814040
 GameObject:
   m_ObjectHideFlags: 0
@@ -18931,7 +18873,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1655370385
 RectTransform:

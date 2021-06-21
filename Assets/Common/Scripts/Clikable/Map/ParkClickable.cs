@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ParkClickable : MonoBehaviour, IClickable
 {
+    [SerializeField] MapPlace mapPlace;
     public void OnClick()
     {
-        throw new System.NotImplementedException();
+        mapPlace.OnClick();
     }
 }

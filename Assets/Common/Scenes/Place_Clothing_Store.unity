@@ -3624,7 +3624,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1184359580}
-  - component: {fileID: 1184359581}
   m_Layer: 5
   m_Name: Store
   m_TagString: Untagged
@@ -3653,41 +3652,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &1184359581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1184359579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a4e28109747e469bb357f8ab2e737, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnBeginDragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEndDragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDragEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDropEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointEnterEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointExitEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnRightClickEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  itemsParent: {fileID: 1184359580}
-  EquipItemSlots: []
 --- !u!1 &1188559741
 GameObject:
   m_ObjectHideFlags: 0
@@ -3769,7 +3733,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 167565000}
   m_HandleRect: {fileID: 167564999}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6207,7 +6171,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1815599113
 RectTransform:
@@ -6391,7 +6355,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1943469562}
-  - component: {fileID: 1943469563}
   m_Layer: 5
   m_Name: Clothing Store
   m_TagString: Untagged
@@ -6421,27 +6384,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 0, y: 750}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1943469563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943469561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1030f52fe6486e34f8abd4c530327698, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inv_container_display: {fileID: 0}
-  equip_container_display: {fileID: 1184359581}
-  drag_gameobject: {fileID: 0}
-  draggableItem: {fileID: 0}
-  item_description_gameobject: {fileID: 838894544}
-  item_name: {fileID: 2028900413}
-  item_type: {fileID: 1397180672}
-  item_description: {fileID: 879065623}
-  item_icon: {fileID: 1512129136}
 --- !u!1 &2022715522
 GameObject:
   m_ObjectHideFlags: 0

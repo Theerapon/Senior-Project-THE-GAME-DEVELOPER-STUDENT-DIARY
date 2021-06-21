@@ -14,6 +14,7 @@ public class MenuController : MonoBehaviour
 
 
     private GameManager gameManager;
+    private SwitchScene switchScene;
 
     private GameManager.GameState previousGameStateMenu;
 
@@ -26,7 +27,8 @@ public class MenuController : MonoBehaviour
         {
             gameManager = GameManager.Instance;
         }
-       GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        switchScene = SwitchScene.Instance;
         hasDisplayed = false;
     }
 
@@ -35,24 +37,38 @@ public class MenuController : MonoBehaviour
         if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU)
         {
             ActivedBlur(true);
+            if (_camera.activeSelf == false)
+            {
+                _camera.SetActive(true);
+            }
         }
 
         if (currentState == GameManager.GameState.MAP)
         {
             ActivedBlur(false);
-            _camera.SetActive(false);
+            if(_camera.activeSelf == true)
+            {
+                _camera.SetActive(false);
+            }
+            
         }
 
         if (currentState == GameManager.GameState.HOME)
         {
             ActivedBlur(false);
-            _camera.SetActive(true);
+            if (_camera.activeSelf == false)
+            {
+                _camera.SetActive(true);
+            }
         }
 
         if(currentState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
             ActivedBlur(false);
-            _camera.SetActive(false);
+            if (_camera.activeSelf == true)
+            {
+                _camera.SetActive(false);
+            }
         }
 
        if(currentState == GameManager.GameState.WORK_PROJECT_SUMMARY)
@@ -62,6 +78,16 @@ public class MenuController : MonoBehaviour
             {
                 _camera.SetActive(true);
             }
+        }
+
+        if (currentState == GameManager.GameState.PLACE)
+        {
+            ActivedBlur(true);
+            if (_camera.activeSelf == true)
+            {
+                _camera.SetActive(false);
+            }
+            hasDisplayed = true;
         }
     }
 
@@ -105,13 +131,13 @@ public class MenuController : MonoBehaviour
 
     private void DisplayMenu(bool action, GameManager.GameScene currentGameScene)
     {
-        SwitchScene.Instance.DisplayMenu(action, currentGameScene, previousGameStateMenu);
+        switchScene.DisplayMenu(action, currentGameScene, previousGameStateMenu);
         hasDisplayed = true;
     }
 
     private void DisplayHomeAction(bool action, GameManager.GameScene currentGameScene)
     {
-        SwitchScene.Instance.DisplayHomeAction(ActivedBlur(action), currentGameScene);
+        switchScene.DisplayHomeAction(ActivedBlur(action), currentGameScene);
         hasDisplayed = true;
     }
 
@@ -140,21 +166,55 @@ public class MenuController : MonoBehaviour
         }
         else if(gameManager.CurrentGameState == GameManager.GameState.COURSE_NOTIFICATION)
         {
-            SwitchScene.Instance.DisplayCourseNotification(false);
+            switchScene.DisplayCourseNotification(false);
             hasDisplayed = true;
         }
         else if(gameManager.CurrentGameState == GameManager.GameState.COURSE)
         {
-            SwitchScene.Instance.DisplayCourse(false);
+            switchScene.DisplayCourse(false);
             hasDisplayed = false;
-        }else if (gameManager.CurrentGameState == GameManager.GameState.WORK_PROJECT)
+        }
+        else if (gameManager.CurrentGameState == GameManager.GameState.WORK_PROJECT)
         {
-            SwitchScene.Instance.DisplayWorkProject(false);
+            switchScene.DisplayWorkProject(false);
+            hasDisplayed = false;
+        }
+        else if (gameManager.CurrentGameState == GameManager.GameState.PLACE)
+        {
+            DisplayPlace(gameScene, false);
             hasDisplayed = false;
         }
 
     }
-
+    public void DisplayPlace(GameManager.GameScene gameScene, bool active)
+    {
+        switch (gameScene)
+        {
+            case GameManager.GameScene.Place_Clothing_Store:
+                switchScene.DisplayPlaceClothing(active);
+                break;
+            case GameManager.GameScene.Place_Food_Store:
+                switchScene.DisplayPlaceFood(active);
+                break;
+            case GameManager.GameScene.Place_Material_Store:
+                switchScene.DisplayPlaceMaterial(active);
+                break;
+            case GameManager.GameScene.Place_Mystic_Store:
+                switchScene.DisplayPlaceMystic(active);
+                break;
+            case GameManager.GameScene.Place_Park:
+                switchScene.DisplayPlacePark(active);
+                break;
+            case GameManager.GameScene.Place_Teacher_Home:
+                switchScene.DisplayPlaceTeacher(active);
+                break;
+            case GameManager.GameScene.Place_University:
+                switchScene.DisplayPlaceUniversity(active);
+                break;
+            default:
+                break;
+        }
+    }
     public void OpenMenu(GameManager.GameScene gameScene)
     {
         //open menu home

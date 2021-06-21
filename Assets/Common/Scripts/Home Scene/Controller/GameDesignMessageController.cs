@@ -15,7 +15,6 @@ public class GameDesignMessageController : Manager<GameDesignMessageController>
         if (!ReferenceEquals(gameDocMessage_DataHandler.GetGameDocMessage, null))
         {
             gameDocMessage_Template = gameDocMessage_DataHandler.GetGameDocMessage;
-            Debug.Log("messageeeeeeeeeeeeeeeeeeeeeeeeeeee");
         }
         
     }

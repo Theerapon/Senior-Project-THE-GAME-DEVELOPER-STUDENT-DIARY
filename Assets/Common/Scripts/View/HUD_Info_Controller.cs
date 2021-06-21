@@ -11,6 +11,7 @@ public class HUD_Info_Controller : MonoBehaviour
     [SerializeField] private GameObject money_obj;
     [SerializeField] private GameObject button_menu_obj;
     [SerializeField] private GameObject content_panel;
+    [SerializeField] private GameObject inventory_obj;
 
 
     void Start()
@@ -63,6 +64,10 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowForMiniGame();
         }
+        else if (current_game_state == GameManager.GameState.PLACE)
+        {
+            ShowForPlace();
+        }
 
     }
     private void DisplayEnergyAndMotivation(bool actived)
@@ -107,6 +112,13 @@ public class HUD_Info_Controller : MonoBehaviour
             content_panel.SetActive(actived);
         }
     }
+    private void DisplayInventory(bool actived)
+    {
+        if (inventory_obj != null)
+        {
+            inventory_obj.SetActive(actived);
+        }
+    }
     private void ShowAll()
     {
         DisplayEnergyAndMotivation(true);
@@ -115,6 +127,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(true);
         DisplayConttentPanel(true);
+        DisplayInventory(false);
     }
 
     private void Reset()
@@ -125,6 +138,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayButtonMenu(false);
         DisplayMoney(true);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
 
     private void ShowForHomeAction()
@@ -135,6 +149,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
 
     private void ShowForCourse()
@@ -145,6 +160,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
     private void ShowForCourseNotification()
     {
@@ -154,6 +170,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
 
     private void ShowForDiary()
@@ -164,6 +181,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(false);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
 
     private void ShowForWorkProject()
@@ -174,6 +192,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
     private void ShowForWorkProjectDesign()
     {
@@ -183,6 +202,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
     private void ShowForWorkProjectSummary()
     {
@@ -192,6 +212,7 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(true);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
     private void ShowForMiniGame()
     {
@@ -201,5 +222,16 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayMoney(false);
         DisplayButtonMenu(false);
         DisplayConttentPanel(false);
+        DisplayInventory(false);
+    }
+    private void ShowForPlace()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(true);
+        DisplayButtonBack(true);
+        DisplayMoney(true);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(true);
+        DisplayInventory(true);
     }
 }

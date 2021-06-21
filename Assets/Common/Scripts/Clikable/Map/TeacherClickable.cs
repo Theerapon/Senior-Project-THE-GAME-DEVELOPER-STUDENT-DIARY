@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TeacherClickable : MonoBehaviour, IClickable
 {
+    [SerializeField] MapPlace mapPlace;
     public void OnClick()
     {
-        throw new System.NotImplementedException();
+        mapPlace.OnClick();
     }
 
 }

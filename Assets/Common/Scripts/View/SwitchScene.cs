@@ -21,6 +21,13 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_WorkTypingGame = 11;
     private const int INST_Display_AlphaTypingGame = 12;
     private const int INST_Display_BetaTypingGame = 13;
+    private const int INST_Display_Place_Clothing_Store = 14;
+    private const int INST_Display_Place_Food_Store = 15;
+    private const int INST_Display_Place_Material_Store = 16;
+    private const int INST_Display_Place_Mystic_Store = 17;
+    private const int INST_Display_Place_Park = 18;
+    private const int INST_Display_Place_Teacher_Home = 19;
+    private const int INST_Display_Place_University = 20;
     #endregion
 
     #region Animator Parameters
@@ -30,16 +37,20 @@ public class SwitchScene : Manager<SwitchScene>
     private const string INST_Active = "Active";
     #endregion
 
+    private bool loadComplete;
+
     private GameManager gameManager;
     private void Start()
     {
+        loadComplete = true;
         gameManager = GameManager.Instance;
         gameManager.onLoadComplete.AddListener(OnloadCompleteHandler);
     }
 
     private void OnloadCompleteHandler(GameManager.GameState currentGameState, GameManager.GameState previousGameState)
     {
-        if(previousGameState != GameManager.GameState.HOME_ACTION || currentGameState == GameManager.GameState.SAVEING)
+        loadComplete = true;
+        if (previousGameState != GameManager.GameState.HOME_ACTION || currentGameState == GameManager.GameState.SAVEING)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -58,6 +69,14 @@ public class SwitchScene : Manager<SwitchScene>
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
+        if (previousGameState == GameManager.GameState.MAP && currentGameState == GameManager.GameState.PLACE)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        if (previousGameState == GameManager.GameState.PLACE && currentGameState == GameManager.GameState.MAP)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
     }
 
     [SerializeField] private Animator animator;
@@ -67,6 +86,7 @@ public class SwitchScene : Manager<SwitchScene>
         animator.SetTrigger(INST_Triggr_FadeOut);
         animator.SetInteger(INST_Scene, number);
         animator.SetBool(INST_Active, active);
+
     }
     public void FadeToLevel(int number)
     {
@@ -114,7 +134,27 @@ public class SwitchScene : Manager<SwitchScene>
             case INST_Display_BetaTypingGame:
                 gameManager.DisplayBetaTypingGame(active);
                 break;
-
+            case INST_Display_Place_Clothing_Store:
+                gameManager.DisplayPlaceClothing(active);
+                break;
+            case INST_Display_Place_Food_Store:
+                gameManager.DisplayPlaceFood(active);
+                break;
+            case INST_Display_Place_Material_Store:
+                gameManager.DisplayPlaceMaterial(active);
+                break;
+            case INST_Display_Place_Park:
+                gameManager.DisplayPlacePark(active);
+                break;
+            case INST_Display_Place_Teacher_Home:
+                gameManager.DisplayPlaceTeacher(active);
+                break;
+            case INST_Display_Place_University:
+                gameManager.DisplayPlaceUniversity(active);
+                break;
+            case INST_Display_Place_Mystic_Store:
+                gameManager.DisplayPlaceMystic(active);
+                break;
         }
         //LoadScene
     }
@@ -123,19 +163,30 @@ public class SwitchScene : Manager<SwitchScene>
     public void StartGameWithNewGame()
     {
         //---Fade Out---
-        FadeToLevel(INST_Start_New_Game);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Start_New_Game);
+            loadComplete = false;
+        }
+        
     }
 
     public void StartGameWithContiniueGame()
     {
         //---Fade Out---
-        FadeToLevel(INST_Start_Conitiue_Game);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Start_Conitiue_Game);
+            loadComplete = false;
+        }
+       
     }
 
     public void DisplayHomeAction(bool actived, GameManager.GameScene scene)
     {
         //---Not Fade Out---
         gameManager.DisplayHomeAction(actived, scene);
+
     }
 
 
@@ -148,13 +199,23 @@ public class SwitchScene : Manager<SwitchScene>
     public void DispleyMap(bool actived)
     {
         //---Fade Out---
-        FadeToLevel(INST_Display_Map, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Map, actived);
+            loadComplete = false;
+        }
+        
     }
 
     public void DisplayCourse(bool actived)
     {
         //---Fand Out---
-        FadeToLevel(INST_Display_Course, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Course, actived);
+            loadComplete = false;
+        }
+        
     }
 
     public void DisplayCourseNotification(bool actived)
@@ -166,19 +227,34 @@ public class SwitchScene : Manager<SwitchScene>
     public void DisplaySaving(bool actived)
     {
         //---Fade Out---
-        FadeToLevel(INST_Display_Saving, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Saving, actived);
+            loadComplete = false;
+        }
+        
     }
 
     public void DisplayDiary(bool actived)
     {
         //---Fade Out---
-        FadeToLevel(INST_Display_Diary, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Diary, actived);
+            loadComplete = false;
+        }
+        
     }
 
     public void DisplayWorkProject(bool actived)
     {
         //---Fand Out---
-        FadeToLevel(INST_Display_WorkProject, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_WorkProject, actived);
+            loadComplete = false;
+        }
+        
         
     }
     public void DisplayWorkProjectDesign(bool actived)
@@ -189,22 +265,113 @@ public class SwitchScene : Manager<SwitchScene>
     public void DisplayWorkProjectSummary(bool actived)
     {
         //---Fand Out---
-        FadeToLevel(INST_Display_WorkProject_Summary, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_WorkProject_Summary, actived);
+            loadComplete = false;
+        }
+        
     }
     public void DisplayWorkTypingGmae(bool actived)
     {
         //---Fand Out---
-        FadeToLevel(INST_Display_WorkTypingGame, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_WorkTypingGame, actived);
+            loadComplete = false;
+        }
+        
     }
     public void DisplayAlphaTypingGmae(bool actived)
     {
         //---Fand Out---
-        FadeToLevel(INST_Display_AlphaTypingGame, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_AlphaTypingGame, actived);
+            loadComplete = false;
+        }
+        
     }
     public void DisplayBetaTypingGmae(bool actived)
     {
         //---Fand Out---
-        FadeToLevel(INST_Display_BetaTypingGame, actived);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_BetaTypingGame, actived);
+            loadComplete = false;
+        }
+        
+    }
+    
+    public void DisplayPlaceClothing(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_Clothing_Store, actived);
+            loadComplete = false;
+        }
+        
+    }
+    public void DisplayPlaceFood(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_Food_Store, actived);
+            loadComplete = false;
+        }
+        
+    }
+    public void DisplayPlaceMaterial(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_Material_Store, actived);
+            loadComplete = false;
+        }
+        
+    }
+    public void DisplayPlacePark(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_Park, actived);
+            loadComplete = false;
+        }
+        
+    }
+    public void DisplayPlaceTeacher(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_Teacher_Home, actived);
+            loadComplete = false;
+        }
+        
+    }
+    public void DisplayPlaceUniversity(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_University, actived);
+            loadComplete = false;
+        }
+        
+    }
+    public void DisplayPlaceMystic(bool actived)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Place_Mystic_Store, actived);
+            loadComplete = false;
+        }
+        
     }
     #endregion
 }

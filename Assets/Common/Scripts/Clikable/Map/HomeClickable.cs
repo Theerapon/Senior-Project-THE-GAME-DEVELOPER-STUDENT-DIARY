@@ -6,6 +6,7 @@ using UnityEngine;
 public class HomeClickable : MonoBehaviour, IClickable
 {
     [SerializeField] protected Camera _camera;
+    [SerializeField] MapPlace mapPlace;
 
     private void Start()
     {
@@ -19,6 +20,6 @@ public class HomeClickable : MonoBehaviour, IClickable
 
     public void OnClick()
     {
-        SwitchScene.Instance.DispleyMap(false);
+        mapPlace.OnClick();
     }
 }

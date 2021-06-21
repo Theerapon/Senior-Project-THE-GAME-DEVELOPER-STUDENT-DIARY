@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class MysticClickable : MonoBehaviour, IClickable
 {
+    [SerializeField] MapPlace mapPlace;
     public void OnClick()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("mystic");
+        mapPlace.OnClick();
     }
 }
