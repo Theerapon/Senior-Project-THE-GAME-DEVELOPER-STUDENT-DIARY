@@ -7,7 +7,6 @@ public class MysticClickable : MonoBehaviour, IClickable
     [SerializeField] MapPlace mapPlace;
     public void OnClick()
     {
-        Debug.Log("mystic");
         mapPlace.OnClick();
     }
 }
