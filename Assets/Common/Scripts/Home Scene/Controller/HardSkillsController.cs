@@ -22,7 +22,6 @@ public class HardSkillsController : Manager<HardSkillsController>
             Debug.Log("wait implementation for load save data");
         }
 
-
     }
 
 

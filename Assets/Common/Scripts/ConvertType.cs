@@ -31,7 +31,6 @@ public class ConvertType : MonoBehaviour
     public static readonly string INST_SET_NpcId006 = "npc006";
     public static readonly string INST_SET_NpcId007 = "npc007";
     public static readonly string INST_SET_NpcId008 = "npc008";
-    public static readonly string INST_SET_NpcId009 = "npc009";
     #endregion
 
     #region Day Instace

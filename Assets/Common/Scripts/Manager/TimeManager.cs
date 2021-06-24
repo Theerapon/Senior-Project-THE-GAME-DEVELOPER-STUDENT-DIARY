@@ -6,6 +6,7 @@ public class TimeManager : Manager<TimeManager>
 {
 
     #region Event
+    public Events.EventOnTenMinute OnTenMinute;
     public Events.EventDateCalendar OnDateCalendar;
     public Events.EventTimeCalendar OnTimeCalendar;
     public Events.EventTimeDayOrNight OnTimeChange;
@@ -33,6 +34,12 @@ public class TimeManager : Manager<TimeManager>
     [SerializeField] private const int DEFAULT_ENDGOLDENTIME = 17;
 
 
+    private const int DEFAULT_Origin_Date = 1;
+    private const int DEFAULT_Origin_Month = 1;
+    private const int DEFAULT_Origin_Year = 2021;
+    private const Day DEFAULT_Origin_Day = Day.Sun;
+
+
     private float TIMESCALE = DEFAULT_TIMESCALE;
 
     private const int DEFAULT_SECOND = 60;
@@ -43,29 +50,15 @@ public class TimeManager : Manager<TimeManager>
     #endregion
 
     #region Enum
-    private enum SetsOfMonth
+    public enum SetsOfMonth
     {
         JANUARY,
         FEBRUARY,
         MARCH,
         APRIL,
     }
-    private SetsOfMonth _currentMonth;
-
-
-    private enum SetsOfDays 
-    {
-        SUN,
-        MON,
-        TUE,
-        WES,
-        THU,
-        FRI,
-        SAT,
-        NONE
-
-    }
-    private SetsOfDays _currentDays;
+    private SetsOfMonth currentMonth;
+    private Day currentDays;
     #endregion
 
     #region Properties
@@ -81,6 +74,14 @@ public class TimeManager : Manager<TimeManager>
 
     public Sprite DayImage { get => dayImage; }
     public Sprite NightImage { get => nightImage; }
+    public float Minute { get => minute; }
+    public float Hour { get => hour; }
+    public float Date { get => date; }
+    public float Second { get => second; }
+    public float Month { get => month; }
+    public float Year { get => year; }
+    public Day CurrentDays { get => currentDays; }
+    public SetsOfMonth CurrentMonth { get => currentMonth; }
     #endregion
 
     protected void Start()
@@ -88,20 +89,20 @@ public class TimeManager : Manager<TimeManager>
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
         Initialized();
         ValidateCalculateTime();
-        ValidationDisplay();
+        ValidationInitializing();
         NotificationAll();
 
     }
 
     private void Initialized()
     {
-        second = 0;
-        minute = 0;
-        hour = 8;
-        date = 27;
-        _currentDays = SetsOfDays.SUN;
-        month = 4;
-        year = 2021;
+        second = DEFAULT_AWAKE_SECOND_TIME;
+        minute = DEFAULT_AWAKE_MINUTE_TIME;
+        hour = DEFAULT_AWAKE_HOUR_TIME;
+        date = DEFAULT_Origin_Date;
+        currentDays = DEFAULT_Origin_Day;
+        month = DEFAULT_Origin_Month;
+        year = DEFAULT_Origin_Year;
         Tomorrow();  
     }
 
@@ -110,7 +111,7 @@ public class TimeManager : Manager<TimeManager>
         if (currentState == GameManager.GameState.HOME || currentState == GameManager.GameState.MAP)
         {
             ValidateCalculateTime();
-            ValidationDisplay();
+            ValidationInitializing();
             NotificationAll();
         }
     }
@@ -131,6 +132,13 @@ public class TimeManager : Manager<TimeManager>
         second += memorySecond;
         ValidateCalculateTime();
     }
+    private void PassTenMiniute()
+    {
+        if (minute % 10 == 0 && minute != 60 && hour != 24 && date < 29 && month < 5)
+        {
+            OnTenMinute?.Invoke();
+        }
+    }
     private void ValidateCalculateTime()
     {
         //miniute change
@@ -141,7 +149,7 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnOneMiniuteTimePassed?.Invoke(GameManager.Instance.CurrentGameState);
             OnTimeCalendar?.Invoke(onTime);
-            
+            PassTenMiniute();
         }
 
         //hour change
@@ -152,6 +160,7 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             CalGoldenTime();
+            PassTenMiniute();
         }
 
         //day change
@@ -164,6 +173,7 @@ public class TimeManager : Manager<TimeManager>
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
             SetTimezone();
+            PassTenMiniute();
         }
 
         //month change
@@ -176,6 +186,7 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
+            PassTenMiniute();
         }
 
         //year change
@@ -187,7 +198,9 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
+            PassTenMiniute();
         }
+
     }
     private void CalGoldenTime()
     {
@@ -208,16 +221,16 @@ public class TimeManager : Manager<TimeManager>
         switch (month)
         {
             case 1:
-                _currentMonth = SetsOfMonth.JANUARY;
+                currentMonth = SetsOfMonth.JANUARY;
                 break;
             case 2:
-                _currentMonth = SetsOfMonth.FEBRUARY;
+                currentMonth = SetsOfMonth.FEBRUARY;
                 break;
             case 3:
-                _currentMonth = SetsOfMonth.MARCH;
+                currentMonth = SetsOfMonth.MARCH;
                 break;
             case 4:
-                _currentMonth = SetsOfMonth.APRIL;
+                currentMonth = SetsOfMonth.APRIL;
                 break;
             default:
                 break;
@@ -225,31 +238,30 @@ public class TimeManager : Manager<TimeManager>
     }
     private void CalculateDay()
     {
-        switch (_currentDays)
+        int multiply = (int)(date - 1) / 7;
+        int dayIndex = (int)date - (7 * multiply);
+        switch (dayIndex)
         {
-            case SetsOfDays.SUN:
-                _currentDays = SetsOfDays.MON;
+            case 1:
+                currentDays = Day.Mon;
                 break;
-            case SetsOfDays.MON:
-                _currentDays = SetsOfDays.TUE;
+            case 2:
+                currentDays = Day.Tue;
                 break;
-            case SetsOfDays.TUE:
-                _currentDays = SetsOfDays.WES;
+            case 3:
+                currentDays = Day.Wed;
                 break;
-            case SetsOfDays.WES:
-                _currentDays = SetsOfDays.THU;
+            case 4:
+                currentDays = Day.Thu;
                 break;
-            case SetsOfDays.THU:
-                _currentDays = SetsOfDays.FRI;
+            case 5:
+                currentDays = Day.Fri;
                 break;
-            case SetsOfDays.FRI:
-                _currentDays = SetsOfDays.SAT;
+            case 6:
+                currentDays = Day.Sat;
                 break;
-            case SetsOfDays.SAT:
-                _currentDays = SetsOfDays.SUN;
-                break;
-            default:
-                _currentDays = SetsOfDays.SUN;
+            case 7:
+                currentDays = Day.Sun;
                 break;
         }
     }
@@ -361,7 +373,7 @@ public class TimeManager : Manager<TimeManager>
         onDate = string.Format("{0:00}/{1:00}/{2:0000}", date, month, year);
         onTime = string.Format("{0:00}:{1:00}", hour, minute);
     }
-    public void ValidationDisplay()
+    public void ValidationInitializing()
     {
         CalculateMonth();
         setText();
@@ -369,6 +381,7 @@ public class TimeManager : Manager<TimeManager>
         OnTimeCalendar?.Invoke(onTime);
         SetTimezone();
         CalGoldenTime();
+        PassTenMiniute();
     }
     #endregion
 

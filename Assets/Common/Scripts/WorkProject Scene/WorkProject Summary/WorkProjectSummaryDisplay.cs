@@ -48,7 +48,7 @@ public class WorkProjectSummaryDisplay : MonoBehaviour
             timeManager.OnDateCalendar.AddListener(OnDateCalendarHandler);
             timeManager.OnTimeChange.AddListener(OnTimeChangeHandler);
             timeManager.OnGodenTime.AddListener(OnGodenTimeHandler);
-            timeManager.ValidationDisplay();
+            timeManager.ValidationInitializing();
         }
 
         if(ProjectController.Instance != null)

@@ -11,9 +11,7 @@ public class ActivitiesNpcVM : MonoBehaviour
     private const string INST_SET_NpcID = "NpcID";
     private const string INST_SET_Date = "Date";
     private const string INST_SET_StartTime = "StartTime";
-    private const string INST_SET_EndTime = "EndTime";
     private const string INST_SET_Place = "Place";
-    private const string INST_SET_CanChat = "CanChat";
     #endregion
 
     [SerializeField] private ActivitiesNPC_Loading activitiesNPC_Loading;
@@ -113,18 +111,6 @@ public class ActivitiesNpcVM : MonoBehaviour
             List<Activity> activityListSatOnNpc8 = new List<Activity>();
             List<Activity> activityListSunOnNpc8 = new List<Activity>();
             #endregion
-
-            #region NPC9
-            Dictionary<Day, List<Activity>> dic_activity_byDayOnNpc9 = new Dictionary<Day, List<Activity>>();
-            List<Activity> activityListMonOnNpc9 = new List<Activity>();
-            List<Activity> activityListTueOnNpc9 = new List<Activity>();
-            List<Activity> activityListWedOnNpc9 = new List<Activity>();
-            List<Activity> activityListThuOnNpc9 = new List<Activity>();
-            List<Activity> activityListFriOnNpc9 = new List<Activity>();
-            List<Activity> activityListSatOnNpc9 = new List<Activity>();
-            List<Activity> activityListSunOnNpc9 = new List<Activity>();
-            #endregion
-
             #endregion
 
             foreach (KeyValuePair<string, string> line in activitiesNPC_Loading.textLists)
@@ -364,34 +350,6 @@ public class ActivitiesNpcVM : MonoBehaviour
 
                         }
                     }
-                    else if (activityDetail.Npc_id.Equals(ConvertType.INST_SET_NpcId009))
-                    {
-                        switch (activityDetail.Day)
-                        {
-                            case Day.Mon:
-                                activityListMonOnNpc9.Add(activityDetail);
-                                break;
-                            case Day.Tue:
-                                activityListTueOnNpc9.Add(activityDetail);
-                                break;
-                            case Day.Wed:
-                                activityListWedOnNpc9.Add(activityDetail);
-                                break;
-                            case Day.Thu:
-                                activityListThuOnNpc9.Add(activityDetail);
-                                break;
-                            case Day.Fri:
-                                activityListFriOnNpc9.Add(activityDetail);
-                                break;
-                            case Day.Sat:
-                                activityListSatOnNpc9.Add(activityDetail);
-                                break;
-                            case Day.Sun:
-                                activityListSunOnNpc9.Add(activityDetail);
-                                break;
-
-                        }
-                    }
                     #endregion
 
                 }
@@ -470,15 +428,6 @@ public class ActivitiesNpcVM : MonoBehaviour
             dic_activity_byDayOnNpc8.Add(Day.Sat, activityListSatOnNpc8);
             dic_activity_byDayOnNpc8.Add(Day.Sun, activityListSunOnNpc8);
 
-            dic_activity_byDayOnNpc9.Clear();
-            dic_activity_byDayOnNpc9.Add(Day.Mon, activityListMonOnNpc9);
-            dic_activity_byDayOnNpc9.Add(Day.Tue, activityListTueOnNpc9);
-            dic_activity_byDayOnNpc9.Add(Day.Wed, activityListWedOnNpc9);
-            dic_activity_byDayOnNpc9.Add(Day.Thu, activityListThuOnNpc9);
-            dic_activity_byDayOnNpc9.Add(Day.Fri, activityListFriOnNpc9);
-            dic_activity_byDayOnNpc9.Add(Day.Sat, activityListSatOnNpc9);
-            dic_activity_byDayOnNpc9.Add(Day.Sun, activityListSunOnNpc9);
-
             dic.Clear();
             dic.Add(ConvertType.INST_SET_NpcId001, new ActivitiesNpc_Template(dic_activity_byDayOnNpc1));
             dic.Add(ConvertType.INST_SET_NpcId002, new ActivitiesNpc_Template(dic_activity_byDayOnNpc2));
@@ -488,7 +437,6 @@ public class ActivitiesNpcVM : MonoBehaviour
             dic.Add(ConvertType.INST_SET_NpcId006, new ActivitiesNpc_Template(dic_activity_byDayOnNpc6));
             dic.Add(ConvertType.INST_SET_NpcId007, new ActivitiesNpc_Template(dic_activity_byDayOnNpc7));
             dic.Add(ConvertType.INST_SET_NpcId008, new ActivitiesNpc_Template(dic_activity_byDayOnNpc8));
-            dic.Add(ConvertType.INST_SET_NpcId009, new ActivitiesNpc_Template(dic_activity_byDayOnNpc9));
 
             if (!ReferenceEquals(dic, null))
             {
@@ -506,11 +454,7 @@ public class ActivitiesNpcVM : MonoBehaviour
         Day day = Day.None;
         int start_time_hour = 0;
         int start_time_minute = 0;
-        int end_time_hour = 0;
-        int end_time_minute = 0;
         Place place = Place.Secret;
-        bool can_chat = false;
-        string chat = string.Empty;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -533,24 +477,13 @@ public class ActivitiesNpcVM : MonoBehaviour
                     start_time_hour = int.Parse(startTime_entries[0]);
                     start_time_minute = int.Parse(startTime_entries[1]);
                     break;
-                case INST_SET_EndTime:
-                    string end_time = entries[++i];
-                    string[] endTime_entries = end_time.Split(':');
-                    end_time_hour = int.Parse(endTime_entries[0]);
-                    end_time_minute = int.Parse(endTime_entries[1]);
-                    break;
                 case INST_SET_Place:
                     place = ConvertType.CheckPlace(entries[++i]);
-                    break;
-                case INST_SET_CanChat:
-                    can_chat = bool.Parse(entries[++i]);
-                    string chatTmep = entries[++i];
-                    chat = ConvertType.CheckString(chatTmep);
                     break;
 
             }
 
         }
-        return new Activity(id, npc_id, day, start_time_hour, start_time_minute, end_time_hour, end_time_minute, place, can_chat, chat);
+        return new Activity(id, npc_id, day, start_time_hour, start_time_minute, place);
     }
 }

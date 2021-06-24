@@ -20,7 +20,7 @@ public class DiaryTimeDisplay : MonoBehaviour
         {
             TimeManager.Instance.OnDateCalendar.AddListener(HandleOnDateCalendar);
             TimeManager.Instance.OnTimeCalendar.AddListener(HandleOnTimeCalendar);
-            TimeManager.Instance.ValidationDisplay();
+            TimeManager.Instance.ValidationInitializing();
         }
 
         found_Player = GameObject.FindGameObjectWithTag("Player");

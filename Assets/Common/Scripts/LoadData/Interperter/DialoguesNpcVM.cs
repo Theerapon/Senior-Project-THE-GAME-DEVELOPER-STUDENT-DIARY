@@ -65,9 +65,6 @@ public class DialoguesNpcVM : MonoBehaviour
             List<DialoguesNPC_Template> DialogueNpc8List = new List<DialoguesNPC_Template>();
             #endregion
 
-            #region NPC9
-            List<DialoguesNPC_Template> DialogueNpc9List = new List<DialoguesNPC_Template>();
-            #endregion
 
             #endregion
 
@@ -115,11 +112,6 @@ public class DialoguesNpcVM : MonoBehaviour
                     {
                         DialogueNpc8List.Add(dialogue);
                     }
-                    else if (dialogue.Npc_id.Equals(ConvertType.INST_SET_NpcId009))
-                    {
-                        DialogueNpc9List.Add(dialogue);
-                    }
-
                 }
 
             }
@@ -133,7 +125,6 @@ public class DialoguesNpcVM : MonoBehaviour
             dic.Add(ConvertType.INST_SET_NpcId006, DialogueNpc6List);
             dic.Add(ConvertType.INST_SET_NpcId007, DialogueNpc7List);
             dic.Add(ConvertType.INST_SET_NpcId008, DialogueNpc8List);
-            dic.Add(ConvertType.INST_SET_NpcId009, DialogueNpc9List);
 
             if (!ReferenceEquals(dic, null))
             {
