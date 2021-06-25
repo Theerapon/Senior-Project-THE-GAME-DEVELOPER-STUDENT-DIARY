@@ -21,7 +21,8 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    [SerializeField] private const float DEFAULT_TIMESCALE = 48;
+    //[SerializeField] private const float DEFAULT_TIMESCALE = 48;
+    [SerializeField] private const float DEFAULT_TIMESCALE = 48 * 4;
 
     [Header("Awake and Sleep")]
     [SerializeField] private const int DEFAULT_AWAKE_HOUR_TIME = 6;

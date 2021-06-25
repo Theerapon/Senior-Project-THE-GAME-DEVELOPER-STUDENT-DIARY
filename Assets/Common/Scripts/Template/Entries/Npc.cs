@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Npc : MonoBehaviour
 {
+    private PlacesController placesController;
+
     public enum RelationshipPhase
     {
         Phase1,
@@ -16,8 +18,8 @@ public class Npc : MonoBehaviour
     public Npc(Npc_Template npc_Template)
     {
         definition = npc_Template;
+        placesController = PlacesController.Instance;
         Initializing();
-        Debug.Log(string.Format("Name {0} form {1}", NpcName, OriginHome));
     }
 
     private Npc_Template definition;
@@ -30,9 +32,18 @@ public class Npc : MonoBehaviour
     private void Initializing()
     {
         relationshipPhase = RelationshipPhase.Phase1;
-        currentPlace = Place.Null;
+        currentPlace = definition.OriginHome;
         isBirthday = false;
         relationship = 0;
+        string placeID = ConvertType.GetPlaceId(currentPlace);
+        if(placesController.PlacesDic != null)
+        {
+            if (placesController.PlacesDic.ContainsKey(placeID))
+            {
+                placesController.PlacesDic[placeID].IsResidents(Id);
+            }
+        }
+        
     }
 
     public string Id { get => definition.Id; }

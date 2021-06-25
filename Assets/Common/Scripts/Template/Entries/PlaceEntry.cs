@@ -12,6 +12,14 @@ public class PlaceEntry : MonoBehaviour
         public Sprite arriverIcon;
         public Sprite arriverProfilePicture;
         public string arriverName;
+
+        public Arriver(string arriverId, Sprite arriverIcon, Sprite arriverProfilePicture, string arriverName)
+        {
+            this.arriverId = arriverId;
+            this.arriverIcon = arriverIcon;
+            this.arriverProfilePicture = arriverProfilePicture;
+            this.arriverName = arriverName;
+        }
     }
 
     private Place_Template definition;
@@ -68,6 +76,14 @@ public class PlaceEntry : MonoBehaviour
         if (arrivers.ContainsKey(arriverId))
         {
             arrivers.Remove(arriverId);
+        }
+    }
+
+    public void IsResidents(string npcId)
+    {
+        if (!residentsID.Contains(npcId))
+        {
+            residentsID.Add(npcId);
         }
     }
 }

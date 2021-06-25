@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static ActivitiesNpc_Template;
+using static PlaceEntry;
 using static TimeManager;
 
 public class NpcsController : Manager<NpcsController>
 {
+    [SerializeField] private PlacesController placesController;
+    [SerializeField] private TimeManager timeManager;
+
     private Npcs_DataHandler npcs_DataHandler;
     private Dictionary<string, Npc> npcsDic;
     private ActivitiesNPC_DataHandler activitiesNPC_DataHandler;
     private Dictionary<string, ActivitiesNpc_Template> activitiesDic;
-    private TimeManager timeManager;
+    
     private static float minute, hour, date, second, month, year;
     private Day currentDay;
 
@@ -22,7 +26,6 @@ public class NpcsController : Manager<NpcsController>
         npcsDic = new Dictionary<string, Npc>();
         activitiesNPC_DataHandler = FindObjectOfType<ActivitiesNPC_DataHandler>();
         activitiesDic = new Dictionary<string, ActivitiesNpc_Template>();
-        timeManager = TimeManager.Instance;
         timeManager.OnTenMinute.AddListener(OnTenMinuteHandler);
 
         //npcs
@@ -87,6 +90,52 @@ public class NpcsController : Manager<NpcsController>
                             indexCurrentDay = i;
                         }
                     }
+
+                    Place currentPlaceActivity = activities[indexCurrentDay].Place;
+                    Place currentPlaceNpc = npc.Value.CurrentPlace;
+                    if(currentPlaceActivity != Place.Null)
+                    {
+                        if(currentPlaceNpc != currentPlaceActivity)
+                        {
+                            string currentPlaceActivityID = ConvertType.GetPlaceId(currentPlaceActivity);
+                            string currentPlaceNpcID = ConvertType.GetPlaceId(currentPlaceNpc);
+                            Arriver arriver = new Arriver(npcId, npc.Value.Icon, npc.Value.NormalImage, npc.Value.NpcName);
+                            if (currentPlaceNpc == Place.Null || currentPlaceNpc == Place.Secret)
+                            {
+                                //if currentPlaceNpc null หรือ Secret
+                                //not leave
+                                if (placesController.PlacesDic.ContainsKey(currentPlaceActivityID))
+                                {
+                                    placesController.PlacesDic[currentPlaceActivityID].Arrived(arriver);
+                                }
+                            }
+                            else
+                            {
+                                //else currentPlaceNpc != null หรือ != secret
+                                //leave and arrived
+                                if (placesController.PlacesDic.ContainsKey(currentPlaceNpcID) && placesController.PlacesDic.ContainsKey(currentPlaceActivityID)
+                                    || currentPlaceActivity == Place.Secret)
+                                {
+                                    if (currentPlaceActivity == Place.Secret)
+                                    {
+                                        placesController.PlacesDic[currentPlaceNpcID].Leave(npcId);
+                                    }
+                                    else
+                                    {
+                                        placesController.PlacesDic[currentPlaceNpcID].Leave(npcId);
+                                        placesController.PlacesDic[currentPlaceActivityID].Arrived(arriver);
+                                    }
+
+                                }
+
+                            }
+                            npc.Value.CurrentPlace = currentPlaceActivity;
+
+
+                        }
+                        
+                    }
+                    
                 }
             }
         }
