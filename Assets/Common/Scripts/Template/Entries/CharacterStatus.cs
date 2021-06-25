@@ -325,6 +325,9 @@ public class CharacterStatus : MonoBehaviour
     #endregion
 
     #region Reporter
+    public Sprite CharacterProfile { get => definition.CharacterProfile; }
+    public Sprite CharacterIcon { get => definition.CharacterIcon; }
+    public string Character_ID { get => definition.Character_ID; }
     public int CurrentLevel { get => currentLevel; }
     public int CurrentExp { get => currentExp; }
     public int CurrentStatusPoints { get => currentStatusPoints; }

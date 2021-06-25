@@ -326,8 +326,9 @@ public class ConvertType : MonoBehaviour
     }
 
     #region Scene Instace
+    private const string INST_Scene_HomeScene = "HomeScene";
     private const string INST_Scene_UniversityScene = "UniversityScene";
-    private const string INST_Scene_FoodScene = "FoodScene";
+    private const string INST_Scene_FoodScene = "FoodScene"; 
     private const string INST_Scene_ClothingScene = "ClothingScene";
     private const string INST_Scene_TeacherScene = "TeacherScene";
     private const string INST_Scene_MysticScene = "MysticScene";
@@ -340,6 +341,9 @@ public class ConvertType : MonoBehaviour
         OnClickSwitchScene temp = OnClickSwitchScene.None;
         switch (text)
         {
+            case INST_Scene_HomeScene:
+                temp = OnClickSwitchScene.None;
+                break;
             case INST_Scene_UniversityScene:
                 temp = OnClickSwitchScene.UniversityScene;
                 break;
@@ -615,6 +619,7 @@ public class ConvertType : MonoBehaviour
     }
 
     #region Instace Place Id
+    private const string Inst_PlaceId_Home = "place000";
     private const string Inst_PlaceId_University = "place001";
     private const string Inst_PlaceId_FoodScene = "place002";
     private const string Inst_PlaceId_Clothing = "place003";
@@ -629,6 +634,9 @@ public class ConvertType : MonoBehaviour
         string str = string.Empty;
         switch (place)
         {
+            case Place.Home:
+                str = Inst_PlaceId_Home;
+                break;
             case Place.Clothing:
                 str = Inst_PlaceId_Clothing;
                 break;

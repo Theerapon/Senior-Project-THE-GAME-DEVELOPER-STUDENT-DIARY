@@ -8,6 +8,8 @@ public class MapPlace : MonoBehaviour
     private string placeId;
     private PlacesController placesController;
     private SwitchScene switchScene;
+    [SerializeField] MapMenuHandler menuHandler;
+
     private void Awake()
     {
         placesController = PlacesController.Instance;
@@ -54,13 +56,27 @@ public class MapPlace : MonoBehaviour
                             switchScene.DisplayPlaceUniversity(true);
                             break;
                         default:
-                            Debug.Log("default");
                             break;
                     }
                 }
             }
 
-            
         }
+    }
+    public void OnTriger()
+    {
+        if (!placeId.Equals(string.Empty))
+        {
+
+            if (placesController.PlacesDic.ContainsKey(placeId))
+            {
+                menuHandler.OnPlaceTriger(placeId);
+            }
+        }
+    }
+
+    public void OnExitTriger()
+    {
+        menuHandler.OnExitTriger();
     }
 }

@@ -20,7 +20,7 @@ public class CharacterStatus_Template : MonoBehaviour
 
     private CharacterLevelRequired[] characterLevelRequiedList;
 
-    public CharacterStatus_Template(CharacterLevelRequired[] characterLevelRequiedList, string character_ID, string character_Name, int default_max_level, float default_dropRate, int default_maxEnergy, float default_baseReduceEnergyConsumption, float defautl_goldenTimeReduceEnergyConsuption, int default_maxMotivation, float default_baseBootUpMotivation, float default_goldenTimeBootUpMotivation, int defaultMoney, int default_codingStatus, int default_designStatus, int default_artStats, int default_soundStats, int default_testingStats, float default_baseBootUpProject, float default_goldenTimeBootUpProject, float default_reduceBugChance, float default_charm, float default_negativeEventsEffect, float default_positiveEventsEffect, float default_reduceTimeTrainCourse, float default_reduceTimeTransport, float levelUp_baseReduceEnergyConsumption, float levelUp_goldenTimeReduceEnergyConsuption, float levelUp_baseBootUpMotivation, float levelUp_goldenTimeBootUpMotivation, float levelUp_baseBootUpProject, float levelUp_goldenTimeBootUpProject, float levelUp_reduceBugChance, float levelUp_charm, float levelUp_negativeEventsEffect, float levelUp_positiveEventsEffect, float levelUp_reduceTimeTrainCourse, float levelUp_reduceTimeTransport, int levelUp_softskillPoints, float levelUp_dropRate)
+    public CharacterStatus_Template(CharacterLevelRequired[] characterLevelRequiedList, string character_ID, string character_Name, int default_max_level, float default_dropRate, int default_maxEnergy, float default_baseReduceEnergyConsumption, float defautl_goldenTimeReduceEnergyConsuption, int default_maxMotivation, float default_baseBootUpMotivation, float default_goldenTimeBootUpMotivation, int defaultMoney, int default_codingStatus, int default_designStatus, int default_artStats, int default_soundStats, int default_testingStats, float default_baseBootUpProject, float default_goldenTimeBootUpProject, float default_reduceBugChance, float default_charm, float default_negativeEventsEffect, float default_positiveEventsEffect, float default_reduceTimeTrainCourse, float default_reduceTimeTransport, float levelUp_baseReduceEnergyConsumption, float levelUp_goldenTimeReduceEnergyConsuption, float levelUp_baseBootUpMotivation, float levelUp_goldenTimeBootUpMotivation, float levelUp_baseBootUpProject, float levelUp_goldenTimeBootUpProject, float levelUp_reduceBugChance, float levelUp_charm, float levelUp_negativeEventsEffect, float levelUp_positiveEventsEffect, float levelUp_reduceTimeTrainCourse, float levelUp_reduceTimeTransport, int levelUp_softskillPoints, float levelUp_dropRate, Sprite characterProfile, Sprite characterIcon)
     {
         this.characterLevelRequiedList = characterLevelRequiedList;
         this.character_ID = character_ID;
@@ -61,11 +61,15 @@ public class CharacterStatus_Template : MonoBehaviour
         this.levelUp_reduceTimeTransport = levelUp_reduceTimeTransport;
         this.levelUp_softskillPoints = levelUp_softskillPoints;
         this.levelUp_dropRate = levelUp_dropRate;
+        this.characterProfile = characterProfile;
+        this.characterIcon = characterIcon;
     }
 
     [Header("Identity")]
     #region Fields
     private string character_ID = "";
+    private Sprite characterProfile;
+    private Sprite characterIcon;
     private string character_Name = "";
     private int default_max_level;
 
@@ -171,6 +175,8 @@ public class CharacterStatus_Template : MonoBehaviour
     public int LevelUp_softskillPoints { get => levelUp_softskillPoints; }
     public float LevelUp_dropRate { get => levelUp_dropRate; }
     public CharacterLevelRequired[] CharacterLevelRequiedList { get => characterLevelRequiedList; }
+    public Sprite CharacterProfile { get => characterProfile; }
+    public Sprite CharacterIcon { get => characterIcon; }
     #endregion
 
 }

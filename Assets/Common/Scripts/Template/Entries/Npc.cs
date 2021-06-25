@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static PlaceEntry;
 
 public class Npc : MonoBehaviour
 {
     private PlacesController placesController;
+    private Arriver arriver;
 
     public enum RelationshipPhase
     {
@@ -19,6 +21,7 @@ public class Npc : MonoBehaviour
     {
         definition = npc_Template;
         placesController = PlacesController.Instance;
+        arriver = new Arriver(definition.Id, definition.Icon, definition.NormalImage, definition.NpcName);
         Initializing();
     }
 
@@ -41,6 +44,7 @@ public class Npc : MonoBehaviour
             if (placesController.PlacesDic.ContainsKey(placeID))
             {
                 placesController.PlacesDic[placeID].IsResidents(Id);
+                placesController.PlacesDic[placeID].Arrived(arriver);
             }
         }
         
@@ -69,6 +73,8 @@ public class Npc : MonoBehaviour
     public int Relationship { get => relationship; }
     public bool CanChat { get => canChat; set => canChat = value; }
     public string Chat { get => chat; set => chat = value; }
+    public Arriver Arriver { get => arriver; }
+
     public void IncreaseRelationship(int amount)
     {
         relationship += amount;

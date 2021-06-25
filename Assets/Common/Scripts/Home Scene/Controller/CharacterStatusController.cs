@@ -161,6 +161,9 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     }
     #endregion
     #region Reporter
+    public Sprite CharacterProfile { get => characterStatus.CharacterProfile; }
+    public Sprite CharacterIcon { get => characterStatus.CharacterIcon; }
+    public string Character_ID { get => characterStatus.Character_ID; }
     public int CurrentLevel { get => characterStatus.CurrentLevel; }
     public int CurrentExp { get => characterStatus.CurrentExp; }
     public int CurrentStatusPoints { get => characterStatus.CurrentStatusPoints; }

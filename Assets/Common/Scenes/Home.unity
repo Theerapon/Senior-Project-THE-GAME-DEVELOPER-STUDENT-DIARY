@@ -536,10 +536,10 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10
+  far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.4
+  orthographic size: 5.3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -563,7 +563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295283917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -50, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -987,6 +987,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb8ffe4381e87e479867c1906cf248e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHasPlaceArriverUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   placesController: {fileID: 556990571}
   timeManager: {fileID: 556990568}
 --- !u!1 &621257561
@@ -2049,6 +2052,7 @@ GameObject:
   - component: {fileID: 2079842008}
   - component: {fileID: 2079842010}
   - component: {fileID: 2079842011}
+  - component: {fileID: 2079842012}
   m_Layer: 0
   m_Name: Character Controller
   m_TagString: Player
@@ -2159,6 +2163,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25e6529cb99ec304f84528b43b0961bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2079842012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079842007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0599d1bf6972d204986f140493eb36b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placesController: {fileID: 556990571}
+  characterStatusController: {fileID: 1694228983}
 --- !u!1001 &315555996188596329
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,7 +6,9 @@ using static CharacterStatus_Template;
 public class CharactersVM : Manager<CharactersVM>
 {
     private const string INST_SET_charID = "ID";
-    private const string INST_SET_charName = "charName"; 
+    private const string INST_SET_charName = "charName";
+    private const string INST_SET_Icon = "icon";
+    private const string INST_SET_Profie = "profile";
 
     private const string INST_SET_default_maxEnergy = "default_maxEnergy%";
     private const string INST_SET_default_bReduceEnerg = "default_bReduceEnergy%";
@@ -79,6 +81,8 @@ public class CharactersVM : Manager<CharactersVM>
         CharacterLevelRequired[] characterLevelsList = null;
         string charID = "";
         string charName = "";
+        Sprite icon = null;
+        Sprite profile = null;
 
         int default_maxEnergy = 0;
         float default_bReduceEnergy = 0f;
@@ -260,6 +264,12 @@ public class CharactersVM : Manager<CharactersVM>
                     int level = stack_Level_Detail.Pop();
                     characterLevelsList[level] = new CharacterLevelRequired(expRequired, maxEnergy, statsPoints);
                     break;
+                case INST_SET_Icon:
+                    icon = Resources.Load<Sprite>(entries[++i]);
+                    break;
+                case INST_SET_Profie:
+                    profile = Resources.Load<Sprite>(entries[++i]);
+                    break;
             }
         }
 
@@ -270,7 +280,7 @@ public class CharactersVM : Manager<CharactersVM>
             default_reduceBugChange, default_charm, default_negativeEventEffect, default_positiveEventEffect, 
             default_reduceTimeCourse, default_reduceTimeTransport, perLevel_bReduceEnergy, perLevel_gReduceEnergy, perLevel_bMotivation,
             perLevel_gMotivation, perLevel_bProject, perLevel_gProject, perLevel_reduceBugChance, perLevel_charm, 
-            perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport, perLevel_softskillPoints, perLevel_dropRate);
+            perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport, perLevel_softskillPoints, perLevel_dropRate, icon, profile);
     }
 }
 

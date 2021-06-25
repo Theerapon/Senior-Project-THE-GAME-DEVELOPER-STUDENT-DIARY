@@ -13,15 +13,23 @@ public class Events
     [System.Serializable] public class EventOnHomeDisplay : UnityEvent<bool> { }
     [System.Serializable] public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> { }
 
+    #region Npc Controller
+    [System.Serializable] public class EventOnTenMinute : UnityEvent { }
+    #endregion
+
     #region Time manager
     [System.Serializable] public class EventDateCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventTimeCalendar : UnityEvent<string> { }
     [System.Serializable] public class EventTimeDayOrNight : UnityEvent<bool> { }
     [System.Serializable] public class EventOnGodenTime : UnityEvent<bool> { }
-    [System.Serializable] public class EventOnTenMinute : UnityEvent { }
+    [System.Serializable] public class EventOnHasPlaceArriverUpdate : UnityEvent { }
     #endregion
 
-    [System.Serializable] public class EventGameObject : UnityEvent<GameObject> { }
+    #region Mouse Manager
+    [System.Serializable] public class EventGameObjectOnClick : UnityEvent<GameObject> { }
+    [System.Serializable] public class EventGameObjectOnTriger : UnityEvent<GameObject> { }
+    [System.Serializable] public class EventGameObjectOnExitTriger : UnityEvent<GameObject> { }
+    #endregion
     [System.Serializable] public class EventSaveInitiated : UnityEvent { }
     [System.Serializable] public class EventProjectValueUpdated : UnityEvent { }
     [System.Serializable] public class EventStatsValueShowed : UnityEvent { }

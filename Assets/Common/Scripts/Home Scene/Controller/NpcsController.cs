@@ -8,6 +8,8 @@ using static TimeManager;
 
 public class NpcsController : Manager<NpcsController>
 {
+    public Events.EventOnHasPlaceArriverUpdate OnHasPlaceArriverUpdate;
+
     [SerializeField] private PlacesController placesController;
     [SerializeField] private TimeManager timeManager;
 
@@ -99,7 +101,7 @@ public class NpcsController : Manager<NpcsController>
                         {
                             string currentPlaceActivityID = ConvertType.GetPlaceId(currentPlaceActivity);
                             string currentPlaceNpcID = ConvertType.GetPlaceId(currentPlaceNpc);
-                            Arriver arriver = new Arriver(npcId, npc.Value.Icon, npc.Value.NormalImage, npc.Value.NpcName);
+                            Arriver arriver = npc.Value.Arriver;
                             if (currentPlaceNpc == Place.Null || currentPlaceNpc == Place.Secret)
                             {
                                 //if currentPlaceNpc null หรือ Secret
@@ -130,8 +132,7 @@ public class NpcsController : Manager<NpcsController>
 
                             }
                             npc.Value.CurrentPlace = currentPlaceActivity;
-
-
+                            OnHasPlaceArriverUpdate?.Invoke();
                         }
                         
                     }

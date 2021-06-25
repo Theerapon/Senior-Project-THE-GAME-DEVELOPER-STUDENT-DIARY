@@ -22,7 +22,9 @@ public class MouseManager : Manager<MouseManager>
     public Texture2D target;
 
     public LayerMask clickableLayer;
-    public Events.EventGameObject OnClickTarget;
+    public Events.EventGameObjectOnClick OnClickTarget;
+    public Events.EventGameObjectOnTriger OnTrigerTarget;
+    public Events.EventGameObjectOnExitTriger OnExitTrigerTarget;
 
 
     private bool _useDefaultCursor = false;
@@ -58,6 +60,7 @@ public class MouseManager : Manager<MouseManager>
         _useDefaultCursor = true;
     }
 
+    private GameObject lastGameObjectOnTriger;
     private void MouseHandler()
     {
         bool clickObj = false;
@@ -73,14 +76,15 @@ public class MouseManager : Manager<MouseManager>
                 Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
                 _useDefaultCursor = false;
                 _useTargetCursor = true;
+                lastGameObjectOnTriger = hit.collider.gameObject;
+                OnTrigerTarget?.Invoke(lastGameObjectOnTriger);
             }
             
             if (Input.GetMouseButtonDown(1))
             {
                 if (clickObj)
                 {
-                    GameObject obj = hit.collider.gameObject;
-                    OnClickTarget.Invoke(obj);
+                    OnClickTarget?.Invoke(hit.collider.gameObject);
                 }
             }
         }
@@ -91,6 +95,10 @@ public class MouseManager : Manager<MouseManager>
                 SetCursorDefalut();
                 _useDefaultCursor = true;
                 _useTargetCursor = false;
+                if(lastGameObjectOnTriger != null)
+                {
+                    OnExitTrigerTarget?.Invoke(lastGameObjectOnTriger);
+                }
             }
         }
 
@@ -142,5 +150,22 @@ public class MouseManager : Manager<MouseManager>
         }
     }
 
+    public void OnTriger(GameObject objTriger)
+    {
+        MapPlace mapPlace = objTriger.GetComponent<MapPlace>();
+        if(!ReferenceEquals(mapPlace, null))
+        {
+            mapPlace.OnTriger();
+        }
+    }
+
+    public void OnExitTriger(GameObject objTriger)
+    {
+        MapPlace mapPlace = objTriger.GetComponent<MapPlace>();
+        if (!ReferenceEquals(mapPlace, null))
+        {
+            mapPlace.OnExitTriger();
+        }
+    }
 }
 
