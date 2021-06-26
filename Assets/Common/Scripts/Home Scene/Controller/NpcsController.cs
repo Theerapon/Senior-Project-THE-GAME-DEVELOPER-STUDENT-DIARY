@@ -9,7 +9,6 @@ using static TimeManager;
 public class NpcsController : Manager<NpcsController>
 {
     public Events.EventOnHasPlaceArriverUpdate OnHasPlaceArriverUpdate;
-
     [SerializeField] private PlacesController placesController;
     [SerializeField] private TimeManager timeManager;
 
@@ -102,7 +101,7 @@ public class NpcsController : Manager<NpcsController>
                             string currentPlaceActivityID = ConvertType.GetPlaceId(currentPlaceActivity);
                             string currentPlaceNpcID = ConvertType.GetPlaceId(currentPlaceNpc);
                             Arriver arriver = npc.Value.Arriver;
-                            if (currentPlaceNpc == Place.Null || currentPlaceNpc == Place.Secret)
+                            if (currentPlaceNpc == Place.Null || currentPlaceNpc == Place.NotAtPlace)
                             {
                                 //if currentPlaceNpc null หรือ Secret
                                 //not leave
@@ -116,9 +115,9 @@ public class NpcsController : Manager<NpcsController>
                                 //else currentPlaceNpc != null หรือ != secret
                                 //leave and arrived
                                 if (placesController.PlacesDic.ContainsKey(currentPlaceNpcID) && placesController.PlacesDic.ContainsKey(currentPlaceActivityID)
-                                    || currentPlaceActivity == Place.Secret)
+                                    || currentPlaceActivity == Place.NotAtPlace)
                                 {
-                                    if (currentPlaceActivity == Place.Secret)
+                                    if (currentPlaceActivity == Place.NotAtPlace)
                                     {
                                         placesController.PlacesDic[currentPlaceNpcID].Leave(npcId);
                                     }

@@ -4,36 +4,42 @@ using UnityEngine;
 
 public class Place_Template : MonoBehaviour
 {
-    private string id = string.Empty;
-    private string placeName = "Place Name";
-    private int openTimeHour = 0;
-    private int openTimeMinute = 0;
-    private int closeTimeHour = 0;
-    private int closeTimeMinute = 0;
-    private OnClickSwitchScene switchScene = OnClickSwitchScene.None;
-    private bool[] dayOpen = new bool[7];
-    private string storeId = string.Empty;
+    private string _id = string.Empty;
+    private string _placeName = "Place Name";
+    private int _openTimeHour = 0;
+    private int _openTimeMinute = 0;
+    private int _closeTimeHour = 0;
+    private int _closeTimeMinute = 0;
+    private OnClickSwitchScene _switchScene = OnClickSwitchScene.None;
+    private bool[] _dayOpen = new bool[7];
+    private string _storeId = string.Empty;
+    private int _transportIndex = -1;
+    private PlaceType _placeType = PlaceType.None;
 
-    public Place_Template(string id, string placeName, int openTimeHour, int openTimeMinute, int closeTimeHour, int closeTimeMinute, OnClickSwitchScene switchScene, bool[] dayOpen, string storeId)
+    public Place_Template(string id, string placeName, int openTimeHour, int openTimeMinute, int closeTimeHour, int closeTimeMinute, OnClickSwitchScene switchScene, bool[] dayOpen, string storeId, int transportIndex, PlaceType placeType)
     {
-        this.id = id;
-        this.placeName = placeName;
-        this.openTimeHour = openTimeHour;
-        this.openTimeMinute = openTimeMinute;
-        this.closeTimeHour = closeTimeHour;
-        this.closeTimeMinute = closeTimeMinute;
-        this.switchScene = switchScene;
-        this.dayOpen = dayOpen;
-        this.storeId = storeId;
+        _id = id;
+        _placeName = placeName;
+        _openTimeHour = openTimeHour;
+        _openTimeMinute = openTimeMinute;
+        _closeTimeHour = closeTimeHour;
+        _closeTimeMinute = closeTimeMinute;
+        _switchScene = switchScene;
+        _dayOpen = dayOpen;
+        _storeId = storeId;
+        _transportIndex = transportIndex;
+        _placeType = placeType;
     }
 
-    public string Id { get => id; }
-    public string PlaceName { get => placeName; }
-    public int OpenTimeHour { get => openTimeHour; }
-    public int OpenTimeMinute { get => openTimeMinute; }
-    public int CloseTimeHour { get => closeTimeHour; }
-    public int CloseTimeMinute { get => closeTimeMinute; }
-    public OnClickSwitchScene SwitchScene { get => switchScene; }
-    public bool[] DayOpen { get => dayOpen; }
-    public string StoreId { get => storeId; }
+    public string Id { get => _id; }
+    public string PlaceName { get => _placeName; }
+    public int OpenTimeHour { get => _openTimeHour; }
+    public int OpenTimeMinute { get => _openTimeMinute; }
+    public int CloseTimeHour { get => _closeTimeHour; }
+    public int CloseTimeMinute { get => _closeTimeMinute; }
+    public OnClickSwitchScene SwitchScene { get => _switchScene; }
+    public bool[] DayOpen { get => _dayOpen; }
+    public string StoreId { get => _storeId; }
+    public int TransportIndex { get => _transportIndex; }
+    public PlaceType PlaceType { get => _placeType; }
 }

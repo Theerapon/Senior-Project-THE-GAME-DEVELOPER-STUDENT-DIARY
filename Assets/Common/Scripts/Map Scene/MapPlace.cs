@@ -55,6 +55,9 @@ public class MapPlace : MonoBehaviour
                         case OnClickSwitchScene.UniversityScene:
                             switchScene.DisplayPlaceUniversity(true);
                             break;
+                        case OnClickSwitchScene.TreasureScene:
+                            Debug.Log("Treasure");
+                            break;
                         default:
                             break;
                     }

@@ -454,7 +454,7 @@ public class ActivitiesNpcVM : MonoBehaviour
         Day day = Day.None;
         int start_time_hour = 0;
         int start_time_minute = 0;
-        Place place = Place.Secret;
+        Place place = Place.NotAtPlace;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)

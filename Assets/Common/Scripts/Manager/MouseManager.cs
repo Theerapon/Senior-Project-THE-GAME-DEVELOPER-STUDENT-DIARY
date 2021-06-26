@@ -17,6 +17,7 @@ public class MouseManager : Manager<MouseManager>
     private const string INST_Place_Park = "Place_Park";
     private const string INST_Place_Teacher = "Place_Teacher";
     private const string INST_Place_University = "Place_University";
+    private const string INST_Place_Treasure = "Place_Treasure";
 
     public Texture2D pointer;
     public Texture2D target;
@@ -56,7 +57,7 @@ public class MouseManager : Manager<MouseManager>
 
     private void SetCursorDefalut()
     {
-        Cursor.SetCursor(pointer, new Vector2(16, 16), CursorMode.Auto);
+        //Cursor.SetCursor(pointer, new Vector2(pointer.width / 2, pointer.height / 2), CursorMode.Auto);
         _useDefaultCursor = true;
     }
 
@@ -66,14 +67,14 @@ public class MouseManager : Manager<MouseManager>
         bool clickObj = false;
         //check mouse holder
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 50, clickableLayer.value);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0, clickableLayer.value);
         if (hit)
         {
             //set cursor
             clickObj = hit.collider.gameObject.GetComponent(typeof(IClickable)) != null;
             if (clickObj && _useTargetCursor == false)
             {
-                Cursor.SetCursor(target, new Vector2(16, 16), CursorMode.Auto);
+                //Cursor.SetCursor(target, new Vector2(target.width / 2, target.height / 2), CursorMode.Auto);
                 _useDefaultCursor = false;
                 _useTargetCursor = true;
                 lastGameObjectOnTriger = hit.collider.gameObject;
@@ -146,6 +147,9 @@ public class MouseManager : Manager<MouseManager>
                 break;
             case INST_Place_University:
                 objClicked.GetComponent<UniversityClickable>().OnClick();
+                break;
+            case INST_Place_Treasure:
+                objClicked.GetComponent<TreasureClickable>().OnClick();
                 break;
         }
     }

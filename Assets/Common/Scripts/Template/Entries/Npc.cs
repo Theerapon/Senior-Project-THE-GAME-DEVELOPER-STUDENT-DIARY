@@ -29,8 +29,6 @@ public class Npc : MonoBehaviour
     private Place currentPlace;
     private bool isBirthday;
     private int relationship;
-    private bool canChat;
-    private string chat;
 
     private void Initializing()
     {
@@ -71,8 +69,6 @@ public class Npc : MonoBehaviour
     public Place CurrentPlace { get => currentPlace; set => currentPlace = value; }
     public bool IsBirthday { get => isBirthday; set => isBirthday = value; }
     public int Relationship { get => relationship; }
-    public bool CanChat { get => canChat; set => canChat = value; }
-    public string Chat { get => chat; set => chat = value; }
     public Arriver Arriver { get => arriver; }
 
     public void IncreaseRelationship(int amount)

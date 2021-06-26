@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Day { None, Mon, Tue, Wed, Thu, Fri, Sat, Sun }
-public enum Place { Null, Secret, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University }
+public enum PlaceType { None, Place, Home, Treasure }
+public enum Place { Null, NotAtPlace, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University, Treasure1, Treasure2, Treasure3, Treasure4, Treasure5 }
 public enum CreateEvent { Null, CreateIdea, CreateItem }
 public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
 public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
 public enum ItemDefinitionsType { Food, Treasure, Equipment}; 
 public enum ItemEquipmentType { NONE, Hat, Shirt, Pant, Shoes }
-public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ParkScene }
+public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ParkScene, TreasureScene }
 public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
 public enum BonusCharacter { Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate }
 public enum ClassActivityType { Project, Class }
@@ -99,7 +100,7 @@ public class ConvertType : MonoBehaviour
                 placeTemp = Place.Null;
                 break;
             case INST_Place_Secret:
-                placeTemp = Place.Secret;
+                placeTemp = Place.NotAtPlace;
                 break;
             case INST_Place_Home:
                 placeTemp = Place.Home;
@@ -126,7 +127,7 @@ public class ConvertType : MonoBehaviour
                 placeTemp = Place.University;
                 break;
             default:
-                placeTemp = Place.Secret;
+                placeTemp = Place.NotAtPlace;
                 break;
         }
         return placeTemp;
@@ -334,6 +335,7 @@ public class ConvertType : MonoBehaviour
     private const string INST_Scene_MysticScene = "MysticScene";
     private const string INST_Scene_SellScene = "SellScene";
     private const string INST_Scene_ParkScene = "ParkScene";
+    private const string INST_Scene_TreasureScene = "TreasureScene";
 
     #endregion
     public static OnClickSwitchScene CheckOnClickSwitchScene(string text)
@@ -364,6 +366,9 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Scene_ParkScene:
                 temp = OnClickSwitchScene.ParkScene;
+                break;
+            case INST_Scene_TreasureScene:
+                temp = OnClickSwitchScene.TreasureScene;
                 break;
         }
         return temp;
@@ -627,6 +632,11 @@ public class ConvertType : MonoBehaviour
     private const string Inst_PlaceId_Mystic = "place005";
     private const string Inst_PlaceId_Sell = "place006";
     private const string Inst_PlaceId_Park = "place007";
+    private const string Inst_PlaceId_Treasure1 = "place008";
+    private const string Inst_PlaceId_Treasure2 = "place009";
+    private const string Inst_PlaceId_Treasure3 = "place010";
+    private const string Inst_PlaceId_Treasure4 = "place011";
+    private const string Inst_PlaceId_Treasure5 = "place012";
     #endregion
 
     public static string GetPlaceId(Place place)
@@ -658,10 +668,51 @@ public class ConvertType : MonoBehaviour
             case Place.University:
                 str = Inst_PlaceId_University;
                 break;
+            case Place.Treasure1:
+                str = Inst_PlaceId_Treasure1;
+                break;
+            case Place.Treasure2:
+                str = Inst_PlaceId_Treasure2;
+                break;
+            case Place.Treasure3:
+                str = Inst_PlaceId_Treasure3;
+                break;
+            case Place.Treasure4:
+                str = Inst_PlaceId_Treasure4;
+                break;
+            case Place.Treasure5:
+                str = Inst_PlaceId_Treasure5;
+                break;
             default:
                 str = string.Empty;
                 break;
         }
         return str;
+    }
+
+    #region Place Type
+    private const string INST_PlaceType_Place = "Place";
+    private const string INST_PlaceType_Home = "Home";
+    private const string INST_PlaceType_Treasure = "Treasure";
+    #endregion
+    public static PlaceType ConvertPlaceType(string place)
+    {
+        PlaceType type = PlaceType.None;
+        switch (place)
+        {
+            case INST_PlaceType_Place:
+                type = PlaceType.Place;
+                break;
+            case INST_PlaceType_Home:
+                type = PlaceType.Home;
+                break;
+            case INST_PlaceType_Treasure:
+                type = PlaceType.Treasure;
+                break;
+            default:
+                type = PlaceType.None;
+                break;
+        }
+        return type;
     }
 }

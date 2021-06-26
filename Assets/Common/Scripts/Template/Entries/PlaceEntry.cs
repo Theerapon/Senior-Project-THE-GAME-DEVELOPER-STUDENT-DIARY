@@ -41,6 +41,8 @@ public class PlaceEntry : MonoBehaviour
     public OnClickSwitchScene SwitchScene { get => definition.SwitchScene; }
     public bool[] DayOpen { get => definition.DayOpen; }
     public string StoreId { get => definition.StoreId; }
+    public int TransportIndex { get => definition.TransportIndex; }
+    public PlaceType PlaceType { get => definition.PlaceType; }
 
     public PlaceEntry(Place_Template place_Template)
     {

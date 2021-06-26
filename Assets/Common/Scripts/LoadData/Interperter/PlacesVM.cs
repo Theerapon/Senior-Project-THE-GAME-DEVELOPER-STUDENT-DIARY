@@ -18,6 +18,8 @@ public class PlacesVM : MonoBehaviour
     private const string INST_SET_Sat = "Sat";
     private const string INST_SET_Sun = "Sun";
     private const string INST_SET_StoreID = "StoreID";
+    private const string INST_SET_TranIndex = "TranIndex";
+    private const string INST_SET_PlaceType = "PlaceType";
 
     #endregion
 
@@ -63,6 +65,8 @@ public class PlacesVM : MonoBehaviour
         OnClickSwitchScene switchScene = OnClickSwitchScene.None;
         bool[] dayOpen = new bool[7];
         string storeId = string.Empty;
+        int transportIndex = -1;
+        PlaceType placeType = PlaceType.None;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -121,12 +125,18 @@ public class PlacesVM : MonoBehaviour
                 case INST_SET_StoreID:
                     storeId = ConvertType.CheckString(entries[++i]);
                     break;
+                case INST_SET_TranIndex:
+                    transportIndex = int.Parse(entries[++i]);
+                    break;
+                case INST_SET_PlaceType:
+                    placeType = ConvertType.ConvertPlaceType(entries[++i]);
+                    break;
 
 
             }
 
         }
 
-        return new Place_Template(id, placeName, openTimeHour, openTimeMinute, closeTimeHour, closeTimeMinute, switchScene, dayOpen, storeId);
+        return new Place_Template(id, placeName, openTimeHour, openTimeMinute, closeTimeHour, closeTimeMinute, switchScene, dayOpen, storeId, transportIndex, placeType);
     }
 }

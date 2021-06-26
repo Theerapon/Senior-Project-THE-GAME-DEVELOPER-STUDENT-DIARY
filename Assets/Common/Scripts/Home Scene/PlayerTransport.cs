@@ -58,7 +58,7 @@ public class PlayerTransport : Manager<PlayerTransport>
             {
                 string currentTargetPlaceID = ConvertType.GetPlaceId(targetPlace);
                 string currentPlaceID = currentPlaceId;
-                if (currentPlace != Place.Null && currentPlace != Place.Secret)
+                if (currentPlace != Place.Null && currentPlace != Place.NotAtPlace)
                 {
                     if (placesController.PlacesDic.ContainsKey(currentPlaceID) && placesController.PlacesDic.ContainsKey(currentTargetPlaceID))
                     {
