@@ -9,16 +9,29 @@ public class ButtonHover : MonoBehaviour
     [SerializeField] TMP_Text text;
     [SerializeField] private Color text_highlight_color;
     [SerializeField] private Color text_normal_color;
+    [SerializeField] private bool _defaultNormalColor;
 
     private void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(GameStateChangedHandler);
-        Normal();
+        Initailizing(_defaultNormalColor);
     }
 
     private void GameStateChangedHandler(GameManager.GameState currentGameState, GameManager.GameState previousGameState)
     {
-        Normal();
+        Initailizing(_defaultNormalColor);
+    }
+
+    private void Initailizing(bool normal)
+    {
+        if (normal)
+        {
+            Normal();
+        }
+        else
+        {
+            Highlight();
+        }
     }
 
     public void Highlight()

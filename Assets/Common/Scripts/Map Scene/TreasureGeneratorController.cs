@@ -1,17 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TreasureGeneratorController : MonoBehaviour
 {
     private TreasureController treasureController;
+    private GameManager _gameManager;
 
     [SerializeField] private GameObject[] _treasureGameObjects;
 
     private void Awake()
     {
         treasureController = TreasureController.Instance;
-        Initializing();
+        _gameManager = GameManager.Instance;
+        _gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
+        //Initializing();
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.MAP)
+        {
+            Initializing();
+        }
     }
 
     private void Initializing()

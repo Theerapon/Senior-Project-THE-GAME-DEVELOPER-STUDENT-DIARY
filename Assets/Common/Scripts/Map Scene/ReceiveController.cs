@@ -15,7 +15,6 @@ public class ReceiveController : MonoBehaviour
     [Header("Item Prefab")]
     [SerializeField] private GameObject _itemPrefab;
     private GameObject _itemTemp;
-    private List<ItemPickUp> _itemsList; 
     private Stack<ItemPickUp> _itemsReceive;
 
     [Header("Show Item Receive")]
@@ -32,7 +31,6 @@ public class ReceiveController : MonoBehaviour
         _switchScene = SwitchScene.Instance;
         _itemsReceive = new Stack<ItemPickUp>();
         _currentSpawnItems = new List<SpawnItem>();
-        _itemsList = new List<ItemPickUp>();
 
         ActiveReceiveCanvas(false);
         _itemTemp = _itemPrefab;
@@ -72,8 +70,8 @@ public class ReceiveController : MonoBehaviour
         if(_itemsReceive.Count > 0)
         {
             ItemPickUp itemPickUp = _itemsReceive.Pop();
-            _itemsList.Add(itemPickUp);
             _itemReceiveGenerator.CreateTemplate(itemPickUp.itemDefinition);
+            itemPickUp.StoreItem();
         }
         else
         {

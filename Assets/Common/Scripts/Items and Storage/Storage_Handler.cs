@@ -36,9 +36,13 @@ public class Storage_Handler : Manager<Storage_Handler>
 		storage_container = found_obj_storage.GetComponentInChildren<StorageContainer>();
 
 		// Setup Events:
+		// Left Click
+		inv_container_display.OnLeftClickEvent.AddListener(InventoryLeftClick);
+		storage_container_display.OnLeftClickEvent.AddListener(StorageLeftClick);
+
 		// Right Click
-		inv_container_display.OnRightClickEvent.AddListener(InventoryRightClick);
-		storage_container_display.OnRightClickEvent.AddListener(StorageRightClick);
+		inv_container_display.OnRightClickEvent.AddListener(RightClick);
+		storage_container_display.OnRightClickEvent.AddListener(RightClick);
 
 
 		// Pointer Enter
@@ -109,22 +113,32 @@ public class Storage_Handler : Manager<Storage_Handler>
 		}
 	}
 
-	private void StorageRightClick(BaseItemSlot itemSlot)
-    {
+	private void StorageLeftClick(BaseItemSlot itemSlot)
+	{
 		if (dragItemSlot == null)
-        {
+		{
 			ReceiveItem(itemSlot);
 		}
-
 	}
 
-    private void InventoryRightClick(BaseItemSlot itemSlot)
-    {
+	private void InventoryLeftClick(BaseItemSlot itemSlot)
+	{
 		if (dragItemSlot == null)
 		{
 			StoreItem(itemSlot);
 		}
-    }
+	}
+
+	private void RightClick(BaseItemSlot itemSlot)
+	{
+		if (dragItemSlot == null)
+		{
+			if (itemSlot.ITEM != null && !itemSlot.ITEM.itemDefinition.IsEquipped)
+			{
+				Debug.Log("wait implement for item use");
+			}
+		}
+	}
 
 	private void Drop(BaseItemSlot tranferItemSlot)
 	{
@@ -237,10 +251,7 @@ public class Storage_Handler : Manager<Storage_Handler>
 				storage_container.StoreItem(copy_item_pickup);
             }
         }
-        else
-        {
-			Debug.Log("Storage Full");
-        }
+
     }
 
 	private void ReceiveItem(BaseItemSlot itemSlot)
@@ -254,10 +265,7 @@ public class Storage_Handler : Manager<Storage_Handler>
 				inv_container.StoreItem(copy_item_pickup);
 			}
 		}
-		else
-		{
-			Debug.Log("Inventory Full");
-		}
+
 	}
     
 }

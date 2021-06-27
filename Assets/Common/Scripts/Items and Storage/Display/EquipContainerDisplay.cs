@@ -13,6 +13,7 @@ public class EquipContainerDisplay : MonoBehaviour
     public Events.EventOnPointEnter OnPointEnterEvent;
     public Events.EventOnPointExit OnPointExitEvent;
     public Events.EventOnRightClick OnRightClickEvent;
+    public Events.EventOnLeftClick OnLeftClickEvent;
     #endregion
 
     protected GameObject found_player;
@@ -45,6 +46,7 @@ public class EquipContainerDisplay : MonoBehaviour
         //add Event each slots
         for (int index = 0; index < EquipItemSlots.Count; index++)
         {
+            EquipItemSlots[index].OnLeftClickEvent.AddListener(OnLeftClickEventHandler);
             EquipItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
             EquipItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
             EquipItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
@@ -102,6 +104,10 @@ public class EquipContainerDisplay : MonoBehaviour
     private void OnRightClickEventHandler(BaseItemSlot itemSlot)
     {
         OnRightClickEvent?.Invoke(itemSlot);
+    }
+    private void OnLeftClickEventHandler(BaseItemSlot itemSlot)
+    {
+        OnLeftClickEvent?.Invoke(itemSlot);
     }
     private void OnEquipmentUpdatedHandler()
     {

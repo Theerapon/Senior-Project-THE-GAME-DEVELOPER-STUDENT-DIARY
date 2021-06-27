@@ -12,6 +12,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public Events.EventOnPointEnter OnPointEnterEvent;
     public Events.EventOnPointExit OnPointExitEvent;
     public Events.EventOnRightClick OnRightClickEvent;
+    public Events.EventOnRightClick OnLeftClickEvent;
 
 
     protected bool isPointerOver;
@@ -107,6 +108,10 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (eventData != null && eventData.button == PointerEventData.InputButton.Right)
         {
             OnRightClickEvent?.Invoke(this);
+        }
+        else if (eventData != null && eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnLeftClickEvent?.Invoke(this);
         }
     }
 }

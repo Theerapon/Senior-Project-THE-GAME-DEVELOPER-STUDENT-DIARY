@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BaseStorageSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
+public class BaseStachSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     public Events.EventOnBeginDrag OnBeginDragEvent;
     public Events.EventOnEndDrag OnEndDragEvent;

@@ -9,6 +9,7 @@ public class TransportController : MonoBehaviour
 
     [SerializeField] private DijkstrasAlgo _dijkstrasAlgo;
     [SerializeField] private GameObject _treasureAnimation;
+    private TreasureController _treasureController;
     private GameManager _gameManager;
     private PlayerAction _playerAction;
     private PlayerTransport _playerTransport;
@@ -26,6 +27,7 @@ public class TransportController : MonoBehaviour
         _playerTransport = PlayerTransport.Instance;
         _switchScene = SwitchScene.Instance;
         _placesController = PlacesController.Instance;
+        _treasureController = TreasureController.Instance;
         _gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
         ActiveTrasureAnimation(false);
 
@@ -100,6 +102,7 @@ public class TransportController : MonoBehaviour
                         case OnClickSwitchScene.TreasureScene:
                             _switchScene.OpeningTreasure();
                             ActiveTrasureAnimation(true);
+                            _treasureController.Explore();
                             break;
                         default:
                             break;

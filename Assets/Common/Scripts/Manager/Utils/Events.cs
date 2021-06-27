@@ -54,6 +54,7 @@ public class Events
     #endregion
 
     #region Storage 
+    [System.Serializable] public class EventOnStachUpdated : UnityEvent { }
     [System.Serializable] public class EventOnInventoryUpdated : UnityEvent { }
     [System.Serializable] public class EventOnEquipmentUpdated : UnityEvent { }
     [System.Serializable] public class EventOnStorageUpdated : UnityEvent { }
@@ -63,6 +64,7 @@ public class Events
     [System.Serializable] public class EventOnPointEnter : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnPointExit : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnRightClick : UnityEvent<BaseItemSlot> { }
+    [System.Serializable] public class EventOnLeftClick : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnBeginDrag : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnEndDrag : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnDrag : UnityEvent<BaseItemSlot> { }

@@ -93,9 +93,18 @@ public class MapPlace : MonoBehaviour
 
     private void Transporting()
     {
-        _gameManager.Transporting();
-        _timeManager.SkilpTime(_totalSecond, 3);
-        _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId);
+        if (_playerTransport.CurrentPlace == _targetPlace)
+        {
+            _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId);
+            _transportController.TransportFinished();
+        }
+        else
+        {
+            _gameManager.Transporting();
+            _timeManager.SkilpTime(_totalSecond, 3);
+            _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId);
+        }
+        
     }
 
 

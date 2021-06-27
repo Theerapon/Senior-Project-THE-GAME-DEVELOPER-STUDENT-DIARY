@@ -39,6 +39,7 @@ public class Bag_Handler : Manager<Bag_Handler>
 
 		if(!ReferenceEquals(inv_container, null))
         {
+			inv_container_display.OnLeftClickEvent.AddListener(InventoryLeftClick);
 			inv_container_display.OnRightClickEvent.AddListener(InventoryRightClick);
 			inv_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
 			inv_container_display.OnPointExitEvent.AddListener(HideTooltip);
@@ -50,7 +51,8 @@ public class Bag_Handler : Manager<Bag_Handler>
 
 		if(!ReferenceEquals(equip_container, null))
 		{
-			equip_container_display.OnRightClickEvent.AddListener(EquipmentRightClick);
+			equip_container_display.OnLeftClickEvent.AddListener(EquipmentUnequip);
+			equip_container_display.OnRightClickEvent.AddListener(EquipmentUnequip);
 			equip_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
 			equip_container_display.OnPointExitEvent.AddListener(HideTooltip);
 			equip_container_display.OnBeginDragEvent.AddListener(BeginDrag);
@@ -64,6 +66,8 @@ public class Bag_Handler : Manager<Bag_Handler>
 		draggableItem.gameObject.SetActive(false);
 
 	}
+
+    
 
     private void HideTooltip(BaseItemSlot itemSlot)
     {
@@ -188,7 +192,7 @@ public class Bag_Handler : Manager<Bag_Handler>
 		}
 	}
 
-    private void EquipmentRightClick(BaseItemSlot itemSlot)
+	private void EquipmentUnequip(BaseItemSlot itemSlot)
     {
 		if (dragItemSlot == null)
         {
@@ -201,9 +205,20 @@ public class Bag_Handler : Manager<Bag_Handler>
 			
 	}
 
-    private void InventoryRightClick(BaseItemSlot itemSlot)
+	private void InventoryLeftClick(BaseItemSlot itemSlot)
+	{
+		if(dragItemSlot == null)
+
+		{
+			if (itemSlot.ITEM != null && itemSlot.ITEM.itemDefinition.IsEquipped)
+			{
+				Equip(itemSlot);
+			}
+		}
+	}
+
+	private void InventoryRightClick(BaseItemSlot itemSlot)
     {
-		Debug.Log("Right click");
 
 		if (dragItemSlot == null)
         {
@@ -213,7 +228,7 @@ public class Bag_Handler : Manager<Bag_Handler>
 			}
 			else if (itemSlot.ITEM != null)
 			{
-				Debug.Log(itemSlot.ITEM.name);
+				Debug.Log("wait implement for item use");
 				//ItemPickUp copy = Instantiate(itemSlot.ITEM);
 				//copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
 				//copy.UseItem();

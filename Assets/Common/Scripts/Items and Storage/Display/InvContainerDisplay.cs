@@ -13,6 +13,7 @@ public class InvContainerDisplay : MonoBehaviour
     public Events.EventOnPointEnter OnPointEnterEvent;
     public Events.EventOnPointExit OnPointExitEvent;
     public Events.EventOnRightClick OnRightClickEvent;
+    public Events.EventOnLeftClick OnLeftClickEvent;
     #endregion
 
     protected GameObject found_player;
@@ -42,6 +43,7 @@ public class InvContainerDisplay : MonoBehaviour
 
         for (int index = 0; index < InvItemSlots.Count; index++)
         {
+            InvItemSlots[index].OnLeftClickEvent.AddListener(OnLeftClickEventHandler);
             InvItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
             InvItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
             InvItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
@@ -123,10 +125,12 @@ public class InvContainerDisplay : MonoBehaviour
 
     private void OnRightClickEventHandler(BaseItemSlot itemSlot)
     {
-        Debug.Log("Right click " + itemSlot.ITEM.ItemName + " ");
         OnRightClickEvent?.Invoke(itemSlot);
     }
-
+    private void OnLeftClickEventHandler(BaseItemSlot itemSlot)
+    {
+        OnLeftClickEvent?.Invoke(itemSlot);
+    }
     private void OnInventoryUpdatedHandler()
     {
         DisplayedInv();

@@ -8,6 +8,7 @@ public class IconPlayerTransportController : MonoBehaviour
     GameManager gameManager;
     [SerializeField] private GameObject[] _gameObjects;
     PlayerTransport playerTransport;
+    private int _currentIndex;
 
     private void Awake()
     {
@@ -26,6 +27,10 @@ public class IconPlayerTransportController : MonoBehaviour
         if(current == GameManager.GameState.MAP)
         {
             Initializing();
+        }
+        else
+        {
+            _gameObjects[_currentIndex].SetActive(false);
         }
     }
 
@@ -46,6 +51,7 @@ public class IconPlayerTransportController : MonoBehaviour
                 if (placeInfo.Place == place)
                 {
                     _gameObjects[i].SetActive(true);
+                    _currentIndex = i;
                 }
                 else
                 {

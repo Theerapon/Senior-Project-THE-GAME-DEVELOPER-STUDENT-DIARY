@@ -79,7 +79,7 @@ public class MapMenuDisplayHandler : MonoBehaviour
             ActiveTrasportingGameObject(true);
             ActiveTimeSkipAnimationGameObject(true);
         }
-        else if(current == GameManager.GameState.PLACE && previous == GameManager.GameState.TRANSPORTING)
+        else if(current == GameManager.GameState.PLACE && (previous == GameManager.GameState.TRANSPORTING || previous == GameManager.GameState.MAP))
         {
             Initializing();
             ActivePlaceNameGameObject(true);     

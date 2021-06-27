@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StorageContainerDisplay : MonoBehaviour
+public class StachContainerDisplay : MonoBehaviour
 {
     #region Events
     public Events.EventOnBeginDrag OnBeginDragEvent;
@@ -16,82 +16,74 @@ public class StorageContainerDisplay : MonoBehaviour
     public Events.EventOnLeftClick OnLeftClickEvent;
     #endregion
 
-    protected GameObject found_obj_storage;
-    protected StorageContainer container;
+    protected GameObject found_player;
+    protected StachContainer container;
     [SerializeField] private Transform itemsParent;
 
-    public List<BaseStorageSlot> StorageItemSlots;
+    public List<BaseStachSlot> StachItemSlots;
 
     bool displayed = false;
 
     private void Awake()
     {
         //set Item Slots
-        StorageItemSlots = new List<BaseStorageSlot>();
+        StachItemSlots = new List<BaseStachSlot>();
         if (itemsParent != null)
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: StorageItemSlots);
+            itemsParent.GetComponentsInChildren(includeInactive: true, result: StachItemSlots);
     }
 
-    private void Start()
-    {
-        //fonud inventory container in main Scene
-        found_obj_storage = GameObject.FindGameObjectWithTag("obj_storage");
-        container = found_obj_storage.GetComponentInChildren<StorageContainer>();
-
-        container.OnStorageUpdated.AddListener(OnStorageUpdatedHandler);
-
-
-        //add Event each slots
-        for (int index = 0; index < StorageItemSlots.Count; index++)
-        {
-            StorageItemSlots[index].OnLeftClickEvent.AddListener(OnLeftClickEventHandler);
-            StorageItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
-            StorageItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
-            StorageItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
-            StorageItemSlots[index].OnDragEvent.AddListener(OnDragEventHandler);
-            StorageItemSlots[index].OnDropEvent.AddListener(OnDropEventHandler);
-            StorageItemSlots[index].OnPointEnterEvent.AddListener(OnPointEnterEventHandler);
-            StorageItemSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
-            StorageItemSlots[index].INDEX = index;
-        }
-
-        displayed = false;
-
-    }
-
+    
 
     private void Update()
     {
         if (!displayed)
         {
-            DisplayedStorage();
+            DisplayedStach();
             displayed = true;
         }
     }
 
-    public void DisplayedStorage()
+    private void Start()
+    {
+        //fonud inventory container in main Scene
+        found_player = GameObject.FindGameObjectWithTag("Player");
+        container = found_player.GetComponentInChildren<StachContainer>();
+
+        container.OnStachUpdated.AddListener(OnStachUpdatedHandler);
+
+        for (int index = 0; index < StachItemSlots.Count; index++)
+        {
+            StachItemSlots[index].OnLeftClickEvent.AddListener(OnLeftClickEventHandler);
+            StachItemSlots[index].OnRightClickEvent.AddListener(OnRightClickEventHandler);
+            StachItemSlots[index].OnBeginDragEvent.AddListener(OnBeginDragEventHandler);
+            StachItemSlots[index].OnEndDragEvent.AddListener(OnEndDragEventHandler);
+            StachItemSlots[index].OnDragEvent.AddListener(OnDragEventHandler);
+            StachItemSlots[index].OnDropEvent.AddListener(OnDropEventHandler);
+            StachItemSlots[index].OnPointEnterEvent.AddListener(OnPointEnterEventHandler);
+            StachItemSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
+            StachItemSlots[index].INDEX = index;
+
+        }
+
+        displayed = false;
+
+    }
+    public void DisplayedStach()
     {
         for (int index = 0; index < container.container_item_entry.Length; index++)
         {
             ItemEntry itemEntry = container.container_item_entry[index];
-            if (itemEntry != null)
+            if (!ReferenceEquals(itemEntry, null))
             {
-                StorageItemSlots[index].ITEM = itemEntry.item_pickup;
+                StachItemSlots[index].ITEM = itemEntry.item_pickup;
             }
             else
             {
-                StorageItemSlots[index].ITEM = null;
+                StachItemSlots[index].ITEM = null;
             }
         }
 
     }
-
-    protected void EventHelper(BaseItemSlot slot, Action<BaseItemSlot> action)
-    {
-        if (action != null)
-            action(slot);
-    }
-
     private void OnPointExitEventHandler(BaseItemSlot itemSlot)
     {
         OnPointExitEvent?.Invoke(itemSlot);
@@ -130,8 +122,8 @@ public class StorageContainerDisplay : MonoBehaviour
     {
         OnLeftClickEvent?.Invoke(itemSlot);
     }
-    private void OnStorageUpdatedHandler()
+    private void OnStachUpdatedHandler()
     {
-        DisplayedStorage();
+        DisplayedStach();
     }
 }

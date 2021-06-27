@@ -29,8 +29,8 @@ public class ItemPickUp : MonoBehaviour
 
     public void StoreItem()
     {
+        Debug.Log("Store");
         stach_container.StoreItem(this);
-
     }
 
     public void Equip()

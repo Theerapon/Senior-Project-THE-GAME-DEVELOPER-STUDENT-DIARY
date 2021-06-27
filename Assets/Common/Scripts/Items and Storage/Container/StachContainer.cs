@@ -4,49 +4,37 @@ using UnityEngine;
 
 public class StachContainer : ItemContainer<StachContainer>
 {
-    InventoryContainer inventoryContainer;
+    #region
+    public Events.EventOnStachUpdated OnStachUpdated;
+    #endregion
 
-    protected override void Awake()
+
+    protected override void NotificationEvents()
     {
-        base.Awake();
+        base.NotificationEvents();
+        OnStachUpdated?.Invoke();
+
     }
 
-    protected override void Start()
+    public override void Swap(int origin_item_entry, int target_item_entry)
     {
-        base.Start();
-        inventoryContainer = InventoryContainer.Instance;
-    }
+        base.Swap(origin_item_entry, target_item_entry);
 
-    public override bool StoreItem(ItemPickUp item_pickup)
-    {
-        if (inventoryContainer.CanStore())
+        ItemEntry temp_item_entry = container_item_entry[origin_item_entry];
+        //target to origin
+        if (container_item_entry[target_item_entry] != null)
         {
-            inventoryContainer.StoreItem(item_pickup);
-            return true;
+            container_item_entry[origin_item_entry] = container_item_entry[target_item_entry];
+            container_item_entry[origin_item_entry].slot_index = container_item_entry[target_item_entry].slot_index;
         }
         else
         {
-            if (CanStore())
-            {
-                for (int index = 0; index < container_item_entry.Length; index++)
-                {
-                    bool isEmpty = container_item_entry[index] == null;
-                    if (isEmpty)
-                    {
-                        container_item_entry[index] = new ItemEntry(item_pickup, index);
-                        break;
-                    }
-                }
-                return true;
-            }
-            else
-            {
-                Debug.Log("Full");
-                return false;
-            }
-            
+            container_item_entry[origin_item_entry] = null;
         }
-
+        //origin to targen
+        container_item_entry[target_item_entry] = temp_item_entry;
+        container_item_entry[target_item_entry].slot_index = temp_item_entry.slot_index;
+        NotificationEvents();
     }
 
 
