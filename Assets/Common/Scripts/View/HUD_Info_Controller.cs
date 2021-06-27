@@ -17,7 +17,6 @@ public class HUD_Info_Controller : MonoBehaviour
     void Start()
     {
         GameManager.Instance.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
-        
         Reset();
     }
 
@@ -25,55 +24,61 @@ public class HUD_Info_Controller : MonoBehaviour
     {
         if (current_game_state == GameManager.GameState.MENU)
         {
-            ShowAll();
+            ShowInfo(true, true, true, true, true, true, false);
         }
         else if (current_game_state == GameManager.GameState.HOME || current_game_state == GameManager.GameState.MAP)
         {
-            Reset();
+            ShowInfo(true, true, true, false, false, false, false);
         }
         else if(current_game_state == GameManager.GameState.HOME_ACTION 
             && GameManager.Instance.CurrentGameScene == GameManager.GameScene.Home_Storage)
         {
-            ShowForHomeAction();
+            ShowInfo(true, true, true, false, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.COURSE)
         {
-            ShowForCourse();
+            ShowInfo(true, true, true, true, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.COURSE_NOTIFICATION)
         {
-            ShowForCourseNotification();
+            ShowInfo(true, true, true, false, false, false, false);
         }
-        else if(current_game_state == GameManager.GameState.Diary)
+        else if(current_game_state == GameManager.GameState.Diary 
+            || current_game_state == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
-            ShowForDiary();
+            ShowInfo(false, false, false, false, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.WORK_PROJECT)
         {
-            ShowForWorkProject();
+            ShowInfo(true, true, true, true, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.WORK_PROJECT_DESIGN)
         {
-            ShowForWorkProjectDesign();
+            ShowInfo(true, true, true, false, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.WORK_PROJECT_SUMMARY)
         {
-            ShowForWorkProjectSummary();
-        }
-        else if (current_game_state == GameManager.GameState.WORK_PROJECT_MINI_GAME)
-        {
-            ShowForMiniGame();
+            ShowInfo(true, false, true, false, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.PLACE)
         {
-            ShowForPlace();
+            ShowInfo(true, true, true, true, false, true, true);
         }
-        else if (current_game_state == GameManager.GameState.TRANSPORTING)
+        else if (current_game_state == GameManager.GameState.TRANSPORTING || current_game_state == GameManager.GameState.OPENINGTREASURE)
         {
-            ShowForTransport();
+            ShowInfo(true, false, false, false, false, false, false);
+        }
+        else if (current_game_state == GameManager.GameState.RECEIVE_ITEM)
+        {
+            ShowInfo(true, true, true, false, false, false, false);
         }
 
     }
+    private void Reset()
+    {
+        ShowInfo(true, true, true, false, false, false, false);
+    }
+
     private void DisplayEnergyAndMotivation(bool actived)
     {
         if(energy_motivation_obj != null)
@@ -123,130 +128,15 @@ public class HUD_Info_Controller : MonoBehaviour
             inventory_obj.SetActive(actived);
         }
     }
-    private void ShowAll()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(true);
-        DisplayMoney(true);
-        DisplayButtonMenu(true);
-        DisplayConttentPanel(true);
-        DisplayInventory(false);
-    }
 
-    private void Reset()
+    private void ShowInfo(bool energy, bool time, bool money, bool buttonBack, bool menu, bool panel, bool inv)
     {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(false);
-        DisplayButtonMenu(false);
-        DisplayMoney(true);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-
-    private void ShowForHomeAction()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(false);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-
-    private void ShowForCourse()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(true);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-    private void ShowForCourseNotification()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(false);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-
-    private void ShowForDiary()
-    {
-        DisplayEnergyAndMotivation(false);
-        DisplayDateTime(false);
-        DisplayButtonBack(false);
-        DisplayMoney(false);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-
-    private void ShowForWorkProject()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(true);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-    private void ShowForWorkProjectDesign()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(false);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-    private void ShowForWorkProjectSummary()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(false);
-        DisplayButtonBack(false);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-    private void ShowForMiniGame()
-    {
-        DisplayEnergyAndMotivation(false);
-        DisplayDateTime(false);
-        DisplayButtonBack(false);
-        DisplayMoney(false);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
-    }
-    private void ShowForPlace()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(true);
-        DisplayButtonBack(true);
-        DisplayMoney(true);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(true);
-        DisplayInventory(true);
-    }
-
-    private void ShowForTransport()
-    {
-        DisplayEnergyAndMotivation(true);
-        DisplayDateTime(false);
-        DisplayButtonBack(false);
-        DisplayMoney(false);
-        DisplayButtonMenu(false);
-        DisplayConttentPanel(false);
-        DisplayInventory(false);
+        DisplayEnergyAndMotivation(energy);
+        DisplayDateTime(time);
+        DisplayMoney(money);
+        DisplayButtonBack(buttonBack);
+        DisplayButtonMenu(menu);
+        DisplayConttentPanel(panel);
+        DisplayInventory(inv);
     }
 }

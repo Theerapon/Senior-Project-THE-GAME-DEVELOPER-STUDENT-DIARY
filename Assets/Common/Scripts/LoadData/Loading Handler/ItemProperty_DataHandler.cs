@@ -9,7 +9,7 @@ public class ItemProperty_DataHandler : DataHandler
     [SerializeField] private InterpretHandler interpretHandler;
 
 
-    public Dictionary<ItemPropertyType, ItemProperty_Template> GetStoreDic
+    public Dictionary<ItemPropertyType, ItemProperty_Template> GetItemPropertyDic
     {
         get { return itemPropertyDic; }
     }

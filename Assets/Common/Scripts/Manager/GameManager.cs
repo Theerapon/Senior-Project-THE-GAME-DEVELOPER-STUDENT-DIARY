@@ -50,6 +50,9 @@ public class GameManager : Manager<GameManager>
         Place_Park,
         Place_Teacher_Home,
         Place_University,
+        ReceiveItems,
+        StachInventory,
+
     }
 
 
@@ -81,9 +84,9 @@ public class GameManager : Manager<GameManager>
         ENDING_DIALOUGE,
         ENDING_CREDIT,
         MAP,
-        CHEST,
-        SHOW_ITEM,
-        INVENTORY_FULL,
+        OPENINGTREASURE,
+        RECEIVE_ITEM,
+        STACH,
         PLACE,
         PLACE_NOTIFICATION,
         PLACE_DIALOUGE,
@@ -212,8 +215,21 @@ public class GameManager : Manager<GameManager>
         }
         #endregion
 
+        #region Recieve Item
+        if (scene == GameScene.ReceiveItems)
+        {
+            UpdateState(GameState.RECEIVE_ITEM);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if(scene == GameScene.StachInventory)
+        {
+            UpdateState(GameState.STACH);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
         #region WorkProject
-        if(scene == GameScene.COM_WorkProject)
+        if (scene == GameScene.COM_WorkProject)
         {
             UpdateState(GameState.WORK_PROJECT);
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
@@ -248,7 +264,6 @@ public class GameManager : Manager<GameManager>
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
-
 
         #region Place
         if (scene == GameScene.Place_Clothing_Store)
@@ -289,6 +304,8 @@ public class GameManager : Manager<GameManager>
         #endregion
 
     }
+
+    
 
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
@@ -394,7 +411,6 @@ public class GameManager : Manager<GameManager>
         }
         
     }
-
     public void StartGameWithContiniueGame()
     {
         if (!SceneManager.GetSceneByName(GameScene.PreparingData.ToString()).isLoaded)
@@ -402,7 +418,6 @@ public class GameManager : Manager<GameManager>
             LoadLevelSceneWithOutLoadingScene(GameScene.PreparingData);
         }
     }
-
     public void DisplayHome()
     {
         if (!SceneManager.GetSceneByName(GameScene.Home.ToString()).isLoaded)
@@ -411,7 +426,6 @@ public class GameManager : Manager<GameManager>
         }
 
     }
-
     public void DisplayHomeAction(bool actived, GameScene scene)
     {
         if (actived)
@@ -432,7 +446,6 @@ public class GameManager : Manager<GameManager>
 
         }
     }
-
 
     private GameManager.GameScene present_menu;
     private bool menu_hasDisplayed = false;
@@ -462,7 +475,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DispleyMap(bool actived)
     {
         if (actived)
@@ -483,7 +495,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DisplayCourse(bool actived)
     {
         if (actived)
@@ -506,7 +517,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DisplayCourseNotification(bool actived)
     {
         if (actived)
@@ -518,7 +528,6 @@ public class GameManager : Manager<GameManager>
             UpdateState(GameState.COURSE);
         }
     }
-
     public void DisplaySaving(bool actived)
     {
         if (actived)
@@ -539,7 +548,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DisplayDiary(bool actived)
     {
         if (actived)
@@ -560,7 +568,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DisplayWorkProject(bool active)
     {
         if (active)
@@ -584,7 +591,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DisplayWorkProjectDesign(bool active)
     {
         if (active)
@@ -607,7 +613,6 @@ public class GameManager : Manager<GameManager>
             
         }
     }
-
     public void DisplayWorkProjectSummary(bool active)
     {
         if (active)
@@ -836,9 +841,59 @@ public class GameManager : Manager<GameManager>
             
         }
     }
+    public void DisplayReceiveTreasure(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.ReceiveItems.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.ReceiveItems);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.ReceiveItems.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.ReceiveItems);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
+    public void DisplayStachInventory(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.StachInventory.ToString()).isLoaded)
+            {
+                if (SceneManager.GetSceneByName(GameScene.ReceiveItems.ToString()).isLoaded)
+                {
+                    UnLoadLevel(GameScene.ReceiveItems);
+                }
+                LoadLevelSceneWithOutLoadingScene(GameScene.StachInventory);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.StachInventory.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.StachInventory);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
     public void Transporting()
     {
         UpdateState(GameState.TRANSPORTING);
+    }
+    public void OpeningTreasure()
+    {
+        UpdateState(GameState.OPENINGTREASURE);
     }
     #endregion
 

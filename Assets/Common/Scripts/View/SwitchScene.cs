@@ -28,6 +28,8 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Place_Park = 18;
     private const int INST_Display_Place_Teacher_Home = 19;
     private const int INST_Display_Place_University = 20;
+    private const int INST_Display_RecieveTrasure = 21;
+    private const int INST_Display_StachInventory = 22;
     #endregion
 
     #region Animator Parameters
@@ -54,26 +56,31 @@ public class SwitchScene : Manager<SwitchScene>
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-
-        if(previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.WORK_PROJECT)
+        else if(previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.WORK_PROJECT)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-
-        if (previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.COURSE)
+        else if (previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.COURSE)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-
-        if (previousGameState == GameManager.GameState.WORK_PROJECT && currentGameState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
+        else if (previousGameState == GameManager.GameState.WORK_PROJECT && currentGameState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-        if (previousGameState == GameManager.GameState.MAP && currentGameState == GameManager.GameState.PLACE)
+        else if (previousGameState == GameManager.GameState.MAP && currentGameState == GameManager.GameState.PLACE)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-        if (previousGameState == GameManager.GameState.PLACE && currentGameState == GameManager.GameState.MAP)
+        else if (previousGameState == GameManager.GameState.PLACE && currentGameState == GameManager.GameState.MAP)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (previousGameState == GameManager.GameState.OPENINGTREASURE && currentGameState == GameManager.GameState.RECEIVE_ITEM)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (previousGameState == GameManager.GameState.RECEIVE_ITEM && currentGameState == GameManager.GameState.STACH)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -155,6 +162,12 @@ public class SwitchScene : Manager<SwitchScene>
             case INST_Display_Place_Mystic_Store:
                 gameManager.DisplayPlaceMystic(active);
                 break;
+            case INST_Display_RecieveTrasure:
+                gameManager.DisplayReceiveTreasure(active);
+                break;
+            case INST_Display_StachInventory:
+                gameManager.DisplayStachInventory(active);
+                break;
         }
         //LoadScene
     }
@@ -196,182 +209,204 @@ public class SwitchScene : Manager<SwitchScene>
         gameManager.DisplayMenu(actived, currentScene, toState);
     }
 
-    public void DispleyMap(bool actived)
+    public void DispleyMap(bool active)
     {
         //---Fade Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Map, actived);
+            FadeToLevel(INST_Display_Map, active);
             loadComplete = false;
         }
         
     }
 
-    public void DisplayCourse(bool actived)
+    public void DisplayCourse(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Course, actived);
+            FadeToLevel(INST_Display_Course, active);
             loadComplete = false;
         }
         
     }
 
-    public void DisplayCourseNotification(bool actived)
+    public void DisplayCourseNotification(bool active)
     {
         //---Not Fade Out---
-        gameManager.DisplayCourseNotification(actived);
+        gameManager.DisplayCourseNotification(active);
     }
 
-    public void DisplaySaving(bool actived)
+    public void DisplaySaving(bool active)
     {
         //---Fade Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Saving, actived);
+            FadeToLevel(INST_Display_Saving, active);
             loadComplete = false;
         }
         
     }
 
-    public void DisplayDiary(bool actived)
+    public void DisplayDiary(bool active)
     {
         //---Fade Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Diary, actived);
+            FadeToLevel(INST_Display_Diary, active);
             loadComplete = false;
         }
         
     }
 
-    public void DisplayWorkProject(bool actived)
+    public void DisplayWorkProject(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_WorkProject, actived);
+            FadeToLevel(INST_Display_WorkProject, active);
             loadComplete = false;
         }
         
         
     }
-    public void DisplayWorkProjectDesign(bool actived)
+    public void DisplayWorkProjectDesign(bool active)
     {
         //---Not Fand Out---
-        gameManager.DisplayWorkProjectDesign(actived);
+        gameManager.DisplayWorkProjectDesign(active);
     }
-    public void DisplayWorkProjectSummary(bool actived)
+    public void DisplayWorkProjectSummary(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_WorkProject_Summary, actived);
+            FadeToLevel(INST_Display_WorkProject_Summary, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayWorkTypingGmae(bool actived)
+    public void DisplayWorkTypingGmae(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_WorkTypingGame, actived);
+            FadeToLevel(INST_Display_WorkTypingGame, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayAlphaTypingGmae(bool actived)
+    public void DisplayAlphaTypingGmae(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_AlphaTypingGame, actived);
+            FadeToLevel(INST_Display_AlphaTypingGame, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayBetaTypingGmae(bool actived)
+    public void DisplayBetaTypingGmae(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_BetaTypingGame, actived);
+            FadeToLevel(INST_Display_BetaTypingGame, active);
             loadComplete = false;
         }
         
     }
     
-    public void DisplayPlaceClothing(bool actived)
+    public void DisplayPlaceClothing(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_Clothing_Store, actived);
+            FadeToLevel(INST_Display_Place_Clothing_Store, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayPlaceFood(bool actived)
+    public void DisplayPlaceFood(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_Food_Store, actived);
+            FadeToLevel(INST_Display_Place_Food_Store, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayPlaceMaterial(bool actived)
+    public void DisplayPlaceMaterial(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_Material_Store, actived);
+            FadeToLevel(INST_Display_Place_Material_Store, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayPlacePark(bool actived)
+    public void DisplayPlacePark(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_Park, actived);
+            FadeToLevel(INST_Display_Place_Park, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayPlaceTeacher(bool actived)
+    public void DisplayPlaceTeacher(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_Teacher_Home, actived);
+            FadeToLevel(INST_Display_Place_Teacher_Home, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayPlaceUniversity(bool actived)
+    public void DisplayPlaceUniversity(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_University, actived);
+            FadeToLevel(INST_Display_Place_University, active);
             loadComplete = false;
         }
         
     }
-    public void DisplayPlaceMystic(bool actived)
+    public void DisplayPlaceMystic(bool active)
     {
         //---Fand Out---
         if (loadComplete)
         {
-            FadeToLevel(INST_Display_Place_Mystic_Store, actived);
+            FadeToLevel(INST_Display_Place_Mystic_Store, active);
             loadComplete = false;
         }
         
+    }
+    public void OpeningTreasure()
+    {
+        gameManager.OpeningTreasure();
+    }
+    public void DisplayReceiveTreasure(bool active)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_RecieveTrasure, active);
+            loadComplete = false;
+        }
+    }
+    public void DisplayStachInventory(bool active)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_StachInventory, active);
+            loadComplete = false;
+        }
     }
     #endregion
 }

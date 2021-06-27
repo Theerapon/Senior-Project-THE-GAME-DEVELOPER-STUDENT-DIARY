@@ -13,6 +13,7 @@ public class TimeManager : Manager<TimeManager>
     public Events.EventOnGodenTime OnGodenTime;
     public Events.EventOnTimeSkilpValidation OnTimeSkip;
     public Events.EventOnOneMiniuteTimePassed OnOneMiniuteTimePassed;
+    public Events.EventOnStartNewDayComplete OnStartNewDayComplete;
     #endregion
 
     [Header("Image")]
@@ -104,7 +105,7 @@ public class TimeManager : Manager<TimeManager>
         currentDays = DEFAULT_Origin_Day;
         month = DEFAULT_Origin_Month;
         year = DEFAULT_Origin_Year;
-        Tomorrow();  
+        CalDataForTomorrow();  
     }
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
@@ -327,13 +328,10 @@ public class TimeManager : Manager<TimeManager>
         year = tomorrow_year;
         CalculateDay();
         CalculateMonth();
-        Tomorrow();
-
-        Debug.Log(string.Format("Today {0:00}/{1:00}/{2:0000}  {3:00}{4:00}", date, month, year, hour, minute));
-        Debug.Log(string.Format("Tomorrow {0:00}/{1:00}/{2:0000}  {3:00}{4:00}", tomorrow_date, tomorrow_month, tomorrow_year, tomorrow_hour, tomorrow_minute));
+        CalDataForTomorrow();
     }
 
-    private void Tomorrow()
+    private void CalDataForTomorrow()
     {
         tomorrow_second = DEFAULT_AWAKE_SECOND_TIME;
         tomorrow_minute = DEFAULT_AWAKE_MINUTE_TIME;
@@ -359,6 +357,8 @@ public class TimeManager : Manager<TimeManager>
 
         tomorrow_onDate = string.Format("{0:00}/{1:00}/{2:0000}", tomorrow_date, tomorrow_month, tomorrow_year);
         tomorrow_onTime = string.Format("{0:00}:{1:00}", tomorrow_hour, tomorrow_minute);
+        
+        OnStartNewDayComplete?.Invoke();
     }
     #endregion
 

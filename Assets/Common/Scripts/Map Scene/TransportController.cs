@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class TransportController : MonoBehaviour
     private const int INST_ENERGY_TRANSPORT_PER_MINUTE = 1;
 
     [SerializeField] private DijkstrasAlgo _dijkstrasAlgo;
+    [SerializeField] private GameObject _treasureAnimation;
+    private GameManager _gameManager;
     private PlayerAction _playerAction;
     private PlayerTransport _playerTransport;
     private SwitchScene _switchScene;
@@ -18,11 +21,22 @@ public class TransportController : MonoBehaviour
 
     private void Awake()
     {
+        _gameManager = GameManager.Instance;
         _playerAction = PlayerAction.Instance;
         _playerTransport = PlayerTransport.Instance;
         _switchScene = SwitchScene.Instance;
         _placesController = PlacesController.Instance;
+        _gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
+        ActiveTrasureAnimation(false);
 
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current != GameManager.GameState.OPENINGTREASURE)
+        {
+            ActiveTrasureAnimation(false);
+        }
     }
 
     public int GetTotalTimeToTransport(int origin, int destination)
@@ -84,7 +98,8 @@ public class TransportController : MonoBehaviour
                             _switchScene.DisplayPlaceUniversity(true);
                             break;
                         case OnClickSwitchScene.TreasureScene:
-                            Debug.Log("Treasure");
+                            _switchScene.OpeningTreasure();
+                            ActiveTrasureAnimation(true);
                             break;
                         default:
                             break;
@@ -92,6 +107,15 @@ public class TransportController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void ActiveTrasureAnimation(bool active)
+    {
+        if(_treasureAnimation.activeSelf != active)
+        {
+            _treasureAnimation.SetActive(active);
+        }
+        
     }
 
 

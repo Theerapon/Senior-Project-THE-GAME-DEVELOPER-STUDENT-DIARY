@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomBoxs_DataHandler : DataHandler
+public class RandomTreasure_DataHandler : DataHandler
 {
-    protected Dictionary<string, RandomBox_Template> randomboxDic;
-    [SerializeField] private RandomBoxsVM randomBoxsVM;
+    protected Dictionary<string, RandomTreasure_Template> _randomTreasureDic;
+    [SerializeField] private RandomTreasureVM _randomTreasureVM;
     [SerializeField] private InterpretHandler interpretHandler;
 
 
-    public Dictionary<string, RandomBox_Template> GetRandomBoxsDic
+    public Dictionary<string, RandomTreasure_Template> GetRandomTreasureDic
     {
-        get { return randomboxDic; }
+        get { return _randomTreasureDic; }
     }
 
     protected void Awake()
     {
-        randomboxDic = new Dictionary<string, RandomBox_Template>();
+        _randomTreasureDic = new Dictionary<string, RandomTreasure_Template>();
         interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
-        randomboxDic = randomBoxsVM.Interpert();
-        if (!ReferenceEquals(randomboxDic, null))
+        _randomTreasureDic = _randomTreasureVM.Interpert();
+        if (!ReferenceEquals(_randomTreasureDic, null))
         {
             hasFinished = true;
             EventOnInterpretDataComplete?.Invoke();

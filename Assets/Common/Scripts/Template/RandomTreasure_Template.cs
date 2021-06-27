@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomBox_Template : MonoBehaviour
+public class RandomTreasure_Template : MonoBehaviour
 {
     private string id;
     private string spawnItemId;
@@ -10,7 +10,7 @@ public class RandomBox_Template : MonoBehaviour
     public string Id { get => id; }
     public string SpawnItemId { get => spawnItemId; }
 
-    public RandomBox_Template(string id, string spawnItemId)
+    public RandomTreasure_Template(string id, string spawnItemId)
     {
         this.id = id;
         this.spawnItemId = spawnItemId;

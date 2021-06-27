@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static PlaceEntry;
 
-public class MapMenuHandler : MonoBehaviour
+public class MapMenuDisplayHandler : MonoBehaviour
 {
     [Header("Initializing Icon Place")]
     [SerializeField] private Sprite _iconClothing;
@@ -89,8 +89,10 @@ public class MapMenuHandler : MonoBehaviour
         {
             Initializing();
         }
-
-
+        else if (current == GameManager.GameState.OPENINGTREASURE && previous == GameManager.GameState.TRANSPORTING)
+        {
+            Initializing();
+        }
     }
 
     private void Initializing()

@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class SpawnsItems_DataHandler : DataHandler
 {
-    protected Dictionary<string, SpawnsItems_Template> spawnsItemsDic;
-    [SerializeField] private SpawnsItemsVM spawnsItemsVM;
-    [SerializeField] private InterpretHandler interpretHandler;
+    protected Dictionary<string, SpawnsItems_Template> _spawnsItemsDic;
+    [SerializeField] private SpawnsItemsVM _spawnsItemsVM;
+    [SerializeField] private InterpretHandler _interpretHandler;
 
 
     public Dictionary<string, SpawnsItems_Template> GetSpawnsItemsDic
     {
-        get { return spawnsItemsDic; }
+        get { return _spawnsItemsDic; }
     }
 
     protected void Awake()
     {
-        spawnsItemsDic = new Dictionary<string, SpawnsItems_Template>();
-        interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
+        _spawnsItemsDic = new Dictionary<string, SpawnsItems_Template>();
+        _interpretHandler.EventOnPreparingInterpretData.AddListener(EventInterpretHandler);
     }
 
     private void EventInterpretHandler()
     {
-        spawnsItemsDic = spawnsItemsVM.Interpert();
-        if (!ReferenceEquals(spawnsItemsDic, null))
+        _spawnsItemsDic = _spawnsItemsVM.Interpert();
+        if (!ReferenceEquals(_spawnsItemsDic, null))
         {
             hasFinished = true;
             EventOnInterpretDataComplete?.Invoke();

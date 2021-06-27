@@ -5,24 +5,30 @@ using UnityEngine;
 
 public class IconPlayerTransportController : MonoBehaviour
 {
+    GameManager gameManager;
     [SerializeField] private GameObject[] _gameObjects;
     PlayerTransport playerTransport;
 
     private void Awake()
     {
         playerTransport = PlayerTransport.Instance;
+        gameManager = GameManager.Instance;
     }
 
     private void Start()
     {
-        playerTransport.OnPlayerUpdatePlacePosition.AddListener(OnPlayerUpdatePlacePositionHandler);
+        gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
         Initializing();
     }
 
-    private void OnPlayerUpdatePlacePositionHandler(Place place)
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
     {
-        SetIconCurrentPlace(place);
+        if(current == GameManager.GameState.MAP)
+        {
+            Initializing();
+        }
     }
+
 
 
     private void Initializing()

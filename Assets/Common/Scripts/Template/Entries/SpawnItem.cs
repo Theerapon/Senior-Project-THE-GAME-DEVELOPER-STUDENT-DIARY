@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SpawnItem : MonoBehaviour
 {
-    private string itemId = string.Empty;
-    private float chanceSpawn = 0;
+    private string _itemId = string.Empty;
+    private float _spawnChance = 0;
 
-    public string ItemId { get => itemId; }
-    public float ChanceSpawn { get => chanceSpawn; }
+    public string ItemId { get => _itemId; }
+    public float SpawnChance { get => _spawnChance; }
 
-    public SpawnItem(string itemId, float chanceSpawn)
+    public SpawnItem(string itemId, float spawnChance)
     {
-        this.itemId = itemId;
-        this.chanceSpawn = chanceSpawn;
+        this._itemId = itemId;
+        this._spawnChance = spawnChance;
     }
 }

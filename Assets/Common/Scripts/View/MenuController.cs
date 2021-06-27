@@ -34,70 +34,34 @@ public class MenuController : MonoBehaviour
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU)
+        if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU || currentState == GameManager.GameState.WORK_PROJECT_SUMMARY)
         {
             ActivedBlur(true);
-            if (_camera.activeSelf == false)
-            {
-                _camera.SetActive(true);
-            }
+            ActiveCamera(true);
         }
-
-        if (currentState == GameManager.GameState.MAP)
+        else if (currentState == GameManager.GameState.MAP  || currentState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
             ActivedBlur(false);
-            if(_camera.activeSelf == true)
-            {
-                _camera.SetActive(false);
-            }
-            
-        }
+            ActiveCamera(false);
 
-        if (currentState == GameManager.GameState.HOME)
+        }
+        else if (currentState == GameManager.GameState.HOME)
         {
             ActivedBlur(false);
-            if (_camera.activeSelf == false)
-            {
-                _camera.SetActive(true);
-            }
+            ActiveCamera(true);
         }
-
-        if(currentState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
-        {
-            ActivedBlur(false);
-            if (_camera.activeSelf == true)
-            {
-                _camera.SetActive(false);
-            }
-        }
-
-       if(currentState == GameManager.GameState.WORK_PROJECT_SUMMARY)
+        else if (currentState == GameManager.GameState.PLACE)
         {
             ActivedBlur(true);
-            if (_camera.activeSelf == false)
-            {
-                _camera.SetActive(true);
-            }
-        }
-
-        if (currentState == GameManager.GameState.PLACE)
-        {
-            ActivedBlur(true);
-            if (_camera.activeSelf == true)
-            {
-                _camera.SetActive(false);
-            }
+            ActiveCamera(false);
             hasDisplayed = true;
         }
-
-        if (currentState == GameManager.GameState.TRANSPORTING)
+        else if(currentState == GameManager.GameState.TRANSPORTING || currentState == GameManager.GameState.OPENINGTREASURE)
         {
             ActivedBlur(true);
-            if (_camera.activeSelf == true)
-            {
-                _camera.SetActive(false);
-            }
+            ActiveCamera(false);
         }
+
     }
 
     void Update()
@@ -126,16 +90,26 @@ public class MenuController : MonoBehaviour
     }
 
 
-    private bool ActivedBlur(bool actived)
+    private bool ActivedBlur(bool active)
     {
-        _blur.SetActive(actived);
-
+        if(_blur.activeSelf != active)
+        {
+            _blur.SetActive(active);
+        }
+        
         return _blur.activeSelf;
     }
 
     private void Reset()
     {
         _blur.SetActive(false);
+    }
+    private void ActiveCamera(bool active)
+    {
+        if(_camera.activeSelf != active)
+        {
+            _camera.SetActive(active);
+        }
     }
 
     private void DisplayMenu(bool action, GameManager.GameScene currentGameScene)

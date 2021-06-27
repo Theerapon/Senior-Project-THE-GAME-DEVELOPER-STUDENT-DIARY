@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomBoxsVM : MonoBehaviour
+public class RandomTreasureVM : MonoBehaviour
 {
     #region Instance
     private const string INST_SET_ID = "ID";
@@ -12,15 +12,15 @@ public class RandomBoxsVM : MonoBehaviour
 
     [SerializeField] private RandomBoxs_Loading randomBoxs_Loading;
 
-    public Dictionary<string, RandomBox_Template> Interpert()
+    public Dictionary<string, RandomTreasure_Template> Interpert()
     {
         if (!ReferenceEquals(randomBoxs_Loading, null))
         {
-            Dictionary<string, RandomBox_Template> randomboxDic = new Dictionary<string, RandomBox_Template>();
+            Dictionary<string, RandomTreasure_Template> randomboxDic = new Dictionary<string, RandomTreasure_Template>();
 
             foreach (KeyValuePair<string, string> line in randomBoxs_Loading.textLists)
             {
-                RandomBox_Template randombox = null;
+                RandomTreasure_Template randombox = null;
                 string key = line.Key;
                 string value = line.Value;
 
@@ -41,7 +41,7 @@ public class RandomBoxsVM : MonoBehaviour
         return null;
     }
 
-    private RandomBox_Template CreateTemplate(string line)
+    private RandomTreasure_Template CreateTemplate(string line)
     {
         string id = string.Empty;
         string spawnItemId = string.Empty;
@@ -63,6 +63,6 @@ public class RandomBoxsVM : MonoBehaviour
 
         }
 
-        return new RandomBox_Template(id, spawnItemId);
+        return new RandomTreasure_Template(id, spawnItemId);
     }
 }

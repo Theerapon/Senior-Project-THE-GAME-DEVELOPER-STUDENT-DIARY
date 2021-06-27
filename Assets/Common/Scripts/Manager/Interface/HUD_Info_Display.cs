@@ -92,12 +92,12 @@ public class HUD_Info_Display : MonoBehaviour
 
     private void HandleOnTimeCalendar(string time)
     {
-        timeCalendar.text = time.ToUpper();
+        timeCalendar.text = timeManager.GetOnTime().ToUpper();
     }
 
     private void HandleOnDateCalendar(string date)
     {
-        dateCalendar.text = date.ToUpper();
+        dateCalendar.text = timeManager.GetOnDate().ToUpper();
     }
 
 }

@@ -17,8 +17,10 @@ public class MapPlace : MonoBehaviour
     private TimeManager _timeManager;
     private GameManager _gameManager;
     private NotificationController _notificationController;
-    [SerializeField] MapMenuHandler _menuHandler;
+    [SerializeField] MapMenuDisplayHandler _menuHandler;
     [SerializeField] TransportController _transportController;
+
+    public Place TargetPlace { get => _targetPlace; }
 
     private void Awake()
     {
