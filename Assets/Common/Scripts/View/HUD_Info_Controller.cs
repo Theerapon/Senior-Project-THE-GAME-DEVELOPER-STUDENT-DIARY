@@ -68,6 +68,10 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowForPlace();
         }
+        else if (current_game_state == GameManager.GameState.TRANSPORTING)
+        {
+            ShowForTransport();
+        }
 
     }
     private void DisplayEnergyAndMotivation(bool actived)
@@ -233,5 +237,16 @@ public class HUD_Info_Controller : MonoBehaviour
         DisplayButtonMenu(false);
         DisplayConttentPanel(true);
         DisplayInventory(true);
+    }
+
+    private void ShowForTransport()
+    {
+        DisplayEnergyAndMotivation(true);
+        DisplayDateTime(false);
+        DisplayButtonBack(false);
+        DisplayMoney(false);
+        DisplayButtonMenu(false);
+        DisplayConttentPanel(false);
+        DisplayInventory(false);
     }
 }

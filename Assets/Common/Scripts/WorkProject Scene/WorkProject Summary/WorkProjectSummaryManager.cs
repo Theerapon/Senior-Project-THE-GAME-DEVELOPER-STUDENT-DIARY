@@ -197,8 +197,8 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
     }
     private void UpdateEnergyAndMotivationConsume()
     {
-        characterStatusController.TakeEnergy(energy[countMinute / INST_30miniute - 1]);
-        characterStatusController.TakeMotivation(projectController.GetMotivationToConsumeByHalfHour());
+        playerAction.TakeEnergy(energy[countMinute / INST_30miniute - 1]);
+        playerAction.TakeMotivation(projectController.GetMotivationToConsumeByHalfHour());
     }
 
     private int CalculateCodingStatus(float sumEfficiency)

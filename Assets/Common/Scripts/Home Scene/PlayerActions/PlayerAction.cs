@@ -230,6 +230,10 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         totalBonus -= characterStatusController.Default_baseReduceEnergyConsumption;
         totalBonus -= GetBonusFromSoftSkill(BonusCharacter.ReduceEnergyConsume);
         totalBonus -= otherBonusController.Bonus_reduce_energy_consume;
+        if (totalBonus <= 0)
+        {
+            totalBonus = 0;
+        }
         return totalBonus;
     }
     public float GetTotalBonusReduceEnergyConsumeGoldenTime()
@@ -238,6 +242,10 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         totalBonus -= characterStatusController.Defautl_goldenTimeReduceEnergyConsuption;
         totalBonus -= GetBonusFromSoftSkill(BonusCharacter.ReduceEnergyConsumeGoldenTime);
         totalBonus -= otherBonusController.Bonus_goldentime_reduce_energy_consume;
+        if (totalBonus <= 0)
+        {
+            totalBonus = 0;
+        }
         return totalBonus;
     }
     public float GetTotalBonusReduceBugChance()
@@ -254,6 +262,10 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         totalBonus -= characterStatusController.Default_negativeEventsEffect;
         totalBonus -= GetBonusFromSoftSkill(BonusCharacter.ReduceEffectNegativeEvent);
         totalBonus -= otherBonusController.Bonus_reduce_negative;
+        if (totalBonus <= 0)
+        {
+            totalBonus = 0;
+        }
         return totalBonus;
     }
     public float GetTotalBonusIncreaseEffectPositiveEvent()
@@ -270,6 +282,10 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         totalBonus -= characterStatusController.Default_reduceTimeTrainCourse;
         totalBonus -= GetBonusFromSoftSkill(BonusCharacter.ReduceCourseTime);
         totalBonus -= otherBonusController.Bonus_reduce_time_course;
+        if (totalBonus <= 0)
+        {
+            totalBonus = 0;
+        }
         return totalBonus;
     }
     public float GetTotalBonusReduceTimeTransport()
@@ -278,6 +294,10 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         totalBonus -= characterStatusController.Default_reduceTimeTransport;
         totalBonus -= GetBonusFromSoftSkill(BonusCharacter.ReduceTransportTime);
         totalBonus -= otherBonusController.Bonus_reduce_time_transport;
+        if(totalBonus <= 0)
+        {
+            totalBonus = 0;
+        }
         return totalBonus;
     }
     public float GetTotalBonusIncreaseDropRate()
@@ -382,6 +402,25 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
             bonus = GetTotalBonusBootUpProject();
         }
         return bonus;
+    }
+    public bool EnergyIsEnough(float amount)
+    {
+        return characterStatusController.CurrentEnergy >= amount;
+    }
+    public void TakeEnergy(float amount)
+    {
+        characterStatusController.TakeEnergy(amount);
+    }
+    public void TakeMotivation(float amount)
+    {
+        characterStatusController.TakeMotivation(amount);
+    }
+    #endregion
+
+    #region Transport
+    public int GetTimeSecondToTransport(int second)
+    {
+        return (int)(second * GetTotalBonusReduceTimeTransport());
     }
     #endregion
 

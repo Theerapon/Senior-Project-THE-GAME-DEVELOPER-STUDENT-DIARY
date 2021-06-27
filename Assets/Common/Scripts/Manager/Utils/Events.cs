@@ -13,6 +13,10 @@ public class Events
     [System.Serializable] public class EventOnHomeDisplay : UnityEvent<bool> { }
     [System.Serializable] public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> { }
 
+    #region Player Transport
+    [System.Serializable] public class EventOnPlayerUpdatePlacePosition : UnityEvent<Place> { }
+    #endregion
+
     #region Npc Controller
     [System.Serializable] public class EventOnTenMinute : UnityEvent { }
     #endregion

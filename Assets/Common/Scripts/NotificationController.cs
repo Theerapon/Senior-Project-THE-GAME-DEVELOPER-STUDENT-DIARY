@@ -10,8 +10,16 @@ public class NotificationController : MonoBehaviour
     [SerializeField] private Sprite notificationSprite;
 
     [Header("Time notification")]
+    private const string timeTransportTitle = "เวลาไม่เพียงพอ";
+    private const string timeTransportDescription = "นี่มันดึกมากแล้ว กลับบ้านพักผ่อนก่อนเถอะนะ";
+
+    [Header("Energy notification")]
+    private const string energyTransportTitle = "พลังงานไม่เพียงพอ";
+    private const string energyTransportDescription = "เหนื่อยแล้วใช่ไหมละ กลับบ้านพักผ่อนเถอะนะ";
+
+    [Header("Time notification")]
     private const string timeTitle = "เวลาไม่เพียงพอ";
-    private const string timeDescription = "อย่าหักโหมสิ แบ่งเวลาสำหรับการพักผ่อนด้วย";
+    private const string timeDescription = "อย่าหักโหมสิ แบ่งเวลาสำหรับการพักผ่อนด้วยนะ";
 
     [Header("Energy notification")]
     private const string energyTitle = "พลังงานไม่เพียงพอ";
@@ -24,14 +32,23 @@ public class NotificationController : MonoBehaviour
     private const string mechanicIdeaDescription = "กรุณาเลือกกลไกหรือวิธีการเล่นของตัวเกม 2 รูปแบบ";
     private const string themeIdeaDescription = "กรุณาเลือกธีมของตัวเกม";
 
-    public void EnergyNotEnough()
+    public void EnergyNotEnoughForWork()
     {
         notificationUpdateGenerator.CreateTemplate(notificationSprite, energyTitle, energyDescription);
     }
 
-    public void TimeNotEnough()
+    public void TimeNotEnoughForWork()
     {
         notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTitle, timeDescription);
+    }
+    public void EnergyNotEnoughForTransport()
+    {
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, energyTransportTitle, energyTransportDescription);
+    }
+
+    public void TimeNotEnoughForTransport()
+    {
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTransportTitle, timeTransportDescription);
     }
 
     public void ProjectNameIsEmtyp()

@@ -151,12 +151,12 @@ public class WorkProjectController : MonoBehaviour
 
         if (!time)
         {
-            notificationController.TimeNotEnough();
+            notificationController.TimeNotEnoughForWork();
         }
 
         if (!energy)
         {
-            notificationController.EnergyNotEnough();
+            notificationController.EnergyNotEnoughForWork();
         }
 
         if(time && energy)

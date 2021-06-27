@@ -89,6 +89,15 @@ public class MenuController : MonoBehaviour
             }
             hasDisplayed = true;
         }
+
+        if (currentState == GameManager.GameState.TRANSPORTING)
+        {
+            ActivedBlur(true);
+            if (_camera.activeSelf == true)
+            {
+                _camera.SetActive(false);
+            }
+        }
     }
 
     void Update()

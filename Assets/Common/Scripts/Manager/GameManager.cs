@@ -101,6 +101,7 @@ public class GameManager : Manager<GameManager>
         WORK_PROJECT_ANIMATION,
         WORK_PROJECT_DIALOUGE,
         WORK_PROJECT_SUMMARY,
+        TRANSPORTING,
     }
 
     public GameState CurrentGameState
@@ -834,6 +835,10 @@ public class GameManager : Manager<GameManager>
             }
             
         }
+    }
+    public void Transporting()
+    {
+        UpdateState(GameState.TRANSPORTING);
     }
     #endregion
 

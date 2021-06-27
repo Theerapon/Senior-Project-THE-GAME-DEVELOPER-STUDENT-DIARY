@@ -1,85 +1,100 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapPlace : MonoBehaviour
 {
-    [SerializeField] private Place place;
-    private string placeId;
-    private PlacesController placesController;
-    private SwitchScene switchScene;
-    [SerializeField] MapMenuHandler menuHandler;
+    [Header("Initializing Place")]
+    [SerializeField] private Place _targetPlace;
+    private string _targetPlaceId;
+    private float _energyToConsume;
+    private int _totalSecond;
+
+    [Header("Controller")]
+    private PlayerAction _playerAction;
+    private PlacesController _placesController;
+    private PlayerTransport _playerTransport;
+    private TimeManager _timeManager;
+    private GameManager _gameManager;
+    private NotificationController _notificationController;
+    [SerializeField] MapMenuHandler _menuHandler;
+    [SerializeField] TransportController _transportController;
 
     private void Awake()
     {
-        placesController = PlacesController.Instance;
-        switchScene = SwitchScene.Instance;
-        placeId = ConvertType.GetPlaceId(place);
-    }
+        _placesController = PlacesController.Instance;
+        _playerTransport = PlayerTransport.Instance;
+        _timeManager = TimeManager.Instance;
+        _playerAction = PlayerAction.Instance;
+        _gameManager = GameManager.Instance;
+        _notificationController = FindObjectOfType<NotificationController>();
 
+        _targetPlaceId = ConvertType.GetPlaceId(_targetPlace);
+        
+                
+    }
 
     public void OnClick()
     {
-        if(place == Place.Home)
+        Place currentPlace = _playerTransport.CurrentPlace;
+        if (!ReferenceEquals(_placesController, null))
         {
-            SwitchScene.Instance.DispleyMap(false);
-        }
-        else
-        {
-            if (!placeId.Equals(string.Empty))
+            Dictionary<string, PlaceEntry> places = _placesController.PlacesDic;
+            if (!ReferenceEquals(places, null))
             {
+                int originIndex = places[ConvertType.GetPlaceId(currentPlace)].TransportIndex;
+                int destinationIndex = places[ConvertType.GetPlaceId(_targetPlace)].TransportIndex;
+                _totalSecond = _transportController.GetTotalTimeToTransport(originIndex, destinationIndex);
                 
-                if (placesController.PlacesDic.ContainsKey(placeId))
+                if (_timeManager.HasTimeEnough(_totalSecond))
                 {
-                    OnClickSwitchScene scene = placesController.PlacesDic[placeId].SwitchScene;
-                    switch (scene)
+                    int minute;
+                    minute = _totalSecond / 60;
+                     _energyToConsume = _transportController.GetEnergyToTransport(minute);
+                    if (_playerAction.EnergyIsEnough(_energyToConsume))
                     {
-                        case OnClickSwitchScene.ClothingScene:
-                            switchScene.DisplayPlaceClothing(true);
-                            break;
-                        case OnClickSwitchScene.FoodScene:
-                            switchScene.DisplayPlaceFood(true);
-                            break;
-                        case OnClickSwitchScene.MysticScene:
-                            switchScene.DisplayPlaceMystic(true);
-                            break;
-                        case OnClickSwitchScene.ParkScene:
-                            switchScene.DisplayPlacePark(true);
-                            break;
-                        case OnClickSwitchScene.SellScene:
-                            switchScene.DisplayPlaceMaterial(true);
-                            break;
-                        case OnClickSwitchScene.TeacherScene:
-                            switchScene.DisplayPlaceTeacher(true);
-                            break;
-                        case OnClickSwitchScene.UniversityScene:
-                            switchScene.DisplayPlaceUniversity(true);
-                            break;
-                        case OnClickSwitchScene.TreasureScene:
-                            Debug.Log("Treasure");
-                            break;
-                        default:
-                            break;
+                        Transporting();
+                    }
+                    else
+                    {
+                        // energy not enough
+                        _notificationController.EnergyNotEnoughForTransport();
+                        return;
                     }
                 }
+                else
+                {
+                    // time not enough
+                    _notificationController.TimeNotEnoughForTransport();
+                    return;
+                }
             }
-
         }
     }
     public void OnTriger()
     {
-        if (!placeId.Equals(string.Empty))
+        if (!_targetPlaceId.Equals(string.Empty))
         {
 
-            if (placesController.PlacesDic.ContainsKey(placeId))
+            if (_placesController.PlacesDic.ContainsKey(_targetPlaceId))
             {
-                menuHandler.OnPlaceTriger(placeId);
+                _menuHandler.OnPlaceTrigerShowArriver(_targetPlaceId);
+                _menuHandler.OnPlaceTrigerShowTransportInfo(_targetPlaceId);
             }
         }
     }
 
     public void OnExitTriger()
     {
-        menuHandler.OnExitTriger();
+        _menuHandler.OnExitTriger();
     }
+
+    private void Transporting()
+    {
+        _gameManager.Transporting();
+        _timeManager.SkilpTime(_totalSecond, 3);
+        _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId);
+    }
+
+
 }

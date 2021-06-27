@@ -51,7 +51,6 @@ public class MouseManager : Manager<MouseManager>
         if (GameManager.Instance.CurrentGameState == GameManager.GameState.HOME || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
         {
             MouseHandler();
-
         }
     }
 

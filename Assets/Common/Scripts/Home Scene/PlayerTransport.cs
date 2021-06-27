@@ -5,25 +5,29 @@ using static PlaceEntry;
 
 public class PlayerTransport : Manager<PlayerTransport>
 {
-    private string playerId;
-    private const Place orginPlace = Place.Home;
-    private string originPlaceId;
-    private Arriver arriver; 
+    public Events.EventOnPlayerUpdatePlacePosition OnPlayerUpdatePlacePosition;
 
-    [SerializeField] private PlacesController placesController;
-    [SerializeField] private CharacterStatusController characterStatusController;
-    private Place currentPlace;
-    private string currentPlaceId;
+    private string _playerId;
+    private const Place _orginPlace = Place.Home;
+    private string _originPlaceId;
+    private Arriver _arriver; 
 
+    [SerializeField] private PlacesController _placesController;
+    [SerializeField] private CharacterStatusController _characterStatusController;
+    private Place _currentPlace;
+    private string _currentPlaceId;
+
+    public Place CurrentPlace { get => _currentPlace; }
+    public string CurrentPlaceId { get => _currentPlaceId; }
 
     protected override void Awake()
     {
         base.Awake();
-        playerId = characterStatusController.Character_ID;
-        arriver = new Arriver(playerId, characterStatusController.CharacterIcon, characterStatusController.CharacterProfile, characterStatusController.Character_Name);
-        originPlaceId = ConvertType.GetPlaceId(orginPlace);
-        currentPlaceId = originPlaceId;
-        currentPlace = orginPlace;
+        _playerId = _characterStatusController.Character_ID;
+        _arriver = new Arriver(_playerId, _characterStatusController.CharacterIcon, _characterStatusController.CharacterProfile, _characterStatusController.Character_Name);
+        _originPlaceId = ConvertType.GetPlaceId(_orginPlace);
+        _currentPlaceId = _originPlaceId;
+        _currentPlace = _orginPlace;
     }
 
     private void Start()
@@ -31,21 +35,20 @@ public class PlayerTransport : Manager<PlayerTransport>
         BackHome();
     }
 
-    private void BackHome()
+    public void BackHome()
     {
-        if (!ReferenceEquals(placesController, null) && !ReferenceEquals(placesController.PlacesDic, null))
+        if (!ReferenceEquals(_placesController, null) && !ReferenceEquals(_placesController.PlacesDic, null))
         {
             //home
-            if (placesController.PlacesDic.ContainsKey(originPlaceId) && placesController.PlacesDic.ContainsKey(currentPlaceId))
+            if (_placesController.PlacesDic.ContainsKey(_originPlaceId) && _placesController.PlacesDic.ContainsKey(_currentPlaceId))
             {
-                if (currentPlace != Place.Home)
+                if (_currentPlace != Place.Home)
                 {
-                    placesController.PlacesDic[currentPlaceId].Leave(playerId);
+                    _placesController.PlacesDic[_currentPlaceId].Leave(_playerId);
                 }
 
-                placesController.PlacesDic[originPlaceId].Arrived(arriver);
-                currentPlaceId = originPlaceId;
-                currentPlace = Place.Home;
+                _placesController.PlacesDic[_originPlaceId].Arrived(_arriver);
+                UpdatePlacePosition(Place.Home);
             }
         }
     }
@@ -54,22 +57,29 @@ public class PlayerTransport : Manager<PlayerTransport>
     {
         if (targetPlace != Place.Null)
         {
-            if (currentPlace != targetPlace)
+            if (_currentPlace != targetPlace)
             {
                 string currentTargetPlaceID = ConvertType.GetPlaceId(targetPlace);
-                string currentPlaceID = currentPlaceId;
-                if (currentPlace != Place.Null && currentPlace != Place.NotAtPlace)
+                string currentPlaceID = _currentPlaceId;
+                if (_currentPlace != Place.Null && _currentPlace != Place.NotAtPlace)
                 {
-                    if (placesController.PlacesDic.ContainsKey(currentPlaceID) && placesController.PlacesDic.ContainsKey(currentTargetPlaceID))
+                    if (_placesController.PlacesDic.ContainsKey(currentPlaceID) && _placesController.PlacesDic.ContainsKey(currentTargetPlaceID))
                     {
-                        placesController.PlacesDic[currentPlaceID].Leave(playerId);
-                        placesController.PlacesDic[currentTargetPlaceID].Arrived(arriver);
+                        _placesController.PlacesDic[currentPlaceID].Leave(_playerId);
+                        _placesController.PlacesDic[currentTargetPlaceID].Arrived(_arriver);
                     }
                 }
 
-                currentPlace = targetPlace;
+                UpdatePlacePosition(targetPlace);
             }
 
         }
+    }
+
+    private void UpdatePlacePosition(Place place)
+    {
+        _currentPlace = place;
+        _currentPlaceId = ConvertType.GetPlaceId(_currentPlace);
+        OnPlayerUpdatePlacePosition?.Invoke(_currentPlace);
     }
 }
