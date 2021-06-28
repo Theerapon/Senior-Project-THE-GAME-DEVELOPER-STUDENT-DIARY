@@ -91,7 +91,12 @@ public class Store : MonoBehaviour
             }
         }
 
-        _currentItemSet = _storeContoller.StoreItemSetDic[_currentStoreItemSetId].StoreItemSets;
+        List<StoreItemSet> copy = _storeContoller.StoreItemSetDic[_currentStoreItemSetId].StoreItemSets;
+        _currentItemSet.Clear();
+        for (int i = 0; i < _storeContoller.StoreItemSetDic[_currentStoreItemSetId].StoreItemSets.Count; i++)
+        {
+            _currentItemSet.Add(new StoreItemSet(copy[i].ItemId, copy[i].AmountItem));
+        }
     }
     private string RandomStoreItemId(List<string> storeItemSetId)
     {

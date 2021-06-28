@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NotificationController : MonoBehaviour
+public class NotificationController : Manager<NotificationController>
 {
     [SerializeField] NotificationUpdateGenerator notificationUpdateGenerator;
 
 
     [SerializeField] private Sprite notificationSprite;
+
+    [Header("Purchase Item")]
+    private const string purchaseTitle = "เงินไม่เพียงพอ";
+    private const string purchaseDescription = "เหมือนเงินจะไม่พอ ต้องหาเงินเพิ่มแล้วละ";
+
+    [Header("Inventory Full")]
+    private const string inventoryTitle = "กระเป๋ามีพื้นที่ไม่เพียงพอ";
+    private const string inventoryDescription = "เหมือนกระเป๋าจะเต็มนะ ต้องจัดระเบียบหน่อยแล้วละ";
 
     [Header("Time notification")]
     private const string timeTransportTitle = "เวลาไม่เพียงพอ";
@@ -67,5 +75,15 @@ public class NotificationController : MonoBehaviour
     public void ThemeIdeaIsEmpty()
     {
         notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, themeIdeaDescription);
+    }
+
+    public void MoneyNotEnough(BaseItemShopSlot itemShopSlot)
+    {
+        notificationUpdateGenerator.CreateTemplate(itemShopSlot.ITEMSHOP.ItemIcon, purchaseTitle, purchaseDescription);
+    }
+
+    public void InventoryFull()
+    {
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, inventoryTitle, inventoryDescription);
     }
 }

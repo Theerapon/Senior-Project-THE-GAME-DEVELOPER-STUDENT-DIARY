@@ -12,8 +12,14 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private ItemShopGenerator _itemShopGenerator;
     [SerializeField] private StoreType _storeType;
     private string _storeId;
-    
 
+    [Header("Item Prefab")]
+    [SerializeField] private GameObject _itemPrefab;
+    private GameObject _itemTemp;
+
+    private CharacterStatusController _characterStatusController;
+    private NotificationController _notificationController;
+    private InventoryContainer _inventoryContainer;
     private StoreContoller _storeContoller;
     private ItemTemplateController _itemTemplateController;
 
@@ -24,8 +30,14 @@ public class ShopManager : MonoBehaviour
     {
         baseItemShopSlots = new List<BaseItemShopSlot>();
         _itemTemplateController = ItemTemplateController.Instance;
+        _notificationController = NotificationController.Instance;
+        _inventoryContainer = InventoryContainer.Instance;
+        _characterStatusController = CharacterStatusController.Instance;
+
         _storeContoller = StoreContoller.Instance;
         _storeId = ConvertType.GetStoreId(_storeType);
+
+        _itemTemp = _itemPrefab;
     }
 
     private void Start()
@@ -81,12 +93,33 @@ public class ShopManager : MonoBehaviour
 
     public void Purchase(BaseItemShopSlot baseItemShopSlot)
     {
-        Debug.Log("Base item shop slot เริ่มต้นมี " + baseItemShopSlot.ITEMSHOP.ItemAmount);
-        int index = baseItemShopSlot.ITEMSHOP.ItemSetIdIndex;
-        Debug.Log("store item amount " + _storeContoller.StoreDic[_storeId].CurrentItemSet[index].AmountItem);
-        _storeContoller.StoreDic[_storeId].Purchase(index);
-        baseItemShopSlot.Purchase();
-        Debug.Log("after purchase store item amount " + _storeContoller.StoreDic[_storeId].CurrentItemSet[index].AmountItem);
-        Debug.Log("after purchaes Base item shop slot  " + baseItemShopSlot.ITEMSHOP.ItemAmount);
+        if (_inventoryContainer.CanStore())
+        {
+            if(_characterStatusController.CurrentMoney >= baseItemShopSlot.ITEMSHOP.ItemPrice)
+            {
+                int index = baseItemShopSlot.ITEMSHOP.ItemSetIdIndex;
+                _storeContoller.StoreDic[_storeId].Purchase(index);
+                baseItemShopSlot.Purchase();
+                _characterStatusController.TakeMoney(baseItemShopSlot.ITEMSHOP.ItemPrice);
+                GetItem(baseItemShopSlot);
+            }
+            else
+            {
+                _notificationController.MoneyNotEnough(baseItemShopSlot);
+            }
+            
+        }
+        else
+        {
+            _notificationController.InventoryFull();
+        }
+    }
+
+    private void GetItem(BaseItemShopSlot baseItemShopSlot)
+    {
+        GameObject item_copy = Instantiate(_itemTemp);
+        ItemPickUp item = item_copy.GetComponent<ItemPickUp>();
+        item.itemDefinition = _itemTemplateController.ItemTemplateDic[baseItemShopSlot.ITEMSHOP.ItemId];
+        item.PurchaseItem();
     }
 }

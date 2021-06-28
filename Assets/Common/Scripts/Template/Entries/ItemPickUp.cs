@@ -31,6 +31,10 @@ public class ItemPickUp : MonoBehaviour
     {
         stach_container.StoreItem(this);
     }
+    public void PurchaseItem()
+    {
+        inventory_container.StoreItem(this);
+    }
 
     public void Equip()
     {
