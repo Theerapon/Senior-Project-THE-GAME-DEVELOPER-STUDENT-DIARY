@@ -37,7 +37,6 @@ public class MenuController : MonoBehaviour
         if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU || currentState == GameManager.GameState.WORK_PROJECT_SUMMARY)
         {
             ActivedBlur(true);
-            ActiveCamera(true);
         }
         else if (currentState == GameManager.GameState.MAP  || currentState == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
@@ -55,13 +54,11 @@ public class MenuController : MonoBehaviour
         else if (currentState == GameManager.GameState.PLACE)
         {
             ActivedBlur(true);
-            ActiveCamera(false);
             hasDisplayed = true;
         }
         else if(currentState == GameManager.GameState.TRANSPORTING || currentState == GameManager.GameState.OPENINGTREASURE)
         {
             ActivedBlur(true);
-            ActiveCamera(false);
         }
 
     }

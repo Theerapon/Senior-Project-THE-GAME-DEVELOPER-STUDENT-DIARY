@@ -26,6 +26,8 @@ public class Store : MonoBehaviour
     public string Id { get => _definition.Id; }
     public StoreType StoreType { get => _definition.StoreType; }
     public bool IsEvent { get => _isEvent; }
+    public List<StoreItemSet> CurrentItemSet { get => _currentItemSet; }
+
     public void EnableEvent(ScheduleEvent scheduleEvent)
     {
         _isEvent = true;
@@ -90,7 +92,6 @@ public class Store : MonoBehaviour
         }
 
         _currentItemSet = _storeContoller.StoreItemSetDic[_currentStoreItemSetId].StoreItemSets;
-        Debug.Log(string.Format("{0} Item set = {1}", _storeType, _currentStoreItemSetId));
     }
     private string RandomStoreItemId(List<string> storeItemSetId)
     {
@@ -104,5 +105,10 @@ public class Store : MonoBehaviour
             return _definition.DefaultStoreItemId;
         }
         
+    }
+    
+    public void Purchase(int index)
+    {
+        CurrentItemSet[index].Purchasse();
     }
 }

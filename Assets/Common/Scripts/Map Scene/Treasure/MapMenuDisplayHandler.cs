@@ -93,6 +93,10 @@ public class MapMenuDisplayHandler : MonoBehaviour
         {
             Initializing();
         }
+        else if (current == GameManager.GameState.MENU)
+        {
+            Initializing();
+        }
     }
 
     private void Initializing()

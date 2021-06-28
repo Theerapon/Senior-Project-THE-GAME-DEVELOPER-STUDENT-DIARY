@@ -34,6 +34,20 @@ public class ConvertType : MonoBehaviour
     public static readonly string INST_SET_NpcId008 = "npc008";
     #endregion
 
+    public static string GetStringItemType(ItemDefinitionsType itemDefinitionsType, ItemEquipmentType itemEquipmentType)
+    {
+        if(itemDefinitionsType == ItemDefinitionsType.Equipment)
+        {
+            return itemEquipmentType.ToString();
+        }
+        else
+        {
+            return itemEquipmentType.ToString();
+        }
+
+        
+    }
+
     #region Day Instace
     private const string INST_Day_Mon = "Mon";
     private const string INST_Day_Tue = "Tue";

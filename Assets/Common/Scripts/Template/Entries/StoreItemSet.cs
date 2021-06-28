@@ -15,4 +15,17 @@ public class StoreItemSet : MonoBehaviour
         this.itemId = itemId;
         this.amountItem = amountItem;
     }
+
+    public void Purchasse()
+    {
+        if(amountItem - 1 <= 0)
+        {
+            amountItem = 0;
+        }
+        else
+        {
+            amountItem--;
+        }
+        
+    }
 }

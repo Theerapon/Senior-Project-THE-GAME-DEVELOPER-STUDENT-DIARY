@@ -144,7 +144,6 @@ public class ScheduleController : Manager<ScheduleController>
         //clear event on store
         _storeContoller.ClearEvent();
 
-        Debug.Log(string.Format("Number of Schedule to day {0}", schedulesToday.Count));
         //RegisterEvent
         for (int i = 0; i < schedulesToday.Count; i++)
         {
@@ -171,7 +170,6 @@ public class ScheduleController : Manager<ScheduleController>
             {
                 _storeContoller.RegisterEvent(StoreType.ClothingStore, scheduleEvents);
             }
-            Debug.Log(string.Format("Schedule {0}", scheduleEvents));
             //other just show info in calenda
         }
 

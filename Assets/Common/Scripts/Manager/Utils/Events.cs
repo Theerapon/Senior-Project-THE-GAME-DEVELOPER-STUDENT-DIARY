@@ -60,6 +60,11 @@ public class Events
     [System.Serializable] public class EventOnStorageUpdated : UnityEvent { }
     #endregion
 
+    #region Shop
+    [System.Serializable] public class EventOnPointEnterItemShop : UnityEvent<BaseItemShopSlot> { }
+    [System.Serializable] public class EventOnPointExitItemShop : UnityEvent<BaseItemShopSlot> { }
+    #endregion
+
     #region EventSystem Handler
     [System.Serializable] public class EventOnPointEnter : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnPointExit : UnityEvent<BaseItemSlot> { }
