@@ -19,7 +19,7 @@ public class DiaryController : MonoBehaviour
 
     IEnumerator UpdateDateTime()
     {
-        yield return new WaitForSecondsRealtime(2f);
+        //yield return new WaitForSecondsRealtime(2f);
         date.text = TimeManager.Instance.GetTomorrowOnDate();
         time.text = TimeManager.Instance.GetTomorrowOnTime();
         TimeManager.Instance.SetNewDay();

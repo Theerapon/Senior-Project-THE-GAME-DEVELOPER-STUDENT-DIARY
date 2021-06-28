@@ -21,6 +21,7 @@ public class Storage_Handler : Manager<Storage_Handler>
     private BaseItemSlot dragItemSlot;
 
 	[Header("Item Description")]
+	[SerializeField] private ItemPropertyGenerator itemPropertyGenerator;
 	[SerializeField] private GameObject item_description_gameobject;
 	[SerializeField] private TMP_Text item_name;
 	[SerializeField] private TMP_Text item_type;
@@ -110,6 +111,12 @@ public class Storage_Handler : Manager<Storage_Handler>
 		else
 		{
 			item_type.text = itemSlot.ITEM.ItemType.ToString();
+		}
+
+		for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
+		{
+			ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
+			itemPropertyGenerator.CreateTemplate(itemproperty);
 		}
 	}
 

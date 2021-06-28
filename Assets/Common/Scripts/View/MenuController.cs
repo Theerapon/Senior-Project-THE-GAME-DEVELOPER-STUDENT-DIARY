@@ -43,12 +43,14 @@ public class MenuController : MonoBehaviour
         {
             ActivedBlur(false);
             ActiveCamera(false);
+            hasDisplayed = false;
 
         }
         else if (currentState == GameManager.GameState.HOME)
         {
             ActivedBlur(false);
             ActiveCamera(true);
+            hasDisplayed = false;
         }
         else if (currentState == GameManager.GameState.PLACE)
         {

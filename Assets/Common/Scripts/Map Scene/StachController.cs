@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class StachController : MonoBehaviour
 {
+    private StachContainer _stachContainer;
     private SwitchScene _switchScene;
     [SerializeField] private GameObject _notificationGameObject;
     [SerializeField] private GameObject _nextButton;
 
     private void Awake()
     {
+        _stachContainer = StachContainer.Instance;
         _switchScene = SwitchScene.Instance;
         ActiveNotification(false);
         ActiveNextButton(true);
@@ -24,6 +26,7 @@ public class StachController : MonoBehaviour
     public void Confirm()
     {
         _switchScene.DisplayStachInventory(false);
+        _stachContainer.ClearContainer();
     }
 
     public void Cancel()

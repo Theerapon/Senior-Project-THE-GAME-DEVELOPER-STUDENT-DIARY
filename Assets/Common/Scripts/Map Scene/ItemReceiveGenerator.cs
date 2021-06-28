@@ -20,7 +20,7 @@ public class ItemReceiveGenerator : MonoBehaviour
         for(int i = 0; i < itemPickUp_Template.ItemProperties.Count; i++)
         {
             ItemPropertyAmount itemproperty = itemPickUp_Template.ItemProperties[i];
-            copy.transform.GetComponentInChildren<ItemReceivePropertyGenerator>().CreateTemplate(itemproperty);
+            copy.transform.GetComponentInChildren<ItemPropertyGenerator>().CreateTemplate(itemproperty);
         }
         
     }

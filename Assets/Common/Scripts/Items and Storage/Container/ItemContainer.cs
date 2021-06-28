@@ -80,6 +80,14 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public virtual void ClearContainer()
+    {
+        for(int i = 0; i < container_item_entry.Length; i++)
+        {
+            container_item_entry[i] = null;
+        }
+    }
+
     public virtual void Swap(int origin_item_entry, int target_item_entry)
     {
         

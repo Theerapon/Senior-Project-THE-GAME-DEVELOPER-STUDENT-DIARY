@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemReceivePropertyGenerator : MonoBehaviour
+public class ItemPropertyGenerator : MonoBehaviour
 {
     private ItemTemplateController itemTemplateController;
     [SerializeField] private GameObject _itemReceivePropertyTemplatePrefab;
@@ -36,6 +36,7 @@ public class ItemReceivePropertyGenerator : MonoBehaviour
     public void CreateTemplate(ItemPropertyAmount itemProperty)
     {
         _itemReceivePropertyTemplatePrefab.SetActive(true);
+        ClearTemplate();
         CreateValue(itemProperty);
     }
 
@@ -53,5 +54,16 @@ public class ItemReceivePropertyGenerator : MonoBehaviour
         int amountAsInt = (int) amount;
         float result = amount - amountAsInt;
         return result != 0f; 
+    }
+
+    private void ClearTemplate()
+    {
+        if(transform.childCount > 0)
+        {
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
     }
 }

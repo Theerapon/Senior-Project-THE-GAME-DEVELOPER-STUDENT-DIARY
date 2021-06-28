@@ -12,11 +12,9 @@ public class GameSavingController : MonoBehaviour
 
     IEnumerator CountDownSaving()
     {
-        Debug.Log("wait");
 
         yield return new WaitForSecondsRealtime(3);
 
-        Debug.Log("finished");
         SwitchScene.Instance.DisplayDiary(true);
     }
 }

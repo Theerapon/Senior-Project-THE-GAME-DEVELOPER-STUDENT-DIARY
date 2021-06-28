@@ -11,6 +11,8 @@ public class ReceiveController : MonoBehaviour
     private SwitchScene _switchScene;
 
     private List<SpawnItem> _currentSpawnItems;
+    private const int INST_LIMIT_SPAWN = 16;
+    private int _countSpawnItem = 0;
 
     [Header("Item Prefab")]
     [SerializeField] private GameObject _itemPrefab;
@@ -39,6 +41,7 @@ public class ReceiveController : MonoBehaviour
 
     private void Start()
     {
+        _countSpawnItem = 0;
         SpawnItem();
     }
 
@@ -47,17 +50,25 @@ public class ReceiveController : MonoBehaviour
         _currentSpawnItems = _treasureController.SpawnItems;
         for (int i = 0; i < _currentSpawnItems.Count; i++)
         {
-            string itemId = _currentSpawnItems[i].ItemId;
-            float spawnChance = _currentSpawnItems[i].SpawnChance;
-
-            //spawn chance 0 - 1
-            spawnChance *= _playerAction.GetTotalBonusIncreaseDropRate();
-            float rnd = Random.Range(0f, 1f);
-            if(rnd <= spawnChance)
+            if(_countSpawnItem < INST_LIMIT_SPAWN)
             {
-                GameObject item_copy = Instantiate(_itemTemp);
-                _itemsReceive.Push(item_copy.GetComponent<ItemPickUp>());
-                _itemsReceive.Peek().itemDefinition = _templateController.ItemTemplateDic[itemId];
+                string itemId = _currentSpawnItems[i].ItemId;
+                float spawnChance = _currentSpawnItems[i].SpawnChance;
+
+                //spawn chance 0 - 1
+                spawnChance *= _playerAction.GetTotalBonusIncreaseDropRate();
+                float rnd = Random.Range(0f, 1f);
+                if (rnd <= spawnChance)
+                {
+                    GameObject item_copy = Instantiate(_itemTemp);
+                    _itemsReceive.Push(item_copy.GetComponent<ItemPickUp>());
+                    _itemsReceive.Peek().itemDefinition = _templateController.ItemTemplateDic[itemId];
+                    _countSpawnItem++;
+                }
+            }
+            else
+            {
+                break;
             }
         }
 
