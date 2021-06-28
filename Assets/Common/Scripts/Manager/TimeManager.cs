@@ -36,10 +36,10 @@ public class TimeManager : Manager<TimeManager>
     [SerializeField] private const int DEFAULT_ENDGOLDENTIME = 17;
 
 
-    private const int DEFAULT_Origin_Date = 1;
-    private const int DEFAULT_Origin_Month = 1;
-    private const int DEFAULT_Origin_Year = 2021;
-    private const Day DEFAULT_Origin_Day = Day.Sun;
+    public readonly int DEFAULT_Origin_Date = 1;
+    public readonly int DEFAULT_Origin_Month = 1;
+    public readonly int DEFAULT_Origin_Year = 2021;
+    public readonly Day DEFAULT_Origin_Day = Day.Sun;
 
 
     private float TIMESCALE = DEFAULT_TIMESCALE;
@@ -47,8 +47,8 @@ public class TimeManager : Manager<TimeManager>
     private const int DEFAULT_SECOND = 60;
     private const int DEFAULT_MINUTE = 60;
     private const int DEFAULT_HOUR = 24;
-    private const int DEFAULT_DATE = 28;
-    private const int DEFAULT_MONTH = 4;
+    public readonly int DEFAULT_MAXDATE = 28;
+    public readonly int DEFAULT_MAXMONTH = 4;
     #endregion
 
     #region Enum
@@ -64,10 +64,9 @@ public class TimeManager : Manager<TimeManager>
     #endregion
 
     #region Properties
-    private static float minute, hour, date, second, month, year;
-    private static float tomorrow_minute, tomorrow_hour, tomorrow_second, tomorrow_date, tomorrow_month, tomorrow_year;
-    private static string onDate, onTime;
-    private static string tomorrow_onDate, tomorrow_onTime;
+    private static float minute, hour, second, tomorrow_minute, tomorrow_hour, tomorrow_second;
+    private static int date, month, year, tomorrow_date, tomorrow_month, tomorrow_year;
+    private static string onDate, onTime, tomorrow_onDate, tomorrow_onTime;
     private float totalSecond = 0;
     private float memorySecond;
     private bool isDay;
@@ -78,10 +77,10 @@ public class TimeManager : Manager<TimeManager>
     public Sprite NightImage { get => nightImage; }
     public float Minute { get => minute; }
     public float Hour { get => hour; }
-    public float Date { get => date; }
+    public int Date { get => date; }
     public float Second { get => second; }
-    public float Month { get => month; }
-    public float Year { get => year; }
+    public int Month { get => month; }
+    public int Year { get => year; }
     public Day CurrentDays { get => currentDays; }
     public SetsOfMonth CurrentMonth { get => currentMonth; }
     #endregion
@@ -179,10 +178,10 @@ public class TimeManager : Manager<TimeManager>
         }
 
         //month change
-        if (date > DEFAULT_DATE)
+        if (date > DEFAULT_MAXDATE)
         {
             month++;
-            date = date - DEFAULT_DATE;
+            date = date - DEFAULT_MAXDATE;
             CalculateDay();
             CalculateMonth();
             setText();
@@ -192,10 +191,10 @@ public class TimeManager : Manager<TimeManager>
         }
 
         //year change
-        if (month > DEFAULT_MONTH)
+        if (month > DEFAULT_MAXMONTH)
         {
             year++;
-            month = month - DEFAULT_MONTH;
+            month = month - DEFAULT_MAXMONTH;
             CalculateMonth();
             setText();
             OnTimeCalendar?.Invoke(onTime);
@@ -343,16 +342,16 @@ public class TimeManager : Manager<TimeManager>
 
         tomorrow_date++;
 
-        if (tomorrow_date > DEFAULT_DATE)
+        if (tomorrow_date > DEFAULT_MAXDATE)
         {
             tomorrow_month++;
-            tomorrow_date = tomorrow_date - DEFAULT_DATE;
+            tomorrow_date = tomorrow_date - DEFAULT_MAXDATE;
         }
 
-        if (tomorrow_month > DEFAULT_MONTH)
+        if (tomorrow_month > DEFAULT_MAXMONTH)
         {
             tomorrow_year++;
-            tomorrow_month = tomorrow_month - DEFAULT_MONTH;
+            tomorrow_month = tomorrow_month - DEFAULT_MAXMONTH;
         }
 
         tomorrow_onDate = string.Format("{0:00}/{1:00}/{2:0000}", tomorrow_date, tomorrow_month, tomorrow_year);

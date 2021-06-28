@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 9156451}
   - component: {fileID: 9156449}
   - component: {fileID: 9156452}
+  - component: {fileID: 9156453}
   m_Layer: 9
   m_Name: place_food_store
   m_TagString: Place_Food
@@ -359,6 +360,19 @@ MonoBehaviour:
   _targetPlace: 3
   _menuHandler: {fileID: 581841386}
   _transportController: {fileID: 541747630}
+--- !u!114 &9156453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1bc0c48f6bce641a08d3a46e78b176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _storeType: 0
 --- !u!1 &13948862
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,6 +488,7 @@ GameObject:
   - component: {fileID: 29842891}
   - component: {fileID: 29842889}
   - component: {fileID: 29842892}
+  - component: {fileID: 29842893}
   m_Layer: 9
   m_Name: place_mystic_store
   m_TagString: Place_Mystic
@@ -668,6 +683,19 @@ MonoBehaviour:
   _targetPlace: 6
   _menuHandler: {fileID: 581841386}
   _transportController: {fileID: 541747630}
+--- !u!114 &29842893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29842885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1bc0c48f6bce641a08d3a46e78b176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _storeType: 2
 --- !u!1 &58434209
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,6 +4092,7 @@ GameObject:
   - component: {fileID: 763789102}
   - component: {fileID: 763789101}
   - component: {fileID: 763789104}
+  - component: {fileID: 763789105}
   m_Layer: 9
   m_Name: place_clothing_store
   m_TagString: Place_Clothing
@@ -4303,6 +4332,19 @@ MonoBehaviour:
   _targetPlace: 4
   _menuHandler: {fileID: 581841386}
   _transportController: {fileID: 541747630}
+--- !u!114 &763789105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763789097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1bc0c48f6bce641a08d3a46e78b176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _storeType: 1
 --- !u!1 &764661587
 GameObject:
   m_ObjectHideFlags: 0

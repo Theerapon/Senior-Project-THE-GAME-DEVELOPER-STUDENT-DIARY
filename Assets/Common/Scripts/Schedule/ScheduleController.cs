@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,26 +8,34 @@ public class ScheduleController : Manager<ScheduleController>
     private Schedule_DataHandler schedule_DataHandler;
     private ScheduleRegister_DataHandler scheduleRegister_DataHandler;
 
-    private const int Inst_maxMount = 4;
-    private const int Inst_maxDay = 28;
-    private const int Inst_originDay = 1;
-    private const int Inst_originMount = 1;
-    private const int Inst_originYeay = 2021;
+    private int Inst_maxMount;
+    private int Inst_maxDay;
 
     private Dictionary<string, Schedule_Template> scheduleDic;
     private Dictionary<string, ScheduleRegister_Template> scheduleRegisterDic;
     private Schedule[] gameCalendar;
     private Schedule[] characterCalendar;
-    private int currentDay;
+    private int currentDate;
     private int currentMount;
     private int currentYear;
+    private Day currentDay;
+
+    private TimeManager _timeManager;
+    [SerializeField] private StoreContoller _storeContoller;
 
     protected override void Awake()
     {
         base.Awake();
-        currentDay = Inst_originDay;
-        currentMount = Inst_originMount;
-        currentYear = Inst_originYeay;
+        _timeManager = TimeManager.Instance;
+        _timeManager.OnStartNewDayComplete.AddListener(OnStartNewDayCompleteHandler);
+
+        currentDate = _timeManager.DEFAULT_Origin_Date;
+        currentMount = _timeManager.DEFAULT_Origin_Month;
+        currentYear = _timeManager.DEFAULT_Origin_Year;
+        Inst_maxDay = _timeManager.DEFAULT_MAXDATE;
+        Inst_maxMount = _timeManager.DEFAULT_MAXMONTH;
+        currentDay = _timeManager.DEFAULT_Origin_Day;
+
         schedule_DataHandler = FindObjectOfType<Schedule_DataHandler>();
         scheduleRegister_DataHandler = FindObjectOfType<ScheduleRegister_DataHandler>();
         scheduleDic = new Dictionary<string, Schedule_Template>();
@@ -113,7 +122,61 @@ public class ScheduleController : Manager<ScheduleController>
             }
         }
 
+        
+    }
 
+    private void OnStartNewDayCompleteHandler()
+    {
+        //set info current day   
+        currentDate = _timeManager.Date;
+        currentMount = _timeManager.Month;
+        currentYear = _timeManager.Year;
+        currentDay = _timeManager.CurrentDays;
+
+        //get schedules to day
+        List<Schedule_Template> schedulesToday = new List<Schedule_Template>();
+        int indexToday = CalIndexCalendar(currentDate, currentMount);
+        if(indexToday < gameCalendar.Length - 1)
+        {
+            schedulesToday = gameCalendar[indexToday].Schedules;
+        }
+
+        //clear event on store
+        _storeContoller.ClearEvent();
+
+        Debug.Log(string.Format("Number of Schedule to day {0}", schedulesToday.Count));
+        //RegisterEvent
+        for (int i = 0; i < schedulesToday.Count; i++)
+        {
+            ScheduleEvent scheduleEvents = schedulesToday[i].ScheduleEvents;
+            if (scheduleEvents == ScheduleEvent.Project)
+            {
+                //for class activity on university
+            }
+            else if (scheduleEvents == ScheduleEvent.DiscountFoodStore)
+            {
+                _storeContoller.RegisterEvent(StoreType.FoodStore, scheduleEvents);
+            }
+            else if (scheduleEvents == ScheduleEvent.MysticFestival1st 
+                || scheduleEvents == ScheduleEvent.MysticFestival2nd 
+                || scheduleEvents == ScheduleEvent.MysticFestival3rd
+                || scheduleEvents == ScheduleEvent.MysticFestival4th)
+            {
+                _storeContoller.RegisterEvent(StoreType.MysticStore, scheduleEvents);
+            }
+            else if (scheduleEvents == ScheduleEvent.ClothingFestival101
+                || scheduleEvents == ScheduleEvent.ClothingFestival202
+                || scheduleEvents == ScheduleEvent.ClothingFestival303
+                || scheduleEvents == ScheduleEvent.ClothingFestival404)
+            {
+                _storeContoller.RegisterEvent(StoreType.ClothingStore, scheduleEvents);
+            }
+            Debug.Log(string.Format("Schedule {0}", scheduleEvents));
+            //other just show info in calenda
+        }
+
+        //item store set id
+        _storeContoller.SetItemSetOnNewDay(currentDay);
     }
 
     private void RegisterGameCalendar(Schedule_Template schedule)

@@ -14,6 +14,7 @@ public class StoresVM : MonoBehaviour
     private const string INST_SET_ItemSetOnSun = "Sun";
     private const string INST_SET_Event = "Event";
     private const string INST_SET_Default = "default";
+    private const string INST_SET_StoreType = "StoreType";
     #endregion
 
     [SerializeField] private Stores_Loading stores_Loading;
@@ -57,8 +58,9 @@ public class StoresVM : MonoBehaviour
         List<string> storeItemSetOnFri = new List<string>();
         List<string> storeItemSetOnSat = new List<string>();
         List<string> storeItemSetOnSun = new List<string>();
-        Dictionary<string, string> storeItemSetOnEvent = new Dictionary<string, string>();
+        Dictionary<ScheduleEvent, string> storeItemSetOnEvent = new Dictionary<ScheduleEvent, string>();
         string defaultStoreId = string.Empty;
+        StoreType storeType = StoreType.None;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -91,16 +93,19 @@ public class StoresVM : MonoBehaviour
                     storeItemSetOnSun.Add(entries[++i]);
                     break;
                 case INST_SET_Event:
-                    storeItemSetOnEvent.Add(entries[++i], entries[++i]);
+                    storeItemSetOnEvent.Add(ConvertType.CheckScheuleEvent(entries[++i]), entries[++i]);
                     break;
                 case INST_SET_Default:
                     defaultStoreId = entries[++i];
+                    break;
+                case INST_SET_StoreType:
+                    storeType = ConvertType.ConvertStoreType(entries[++i]);
                     break;
 
             }
 
         }
 
-        return new Store_Template(id, storeItemSetOnMon, storeItemSetOnTue, storeItemSetOnWed, storeItemSetOnThu, storeItemSetOnFri, storeItemSetOnSat, storeItemSetOnSun, storeItemSetOnEvent, defaultStoreId);
+        return new Store_Template(id, storeItemSetOnMon, storeItemSetOnTue, storeItemSetOnWed, storeItemSetOnThu, storeItemSetOnFri, storeItemSetOnSat, storeItemSetOnSun, storeItemSetOnEvent, defaultStoreId, storeType);
     }
 }
