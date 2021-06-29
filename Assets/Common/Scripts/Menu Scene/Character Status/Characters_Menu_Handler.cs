@@ -59,8 +59,6 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected TMP_Text text_bonus_base_energy;
     [SerializeField] protected TMP_Text text_bonus_golden_energy;
     [SerializeField] protected TMP_Text text_bonus_bug_chance;
-    [SerializeField] protected TMP_Text text_bonus_negative_effect;
-    [SerializeField] protected TMP_Text text_bonus_positive_effect;
     [SerializeField] protected TMP_Text text_bonus_time_course;
     [SerializeField] protected TMP_Text text_bonus_time_transport;
     [SerializeField] protected TMP_Text text_bonus_drop_rate;
@@ -179,8 +177,6 @@ public class Characters_Menu_Handler : MonoBehaviour
         text_bonus_base_energy.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceEnergyConsume());
         text_bonus_golden_energy.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceEnergyConsumeGoldenTime());
         text_bonus_bug_chance.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceBugChance());
-        text_bonus_negative_effect.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceEffectNegativeEvent());
-        text_bonus_positive_effect.text = string.Format("{0:p2}", playerAction.GetTotalBonusIncreaseEffectPositiveEvent());
         text_bonus_time_course.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceTimeCourse());
         text_bonus_time_transport.text = string.Format("{0:p2}", playerAction.GetTotalBonusReduceTimeTransport());
         text_bonus_drop_rate.text = string.Format("{0:p2}", playerAction.GetTotalBonusIncreaseDropRate());

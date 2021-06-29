@@ -80,7 +80,7 @@ public class MouseManager : Manager<MouseManager>
                 OnTrigerTarget?.Invoke(lastGameObjectOnTriger);
             }
             
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0))
             {
                 if (clickObj)
                 {

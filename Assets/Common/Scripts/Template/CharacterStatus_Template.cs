@@ -20,7 +20,7 @@ public class CharacterStatus_Template : MonoBehaviour
 
     private CharacterLevelRequired[] characterLevelRequiedList;
 
-    public CharacterStatus_Template(CharacterLevelRequired[] characterLevelRequiedList, string character_ID, string character_Name, int default_max_level, float default_dropRate, int default_maxEnergy, float default_baseReduceEnergyConsumption, float defautl_goldenTimeReduceEnergyConsuption, int default_maxMotivation, float default_baseBootUpMotivation, float default_goldenTimeBootUpMotivation, int defaultMoney, int default_codingStatus, int default_designStatus, int default_artStats, int default_soundStats, int default_testingStats, float default_baseBootUpProject, float default_goldenTimeBootUpProject, float default_reduceBugChance, float default_charm, float default_negativeEventsEffect, float default_positiveEventsEffect, float default_reduceTimeTrainCourse, float default_reduceTimeTransport, float levelUp_baseReduceEnergyConsumption, float levelUp_goldenTimeReduceEnergyConsuption, float levelUp_baseBootUpMotivation, float levelUp_goldenTimeBootUpMotivation, float levelUp_baseBootUpProject, float levelUp_goldenTimeBootUpProject, float levelUp_reduceBugChance, float levelUp_charm, float levelUp_negativeEventsEffect, float levelUp_positiveEventsEffect, float levelUp_reduceTimeTrainCourse, float levelUp_reduceTimeTransport, int levelUp_softskillPoints, float levelUp_dropRate, Sprite characterProfile, Sprite characterIcon)
+    public CharacterStatus_Template(CharacterLevelRequired[] characterLevelRequiedList, string character_ID, string character_Name, int default_max_level, float default_dropRate, int default_maxEnergy, float default_baseReduceEnergyConsumption, float defautl_goldenTimeReduceEnergyConsuption, int default_maxMotivation, float default_baseBootUpMotivation, float default_goldenTimeBootUpMotivation, int defaultMoney, int default_codingStatus, int default_designStatus, int default_artStats, int default_soundStats, int default_testingStats, float default_baseBootUpProject, float default_goldenTimeBootUpProject, float default_reduceBugChance, float default_charm, float default_reduceTimeTrainCourse, float default_reduceTimeTransport, float levelUp_baseReduceEnergyConsumption, float levelUp_goldenTimeReduceEnergyConsuption, float levelUp_baseBootUpMotivation, float levelUp_goldenTimeBootUpMotivation, float levelUp_baseBootUpProject, float levelUp_goldenTimeBootUpProject, float levelUp_reduceBugChance, float levelUp_charm, float levelUp_reduceTimeTrainCourse, float levelUp_reduceTimeTransport, int levelUp_softskillPoints, float levelUp_dropRate, Sprite characterProfile, Sprite characterIcon)
     {
         this.characterLevelRequiedList = characterLevelRequiedList;
         this.character_ID = character_ID;
@@ -43,8 +43,6 @@ public class CharacterStatus_Template : MonoBehaviour
         this.default_goldenTimeBootUpProject = default_goldenTimeBootUpProject;
         this.default_reduceBugChance = default_reduceBugChance;
         this.default_charm = default_charm;
-        this.default_negativeEventsEffect = default_negativeEventsEffect;
-        this.default_positiveEventsEffect = default_positiveEventsEffect;
         this.default_reduceTimeTrainCourse = default_reduceTimeTrainCourse;
         this.default_reduceTimeTransport = default_reduceTimeTransport;
         this.levelUp_baseReduceEnergyConsumption = levelUp_baseReduceEnergyConsumption;
@@ -55,8 +53,6 @@ public class CharacterStatus_Template : MonoBehaviour
         this.levelUp_goldenTimeBootUpProject = levelUp_goldenTimeBootUpProject;
         this.levelUp_reduceBugChance = levelUp_reduceBugChance;
         this.levelUp_charm = levelUp_charm;
-        this.levelUp_negativeEventsEffect = levelUp_negativeEventsEffect;
-        this.levelUp_positiveEventsEffect = levelUp_positiveEventsEffect;
         this.levelUp_reduceTimeTrainCourse = levelUp_reduceTimeTrainCourse;
         this.levelUp_reduceTimeTransport = levelUp_reduceTimeTransport;
         this.levelUp_softskillPoints = levelUp_softskillPoints;
@@ -103,10 +99,6 @@ public class CharacterStatus_Template : MonoBehaviour
     [Header("Relationship")]
     private float default_charm;
 
-    [Header("Events")]
-    private float default_negativeEventsEffect;
-    private float default_positiveEventsEffect;
-
     [Header("Time")]
     private float default_reduceTimeTrainCourse;
     private float default_reduceTimeTransport;
@@ -125,9 +117,6 @@ public class CharacterStatus_Template : MonoBehaviour
     private float levelUp_reduceBugChance;
 
     private float levelUp_charm;
-
-    private float levelUp_negativeEventsEffect;
-    private float levelUp_positiveEventsEffect;
 
     private float levelUp_reduceTimeTrainCourse;
     private float levelUp_reduceTimeTransport;
@@ -156,8 +145,6 @@ public class CharacterStatus_Template : MonoBehaviour
     public float Default_goldenTimeBootUpProject { get => default_goldenTimeBootUpProject; set => default_goldenTimeBootUpProject = value; }
     public float Default_reduceBugChance { get => default_reduceBugChance; set => default_reduceBugChance = value; }
     public float Default_charm { get => default_charm; set => default_charm = value; }
-    public float Default_negativeEventsEffect { get => default_negativeEventsEffect; set => default_negativeEventsEffect = value; }
-    public float Default_positiveEventsEffect { get => default_positiveEventsEffect; set => default_positiveEventsEffect = value; }
     public float Default_reduceTimeTrainCourse { get => default_reduceTimeTrainCourse; set => default_reduceTimeTrainCourse = value; }
     public float Default_reduceTimeTransport { get => default_reduceTimeTransport; set => default_reduceTimeTransport = value; }
     public float LevelUp_baseReduceEnergyConsumption { get => levelUp_baseReduceEnergyConsumption; }
@@ -168,8 +155,6 @@ public class CharacterStatus_Template : MonoBehaviour
     public float LevelUp_goldenTimeBootUpProject { get => levelUp_goldenTimeBootUpProject; }
     public float LevelUp_reduceBugChance { get => levelUp_reduceBugChance; }
     public float LevelUp_charm { get => levelUp_charm; }
-    public float LevelUp_negativeEventsEffect { get => levelUp_negativeEventsEffect; }
-    public float LevelUp_positiveEventsEffect { get => levelUp_positiveEventsEffect; }
     public float LevelUp_reduceTimeTrainCourse { get => levelUp_reduceTimeTrainCourse; }
     public float LevelUp_reduceTimeTransport { get => levelUp_reduceTimeTransport; }
     public int LevelUp_softskillPoints { get => levelUp_softskillPoints; }

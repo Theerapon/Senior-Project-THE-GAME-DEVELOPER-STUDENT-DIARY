@@ -2,7 +2,6 @@
 using UnityEngine;
 using static Communication_Template;
 using static CriticalThinking_Template;
-using static Leadership_Template;
 using static TimeManagement_Template;
 using static WorkEthic_Template;
 
@@ -22,8 +21,6 @@ public class SoftSkillsVM : MonoBehaviour
     private const string INST_SET_addBaseBootUpMotivation = "addBaseBootUpMotivation%";
     private const string INST_SET_addReducBugChange = "addReducBugChange%";
     
-    private const string INST_SET_addNegativeEffect = "addNegativeEffect%";
-    private const string INST_SET_addPositiveEffect = "addPositiveEffect%";
     
     private const string INST_SET_addReduceTimeCourse = "addReduceTimeCourse%";
     private const string INST_SET_addReduceTimeTransport = "addReduceTimeTransport%";
@@ -55,9 +52,6 @@ public class SoftSkillsVM : MonoBehaviour
                         break;
                     case "CRITICALTHINKING":
                         softSkill = new SoftSkill(CreateCriticalThinking(value));
-                        break;
-                    case "LEADERSHIP":
-                        softSkill = new SoftSkill(CreateLeadership(value));
                         break;
                     case "TIMEMANAGEMENT":
                         softSkill = new SoftSkill(CreateTimeManagement(value));
@@ -191,58 +185,7 @@ public class SoftSkillsVM : MonoBehaviour
         }
         return new CriticalThinking_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
     }
-    private Leadership_Template CreateLeadership(string line)
-    {
-        LeadershipSkillLevel[] softSkillLevelsList = null;
-        string softSkill_ID = "";
-        string softSkill_Name = "";
-        string softSkill_Description = "";
-        int softSkill_MaxLevel = 0;
-        Stack<int> stack_Level_Detail = new Stack<int>();
-        Sprite icon = null;
 
-        string[] entries = line.Split(',');
-        for (int i = 0; i < entries.Length; i++)
-        {
-            string entry = entries[i];
-            switch (entry)
-            {
-                case INST_SET_softskillID:
-                    softSkill_ID = entries[++i];
-                    break;
-                case INST_SET_softskillName:
-                    softSkill_Name = entries[++i];
-                    break;
-                case INST_SET_softskillDescription:
-                    softSkill_Description = entries[++i];
-                    break;
-                case INST_SET_softskillMaxcreateLevel:
-                    softSkill_MaxLevel = int.Parse(entries[++i]);
-                    softSkillLevelsList = new LeadershipSkillLevel[softSkill_MaxLevel + 1];
-                    break;
-                case INST_SET_createLevel:
-                    stack_Level_Detail.Push(int.Parse(entries[++i]));
-                    break;
-                case INST_SET_endcreateLevel:
-                    float positiveEffect = stack_Level_Detail.Pop() / 100f;
-                    float negativeEffect = stack_Level_Detail.Pop() / 100f;
-                    softSkillLevelsList[stack_Level_Detail.Pop()] = new LeadershipSkillLevel(negativeEffect, positiveEffect);
-                    break;
-                case INST_SET_addNegativeEffect:
-                    stack_Level_Detail.Push(int.Parse(entries[++i]));
-                    break;
-                case INST_SET_addPositiveEffect:
-                    stack_Level_Detail.Push(int.Parse(entries[++i]));
-                    break;
-                case INST_SET_icon:
-                    icon = Resources.Load<Sprite>(entries[++i]);
-                    break;
-
-            }
-
-        }
-        return new Leadership_Template(softSkill_ID, softSkill_Name, softSkill_Description, softSkill_MaxLevel, softSkillLevelsList, icon);
-    }
     private TimeManagement_Template CreateTimeManagement(string line)
     {
         TimeManagementSkillLevel[] softSkillLevelsList = null;

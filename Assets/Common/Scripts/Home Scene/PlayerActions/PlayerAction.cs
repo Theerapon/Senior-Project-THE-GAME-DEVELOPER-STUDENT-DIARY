@@ -19,8 +19,6 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
     private const float inst_minus_baseEnergy = 1f;
     private const float inst_minus_goldenEnergy = 1f;
     private const float inst_plus_reduceBugChance = 0f;
-    private const float inst_minus_reduceNegative = 1f;
-    private const float inst_plus_increasePositive = 1f;
     private const float inst_minus_timeCourse = 1f;
     private const float inst_minus_timeTransport = 1f;
     private const float inst_plus_droprate = 1f;
@@ -256,26 +254,6 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
         totalBonus += otherBonusController.Bonus_reduce_bug_chance;
         return totalBonus;
     }
-    public float GetTotalBonusReduceEffectNegativeEvent()
-    {
-        float totalBonus = inst_minus_reduceNegative;
-        totalBonus -= characterStatusController.Default_negativeEventsEffect;
-        totalBonus -= GetBonusFromSoftSkill(BonusCharacter.ReduceEffectNegativeEvent);
-        totalBonus -= otherBonusController.Bonus_reduce_negative;
-        if (totalBonus <= 0)
-        {
-            totalBonus = 0;
-        }
-        return totalBonus;
-    }
-    public float GetTotalBonusIncreaseEffectPositiveEvent()
-    {
-        float totalBonus = inst_plus_increasePositive;
-        totalBonus += characterStatusController.Default_positiveEventsEffect;
-        totalBonus += GetBonusFromSoftSkill(BonusCharacter.IncreaseEffectPositiveEvent);
-        totalBonus += otherBonusController.Bonus_increase_positive;
-        return totalBonus;
-    }
     public float GetTotalBonusReduceTimeCourse()
     {
         float totalBonus = inst_minus_timeCourse;
@@ -329,12 +307,6 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
                     break;
                 case BonusCharacter.BonusProjectGoldenTime:
                     totalBonus += softskill.Value.GetTotalBONUS_goldenTimeBootUpProject();
-                    break;
-                case BonusCharacter.IncreaseEffectPositiveEvent:
-                    totalBonus += softskill.Value.GetTotalBONUS_positiveEventsEffect();
-                    break;
-                case BonusCharacter.ReduceEffectNegativeEvent:
-                    totalBonus += softskill.Value.GetTotalBONUS_negativeEventsEffect();
                     break;
                 case BonusCharacter.ReduceChanceBug:
                     totalBonus += softskill.Value.GetTotalBONUS_reduceBugChance();

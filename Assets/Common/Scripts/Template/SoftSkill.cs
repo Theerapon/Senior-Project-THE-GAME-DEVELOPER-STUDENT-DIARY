@@ -19,10 +19,7 @@ public class SoftSkill : MonoBehaviour
     {
         definition = softSkillEntry;
     }
-    public SoftSkill(Leadership_Template softSkillEntry)
-    {
-        definition = softSkillEntry;
-    }
+
     public SoftSkill(CriticalThinking_Template softSkillEntry)
     {
         definition = softSkillEntry;
@@ -78,14 +75,6 @@ public class SoftSkill : MonoBehaviour
     {
         return definition.GetTotalBONUS_reduceBugChance();
     }
-    public float GetTotalBONUS_negativeEventsEffect()
-    {
-        return definition.GetTotalBONUS_negativeEventsEffect();
-    }
-    public float GetTotalBONUS_positiveEventsEffect()
-    {
-        return definition.GetTotalBONUS_positiveEventsEffect();
-    }
     public float GetTotalBONUS_reduceTimeTrainCourse()
     {
         return definition.GetTotalBONUS_reduceTimeTrainCourse();
@@ -129,14 +118,6 @@ public class SoftSkill : MonoBehaviour
     public virtual float GetNextBONUS_reduceTimeTransport()
     {
         return definition.GetNextBONUS_reduceTimeTransport();
-    }
-    public virtual float GetNextBONUS_negativeEventsEffect()
-    {
-        return definition.GetNextBONUS_negativeEventsEffect();
-    }
-    public virtual float GetNextBONUS_positiveEventsEffect()
-    {
-        return definition.GetNextBONUS_positiveEventsEffect();
     }
     public virtual float GetNextBONUS_baseBootUpProject()
     {

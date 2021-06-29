@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SoftSkillType { NONE, COMMUNICATION, CRITICALTHINKING, LEADERSHIP, TIMEMANAGEMENT, WORKETHIC}
+public enum SoftSkillType { NONE, COMMUNICATION, CRITICALTHINKING, TIMEMANAGEMENT, WORKETHIC}
 public class SoftSkill_Template : MonoBehaviour
 {
     protected Sprite icon;
@@ -31,10 +31,7 @@ public class SoftSkill_Template : MonoBehaviour
         {
             SetSoftSkillLevelUp(currentSoftSkillLevel);
         }
-        else
-        {
-            Debug.Log("soft Skill maxlevel");
-        }
+
     }
     #endregion
 
@@ -126,27 +123,6 @@ public class SoftSkill_Template : MonoBehaviour
         return 0;
     }
     public virtual float GetNextBONUS_reduceTimeTransport()
-    {
-        return 0;
-    }
-    #endregion
-
-    #region Leadership
-    //current
-    public virtual float GetTotalBONUS_negativeEventsEffect()
-    {
-        return 0;
-    }
-    public virtual float GetTotalBONUS_positiveEventsEffect()
-    {
-        return 0;
-    }
-    //next
-    public virtual float GetNextBONUS_negativeEventsEffect()
-    {
-        return 0;
-    }
-    public virtual float GetNextBONUS_positiveEventsEffect()
     {
         return 0;
     }

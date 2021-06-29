@@ -270,10 +270,6 @@ public class CharacterStatus : MonoBehaviour
 
             definition.Default_charm += definition.LevelUp_charm;
 
-            definition.Default_negativeEventsEffect -= definition.LevelUp_negativeEventsEffect;
-
-            definition.Default_positiveEventsEffect += definition.LevelUp_positiveEventsEffect;
-
             definition.Default_reduceTimeTrainCourse += definition.LevelUp_reduceTimeTrainCourse;
             definition.Default_reduceTimeTransport += definition.LevelUp_reduceTimeTransport;
 
@@ -354,8 +350,6 @@ public class CharacterStatus : MonoBehaviour
     public float Default_goldenTimeBootUpProject { get => definition.Default_goldenTimeBootUpProject; }
     public float Default_reduceBugChance { get => definition.Default_reduceBugChance; }
     public float Default_charm { get => definition.Default_charm; }
-    public float Default_negativeEventsEffect { get => definition.Default_negativeEventsEffect; }
-    public float Default_positiveEventsEffect { get => definition.Default_positiveEventsEffect; }
     public float Default_reduceTimeTrainCourse { get => definition.Default_reduceTimeTrainCourse; }
     public float Default_reduceTimeTransport { get => definition.Default_reduceTimeTransport; }
     public int GetNextExpRequire()

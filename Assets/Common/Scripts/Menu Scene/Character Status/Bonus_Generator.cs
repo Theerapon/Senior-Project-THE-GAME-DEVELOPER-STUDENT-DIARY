@@ -15,10 +15,8 @@ public class Bonus_Generator : MonoBehaviour
     private const string INST_BaseEnergy_ID = "bonus006";
     private const string INST_GoldenEnergy_ID = "bonus007";
     private const string INST_BugChance_ID = "bonus008";
-    private const string INST_NegativeEffect_ID = "bonus009";
-    private const string INST_PositiveEffect_ID = "bonus010";
-    private const string INST_TimeCourse_ID = "bonus011";
-    private const string INST_TimeTransport_ID = "bonus012";
+    private const string INST_TimeCourse_ID = "bonus009";
+    private const string INST_TimeTransport_ID = "bonus010";
     
 
     [SerializeField] protected GameObject _template;
@@ -46,10 +44,6 @@ public class Bonus_Generator : MonoBehaviour
                 CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BaseMotivation_ID], softSkill.GetTotalBONUS_baseBootUpMotivation(), softSkill.GetNextBONUS_baseBootUpMotivation());
                 CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BaseEnergy_ID], softSkill.GetTotalBONUS_baseReduceEnergyConsumption(), softSkill.GetNextBONUS_baseReduceEnergyConsumption());
                 CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_BugChance_ID], softSkill.GetTotalBONUS_reduceBugChance(), softSkill.GetNextBONUS_reduceBugChance());
-                break;
-            case SoftSkillType.LEADERSHIP:
-                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_NegativeEffect_ID], softSkill.GetTotalBONUS_negativeEventsEffect(), softSkill.GetNextBONUS_negativeEventsEffect());
-                CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_PositiveEffect_ID], softSkill.GetTotalBONUS_positiveEventsEffect(), softSkill.GetNextBONUS_positiveEventsEffect());
                 break;
             case SoftSkillType.TIMEMANAGEMENT:
                 CreateBonusCopy(bonusDetails_Handler.GetBonusDic[INST_TimeCourse_ID], softSkill.GetTotalBONUS_reduceTimeTrainCourse(), softSkill.GetNextBONUS_reduceTimeTrainCourse());

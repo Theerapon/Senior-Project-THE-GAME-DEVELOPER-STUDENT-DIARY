@@ -194,8 +194,6 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     public float Default_goldenTimeBootUpProject { get => characterStatus.Default_goldenTimeBootUpProject; }
     public float Default_reduceBugChance { get => characterStatus.Default_reduceBugChance; }
     public float Default_charm { get => characterStatus.Default_charm; }
-    public float Default_negativeEventsEffect { get => characterStatus.Default_negativeEventsEffect; }
-    public float Default_positiveEventsEffect { get => characterStatus.Default_positiveEventsEffect; }
     public float Default_reduceTimeTrainCourse { get => characterStatus.Default_reduceTimeTrainCourse; }
     public float Default_reduceTimeTransport { get => characterStatus.Default_reduceTimeTransport; }
     public int GetNextExpRequire()

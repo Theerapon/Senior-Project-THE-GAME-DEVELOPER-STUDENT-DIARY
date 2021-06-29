@@ -26,8 +26,6 @@ public class CharactersVM : Manager<CharactersVM>
     private const string INST_SET_default_gProject = "default_gProject%";
     private const string INST_SET_default_reduceBugChange = "default_reduceBugChange%";
     private const string INST_SET_default_charm = "default_charm%";
-    private const string INST_SET_default_negativeEventEffect = "default_negativeEventEffect%";
-    private const string INST_SET_default_positiveEventEffect = "default_positiveEventEffect%";
     private const string INST_SET_default_reduceTimeCourse = "default_reduceTimeCourse%";
     private const string INST_SET_default_reduceTimeTransport = "default_reduceTimeTransport%";
     private const string INST_SET_default_dropRate = "perLevel_default_dropRate%";
@@ -40,8 +38,6 @@ public class CharactersVM : Manager<CharactersVM>
     private const string INST_SET_perLevel_gProject = "perLevel_gProject%";
     private const string INST_SET_perLevel_reduceBugChance = "perLevel_reduceBugChance%";
     private const string INST_SET_perLevel_charm = "perLevel_charm%";
-    private const string INST_SET_perLevel_negativeEffect = "perLevel_negativeEffect%";
-    private const string INST_SET_perLevel_positiveEffect = "perLevel_positiveEffect%";
     private const string INST_SET_perLevel_reduceTimeCourse = "perLevel_reduceTimeCourse%";
     private const string INST_SET_perLevel_reduceTimeTransport = "perLevel_reduceTimeTransport%";
     private const string INST_SET_perLevel_softskillPoints = "perLevel_softskillPoints";
@@ -100,8 +96,6 @@ public class CharactersVM : Manager<CharactersVM>
         float default_gProject = 0f;
         float default_reduceBugChange = 0f;
         float default_charm = 0f;
-        float default_negativeEventEffect = 0f;
-        float default_positiveEventEffect = 0f;
         float default_reduceTimeCourse = 0f;
         float default_reduceTimeTransport = 0f;
         float default_dropRate = 0f;
@@ -114,8 +108,6 @@ public class CharactersVM : Manager<CharactersVM>
         float perLevel_gProject = 0f;
         float perLevel_reduceBugChance =0f;
         float perLevel_charm = 0f;
-        float perLevel_negativeEffect = 0f;
-        float perLevel_positiveEffect = 0f;
         float perLevel_reduceTimeCourse = 0f;
         float perLevel_reduceTimeTransport = 0f;
         int perLevel_softskillPoints = 0;
@@ -184,12 +176,6 @@ public class CharactersVM : Manager<CharactersVM>
                 case INST_SET_default_charm:
                     default_charm = float.Parse(entries[++i]) / 100f;
                     break;
-                case INST_SET_default_negativeEventEffect:
-                    default_negativeEventEffect = float.Parse(entries[++i]) / 100f;
-                    break;
-                case INST_SET_default_positiveEventEffect:
-                    default_positiveEventEffect = float.Parse(entries[++i]) / 100f;
-                    break;
                 case INST_SET_default_reduceTimeCourse:
                     default_reduceTimeCourse = float.Parse(entries[++i]) / 100f;
                     break;
@@ -222,12 +208,6 @@ public class CharactersVM : Manager<CharactersVM>
                     break;
                 case INST_SET_perLevel_charm:
                     perLevel_charm = float.Parse(entries[++i]) / 100f;
-                    break;
-                case INST_SET_perLevel_negativeEffect:
-                    perLevel_negativeEffect = float.Parse(entries[++i]) / 100f;
-                    break;
-                case INST_SET_perLevel_positiveEffect:
-                    perLevel_positiveEffect = float.Parse(entries[++i]) / 100f;
                     break;
                 case INST_SET_perLevel_reduceTimeCourse:
                     perLevel_reduceTimeCourse = float.Parse(entries[++i]) / 100f;
@@ -277,10 +257,10 @@ public class CharactersVM : Manager<CharactersVM>
             maxLevel, default_dropRate, default_maxEnergy, default_bReduceEnergy, default_gReduceEnergy, 
             default_maxMotivation, default_bMotivation, default_gMotivation, default_money, default_coding, 
             default_design, default_art, default_sound, default_testing, default_bProject, default_gProject, 
-            default_reduceBugChange, default_charm, default_negativeEventEffect, default_positiveEventEffect, 
+            default_reduceBugChange, default_charm, 
             default_reduceTimeCourse, default_reduceTimeTransport, perLevel_bReduceEnergy, perLevel_gReduceEnergy, perLevel_bMotivation,
             perLevel_gMotivation, perLevel_bProject, perLevel_gProject, perLevel_reduceBugChance, perLevel_charm, 
-            perLevel_negativeEffect, perLevel_positiveEffect, perLevel_reduceTimeCourse, perLevel_reduceTimeTransport, perLevel_softskillPoints, perLevel_dropRate, icon, profile);
+            perLevel_reduceTimeCourse, perLevel_reduceTimeTransport, perLevel_softskillPoints, perLevel_dropRate, icon, profile);
     }
 }
 
