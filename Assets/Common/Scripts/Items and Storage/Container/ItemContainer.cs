@@ -25,6 +25,8 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public int Container_size { get => container_size; }
+
     protected virtual void Awake()
     {
         Instance = this as T;

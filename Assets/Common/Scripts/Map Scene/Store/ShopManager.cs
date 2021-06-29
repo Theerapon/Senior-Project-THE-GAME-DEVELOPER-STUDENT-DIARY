@@ -17,6 +17,9 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject _itemPrefab;
     private GameObject _itemTemp;
 
+    [Header("Lock Background")]
+    [SerializeField] private GameObject _lock;
+
     private CharacterStatusController _characterStatusController;
     private NotificationController _notificationController;
     private InventoryContainer _inventoryContainer;
@@ -26,8 +29,11 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Transform itemsParent;
     private List<BaseItemShopSlot> baseItemShopSlots;
 
+    private int _totalItem;
+
     private void Awake()
     {
+        _totalItem = 0;
         baseItemShopSlots = new List<BaseItemShopSlot>();
         _itemTemplateController = ItemTemplateController.Instance;
         _notificationController = NotificationController.Instance;
@@ -55,15 +61,16 @@ public class ShopManager : MonoBehaviour
             int itemAmount = _storeItemSets[index].AmountItem;
             if(itemAmount > 0)
             {
+                _totalItem += itemAmount;
                 ItemPickUp_Template itemPickUp_Template = _itemTemplateController.ItemTemplateDic[itemId];
                 string itemName = itemPickUp_Template.ItemName;
                 Sprite itemIcon = itemPickUp_Template.ItemIcon;
                 string itemType = ConvertType.GetStringItemType(itemPickUp_Template.ItemType, itemPickUp_Template.SubType);
-                int itemSellingPrice = itemPickUp_Template.SellingPrice;
+                int itemPurchasePrice = itemPickUp_Template.PurchasePrice;
                 string itemDescription = itemPickUp_Template.ItemDescription;
                 List<ItemPropertyAmount> itemPropertyAmounts = itemPickUp_Template.ItemProperties;
 
-                _itemShopGenerator.CreateTemplate(new ItemShop(itemId, itemAmount, itemName, index, itemIcon, itemType, itemSellingPrice, itemDescription, itemPropertyAmounts));
+                _itemShopGenerator.CreateTemplate(new ItemShop(itemId, itemAmount, itemName, index, itemIcon, itemType, itemPurchasePrice, itemDescription, itemPropertyAmounts));
             }
         }
 
@@ -77,8 +84,8 @@ public class ShopManager : MonoBehaviour
                 baseItemShopSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
             }
         }
-            
 
+        CheckInvIsEmpty();
     }
 
     private void OnPointEnterHandler(BaseItemShopSlot itemShopSlot)
@@ -102,6 +109,8 @@ public class ShopManager : MonoBehaviour
                 baseItemShopSlot.Purchase();
                 _characterStatusController.TakeMoney(baseItemShopSlot.ITEMSHOP.ItemPrice);
                 GetItem(baseItemShopSlot);
+                _totalItem--;
+                CheckInvIsEmpty();
             }
             else
             {
@@ -121,5 +130,25 @@ public class ShopManager : MonoBehaviour
         ItemPickUp item = item_copy.GetComponent<ItemPickUp>();
         item.itemDefinition = _itemTemplateController.ItemTemplateDic[baseItemShopSlot.ITEMSHOP.ItemId];
         item.PurchaseItem();
+    }
+
+    private void CheckInvIsEmpty()
+    {
+        if (_totalItem > 0)
+        {
+            ActiveLockBackground(false);
+        }
+        else
+        {
+            ActiveLockBackground(true);
+        }
+    }
+
+    private void ActiveLockBackground(bool active)
+    {
+        if (_lock.activeSelf != active)
+        {
+            _lock.SetActive(active);
+        }
     }
 }

@@ -61,6 +61,8 @@ public class Events
     #endregion
 
     #region Shop
+    [System.Serializable] public class EventOnPointEnterItemShopSelling : UnityEvent<BaseItemSellingSlot> { }
+    [System.Serializable] public class EventOnPointExitItemShopSelling : UnityEvent<BaseItemSellingSlot> { }
     [System.Serializable] public class EventOnPointEnterItemShop : UnityEvent<BaseItemShopSlot> { }
     [System.Serializable] public class EventOnPointExitItemShop : UnityEvent<BaseItemShopSlot> { }
     #endregion

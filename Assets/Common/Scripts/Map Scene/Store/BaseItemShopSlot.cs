@@ -46,13 +46,13 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
         public List<ItemPropertyAmount> ItemProperties { get => _itemProperties; }
     }
 
-    [SerializeField] private GameObject _template;
-    [SerializeField] private Image _itemImage;
-    [SerializeField] private TMP_Text _itemNameTMP;
-    [SerializeField] private TMP_Text _itemTypeTMP;
+    [SerializeField] protected GameObject _template;
+    [SerializeField] protected Image _itemImage;
+    [SerializeField] protected TMP_Text _itemNameTMP;
+    [SerializeField] protected TMP_Text _itemTypeTMP;
     [SerializeField] private TMP_Text _itemAmountTMP;
-    [SerializeField] private TMP_Text _itemPrice;
-    [SerializeField] private GameObject _button;
+    [SerializeField] protected TMP_Text _itemPrice;
+    [SerializeField] protected GameObject _button;
     
     protected bool isPointerOver;
 
@@ -67,7 +67,7 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
-    private void UpdateInfo()
+    protected virtual void UpdateInfo()
     {
         if (_itemShop.ItemAmount > 0)
         {
@@ -89,7 +89,7 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
         UpdateInfo();
     }
 
-    private void ActiveItemTemplate(bool active)
+    protected virtual void ActiveItemTemplate(bool active)
     {
         if(_template.activeSelf != active)
         {
@@ -108,7 +108,7 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
         isPointerOver = false;
         OnPointExitEvent?.Invoke(this);
     }
-    private void OnValidate()
+    protected virtual void OnValidate()
     {
         if(_template == null)
         {

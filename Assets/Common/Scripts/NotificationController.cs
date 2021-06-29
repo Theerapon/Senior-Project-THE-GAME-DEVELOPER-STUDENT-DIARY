@@ -86,4 +86,13 @@ public class NotificationController : Manager<NotificationController>
     {
         notificationUpdateGenerator.CreateTemplate(notificationSprite, inventoryTitle, inventoryDescription);
     }
+
+    public void SellingItem(BaseItemSellingSlot itemSellingSlot)
+    {
+        string itemName = itemSellingSlot.ITEMSHOP.ItemName;
+        string title = string.Format("การขาย {0} สำเร็จ", itemName);
+        string description = string.Format("ได้รับ {0} บาท จากการขาย {1}", itemSellingSlot.ITEMSHOP.ItemPrice, itemName);
+        Sprite icon = itemSellingSlot.ITEMSHOP.ItemIcon;
+        notificationUpdateGenerator.CreateTemplate(icon, title, description);
+    }
 }

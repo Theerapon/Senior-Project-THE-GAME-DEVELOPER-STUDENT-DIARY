@@ -7,33 +7,33 @@ using UnityEngine.UI;
 
 public class ShopDisplay : MonoBehaviour
 {
-    [SerializeField] private ShopManager shopManager;
+    [SerializeField] protected ShopManager _shopManager;
 
     [Header("Item Description")]
-    [SerializeField] private ItemPropertyGenerator itemPropertyGenerator;
-    [SerializeField] private GameObject item_description_gameobject;
-    [SerializeField] private TMP_Text item_name;
-    [SerializeField] private TMP_Text item_type;
-    [SerializeField] private TMP_Text item_description;
-    [SerializeField] private Image item_icon;
+    [SerializeField] protected ItemPropertyGenerator itemPropertyGenerator;
+    [SerializeField] protected GameObject item_description_gameobject;
+    [SerializeField] protected TMP_Text item_name;
+    [SerializeField] protected TMP_Text item_type;
+    [SerializeField] protected TMP_Text item_description;
+    [SerializeField] protected Image item_icon;
 
-    private void Start()
+    protected virtual void Start()
     {
-        if(!ReferenceEquals(shopManager, null))
+        if(!ReferenceEquals(_shopManager, null))
         {
-            shopManager.OnPointEnterEvent.AddListener(EnableItemDescription);
-            shopManager.OnPointExitEvent.AddListener(DisableItemDescription);
+            _shopManager.OnPointEnterEvent.AddListener(EnableItemDescription);
+            _shopManager.OnPointExitEvent.AddListener(DisableItemDescription);
         }
 
-        Reset();
+        Initializing();
     }
 
     private void DisableItemDescription(BaseItemShopSlot itemShopSlot)
     {
-        Reset();
+        Initializing();
     }
 
-    private void Reset()
+    protected virtual void Initializing()
     {
         item_name.text = null;
         item_description.text = null;
@@ -42,14 +42,14 @@ public class ShopDisplay : MonoBehaviour
         item_description_gameobject.SetActive(false);
     }
 
-    private void EnableItemDescription(BaseItemShopSlot itemShopSlot)
+    private  void EnableItemDescription(BaseItemShopSlot itemShopSlot)
     {
         if (itemShopSlot.ITEMSHOP != null)
         {
             SetItemDescription(itemShopSlot);
         }
     }
-    private void SetItemDescription(BaseItemShopSlot itemShopSlot)
+    protected virtual void SetItemDescription(BaseItemShopSlot itemShopSlot)
     {
         item_description_gameobject.SetActive(true);
 
