@@ -82,10 +82,6 @@ public class CharacterStatus : MonoBehaviour
             if (currentExp >= levelTarget)
                 SetCharacterLevelUp(currentLevel);
         }
-        else
-        {
-            Debug.Log("maxlevel");
-        }
     }
 
     public void IncreaseCurrentMotivation(float currentMotivation)

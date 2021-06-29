@@ -39,7 +39,7 @@ public class TimeManager : Manager<TimeManager>
     public readonly int DEFAULT_Origin_Date = 1;
     public readonly int DEFAULT_Origin_Month = 1;
     public readonly int DEFAULT_Origin_Year = 2021;
-    public readonly Day DEFAULT_Origin_Day = Day.Sun;
+    public readonly Day DEFAULT_Origin_Day = Day.Mon;
 
 
     private float TIMESCALE = DEFAULT_TIMESCALE;

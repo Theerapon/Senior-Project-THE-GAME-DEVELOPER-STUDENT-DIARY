@@ -13,7 +13,7 @@ public enum ItemEquipmentType { NONE, Hat, Shirt, Pant, Shoes }
 public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ParkScene, TreasureScene }
 public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
 public enum BonusCharacter { Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate }
-public enum ClassActivityType { Project, Class }
+public enum ClassActivityType { None, Project, Class }
 public enum ScheduleEvent { None, DiscountFoodStore, ClothingFestival101, ClothingFestival202, ClothingFestival303, ClothingFestival404, DiscountCourse, Project, Class, MysticFestival1st, MysticFestival2nd, MysticFestival3rd, MysticFestival4th, Birthday}
 public enum ProjectPhase { Decision, Design, FirstPlayable, Prototype, VerticalSlice, AlphaTest, BetaTest, Master }
 public enum HardSkillId { MATH, PROGRAMMING, GAMEENGINE, NETWORK, AI, DESIGN, TESTING, ART, SOUND }
@@ -33,6 +33,22 @@ public class ConvertType : MonoBehaviour
     public static readonly string INST_SET_NpcId007 = "npc007";
     public static readonly string INST_SET_NpcId008 = "npc008";
     #endregion
+
+    public static ClassActivityType ConvertScheduleEventToClassActivityType(ScheduleEvent scheduleEvent)
+    {
+        if(scheduleEvent == ScheduleEvent.Project)
+        {
+            return ClassActivityType.Project;
+        }
+        else if(scheduleEvent == ScheduleEvent.Class)
+        {
+            return ClassActivityType.Class;
+        }
+        else
+        {
+            return ClassActivityType.None;
+        }
+    }
 
     public static string GetStringItemType(ItemDefinitionsType itemDefinitionsType, ItemEquipmentType itemEquipmentType)
     {

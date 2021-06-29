@@ -5,23 +5,24 @@ using UnityEngine;
 
 public class ScheduleController : Manager<ScheduleController>
 {
-    private Schedule_DataHandler schedule_DataHandler;
-    private ScheduleRegister_DataHandler scheduleRegister_DataHandler;
+    private Schedule_DataHandler _schedule_DataHandler;
+    private ScheduleRegister_DataHandler _scheduleRegister_DataHandler;
 
     private int Inst_maxMount;
     private int Inst_maxDay;
 
-    private Dictionary<string, Schedule_Template> scheduleDic;
-    private Dictionary<string, ScheduleRegister_Template> scheduleRegisterDic;
-    private Schedule[] gameCalendar;
-    private Schedule[] characterCalendar;
-    private int currentDate;
-    private int currentMount;
-    private int currentYear;
-    private Day currentDay;
+    private Dictionary<string, Schedule_Template> _scheduleDic;
+    private Dictionary<string, ScheduleRegister_Template> _scheduleRegisterDic;
+    private Schedule[] _gameCalendar;
+    private Schedule[] _characterCalendar;
+    private int _currentDate;
+    private int _currentMount;
+    private int _currentYear;
+    private Day _currentDay;
 
     private TimeManager _timeManager;
     [SerializeField] private StoreContoller _storeContoller;
+    [SerializeField] private ClassActivityController _classActivityController;
 
     protected override void Awake()
     {
@@ -29,54 +30,54 @@ public class ScheduleController : Manager<ScheduleController>
         _timeManager = TimeManager.Instance;
         _timeManager.OnStartNewDayComplete.AddListener(OnStartNewDayCompleteHandler);
 
-        currentDate = _timeManager.DEFAULT_Origin_Date;
-        currentMount = _timeManager.DEFAULT_Origin_Month;
-        currentYear = _timeManager.DEFAULT_Origin_Year;
+        _currentDate = _timeManager.DEFAULT_Origin_Date;
+        _currentMount = _timeManager.DEFAULT_Origin_Month;
+        _currentYear = _timeManager.DEFAULT_Origin_Year;
         Inst_maxDay = _timeManager.DEFAULT_MAXDATE;
         Inst_maxMount = _timeManager.DEFAULT_MAXMONTH;
-        currentDay = _timeManager.DEFAULT_Origin_Day;
+        _currentDay = _timeManager.DEFAULT_Origin_Day;
 
-        schedule_DataHandler = FindObjectOfType<Schedule_DataHandler>();
-        scheduleRegister_DataHandler = FindObjectOfType<ScheduleRegister_DataHandler>();
-        scheduleDic = new Dictionary<string, Schedule_Template>();
-        scheduleRegisterDic = new Dictionary<string, ScheduleRegister_Template>();
+        _schedule_DataHandler = FindObjectOfType<Schedule_DataHandler>();
+        _scheduleRegister_DataHandler = FindObjectOfType<ScheduleRegister_DataHandler>();
+        _scheduleDic = new Dictionary<string, Schedule_Template>();
+        _scheduleRegisterDic = new Dictionary<string, ScheduleRegister_Template>();
 
-        gameCalendar = new Schedule[Inst_maxMount * Inst_maxDay];
-        for(int i = 0; i < gameCalendar.Length; i++)
+        _gameCalendar = new Schedule[Inst_maxMount * Inst_maxDay];
+        for(int i = 0; i < _gameCalendar.Length; i++)
         {
-            gameCalendar[i] = new Schedule(i);
+            _gameCalendar[i] = new Schedule(i);
         }
         
-        characterCalendar = new Schedule[Inst_maxMount * Inst_maxDay];
-        for (int i = 0; i < characterCalendar.Length; i++)
+        _characterCalendar = new Schedule[Inst_maxMount * Inst_maxDay];
+        for (int i = 0; i < _characterCalendar.Length; i++)
         {
-            characterCalendar[i] = new Schedule(i);
+            _characterCalendar[i] = new Schedule(i);
         }
 
         //schedule register data handler
-        if (!ReferenceEquals(scheduleRegister_DataHandler.GetScheduleRegisterDic, null))
+        if (!ReferenceEquals(_scheduleRegister_DataHandler.GetScheduleRegisterDic, null))
         {
-            foreach (KeyValuePair<string, ScheduleRegister_Template> register in scheduleRegister_DataHandler.GetScheduleRegisterDic)
+            foreach (KeyValuePair<string, ScheduleRegister_Template> register in _scheduleRegister_DataHandler.GetScheduleRegisterDic)
             {
-                scheduleRegisterDic.Add(register.Key, register.Value);
+                _scheduleRegisterDic.Add(register.Key, register.Value);
             }
         }
 
         //schedule data handler
-        if (!ReferenceEquals(schedule_DataHandler.GetScheduleDic, null))
+        if (!ReferenceEquals(_schedule_DataHandler.GetScheduleDic, null))
         {
-            foreach (KeyValuePair<string, Schedule_Template> schedule in schedule_DataHandler.GetScheduleDic)
+            foreach (KeyValuePair<string, Schedule_Template> schedule in _schedule_DataHandler.GetScheduleDic)
             {
-                scheduleDic.Add(schedule.Key, schedule.Value);
+                _scheduleDic.Add(schedule.Key, schedule.Value);
             }
         }
 
         //register calendar for all schedule
-        if(!ReferenceEquals(scheduleRegisterDic, null) && !ReferenceEquals(scheduleDic, null))
+        if(!ReferenceEquals(_scheduleRegisterDic, null) && !ReferenceEquals(_scheduleDic, null))
         {
-            foreach (KeyValuePair<string, ScheduleRegister_Template> register in scheduleRegister_DataHandler.GetScheduleRegisterDic)
+            foreach (KeyValuePair<string, ScheduleRegister_Template> register in _scheduleRegister_DataHandler.GetScheduleRegisterDic)
             {
-                if(gameCalendar != null)
+                if(_gameCalendar != null)
                 {
                     if(register.Value.ScheduleId != null)
                     {
@@ -84,9 +85,9 @@ public class ScheduleController : Manager<ScheduleController>
                         {
                             string scheduleID = register.Value.ScheduleId[i];
 
-                            if (scheduleDic.ContainsKey(scheduleID))
+                            if (_scheduleDic.ContainsKey(scheduleID))
                             {
-                                RegisterGameCalendar(scheduleDic[scheduleID]);
+                                RegisterGameCalendar(_scheduleDic[scheduleID]);
                             }
 
                         }
@@ -97,11 +98,11 @@ public class ScheduleController : Manager<ScheduleController>
         }
 
         //register calendar for beginner
-        if (!ReferenceEquals(scheduleRegisterDic, null) && !ReferenceEquals(scheduleDic, null))
+        if (!ReferenceEquals(_scheduleRegisterDic, null) && !ReferenceEquals(_scheduleDic, null))
         {
-            foreach (KeyValuePair<string, ScheduleRegister_Template> register in scheduleRegister_DataHandler.GetScheduleRegisterDic)
+            foreach (KeyValuePair<string, ScheduleRegister_Template> register in _scheduleRegister_DataHandler.GetScheduleRegisterDic)
             {
-                if (characterCalendar != null)
+                if (_characterCalendar != null)
                 {
                     //register for default equle TRUE
                     if (register.Value.ScheduleId != null && register.Value.DefaultRegister)
@@ -110,9 +111,9 @@ public class ScheduleController : Manager<ScheduleController>
                         {
                             string scheduleID = register.Value.ScheduleId[i];
 
-                            if (scheduleDic.ContainsKey(scheduleID))
+                            if (_scheduleDic.ContainsKey(scheduleID))
                             {
-                                RegisterCharacterCalendar(scheduleDic[scheduleID]);
+                                RegisterCharacterCalendar(_scheduleDic[scheduleID]);
                             }
 
                         }
@@ -128,29 +129,31 @@ public class ScheduleController : Manager<ScheduleController>
     private void OnStartNewDayCompleteHandler()
     {
         //set info current day   
-        currentDate = _timeManager.Date;
-        currentMount = _timeManager.Month;
-        currentYear = _timeManager.Year;
-        currentDay = _timeManager.CurrentDays;
+        _currentDate = _timeManager.Date;
+        _currentMount = _timeManager.Month;
+        _currentYear = _timeManager.Year;
+        _currentDay = _timeManager.CurrentDays;
 
         //get schedules to day
         List<Schedule_Template> schedulesToday = new List<Schedule_Template>();
-        int indexToday = CalIndexCalendar(currentDate, currentMount);
-        if(indexToday < gameCalendar.Length - 1)
+        int indexToday = CalIndexCalendar(_currentDate, _currentMount);
+        if(indexToday < _gameCalendar.Length - 1)
         {
-            schedulesToday = gameCalendar[indexToday].Schedules;
+            schedulesToday = _gameCalendar[indexToday].Schedules;
         }
 
-        //clear event on store
+        //clear event on store and class activity controller
         _storeContoller.ClearEvent();
+        _classActivityController.ClearClassEvent();
 
         //RegisterEvent
         for (int i = 0; i < schedulesToday.Count; i++)
         {
             ScheduleEvent scheduleEvents = schedulesToday[i].ScheduleEvents;
-            if (scheduleEvents == ScheduleEvent.Project)
+            if (scheduleEvents == ScheduleEvent.Project || scheduleEvents == ScheduleEvent.Class)
             {
-                //for class activity on university
+                ClassActivityType classActivityType = ConvertType.ConvertScheduleEventToClassActivityType(scheduleEvents);
+                _classActivityController.EnableClass(classActivityType, scheduleEvents, _currentDay);
             }
             else if (scheduleEvents == ScheduleEvent.DiscountFoodStore)
             {
@@ -174,17 +177,17 @@ public class ScheduleController : Manager<ScheduleController>
         }
 
         //item store set id
-        _storeContoller.SetItemSetOnNewDay(currentDay);
+        _storeContoller.SetItemSetOnNewDay(_currentDay);
     }
 
     private void RegisterGameCalendar(Schedule_Template schedule)
     {
-        if(schedule.Year == currentYear)
+        if(schedule.Year == _currentYear)
         {
             int indexInCalendar = CalIndexCalendar(schedule.Day, schedule.Mount);
-            if (!ReferenceEquals(gameCalendar[indexInCalendar].Schedules, null))
+            if (!ReferenceEquals(_gameCalendar[indexInCalendar].Schedules, null))
             {
-                gameCalendar[indexInCalendar].AddSchedule(schedule);
+                _gameCalendar[indexInCalendar].AddSchedule(schedule);
             }
             
         }
@@ -192,12 +195,12 @@ public class ScheduleController : Manager<ScheduleController>
 
     private void RegisterCharacterCalendar(Schedule_Template schedule)
     {
-        if (schedule.Year == currentYear)
+        if (schedule.Year == _currentYear)
         {
             int indexInCalendar = CalIndexCalendar(schedule.Day, schedule.Mount);
-            if (!ReferenceEquals(characterCalendar[indexInCalendar].Schedules, null))
+            if (!ReferenceEquals(_characterCalendar[indexInCalendar].Schedules, null))
             {
-                characterCalendar[indexInCalendar].AddSchedule(schedule);
+                _characterCalendar[indexInCalendar].AddSchedule(schedule);
             }
             
         }
@@ -211,12 +214,12 @@ public class ScheduleController : Manager<ScheduleController>
 
     public void TestingGameCalendar()
     {
-        for(int calendarIndex = 0; calendarIndex < gameCalendar.Length; calendarIndex++)
+        for(int calendarIndex = 0; calendarIndex < _gameCalendar.Length; calendarIndex++)
         {
-            for(int schedule = 0; schedule < gameCalendar[calendarIndex].Schedules.Count; schedule++)
+            for(int schedule = 0; schedule < _gameCalendar[calendarIndex].Schedules.Count; schedule++)
             {
-                string name = gameCalendar[calendarIndex].Schedules[schedule].ScheduleName;
-                string time = gameCalendar[calendarIndex].Schedules[schedule].Time;
+                string name = _gameCalendar[calendarIndex].Schedules[schedule].ScheduleName;
+                string time = _gameCalendar[calendarIndex].Schedules[schedule].Time;
                 Debug.Log(string.Format("{0} Schedule {1} ", time, name));
             }
         }
@@ -224,12 +227,12 @@ public class ScheduleController : Manager<ScheduleController>
 
     public void TestingCharacterCalendar()
     {
-        for (int calendarIndex = 0; calendarIndex < characterCalendar.Length; calendarIndex++)
+        for (int calendarIndex = 0; calendarIndex < _characterCalendar.Length; calendarIndex++)
         {
-            for (int schedule = 0; schedule < characterCalendar[calendarIndex].Schedules.Count; schedule++)
+            for (int schedule = 0; schedule < _characterCalendar[calendarIndex].Schedules.Count; schedule++)
             {
-                string name = characterCalendar[calendarIndex].Schedules[schedule].ScheduleName;
-                string time = characterCalendar[calendarIndex].Schedules[schedule].Time;
+                string name = _characterCalendar[calendarIndex].Schedules[schedule].ScheduleName;
+                string time = _characterCalendar[calendarIndex].Schedules[schedule].Time;
                 Debug.Log(string.Format("{0} Schedule {1} ", time, name));
             }
         }
