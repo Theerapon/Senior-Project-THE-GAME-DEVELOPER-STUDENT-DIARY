@@ -14,6 +14,7 @@ public class ClassActivitiesVM : MonoBehaviour
     private const string INST_SET_StartTime = "StartTime";
     private const string INST_SET_EndTime = "EndTime";
     private const string INST_SET_Register = "Register";
+    private const string INST_SET_Energy = "Energy";
     #endregion
 
     [SerializeField] private ClassActivities_Loading classActivities_Loading;
@@ -59,6 +60,7 @@ public class ClassActivitiesVM : MonoBehaviour
         int endTimeHour = 0;
         int endTimeMinute = 0;
         List<string> registerId = new List<string>();
+        int energy = 0;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -96,10 +98,13 @@ public class ClassActivitiesVM : MonoBehaviour
                 case INST_SET_Register:
                     registerId.Add(entries[++i]);
                     break;
+                case INST_SET_Energy:
+                    energy = int.Parse(entries[++i]);
+                    break;
 
             }
 
         }
-        return new ClassActivities_Template(id, class_activity_type, name, icon, day, startTimeHour, startTimeMinute, endTimeHour, endTimeMinute, registerId);
+        return new ClassActivities_Template(id, class_activity_type, name, icon, day, startTimeHour, startTimeMinute, endTimeHour, endTimeMinute, registerId, energy);
     }
 }

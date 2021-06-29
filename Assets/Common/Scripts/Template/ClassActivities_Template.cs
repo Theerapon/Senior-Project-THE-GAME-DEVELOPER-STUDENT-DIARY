@@ -14,8 +14,9 @@ public class ClassActivities_Template : MonoBehaviour
     private int end_time_hour;
     private int end_time_minute;
     private List<string> registerId = null;
+    private float _energy;
 
-    public ClassActivities_Template(string id, ClassActivityType activityType, string activity_name, Sprite icon, Day day, int start_time_hour, int start_time_minute, int end_time_hour, int end_time_minute, List<string> registerId)
+    public ClassActivities_Template(string id, ClassActivityType activityType, string activity_name, Sprite icon, Day day, int start_time_hour, int start_time_minute, int end_time_hour, int end_time_minute, List<string> registerId, int energy)
     {
         this.id = id;
         this.activityType = activityType;
@@ -27,6 +28,7 @@ public class ClassActivities_Template : MonoBehaviour
         this.end_time_hour = end_time_hour;
         this.end_time_minute = end_time_minute;
         this.registerId = registerId;
+        _energy = energy;
     }
 
     public string Id { get => id; }
@@ -39,4 +41,5 @@ public class ClassActivities_Template : MonoBehaviour
     public int End_time_hour { get => end_time_hour; }
     public int End_time_minute { get => end_time_minute; }
     public List<string> RegisterId { get => registerId; }
+    public float Energy { get => _energy; }
 }
