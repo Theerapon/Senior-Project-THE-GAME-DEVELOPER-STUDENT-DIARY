@@ -45,20 +45,20 @@ public class ClassActivity : MonoBehaviour
         }
     }
 
-    public void EnableClass(ScheduleEvent scheduleEvent, Day currentDay)
+    public bool EnableClass(ScheduleEvent scheduleEvent, Day currentDay)
     {
         if(Day == currentDay)
         {
             _scheduleEvent = scheduleEvent;
             _hasClass = true;
-            Debug.Log(string.Format("Class {0} is opening", Activity_name));
+            return true;
         }
+        return false;
         
     }
 
     public void DisableClass()
     {
         _hasClass = false;
-        Debug.Log(string.Format("Class {0} is closing", Activity_name));
     }
 }

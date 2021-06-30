@@ -97,7 +97,7 @@ public class CoursesVM : MonoBehaviour
         LevelRecommended recommended = LevelRecommended.All;
         int course_price = 0;
         int course_seccond_time = 0;
-        int course_energy_consumed = 0;
+        float course_energy_consumed = 0;
         int course_motivation_consumed = 0;
 
         int math_exp = 0;

@@ -53,7 +53,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private void MoneyHandler()
     {
-        money.text = characterStatusController.CharacterStatus.CurrentMoney.ToString();
+        money.text = characterStatusController.CurrentMoney.ToString();
     }
 
     private void MotivationHandler()
@@ -64,7 +64,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)characterStatusController.CharacterStatus.CurrentMotivation / characterStatusController.CharacterStatus.Default_maxMotivation;
+        return (float)characterStatusController.CurrentMotivation / characterStatusController.Default_maxMotivation;
     }
 
     private void EnergyHandler()
@@ -75,7 +75,7 @@ public class HUD_Info_Display : MonoBehaviour
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)characterStatusController.CharacterStatus.CurrentEnergy / characterStatusController.CharacterStatus.Default_maxEnergy;
+        return (float)characterStatusController.CurrentEnergy / characterStatusController.Default_maxEnergy;
     }
 
     private void HandlerTimeChange(bool isDay)

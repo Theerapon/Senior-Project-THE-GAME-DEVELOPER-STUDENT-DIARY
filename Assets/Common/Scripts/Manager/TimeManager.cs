@@ -300,7 +300,7 @@ public class TimeManager : Manager<TimeManager>
         miniueFullTime = totalSecond % 60;
         hourFullTime = totalSecond / 60;
 
-        return string.Format("{0} Hrs. {1} Min. {2} Sec.", hourFullTime, miniueFullTime, secondFullTime);
+        return string.Format("{0} ชม. {1} น. {2} ว.", hourFullTime, miniueFullTime, secondFullTime);
     }
     public bool GetGoldenTime()
     {
@@ -493,6 +493,58 @@ public class TimeManager : Manager<TimeManager>
             return true;
 
         }
+    }
+    public bool HasEnoungTimeForProject(int totalSecond, int hourStart, int minuteStart)
+    {
+        float recieveHour = 0f;
+        float recieveMiniue = 0f;
+        float recieveSecond = 0f;
+
+        float tempHour = hour;
+        float tempMiniue = minute;
+        float tempSecond = second;
+
+        recieveSecond = totalSecond % 60;
+        totalSecond = totalSecond / 60;
+        recieveMiniue = totalSecond % 60;
+        recieveHour = totalSecond / 60;
+
+        if (recieveHour >= DEFAULT_HOUR)
+        {
+            return false;
+        }
+        else
+        {
+            tempHour += recieveHour;
+            tempMiniue += recieveMiniue;
+            tempSecond += recieveSecond;
+        }
+
+        if (tempSecond >= DEFAULT_SECOND)
+        {
+            tempSecond -= DEFAULT_SECOND;
+            tempMiniue++;
+        }
+
+        if (tempMiniue >= DEFAULT_MINUTE)
+        {
+            tempMiniue -= DEFAULT_MINUTE;
+            tempHour++;
+        }
+
+        if(tempHour > hourStart)
+        {
+            return false;
+        }
+        else
+        {
+            if(tempHour == hourStart && tempMiniue >= minuteStart)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
     #endregion
 }

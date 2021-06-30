@@ -43,9 +43,11 @@ public class WorkProjectController : MonoBehaviour
     private CharacterStatusController characterStatusController;
     private GameObject foundNotificationControllerObject;
     private NotificationController notificationController;
+    private ClassActivityController classActivityController;
 
     private void Awake()
     {
+        classActivityController = ClassActivityController.Instance;
         projectController = ProjectController.Instance;
         characterStatusController = CharacterStatusController.Instance;
         timeManager = TimeManager.Instance;
@@ -148,18 +150,21 @@ public class WorkProjectController : MonoBehaviour
     {
         bool time = CheckTimeToAction(totalSecond);
         bool energy = CheckEnergyToAction(totalEnergy);
+        bool timeOnProjectDay = CheckTimeForProjectDay(totalSecond);
 
         if (!time)
         {
             notificationController.TimeNotEnoughForWork();
         }
-
-        if (!energy)
+        else if (!energy)
         {
             notificationController.EnergyNotEnoughForWork();
         }
-
-        if(time && energy)
+        else if (!timeOnProjectDay)
+        {
+            notificationController.TimeNotEnoughForWorkOnProjectDay();
+        }
+        else
         {
             projectController.SecondToWork = totalSecond;
 
@@ -174,7 +179,7 @@ public class WorkProjectController : MonoBehaviour
                     {
                         SwitchScene.Instance.DisplayWorkProjectDesign(true);
                     }
-                    
+
                     break;
                 case ProjectPhase.FirstPlayable:
                     if (projectController.HasDesigned)
@@ -222,13 +227,26 @@ public class WorkProjectController : MonoBehaviour
                         {
                             SwitchScene.Instance.DisplayBetaTypingGmae(true);
                         }
-                        
+
                     }
                     break;
             }
         }
 
 
+
+    }
+
+    private bool CheckTimeForProjectDay(int totalSecond)
+    {
+        if (timeManager.HasTimeEnough(totalSecond) && classActivityController.HasEvent() && classActivityController.TimeEnoughForActivity(totalSecond))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private bool CheckTimeToAction(int totalSecond)

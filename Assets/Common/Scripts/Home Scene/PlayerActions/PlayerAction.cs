@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
+public class PlayerAction : Manager<PlayerAction>, ISleepAction
 {
     [SerializeField] private CharacterStatusController characterStatusController;
     [SerializeField] private HardSkillsController hardSkillsController;
@@ -25,32 +25,9 @@ public class PlayerAction : Manager<PlayerAction>, ICourseAction, ISleepAction
     #endregion
 
     #region Course
-    public int GetEnergyCourse(Course course)
-    {
-        int energy = 0;
-        float reduceEnergy;
-        if (TimeManager.Instance.GetGoldenTime())
-        {
-            //reduceEnergy = chracter_handler.GetDEFAULT_goldenTimeReduceEnergyConsuption();
-            
-        }
-        else
-        {
-            //reduceEnergy = chracter_handler.GetDEFAULT_baseReduceEnergyConsumption();
-        }
-
-        //energy = (int)(course.GetEnergyToConsume() * (1 - reduceEnergy));
-
-        return energy;
-    }
-    public int GetCalculateCourseTimeSecond(Course courese)
-    {   /*
-        int second = 0;
-        float totalBonusReduced = (characterStats.GetDEFAULT_reduceTimeTrainCourse() + timeManagement.GetTotalBONUS_reduceTimeTrainCourse());
-
-        second = (int)(courese.GetSecondToConsume() * (1 - totalBonusReduced));
-        */
-        return 0;
+    public int GetCalculateCourseTimeSecond(int time)
+    {   
+        return (int)(time * GetTotalBonusReduceTimeCourse());
     }
     public void CalCourseProcess(Course course)
     {

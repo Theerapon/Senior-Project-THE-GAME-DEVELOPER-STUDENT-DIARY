@@ -43,12 +43,9 @@ public class AllCourse_Generator : MonoBehaviour
                 copy.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = string.Format("{0:n0}", dic.Value.CourseOriginalPrice);
 
                 //Set Course ID
-                copy.transform.GetChild(3).GetComponent<CourseID>().SetID(dic.Key); //set ID
+                copy.transform.GetComponent<CourseIdTemplate>().CourseId = dic.Key; //set ID
             }
         }
-
-        courseTemplate.SetActive(false);
-
     }
 
     public void CreateTemplate()
@@ -61,7 +58,7 @@ public class AllCourse_Generator : MonoBehaviour
     private void ClearTmeplate()
     {
         int count = transform.childCount;
-        for (int i = 1; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }

@@ -8,6 +8,8 @@ public class NotificationController : Manager<NotificationController>
 
 
     [SerializeField] private Sprite notificationSprite;
+    [SerializeField] private Color hasSpriteColor;
+    [SerializeField] private Color defaultColor;
 
     [Header("Purchase Item")]
     private const string purchaseTitle = "เงินไม่เพียงพอ";
@@ -28,6 +30,7 @@ public class NotificationController : Manager<NotificationController>
     [Header("Time notification")]
     private const string timeTitle = "เวลาไม่เพียงพอ";
     private const string timeDescription = "อย่าหักโหมสิ แบ่งเวลาสำหรับการพักผ่อนด้วยนะ";
+    private const string timeProjectDayDescription = "เหมือนวันนี้จะมีคลาสที่มหาลัยนะ จะเข้าคลาสไม่ทันเอา";
 
     [Header("Energy notification")]
     private const string energyTitle = "พลังงานไม่เพียงพอ";
@@ -42,49 +45,58 @@ public class NotificationController : Manager<NotificationController>
 
     public void EnergyNotEnoughForWork()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, energyTitle, energyDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, energyTitle, energyDescription, defaultColor);
     }
 
+    public void TimeNotEnoughForWorkOnProjectDay()
+    {
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTitle, timeProjectDayDescription, defaultColor);
+    }
     public void TimeNotEnoughForWork()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTitle, timeDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTitle, timeDescription, defaultColor);
     }
     public void EnergyNotEnoughForTransport()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, energyTransportTitle, energyTransportDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, energyTransportTitle, energyTransportDescription, defaultColor);
     }
 
     public void TimeNotEnoughForTransport()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTransportTitle, timeTransportDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, timeTransportTitle, timeTransportDescription, defaultColor);
     }
 
     public void ProjectNameIsEmtyp()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, projectNameDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, projectNameDescription, defaultColor);
     }
 
     public void GoalIdeaIsEmpty()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, goalIdeaDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, goalIdeaDescription, defaultColor);
     }
     public void MechanicIdeaIsEmpty()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, mechanicIdeaDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, mechanicIdeaDescription, defaultColor);
     }
     public void ThemeIdeaIsEmpty()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, themeIdeaDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, designDocumentTitle, themeIdeaDescription, defaultColor);
     }
 
     public void MoneyNotEnough(BaseItemShopSlot itemShopSlot)
     {
-        notificationUpdateGenerator.CreateTemplate(itemShopSlot.ITEMSHOP.ItemIcon, purchaseTitle, purchaseDescription);
+        notificationUpdateGenerator.CreateTemplate(itemShopSlot.ITEMSHOP.ItemIcon, purchaseTitle, purchaseDescription, hasSpriteColor);
+    }
+
+    public void MoneyNotEnough(Sprite icon)
+    {
+        notificationUpdateGenerator.CreateTemplate(icon, purchaseTitle, purchaseDescription, hasSpriteColor);
     }
 
     public void InventoryFull()
     {
-        notificationUpdateGenerator.CreateTemplate(notificationSprite, inventoryTitle, inventoryDescription);
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, inventoryTitle, inventoryDescription, defaultColor);
     }
 
     public void SellingItem(BaseItemSellingSlot itemSellingSlot)
@@ -93,6 +105,6 @@ public class NotificationController : Manager<NotificationController>
         string title = string.Format("การขาย {0} สำเร็จ", itemName);
         string description = string.Format("ได้รับ {0} บาท จากการขาย {1}", itemSellingSlot.ITEMSHOP.ItemPrice, itemName);
         Sprite icon = itemSellingSlot.ITEMSHOP.ItemIcon;
-        notificationUpdateGenerator.CreateTemplate(icon, title, description);
+        notificationUpdateGenerator.CreateTemplate(icon, title, description, hasSpriteColor);
     }
 }

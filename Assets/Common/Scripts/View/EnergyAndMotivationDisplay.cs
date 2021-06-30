@@ -36,22 +36,22 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     private void OnMotivationHandler()
     {
         imageMotivation.fillAmount = CalculateFillAmountMotivation();
-        textMotivation.text = characterStatusController.CharacterStatus.CurrentMotivation + " / " + characterStatusController.CharacterStatus.Default_maxMotivation;
+        textMotivation.text = characterStatusController.CurrentMotivation + " / " + characterStatusController.Default_maxMotivation;
     }
 
     private void OnEnergyHandler()
     {
         imageEnergy.fillAmount = CalculateFillAmountEnergy();
-        textEnergy.text = characterStatusController.CharacterStatus.CurrentEnergy + " / " + characterStatusController.CharacterStatus.Default_maxEnergy;
+        textEnergy.text = characterStatusController.CurrentEnergy + " / " + characterStatusController.Default_maxEnergy;
     }
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)characterStatusController.CharacterStatus.CurrentEnergy  / characterStatusController.CharacterStatus.Default_maxEnergy;
+        return (float)characterStatusController.CurrentEnergy  / characterStatusController.Default_maxEnergy;
     }
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)characterStatusController.CharacterStatus.CurrentMotivation / characterStatusController.CharacterStatus.Default_maxMotivation;
+        return (float)characterStatusController.CurrentMotivation / characterStatusController.Default_maxMotivation;
     }
 }

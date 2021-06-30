@@ -18,7 +18,7 @@ public class Course_Template : MonoBehaviour
     private string description;
     private int courseOriginalPrice;
     private int secondTimeUsed;
-    private int energyUsed;
+    private float energyUsed;
     private int motivationUsed;
     private int expPlayer;
     private Sprite course_icon;
@@ -47,7 +47,7 @@ public class Course_Template : MonoBehaviour
     private LevelRecommended courseRecommended;
 
     public Course_Template(string id, string nameCourse, string nameAuthor, string description, 
-        int priceCourse, int secondTimeUsed, int energyUsed, int motivationUsed, int expPlayer, 
+        int priceCourse, int secondTimeUsed, float energyUsed, int motivationUsed, int expPlayer, 
         int defaultMathExpReward, int defaultProgrammingExpReward, int defaultEngineExpReward, 
         int defaultAiExpReward, int defaultNetwordExpReward, int defaultDesignExpReward, int defaultArtExpReward, 
         int defaultSoundExpReward, int defaultTestingExpReward, int defaultCodingStatReward, int defaultDesignStatReward, 
@@ -90,7 +90,7 @@ public class Course_Template : MonoBehaviour
     public string Description { get => description; }
     public int CourseOriginalPrice { get => courseOriginalPrice; }
     public int SecondTimeUsed { get => secondTimeUsed; }
-    public int EnergyUsed { get => energyUsed; }
+    public float EnergyUsed { get => energyUsed; }
     public int MotivationUsed { get => motivationUsed; }
     public int ExpPlayer { get => expPlayer; }
     public Sprite Course_icon { get => course_icon; }

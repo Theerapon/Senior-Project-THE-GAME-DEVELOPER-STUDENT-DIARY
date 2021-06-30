@@ -12,6 +12,11 @@ public class ClassActivityController : Manager<ClassActivityController>
 
     [SerializeField] private TimeManager _timeManager;
 
+    private string _currentActivityId;
+    private bool _currentDayHasEvent;
+    private int _startHourEvent;
+    private int _startMinuteEvent;
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,6 +34,7 @@ public class ClassActivityController : Manager<ClassActivityController>
             }
         }
     }
+
 
     private void OnTenMinuteHandler()
     {
@@ -50,16 +56,40 @@ public class ClassActivityController : Manager<ClassActivityController>
         {
             if(classActivityType == classActivity.Value.ActivityType)
             {
-                classActivity.Value.EnableClass(scheduleEvent, day);
+                string id = classActivity.Key;
+                bool enable = classActivity.Value.EnableClass(scheduleEvent, day);
+                if (enable)
+                {
+                    _currentActivityId = id;
+                    _currentDayHasEvent = true;
+                    _startHourEvent = classActivity.Value.Start_time_hour;
+                    _startMinuteEvent = classActivity.Value.Start_time_minute;
+                    break;
+                }
             }
         }
     }
 
     public void ClearClassEvent()
     {
+        _currentActivityId = string.Empty;
+        _currentDayHasEvent = false;
+        _startHourEvent = 0;
+        _startMinuteEvent = 0;
+
         foreach (KeyValuePair<string, ClassActivity> classActivity in _classActivitiesDic)
         {
             classActivity.Value.DisableClass();
         }
+    }
+
+    public bool HasEvent()
+    {
+        return _currentDayHasEvent;
+    }
+
+    public bool TimeEnoughForActivity(int totalSecond)
+    {
+        return _timeManager.HasEnoungTimeForProject(totalSecond, _startHourEvent, _startMinuteEvent);
     }
 }

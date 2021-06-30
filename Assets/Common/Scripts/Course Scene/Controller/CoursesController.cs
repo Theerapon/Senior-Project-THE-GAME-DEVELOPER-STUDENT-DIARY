@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class CoursesController : Manager<CoursesController>
 {
-    private Courses_DataHandler courses_DataHandler;
+    private Courses_DataHandler _courses_DataHandler;
 
-    private Dictionary<string, Course> allCourses;
-    private Dictionary<string, Course> myCourses;
+    private Dictionary<string, Course> _allCourses;
+    private Dictionary<string, Course> _myCourses;
 
-    public Dictionary<string, Course> AllCourses { get => allCourses; }
-    public Dictionary<string, Course> MyCourses { get => myCourses; }
+    public Dictionary<string, Course> AllCourses { get => _allCourses; }
+    public Dictionary<string, Course> MyCourses { get => _myCourses; }
 
     protected override void Awake()
     {
         base.Awake();
-        allCourses = new Dictionary<string, Course>();
-        myCourses = new Dictionary<string, Course>();
-        courses_DataHandler = FindObjectOfType<Courses_DataHandler>();
+        _allCourses = new Dictionary<string, Course>();
+        _myCourses = new Dictionary<string, Course>();
+        _courses_DataHandler = FindObjectOfType<Courses_DataHandler>();
         int i = 0;
-        if (!ReferenceEquals(courses_DataHandler, null))
+        if (!ReferenceEquals(_courses_DataHandler, null))
         {
-            foreach (KeyValuePair<string, Course_Template> course in courses_DataHandler.GetCourseDic)
+            foreach (KeyValuePair<string, Course_Template> course in _courses_DataHandler.GetCourseDic)
             {
-                allCourses.Add(course.Key, new Course(course.Value));
+                _allCourses.Add(course.Key, new Course(course.Value));
             }
             Debug.Log("wait implementation for load save data");
         }
@@ -34,6 +34,20 @@ public class CoursesController : Manager<CoursesController>
 
     public void BuyCourse(string id)
     {
-        Debug.Log("Implementation");
+        if (_allCourses.ContainsKey(id) && !_myCourses.ContainsKey(id))
+        {
+            _myCourses.Add(id, new Course(_allCourses[id].Definition));
+            _myCourses[id].BuyCourse();
+            _allCourses.Remove(id);
+        }
+    }
+
+    public void LearnCourse(string id)
+    {
+        if (_myCourses.ContainsKey(id))
+        {
+            Debug.Log(_myCourses[id].CourseName);
+        }
+        
     }
 }

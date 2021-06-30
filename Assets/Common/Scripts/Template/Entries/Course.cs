@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Course : MonoBehaviour
 {
-    protected Course_Template definition;
+    private Course_Template definition;
     private float courseDiscount;
     private bool hasCollected;
 
@@ -27,7 +27,7 @@ public class Course : MonoBehaviour
     public string Description { get => definition.Description; }
     public int CourseOriginalPrice { get => definition.CourseOriginalPrice; }
     public int SecondTimeUsed { get => definition.SecondTimeUsed; }
-    public int EnergyUsed { get => definition.EnergyUsed; }
+    public float EnergyUsed { get => definition.EnergyUsed; }
     public int MotivationUsed { get => definition.MotivationUsed; }
     public int ExpPlayer { get => definition.ExpPlayer; }
     public Sprite Course_icon { get => definition.Course_icon; }
@@ -47,6 +47,7 @@ public class Course : MonoBehaviour
     public int DefaultSoundStatReward { get => definition.DefaultSoundStatReward; }
     public List<CourseTag> CourseTypeNum { get => definition.CourseTypeNum; }
     public LevelRecommended CourseRecommended { get => definition.CourseRecommended; }
+    public Course_Template Definition { get => definition; }
     #endregion
 
     #region Set Get

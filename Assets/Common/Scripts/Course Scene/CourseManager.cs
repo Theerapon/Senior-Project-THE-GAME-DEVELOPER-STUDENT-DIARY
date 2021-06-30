@@ -2,47 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Course_Notification_Controller : MonoBehaviour
+public class CourseManager : MonoBehaviour
 {
     [Header("Course Display")]
     [SerializeField] private Course_Display_Controller courseDisplay;
     private CoursesController courseController;
 
+    private NotificationController _notificationController;
+
     private GameObject found_Player;
     private CharacterStatusController characterStatusController;
     private PlayerAction playerAction;
 
-    [Header("Course ID")]
-    [SerializeField] private CourseID purchase_course_id_temp;
-    [SerializeField] private CourseID learn_course_id_temp;
+    private string purchase_course_id_temp;
+    private string learn_course_id_temp;
 
 
     private void Start()
     {
         courseController = CoursesController.Instance;
         found_Player = GameObject.FindGameObjectWithTag("Player");
+        _notificationController = NotificationController.Instance;
         characterStatusController = CharacterStatusController.Instance;
         playerAction = found_Player.GetComponentInChildren<PlayerAction>();
     }
 
-    public void PurchaseCourse(CourseID courseID)
+    public void PurchaseCourse(string courseID)
     {
-        string id = courseID.GetID();
-        purchase_course_id_temp.SetID(id);
-        courseDisplay.DisplayPurchaseNotification(id);
+        purchase_course_id_temp = courseID;
+        courseDisplay.DisplayPurchaseNotification(courseID);
     }
 
-    public void LearnCourse(CourseID courseID)
+    public void LearnCourse(string courseID)
     {
-        string id = courseID.GetID();
-        learn_course_id_temp.SetID(id);
-        courseDisplay.DisplayLearnNotification(id);
+        learn_course_id_temp = courseID;
+        courseDisplay.DisplayLearnNotification(courseID);
     }
 
     public void ConfirmLearnCourse()
     {
-        string id = learn_course_id_temp.GetID();
-
+        string id = learn_course_id_temp;
+        courseController.LearnCourse(id);
+        courseDisplay.CloseNotification();
+        courseDisplay.ActivedMyCourse();
         //if(playerAction.GetEnergyCourse(course_handler.courses[id]) > chracter_handler.STATUS.GetCurrentEnergy())
         //{
         //    courseDisplay.CloseAll();
@@ -60,25 +62,23 @@ public class Course_Notification_Controller : MonoBehaviour
 
     public void ConfirmPurchaseCourse()
     {
-        bool purchaseSuccessful;
-        string id = purchase_course_id_temp.GetID();
+        string id = purchase_course_id_temp;
         int totalPrice = courseController.AllCourses[id].GetTotalPrice();
-        if (totalPrice < characterStatusController.CharacterStatus.CurrentMoney)
+        if (totalPrice < characterStatusController.CurrentMoney)
         {
-            characterStatusController.CharacterStatus.TakeMoney(totalPrice);
+            characterStatusController.TakeMoney(totalPrice);
             courseController.BuyCourse(id);
-            purchaseSuccessful = true;
         }
         else
         {
-            purchaseSuccessful = false;
+            _notificationController.MoneyNotEnough(courseController.AllCourses[id].Course_icon);
         }
 
         courseDisplay.CloseNotification();
         courseDisplay.ActivedAllCourse();
     }
 
-    public CourseID GetIdLearnCourse()
+    public string GetIdLearnCourse()
     {
         return learn_course_id_temp;
     }

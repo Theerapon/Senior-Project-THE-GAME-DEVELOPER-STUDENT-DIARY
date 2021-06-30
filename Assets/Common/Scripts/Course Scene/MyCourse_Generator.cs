@@ -12,9 +12,11 @@ public class MyCourse_Generator : MonoBehaviour
     [Header("Template")]
     [SerializeField] protected GameObject courseTemplate;
     protected CoursesController coursesController;
+    private TimeManager _timeManager;
 
     private void Awake()
     {
+        _timeManager = TimeManager.Instance;
         coursesController = CoursesController.Instance;
         foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
         playerAction = foundPlayerAction.GetComponent<PlayerAction>();
@@ -44,21 +46,20 @@ public class MyCourse_Generator : MonoBehaviour
                 copy.transform.GetChild(1).GetChild(0).GetChild(1).GetChild(2).GetComponentInChildren<My_Course_Bonus_Generator>().CreateTemplate(dic.Key);
 
                 //Course Seccond Time
-                copy.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = TimeManager.Instance.GetSecondText(GetTimePlayerAction(dic.Value));
+                copy.transform.GetChild(2).GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = _timeManager.GetSecondText(GetTimePlayerAction(dic.Value.SecondTimeUsed));
                 //Course Energy
-                copy.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = playerAction.GetEnergyCourse(dic.Value).ToString() + " Energy";
+                copy.transform.GetChild(2).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = string.Format("พลังงาน {0:n0}", playerAction.CalReduceEnergyToCunsume(dic.Value.EnergyUsed));
 
                 //Set Course ID
-                copy.transform.GetChild(3).GetComponent<CourseID>().SetID(dic.Key); //set ID
+                copy.transform.GetComponent<CourseIdTemplate>().CourseId = dic.Key; //set ID
             }
         }
 
-        courseTemplate.SetActive(false);
     }
 
-    private int GetTimePlayerAction(Course course)
+    private int GetTimePlayerAction(int energy)
     {
-        return playerAction.GetCalculateCourseTimeSecond(course);
+        return playerAction.GetCalculateCourseTimeSecond(energy);
     }
 
     public void CreateTemplate()
@@ -71,7 +72,7 @@ public class MyCourse_Generator : MonoBehaviour
     private void ClearTmeplate()
     {
         int count = transform.childCount;
-        for (int i = 1; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }

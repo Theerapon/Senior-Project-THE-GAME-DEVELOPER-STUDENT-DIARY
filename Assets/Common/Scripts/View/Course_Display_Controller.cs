@@ -33,14 +33,6 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [SerializeField] private GameObject my_course;
     private GameObject preDisplay;
 
-    //[Header("Player")]
-    //[SerializeField] private TMP_Text namePlayer;
-    //[SerializeField] private TMP_Text moneyPlayer;
-
-    //[Header("Time")]
-    //[SerializeField] private TMP_Text time;
-    //[SerializeField] private TMP_Text date;
-    //private TimeManager timeManager;
 
     [Header("Notification")]
     [SerializeField] private GameObject notification;
@@ -55,22 +47,28 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
     [Header("Course Canvas")]
     [SerializeField] private GameObject courseCanvas;
 
-    private CharacterStatusController characterStatusController;
+    private GameManager _gameManager;
+    private SwitchScene _switchScene;
     private CoursesController courseController;
-
-    protected bool first_displayed;
+    private TimeManager _timeManager;
+    private PlayerAction _playerAction;
 
     protected void Start()
     {
+        _playerAction = PlayerAction.Instance;
+        _timeManager = TimeManager.Instance;
         courseController = CoursesController.Instance;
-        //timeManager = TimeManager.Instance;
-        characterStatusController = CharacterStatusController.Instance;
+        _gameManager = GameManager.Instance;
+        _switchScene = SwitchScene.Instance;
+
 
         courseDisplayed = CourseDisplayed.AllCourse;
-        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        _gameManager.OnGameStateChanged.AddListener(HandleGameStateChanged);
 
         all_course.SetActive(false);
         my_course.SetActive(false);
+        ActivedNotificationCanvas(false);
+        ActivedAllCourse();
     }
 
 
@@ -98,18 +96,10 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
         }
     }
 
-    void Update()
-    {
-        if (!first_displayed)
-        {
-            ActivedAllCourse();
-            first_displayed = true;
-        }
-    }
 
     public void ActivedAllCourse()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.COURSE)
+        if (_gameManager.CurrentGameState == GameManager.GameState.COURSE)
         {
             if (all_course.activeSelf == false)
             {
@@ -126,12 +116,13 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
             {
                 CreateAllCourses();
             }
+            courseDisplayed = CourseDisplayed.AllCourse;
         }
 
     }
     public void ActivedMyCourse()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.COURSE)
+        if (_gameManager.CurrentGameState == GameManager.GameState.COURSE)
         {
             if (my_course.activeSelf == false)
             {
@@ -148,6 +139,7 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
             {
                 CreateMyCourses();
             }
+            courseDisplayed = CourseDisplayed.MyCourse;
         }
     }
 
@@ -167,25 +159,25 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
         my_course_generator.CreateTemplate();
     }
 
-    private void UpdatePlayerData()
-    {
-        //namePlayer.text = characterStatusController.CharacterStatus.Character_Name;;
-        //moneyPlayer.text = string.Format("{0:n0}", characterStatusController.CharacterStatus.CurrentMoney);
-    }
 
 
     public void DisplayPurchaseNotification(string id)
     {
+        Course course = courseController.AllCourses[id];
+        string courseName = course.CourseName;
+        string price = string.Format("{0:n0}", course.GetTotalPrice());
+
         ActivedNotificationCanvas(true);
         confirm_purchase_notification.SetActive(true);
-        confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.AllCourses[id].CourseName;
-        SwitchScene.Instance.DisplayCourseNotification(true);
+        confirm_purchase_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseName;
+        confirm_purchase_notification.transform.GetChild(6).GetComponentInChildren<TMP_Text>().text = price;
+        _switchScene.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }
 
     public void CloseNotification()
     {
-        SwitchScene.Instance.DisplayCourseNotification(false);
+        _switchScene.DisplayCourseNotification(false);
     }
 
 
@@ -199,16 +191,27 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
 
     public void DisplayLearnNotification(string id)
     {
+        Course course = courseController.MyCourses[id];
+        string courseName = course.CourseName;
+        string courseTime = _timeManager.GetSecondText(course.SecondTimeUsed);
+        string energyToConsume = string.Format("{0:n0}", _playerAction.CalReduceEnergyToCunsume(course.EnergyUsed));
+
         ActivedNotificationCanvas(true);
         confirm_learn_notification.SetActive(true);
-        confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseController.MyCourses[id].CourseName;
-        SwitchScene.Instance.DisplayCourseNotification(true);
+        confirm_learn_notification.transform.GetChild(3).GetComponent<TMP_Text>().text = courseName;
+        confirm_learn_notification.transform.GetChild(6).GetChild(0).GetComponentInChildren<TMP_Text>().text = courseTime; //time
+        confirm_learn_notification.transform.GetChild(6).GetChild(1).GetComponentInChildren<TMP_Text>().text = energyToConsume; //energy
+        _switchScene.DisplayCourseNotification(true);
         UpdateDisplayState(CourseDisplayState.NOTIFICATION);
     }
 
     public void ActivedNotificationCanvas(bool actived)
     {
-        notification.SetActive(actived);
+        if(notification.activeSelf != actived)
+        {
+            notification.SetActive(actived);
+        }
+     
     }
 
 

@@ -15,7 +15,6 @@ public class CharacterStatusController : Manager<CharacterStatusController>
 
     private CharacterStatus_DataHandler characterStatus_DataHandler;
     private CharacterStatus characterStatus;
-    public CharacterStatus CharacterStatus { get => characterStatus; }
 
     protected override void Awake()
     {
