@@ -44,9 +44,11 @@ public class WorkProjectController : MonoBehaviour
     private GameObject foundNotificationControllerObject;
     private NotificationController notificationController;
     private ClassActivityController classActivityController;
+    private SwitchScene switchScene;
 
     private void Awake()
     {
+        switchScene = SwitchScene.Instance;
         classActivityController = ClassActivityController.Instance;
         projectController = ProjectController.Instance;
         characterStatusController = CharacterStatusController.Instance;
@@ -173,42 +175,42 @@ public class WorkProjectController : MonoBehaviour
                 case ProjectPhase.Design:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                        switchScene.DisplayWorkTypingGmae(true);
                     }
                     else
                     {
-                        SwitchScene.Instance.DisplayWorkProjectDesign(true);
+                        switchScene.DisplayWorkProjectDesign(true);
                     }
 
                     break;
                 case ProjectPhase.FirstPlayable:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                        switchScene.DisplayWorkTypingGmae(true);
                     }
                     break;
                 case ProjectPhase.Prototype:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                        switchScene.DisplayWorkTypingGmae(true);
                     }
                     break;
                 case ProjectPhase.VerticalSlice:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                        switchScene.DisplayWorkTypingGmae(true);
                     }
                     break;
                 case ProjectPhase.AlphaTest:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayAlphaTypingGmae(true);
+                        switchScene.DisplayAlphaTypingGmae(true);
                     }
                     break;
                 case ProjectPhase.BetaTest:
                     if (projectController.HasDesigned)
                     {
-                        SwitchScene.Instance.DisplayBetaTypingGmae(true);
+                        switchScene.DisplayBetaTypingGmae(true);
                     }
                     break;
                 case ProjectPhase.Master:
@@ -217,15 +219,15 @@ public class WorkProjectController : MonoBehaviour
                         int rnd = UnityEngine.Random.Range(0, 3);
                         if (rnd >= 2)
                         {
-                            SwitchScene.Instance.DisplayWorkTypingGmae(true);
+                            switchScene.DisplayWorkTypingGmae(true);
                         }
                         else if (rnd >= 1)
                         {
-                            SwitchScene.Instance.DisplayAlphaTypingGmae(true);
+                            switchScene.DisplayAlphaTypingGmae(true);
                         }
                         else
                         {
-                            SwitchScene.Instance.DisplayBetaTypingGmae(true);
+                            switchScene.DisplayBetaTypingGmae(true);
                         }
 
                     }
@@ -239,7 +241,11 @@ public class WorkProjectController : MonoBehaviour
 
     private bool CheckTimeForProjectDay(int totalSecond)
     {
-        if (timeManager.HasTimeEnough(totalSecond) && classActivityController.HasEvent() && classActivityController.TimeEnoughForActivity(totalSecond))
+        if (!classActivityController.HasEvent())
+        {
+            return true;
+        }
+        else  if (timeManager.HasTimeEnough(totalSecond) && classActivityController.HasEvent() && classActivityController.TimeEnoughForActivity(totalSecond))
         {
             return true;
         }

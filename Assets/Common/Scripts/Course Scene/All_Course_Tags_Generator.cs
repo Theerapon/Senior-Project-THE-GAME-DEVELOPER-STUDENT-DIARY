@@ -41,7 +41,6 @@ public class All_Course_Tags_Generator : MonoBehaviour
             copy.transform.GetComponentInChildren<TMP_Text>().text = types[i].ToString();
         }
 
-        tagTemplate.SetActive(false);
     }
 
     public void CreateTemplate(string id)

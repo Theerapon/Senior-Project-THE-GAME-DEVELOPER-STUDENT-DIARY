@@ -88,9 +88,8 @@ public class Course_Display_Controller : Manager<Course_Display_Controller>
                     ActivedMyCourse();
                     break;
             }
-        }
-
-        if (currentState == GameManager.GameState.COURSE_LEARN_ANIMATION)
+        } 
+        else if (currentState == GameManager.GameState.COURSE_SUMMARY)
         {
             DisplayCourseCanvas(false);
         }

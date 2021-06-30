@@ -65,7 +65,7 @@ public class WorkTypingMainBox : WordBox
 
     private void SetTimeFillBar()
     {
-        timeFillBar.fillAmount = 1 - (time / wordTypingWorkTimer.GetWordTimeDelay());
+        timeFillBar.fillAmount = 1 - (float)(time / wordTypingWorkTimer.GetWordTimeDelay());
     }
 
 

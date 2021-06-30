@@ -24,6 +24,7 @@ public class GameManager : Manager<GameManager>
         Home,
         Summary,
         COM_Course,
+        COM_Course_Summary,
         COM_WorkProject,
         COM_WorkProject_Design,
         COM_WorkProject_Summary,
@@ -74,7 +75,6 @@ public class GameManager : Manager<GameManager>
         HOME_ACTION,
         COURSE,
         COURSE_NOTIFICATION,
-        COURSE_LEARN_ANIMATION,
         COURSE_SUMMARY,
         SAVEING,
         Diary,
@@ -197,6 +197,11 @@ public class GameManager : Manager<GameManager>
             UpdateState(GameState.COURSE);
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
+        if(scene == GameScene.COM_Course_Summary)
+        {
+            UpdateState(GameState.COURSE_SUMMARY);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
         #endregion
 
         #region Saving
@@ -302,6 +307,7 @@ public class GameManager : Manager<GameManager>
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
+
 
     }
 
@@ -633,6 +639,27 @@ public class GameManager : Manager<GameManager>
                 onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             }
             
+        }
+    }
+    public void DisplayCourseSummary(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.COM_Course_Summary.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.COM_Course_Summary);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.COM_Course_Summary.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.COM_Course_Summary);
+                UpdateState(GameState.COURSE);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
         }
     }
     public void DisplayWorkTypingGame(bool active)

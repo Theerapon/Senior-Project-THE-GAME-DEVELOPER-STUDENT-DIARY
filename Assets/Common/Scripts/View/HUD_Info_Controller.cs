@@ -76,6 +76,10 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowInfo(true, true, true, false, false, false, false);
         }
+        else if (current_game_state == GameManager.GameState.COURSE_SUMMARY)
+        {
+            ShowInfo(true, false, false, false, false, false, false);
+        }
 
     }
     private void Reset()

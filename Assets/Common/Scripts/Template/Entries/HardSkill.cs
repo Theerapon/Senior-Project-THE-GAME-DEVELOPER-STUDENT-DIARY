@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HardSkill : MonoBehaviour
 {
+
     private HardSkill_Template definition;
     private int currentLevel;
     private int currentExp;
@@ -43,10 +44,6 @@ public class HardSkill : MonoBehaviour
                 SetHardSkillLevelUp(currentLevel);
             }
         }
-        else
-        {
-            Debug.Log("maxlevel");
-        }
     }
     #endregion
     #region Hard Skill Level UP
@@ -61,7 +58,6 @@ public class HardSkill : MonoBehaviour
             currentTotalBonusTestingStatus = definition.HardskillLevelRequired[currentLevel].bonus_testing;
             currentTotalBonusArtStatus = definition.HardskillLevelRequired[currentLevel].bonus_art;
             currentTotalBonusSoundStatus = definition.HardskillLevelRequired[currentLevel].bonus_sound;
-            //OnLevelUp.Invoke(charLevel);
         }
 
         if (currentLevel < definition.HardskillLevelRequired.Length - 1)
@@ -76,6 +72,7 @@ public class HardSkill : MonoBehaviour
 
     }
     #endregion
+
     #region Reporter
     public int CurrentLevel { get => currentLevel; }
     public int CurrentExp { get => currentExp; }
@@ -161,9 +158,9 @@ public class HardSkill : MonoBehaviour
 
         return value;
     }
-    public int GetExpRequire()
+    public float GetExpRequire()
     {
-        int exp;
+        float exp;
 
         if (currentLevel < definition.HardskillLevelRequired.Length - 1)
         {

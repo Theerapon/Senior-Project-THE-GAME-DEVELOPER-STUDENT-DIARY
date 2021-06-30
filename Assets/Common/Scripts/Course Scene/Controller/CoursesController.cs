@@ -42,12 +42,4 @@ public class CoursesController : Manager<CoursesController>
         }
     }
 
-    public void LearnCourse(string id)
-    {
-        if (_myCourses.ContainsKey(id))
-        {
-            Debug.Log(_myCourses[id].CourseName);
-        }
-        
-    }
 }

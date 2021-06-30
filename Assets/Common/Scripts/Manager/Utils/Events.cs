@@ -39,6 +39,10 @@ public class Events
     [System.Serializable] public class EventOnHasPlaceArriverUpdate : UnityEvent { }
     #endregion
 
+    #region Hard Skill
+    [System.Serializable] public class EventOnHardSkillExpUpdate : UnityEvent<string> { }
+    #endregion
+
     #region Mouse Manager
     [System.Serializable] public class EventGameObjectOnClick : UnityEvent<GameObject> { }
     [System.Serializable] public class EventGameObjectOnTriger : UnityEvent<GameObject> { }

@@ -29,45 +29,6 @@ public class PlayerAction : Manager<PlayerAction>, ISleepAction
     {   
         return (int)(time * GetTotalBonusReduceTimeCourse());
     }
-    public void CalCourseProcess(Course course)
-    {
-        //chracter_handler.TakeEnergy(GetEnergyCourse(course));
-        //chracter_handler.ReduceCurrentMotivation(course.GetMotivationConsume());
-
-        #region Exp
-        //mathHardSkill.GiveXP(course.GetdefaultMathExpReward());
-
-        //programmingHardSkill.GiveXP(course.GetdefaultProgrammingExpReward());
-
-        //gameEngineHardSkill.GiveXP(course.GetdefaultEngineExpReward());
-
-        //networkHardSkill.GiveXP(course.GetdefaultAiExpReward());
-
-        //aiHardSkill.GiveXP(course.GetdefaultNetwordExpReward());
-
-        //designHardSkill.GiveXP(course.GetdefaultDesignExpReward());
-
-        //testingHardSkill.GiveXP(course.GetdefaultTestingExpReward());
-
-        //artHardSkill.GiveXP(course.GetdefaultArtExpReward());
-
-        //soundHardSkill.GiveXP(course.GetdefaultSoundExpReward());
-
-        #endregion
-
-        #region Stat
-        //chracter_handler.ApplyCodingStatus(course.GetdefaultCodingStatReward());
-
-        //chracter_handler.ApplyDesignStatus(course.GetdefaultDesignStatReward());
-
-        //chracter_handler.ApplyTestStatus(course.GetdefaultTestingStatReward());
-
-        //chracter_handler.ApplyArtStatus(course.GetdefaultArtStatReward());
-
-        //chracter_handler.ApplySoundStatus(course.GetdefaultSoundStatReward());
-        #endregion
-        
-    }
     #endregion
 
     #region Sleep

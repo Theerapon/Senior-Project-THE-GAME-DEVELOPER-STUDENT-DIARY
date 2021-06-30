@@ -61,7 +61,6 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
 
     #region Properties
     private int countMinute;
-    private int countHalfHour;
     private int times;
     private List<float> energy;
     #endregion
@@ -77,7 +76,6 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
         timeManager.OnOneMiniuteTimePassed.AddListener(OnOneMiniuteTimePassedHandler);
         timeManager.OnTimeSkip.AddListener(OnTimeSkipCompleteHandler);
         countMinute = 0;
-        countHalfHour = 0;
         times = 0;
         SetButtonActive(false);
     }
@@ -118,7 +116,6 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
             countMinute++;
             if (countMinute != 0 && countMinute % INST_30miniute == 0)
             {
-                countHalfHour++;
                 UpdateProjectStatusSummary();
                 UpdateEnergyAndMotivationConsume();
             }

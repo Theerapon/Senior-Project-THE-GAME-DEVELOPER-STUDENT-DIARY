@@ -30,6 +30,7 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Place_University = 20;
     private const int INST_Display_RecieveTrasure = 21;
     private const int INST_Display_StachInventory = 22;
+    private const int INST_Display_CourseSummary = 23;
     #endregion
 
     #region Animator Parameters
@@ -56,11 +57,11 @@ public class SwitchScene : Manager<SwitchScene>
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-        else if(previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.WORK_PROJECT)
+        else if (previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.WORK_PROJECT)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
-        else if (previousGameState == GameManager.GameState.HOME_ACTION && currentGameState == GameManager.GameState.COURSE)
+        else if ((previousGameState == GameManager.GameState.HOME_ACTION || previousGameState == GameManager.GameState.COURSE_SUMMARY) && currentGameState == GameManager.GameState.COURSE)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -81,6 +82,10 @@ public class SwitchScene : Manager<SwitchScene>
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
         else if (previousGameState == GameManager.GameState.RECEIVE_ITEM && currentGameState == GameManager.GameState.STACH)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (previousGameState == GameManager.GameState.COURSE_NOTIFICATION && currentGameState == GameManager.GameState.COURSE_SUMMARY)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -167,6 +172,9 @@ public class SwitchScene : Manager<SwitchScene>
                 break;
             case INST_Display_StachInventory:
                 gameManager.DisplayStachInventory(active);
+                break;
+            case INST_Display_CourseSummary:
+                gameManager.DisplayCourseSummary(active);
                 break;
         }
         //LoadScene
@@ -405,6 +413,15 @@ public class SwitchScene : Manager<SwitchScene>
         if (loadComplete)
         {
             FadeToLevel(INST_Display_StachInventory, active);
+            loadComplete = false;
+        }
+    }
+    public void DisplayCourseSummary(bool active)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_CourseSummary, active);
             loadComplete = false;
         }
     }
