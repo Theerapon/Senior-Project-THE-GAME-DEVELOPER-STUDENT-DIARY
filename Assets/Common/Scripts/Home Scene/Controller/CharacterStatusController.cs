@@ -18,6 +18,8 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     private CharacterStatus_DataHandler characterStatus_DataHandler;
     private CharacterStatus characterStatus;
 
+    [SerializeField] private TimeManager timeManager;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,8 +29,23 @@ public class CharacterStatusController : Manager<CharacterStatusController>
             characterStatus = new CharacterStatus(characterStatus_DataHandler.GetCharacterTemplate);
         }
 
+        timeManager.OnStartNewDayComplete.AddListener(OnNewDayHandler);
+
     }
 
+    private void OnNewDayHandler()
+    {
+        if (characterStatus.SleepLate)
+        {
+            IncreaseCurrentEnergy(characterStatus.Default_maxEnergy * 0.7f);
+            IncreaseCurrentMotivation(characterStatus.Default_maxMotivation * 0.5f);
+        }
+        else
+        {
+            IncreaseCurrentEnergy(characterStatus.Default_maxEnergy);
+            IncreaseCurrentMotivation(characterStatus.Default_maxMotivation * 0.7f);
+        }
+    }
 
     public float GetEfficiencyToDo()
     {
@@ -46,7 +63,7 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnEnergyUpdated?.Invoke();
     }
 
-    public void IncreaseCurrentEnergy(int energyAmount)
+    public void IncreaseCurrentEnergy(float energyAmount)
     {
         characterStatus.IncreaseCurrentEnergy(energyAmount);
         OnEnergyUpdated?.Invoke();
@@ -57,7 +74,7 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnExpUpdated?.Invoke();
     }
 
-    public void IncreaseCurrentMotivation(int currentMotivation)
+    public void IncreaseCurrentMotivation(float currentMotivation)
     {
         characterStatus.IncreaseCurrentMotivation(currentMotivation);
         OnMotivationUpdated?.Invoke();
@@ -99,6 +116,10 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnStatusUpdated?.Invoke();
     }
 
+    public void Sleep(bool sleepLate)
+    {
+        characterStatus.Sleep(sleepLate);
+    }
     public bool HasCharacterStatusPointEnough(int amount)
     {
         return amount <= CurrentStatusPoints;

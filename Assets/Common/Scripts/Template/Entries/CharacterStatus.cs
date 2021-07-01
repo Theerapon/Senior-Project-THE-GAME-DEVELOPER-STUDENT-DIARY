@@ -30,11 +30,13 @@ public class CharacterStatus : MonoBehaviour
     private int currentTestingStatus;
     private int currentArtStatus;
     private int currentSoundStatus;
+    private bool _sleepLate;
     #endregion
 
     public CharacterStatus(CharacterStatus_Template characterStatus_Template)
     {
         definition = characterStatus_Template;
+        _sleepLate = false;
         Initializing();
     }
 
@@ -56,6 +58,10 @@ public class CharacterStatus : MonoBehaviour
     }
 
     #region Stat Increasers
+    public void Sleep(bool sleepLate)
+    {
+        _sleepLate = sleepLate;
+    }
     public void IncreaseMaxEnergy(float newEnergyAmount)
     {
         definition.Default_maxEnergy = newEnergyAmount;
@@ -352,6 +358,8 @@ public class CharacterStatus : MonoBehaviour
     public float Default_charm { get => definition.Default_charm; }
     public float Default_reduceTimeTrainCourse { get => definition.Default_reduceTimeTrainCourse; }
     public float Default_reduceTimeTransport { get => definition.Default_reduceTimeTransport; }
+    public bool SleepLate { get => _sleepLate; }
+
     public int GetNextExpRequire()
     {
         if(currentLevel + 1 < definition.CharacterLevelRequiedList.Length)
