@@ -64,6 +64,7 @@ public class StoreContoller : Manager<StoreContoller>
         foreach (KeyValuePair<string, Store> store in _storeDic)
         {
             store.Value.SetUpStoreOnNewDay(day);
+            store.Value.SetDiscount();
         }
     }
 }

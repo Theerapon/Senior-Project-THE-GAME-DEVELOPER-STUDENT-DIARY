@@ -14,7 +14,7 @@ public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene
 public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
 public enum BonusCharacter { Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate }
 public enum ClassActivityType { None, Project, Class }
-public enum ScheduleEvent { None, DiscountFoodStore, ClothingFestival101, ClothingFestival202, ClothingFestival303, ClothingFestival404, DiscountCourse, Project, Class, MysticFestival1st, MysticFestival2nd, MysticFestival3rd, MysticFestival4th, Birthday}
+public enum ScheduleEvent { None, DiscountFoodStore, ClothingFestival101, ClothingFestival202, ClothingFestival303, ClothingFestival404, Project, Class, MysticFestival1st, MysticFestival2nd, MysticFestival3rd, MysticFestival4th, Birthday}
 public enum ProjectPhase { Decision, Design, FirstPlayable, Prototype, VerticalSlice, AlphaTest, BetaTest, Master }
 public enum HardSkillId { MATH, PROGRAMMING, GAMEENGINE, NETWORK, AI, DESIGN, TESTING, ART, SOUND }
 public enum SoftSkillId { COMMUNICATION, CRITICALTHINKING, LEADERSHIP, TIMEMANAGEMENT, WORKETHIC }
@@ -551,7 +551,6 @@ public class ConvertType : MonoBehaviour
     private const string INST_Schedule_ClothingFestival202 = "ClothingFestival202";
     private const string INST_Schedule_ClothingFestival303 = "ClothingFestival303";
     private const string INST_Schedule_ClothingFestival404 = "ClothingFestival404";
-    private const string INST_Schedule_DiscountCourse = "DiscountCourse";
     private const string INST_Schedule_Project = "Project";
     private const string INST_Schedule_Class = "Class";
     private const string INST_Schedule_MysticFestival1st = "MysticFestival1st";
@@ -582,9 +581,6 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Schedule_ClothingFestival404:
                 temp = ScheduleEvent.ClothingFestival404;
-                break;
-            case INST_Schedule_DiscountCourse:
-                temp = ScheduleEvent.DiscountCourse;
                 break;
             case INST_Schedule_Project:
                 temp = ScheduleEvent.Project;

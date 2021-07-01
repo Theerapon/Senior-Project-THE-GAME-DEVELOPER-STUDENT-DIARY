@@ -53,6 +53,7 @@ public class ShopManager : MonoBehaviour
 
     private void Initializing()
     {
+        float discount = _storeContoller.StoreDic[_storeId].Discount;
         List<StoreItemSet> _storeItemSets = new List<StoreItemSet>();
         _storeItemSets = _storeContoller.StoreDic[_storeId].CurrentItemSet;
         for(int index = 0; index < _storeItemSets.Count; index++)
@@ -66,7 +67,7 @@ public class ShopManager : MonoBehaviour
                 string itemName = itemPickUp_Template.ItemName;
                 Sprite itemIcon = itemPickUp_Template.ItemIcon;
                 string itemType = ConvertType.GetStringItemType(itemPickUp_Template.ItemType, itemPickUp_Template.SubType);
-                int itemPurchasePrice = itemPickUp_Template.PurchasePrice;
+                int itemPurchasePrice = (int)(itemPickUp_Template.PurchasePrice * discount);
                 string itemDescription = itemPickUp_Template.ItemDescription;
                 List<ItemPropertyAmount> itemPropertyAmounts = itemPickUp_Template.ItemProperties;
 

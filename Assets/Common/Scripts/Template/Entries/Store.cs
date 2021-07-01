@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Store : MonoBehaviour
 {
+    private const float _normalDiscount = 1f;
+    private const float _eventDiscount = 0.7f;
+
     private StoreContoller _storeContoller;
 
     private Store_Template _definition;
@@ -11,7 +14,7 @@ public class Store : MonoBehaviour
     private ScheduleEvent _scheduleEvent;
     private string _currentStoreItemSetId;
     private List<StoreItemSet> _currentItemSet;
-
+    private float _discount;
     public Store(Store_Template store_Template)
     {
         _storeContoller = StoreContoller.Instance;
@@ -27,6 +30,7 @@ public class Store : MonoBehaviour
     public StoreType StoreType { get => _definition.StoreType; }
     public bool IsEvent { get => _isEvent; }
     public List<StoreItemSet> CurrentItemSet { get => _currentItemSet; }
+    public float Discount { get => _discount; }
 
     public void EnableEvent(ScheduleEvent scheduleEvent)
     {
@@ -37,6 +41,18 @@ public class Store : MonoBehaviour
     {
         _isEvent = false;
         _scheduleEvent = ScheduleEvent.None;
+    }
+    public void SetDiscount()
+    {
+        if(_isEvent && StoreType == StoreType.FoodStore)
+        {
+            _discount = _eventDiscount;
+            Debug.Log("discount");
+        }
+        else
+        {
+            _discount = _normalDiscount;
+        }
     }
     public void SetUpStoreOnNewDay(Day day)
     {
