@@ -140,9 +140,9 @@ public class CharacterStatus : MonoBehaviour
         }
     }
 
-    public void TakeStatusPoint()
+    public void TakeStatusPoint(int amount)
     {
-        if (currentStatusPoints - 1 <= 0)
+        if (currentStatusPoints - amount <= 0)
         {
             currentStatusPoints = 0;
         }
@@ -152,9 +152,9 @@ public class CharacterStatus : MonoBehaviour
         }
     }
 
-    public void TakeSoftSkillPoint()
+    public void TakeSoftSkillPoint(int amount)
     {
-        if (currentSoftSkillPoints - 1 <= 0)
+        if (currentSoftSkillPoints - amount <= 0)
         {
             currentSoftSkillPoints = 0;
         }

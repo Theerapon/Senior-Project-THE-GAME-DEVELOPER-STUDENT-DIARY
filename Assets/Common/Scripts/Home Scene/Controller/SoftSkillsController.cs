@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SoftSkillsController : Manager<SoftSkillsController>
 {
+    public Events.EventOnSoftSkillUpdate OnSoftSkillUpdate;
+
     SoftSkills_DataHandler softSkills_DataHandler;
     private Dictionary<string, SoftSkill> softskills;
 
@@ -24,5 +26,14 @@ public class SoftSkillsController : Manager<SoftSkillsController>
         }
     }
 
+    public void LevelUPSoftSkillById(string id)
+    {
+        if (softskills.ContainsKey(id))
+        {
+            softskills[id].LevelUp();
+            OnSoftSkillUpdate?.Invoke();
+
+        }
+    }
 
 }

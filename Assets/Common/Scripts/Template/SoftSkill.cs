@@ -28,6 +28,11 @@ public class SoftSkill : MonoBehaviour
     #endregion
 
     #region Reporter
+    public void LevelUp()
+    {
+        definition.LevelUpSoftSkill();
+    }
+    public string SoftSkill_ID { get => definition.SoftSkill_ID; }
     public string GetSoftSkillDescription()
     {
         return definition.GetSoftSkillDescription();

@@ -11,6 +11,8 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     public Events.EventOnMoneyUpdated OnMoneyUpdated;
     public Events.EventOnExpUpdated OnExpUpdated;
     public Events.EventOnStatusUpdated OnStatusUpdated;
+    public Events.EventOnStatusPointsUpdated OnStatusPointsUpdated;
+    public Events.EventOnSoftSkillPointsUpdated OnSoftSkillPointsUpdated;
     #endregion
 
     private CharacterStatus_DataHandler characterStatus_DataHandler;
@@ -96,6 +98,45 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         characterStatus.IncreaseTestingStatus(testingAmount);
         OnStatusUpdated?.Invoke();
     }
+
+    public bool HasCharacterStatusPointEnough(int amount)
+    {
+        return amount <= CurrentStatusPoints;
+    }
+    public bool HasSoftSkillStatusPointEnough(int amount)
+    {
+        return amount <= CurrentSoftSkillPoints;
+    }
+    public void UpgradeCharacterStatus(StatusType statusType, int amount)
+    {
+        if(statusType != StatusType.None)
+        {
+            switch (statusType)
+            {
+                case StatusType.Coding:
+                    IncreaseCodingStatus(amount);
+                    break;
+                case StatusType.Design:
+                    IncreaseDesignStatus(amount);
+                    break;
+                case StatusType.Testing:
+                    IncreaseTestingStatus(amount);
+                    break;
+                case StatusType.Art:
+                    IncreaseArtStatus(amount);
+                    break;
+                case StatusType.Sound:
+                    IncreaseSoundStatus(amount);
+                    break;
+            }
+            TakeStatusPoint(amount);
+        }
+        
+    }
+    public void UpgradeSoftSkillStatus(int amount)
+    {
+        TakeSoftSkillPoint(amount);
+    }
     #endregion
 
     #region Stat Reducers
@@ -105,16 +146,16 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnEnergyUpdated?.Invoke();
     }
 
-    public void TakeStatusPoint()
+    private void TakeStatusPoint(int amount)
     {
-        characterStatus.TakeStatusPoint();
-        OnStatusUpdated?.Invoke();
+        characterStatus.TakeStatusPoint(amount);
+        OnStatusPointsUpdated?.Invoke();
     }
 
-    public void TakeSoftSkillPoint()
+    private void TakeSoftSkillPoint(int amount)
     {
-        characterStatus.TakeSoftSkillPoint();
-        OnStatusUpdated?.Invoke();
+        characterStatus.TakeSoftSkillPoint(amount);
+        OnSoftSkillPointsUpdated?.Invoke();
     }
 
     public void TakeMotivation(float currentMotivation)
@@ -208,5 +249,6 @@ public class CharacterStatusController : Manager<CharacterStatusController>
         OnExpUpdated?.Invoke();
         OnMotivationUpdated?.Invoke();
         OnStatusUpdated?.Invoke();
+        OnStatusPointsUpdated?.Invoke();
     }
 }

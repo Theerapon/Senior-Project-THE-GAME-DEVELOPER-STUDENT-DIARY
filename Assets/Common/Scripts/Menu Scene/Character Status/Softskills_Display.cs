@@ -13,18 +13,25 @@ public class Softskills_Display : MonoBehaviour
 
     [SerializeField] private Transform itemsParent;
     public List<BaseSoftSkillSlot> softSkillSlots;
+    private SoftSkillsController softSkillsController;
 
     bool displayed = false;
 
     private void Awake()
     {
+        softSkillsController = SoftSkillsController.Instance;
+        softSkillsController.OnSoftSkillUpdate.AddListener(OnSoftSkillUpdateHandler);
+
         //set Item Slots
         softSkillSlots = new List<BaseSoftSkillSlot>();
         if (itemsParent != null)
             itemsParent.GetComponentsInChildren(includeInactive: true, result: softSkillSlots);
     }
 
-
+    private void OnSoftSkillUpdateHandler()
+    {
+        DisplayedSoftSkills();
+    }
 
     void Start()
     {

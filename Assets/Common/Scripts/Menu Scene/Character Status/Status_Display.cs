@@ -19,7 +19,7 @@ public class Status_Display : MonoBehaviour
     public Events.EventOnLeftClickStatusSlot OnLeftClickStatusSlot;
     #endregion
 
-    //protected CharacterStatusController characterStatusController;
+    protected CharacterStatusController characterStatusController;
     protected PlayerAction playerAction;
 
     [SerializeField] private Transform itemsParent;
@@ -37,9 +37,13 @@ public class Status_Display : MonoBehaviour
 
     private void Start()
     {
-        //fonud inventory container in main Scene
-        //characterStatusController = CharacterStatusController.Instance;
+        characterStatusController = CharacterStatusController.Instance;
         playerAction = PlayerAction.Instance;
+
+        if(!ReferenceEquals(characterStatusController, null))
+        {
+            characterStatusController.OnStatusUpdated.AddListener(OnstatusUpdatedHandler);
+        }
 
         for (int index = 0; index < statusSlots.Count; index++)
         {
@@ -49,6 +53,11 @@ public class Status_Display : MonoBehaviour
         }
 
         displayed = false;
+    }
+
+    private void OnstatusUpdatedHandler()
+    {
+        DisplayedStatus();
     }
 
     private void Update()

@@ -2435,6 +2435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 174580983}
+  text_click_color: {r: 0.7735849, g: 0.71247536, b: 0.26637593, a: 1}
   text_highlight_color: {r: 0.24528301, g: 0.24528301, b: 0.19128989, a: 1}
   text_normal_color: {r: 0.9333334, g: 0.9294118, b: 0.86666673, a: 1}
   _defaultNormalColor: 1
@@ -2474,6 +2475,38 @@ MonoBehaviour:
         - m_Target: {fileID: 538759321}
           m_TargetAssemblyTypeName: ButtonHover, Assembly-CSharp
           m_MethodName: Normal
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 538759321}
+          m_TargetAssemblyTypeName: ButtonHover, Assembly-CSharp
+          m_MethodName: Up
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 538759321}
+          m_TargetAssemblyTypeName: ButtonHover, Assembly-CSharp
+          m_MethodName: Down
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

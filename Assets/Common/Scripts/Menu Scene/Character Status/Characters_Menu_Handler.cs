@@ -12,6 +12,8 @@ public class Characters_Menu_Handler : MonoBehaviour
     private const string INST_BONUS = "Bonus";
     private const string INST_HardSkill = "Hard Skill";
     private const string INST_SoftSkill = "Soft Skill";
+    private const int INST_VALUE_ONE = 1;
+    private const int INST_VALUE_TEN = 10;
     #endregion
 
     [Header("Descriptino Display")]
@@ -26,6 +28,7 @@ public class Characters_Menu_Handler : MonoBehaviour
 
     protected PlayerAction playerAction;
     protected CharacterStatusController charactersStatusController;
+    protected SoftSkillsController softSkillsController;
 
     #region GameObjects
     [Header("Game Objects")]
@@ -37,8 +40,14 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected GameObject softskill_description;
     #endregion
 
+    #region Status Point
+    [Header("Status Points")]
+    [SerializeField] protected TMP_Text _statusPointsTMP;
+    [SerializeField] protected TMP_Text _sofSkillPointsTMP;
+    #endregion
+
     #region Title
-    [Header("Title")]
+    [Header("Title Description")]
     [SerializeField] protected TMP_Text text_title_name;
     [SerializeField] protected TMP_Text text_sub_type;
     #endregion
@@ -47,6 +56,7 @@ public class Characters_Menu_Handler : MonoBehaviour
     [Header("Status Description")]
     [SerializeField] protected TMP_Text text_status_value;
     [SerializeField] protected TMP_Text text_status_description;
+    [SerializeField] protected Button[] default_valueStatusUpgrade_Button;
     #endregion
 
     #region Bonus Description
@@ -79,10 +89,30 @@ public class Characters_Menu_Handler : MonoBehaviour
     [SerializeField] protected TMP_Text text_softskill_description;
     #endregion
 
+    #region Field
+    private string _currentSoftSkillId;
+    private StatusType _currentStatusId;
+
+    private int _cureentSoftSkillUpgrade;
+    private int _currentStatusValueUpgrade;
+    #endregion
+
     private void Start()
     {
+        softSkillsController = SoftSkillsController.Instance;
         charactersStatusController = CharacterStatusController.Instance;
         playerAction = PlayerAction.Instance;
+        _currentSoftSkillId = string.Empty;
+        _currentStatusId = StatusType.None;
+        _cureentSoftSkillUpgrade = INST_VALUE_ONE;
+        _currentStatusValueUpgrade = INST_VALUE_ONE;
+        OnButtonClicked(default_valueStatusUpgrade_Button[0]);
+
+        if(!ReferenceEquals(charactersStatusController, null))
+        {
+            charactersStatusController.OnStatusPointsUpdated.AddListener(OnStatusPointsUpdatedHandler);
+            charactersStatusController.OnSoftSkillPointsUpdated.AddListener(OnSoftSkillPointsUpdatedHandler);
+        }
 
         if (!ReferenceEquals(status_display, null))
         {
@@ -118,8 +148,6 @@ public class Characters_Menu_Handler : MonoBehaviour
         Reset();
     }
 
-    
-
     private void Reset()
     {
         DisplayDescriptionBox(false);
@@ -127,6 +155,18 @@ public class Characters_Menu_Handler : MonoBehaviour
         bonus_description.SetActive(false);
         hardskill_description.SetActive(false);
         softskill_description.SetActive(false);
+        SetStatusPoints();
+        SetSoftSkillPoints();
+    }
+
+    private void OnStatusPointsUpdatedHandler()
+    {
+        SetStatusPoints();
+    }
+
+    private void OnSoftSkillPointsUpdatedHandler()
+    {
+        SetSoftSkillPoints();
     }
 
     #region Status
@@ -270,6 +310,16 @@ public class Characters_Menu_Handler : MonoBehaviour
 
     }
 
+    private void SetStatusPoints()
+    {
+        _statusPointsTMP.text = charactersStatusController.CurrentStatusPoints.ToString();
+    }
+
+    private void SetSoftSkillPoints()
+    {
+        _sofSkillPointsTMP.text = charactersStatusController.CurrentSoftSkillPoints.ToString();
+    }
+
     private void DisplayDescriptionBox(bool actived)
     {
         description_box.SetActive(actived);
@@ -282,6 +332,7 @@ public class Characters_Menu_Handler : MonoBehaviour
         text_sub_type.text = type;
     }
 
+    #region Set selected displayed
     private void SetSelected(BaseBonusSlot slot, bool selected)
     {
         if (selected)
@@ -326,6 +377,7 @@ public class Characters_Menu_Handler : MonoBehaviour
         {
             SetAllSelectedToFalse(true);
             slot.IsSelected(true);
+            _currentSoftSkillId = slot.SOFTSKILL.SoftSkill_ID;
             DisplayedSoftSkillDescription(slot);
         }
     }
@@ -341,9 +393,11 @@ public class Characters_Menu_Handler : MonoBehaviour
         {
             SetAllSelectedToFalse(true);
             slot.IsSelected(true);
+            _currentStatusId = slot.TYPE;
             DisplayedStatusDescription(slot);
         }
     }
+    #endregion
 
     private void SetAllSelectedToFalse(bool ottherSelected)
     {
@@ -365,7 +419,69 @@ public class Characters_Menu_Handler : MonoBehaviour
             statusSlot.SetOtherSelected(ottherSelected);
         }
 
+        _currentStatusId = StatusType.None;
+        _currentSoftSkillId = string.Empty;
+
         bonusSlot.IsSelected(false);
         bonusSlot.SetOtherSelected(ottherSelected);
+    }
+
+    #region Value points
+    public void SetValueUpgradeStatusToOne(Button clickedButton)
+    {
+        _currentStatusValueUpgrade = INST_VALUE_ONE;
+        OnButtonClicked(clickedButton);
+    }
+
+    public void SetValueUpgradeStatusToTen(Button clickedButton)
+    {
+        _currentStatusValueUpgrade = INST_VALUE_TEN;
+        OnButtonClicked(clickedButton);   
+    }
+
+    public void SetAllButtonsInteractable(Button clickedButton)
+    {
+        foreach (Button button in default_valueStatusUpgrade_Button)
+        {
+            if (button == clickedButton)
+            {
+                clickedButton.interactable = false;
+            }
+            else
+            {
+                button.interactable = true;
+            }
+
+        }
+
+    }
+
+    public void OnButtonClicked(Button clickedButton)
+    {
+        int buttonIndex = System.Array.IndexOf(default_valueStatusUpgrade_Button, clickedButton);
+
+        if (buttonIndex == -1)
+            return;
+
+        SetAllButtonsInteractable(clickedButton);
+    }
+    #endregion
+
+    public void UpLevelSoftSkill()
+    {
+        if (charactersStatusController.HasSoftSkillStatusPointEnough(_cureentSoftSkillUpgrade))
+        {
+            charactersStatusController.UpgradeSoftSkillStatus(_cureentSoftSkillUpgrade);
+            softSkillsController.LevelUPSoftSkillById(_currentSoftSkillId);
+            
+        }
+    }
+
+    public void UpLevelCharcterStatus()
+    {
+        if (charactersStatusController.HasCharacterStatusPointEnough(_currentStatusValueUpgrade))
+        {
+            charactersStatusController.UpgradeCharacterStatus(_currentStatusId, _currentStatusValueUpgrade);
+        }
     }
 }

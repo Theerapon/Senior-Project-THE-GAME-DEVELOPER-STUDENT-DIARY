@@ -12,6 +12,7 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
     #endregion
 
     [SerializeField] protected Image _border;
+    [SerializeField] protected Image _select;
     [SerializeField] protected Image _image;
     [SerializeField] protected TMP_Text _level;
 
@@ -19,6 +20,9 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
     protected bool isSelected;
     protected bool otherSelected;
     [SerializeField] protected CharactersSubType _characters_type;
+
+    [SerializeField] Color borderColorLevelZero;
+    [SerializeField] Color borderColorLevelUp;
 
     protected Color normalColor = new Color(1, 1, 1, 1);
     protected Color disabledColor = new Color(1, 1, 1, 0);
@@ -38,6 +42,7 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
             {
                 _image.sprite = null;
                 _image.color = disabledColor;
+                _border.color = borderColorLevelZero;
 
             }
             else
@@ -48,18 +53,20 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
                 if (_softSkill.GetCurrentSoftSkillLevel() <= 0)
                 {
                     _image.color = level_Zero_Color;
+                    _border.color = borderColorLevelZero;
                 }
                 else
                 {
                     _image.color = normalColor;
+                    _border.color = borderColorLevelUp;
                 }
             }
         }
     }
     void Start()
     {
-        if (_border != null)
-            _border.enabled = false;
+        if (_select != null)
+            _select.enabled = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -69,9 +76,9 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
         {
             isPointerOver = true;
 
-            if (_border != null)
+            if (_select != null)
             {
-                _border.enabled = true;
+                _select.enabled = true;
             }
 
             OnPointEnterSoftSkillSlotEvent?.Invoke(this);
@@ -87,8 +94,8 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
             if (!isSelected)
             {
                 isPointerOver = false;
-                if (_border != null)
-                    _border.enabled = false;
+                if (_select != null)
+                    _select.enabled = false;
                 OnPointExitSoftSkillSlotEvent?.Invoke(this);
             }
 
@@ -107,8 +114,8 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
 
     protected virtual void OnValidate()
     {
-        if (_border == null)
-            _border = transform.GetChild(0).GetComponent<Image>();
+        if (_select == null)
+            _select = transform.GetChild(0).GetComponent<Image>();
 
         if (_image == null)
             _image = transform.GetChild(1).GetComponent<Image>();
@@ -123,12 +130,12 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
 
     public void SetBorderEnabled(bool actived)
     {
-        _border.enabled = actived;
+        _select.enabled = actived;
     }
     public void IsSelected(bool selected)
     {
         isSelected = selected;
-        _border.enabled = selected;
+        _select.enabled = selected;
         isPointerOver = selected;
     }
     public void SetOtherSelected(bool selected)

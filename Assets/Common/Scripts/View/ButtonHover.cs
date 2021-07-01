@@ -2,11 +2,13 @@
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections;
 
 public class ButtonHover : MonoBehaviour
 {
     [Header("Title")]
     [SerializeField] TMP_Text text;
+    [SerializeField] private Color text_click_color;
     [SerializeField] private Color text_highlight_color;
     [SerializeField] private Color text_normal_color;
     [SerializeField] private bool _defaultNormalColor;
@@ -43,4 +45,15 @@ public class ButtonHover : MonoBehaviour
     {
         text.color = text_normal_color;
     }
+
+    public void Up()
+    {
+        Normal();
+    }
+    public void Down()
+    {
+        text.color = text_click_color;
+
+    }
+
 }

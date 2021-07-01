@@ -15,6 +15,8 @@ public class SoftSkill_Template : MonoBehaviour
     protected int softSkillMaxLevel;
     protected SoftSkillType softSkillType = SoftSkillType.NONE;
 
+    public string SoftSkill_ID { get => softSkill_ID;  }
+
     #region Bonus Increasers
     private void UnLockSkill()
     {
