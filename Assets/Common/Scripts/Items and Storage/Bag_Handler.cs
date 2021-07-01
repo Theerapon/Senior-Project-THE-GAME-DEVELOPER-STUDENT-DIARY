@@ -101,10 +101,18 @@ public class Bag_Handler : Manager<Bag_Handler>
 			item_type.text = itemSlot.ITEM.ItemType.ToString();
 		}
 
-		for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
+		if (itemSlot.ITEM.ItemProperties.Count > 0)
 		{
-			ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
-			itemPropertyGenerator.CreateTemplate(itemproperty);
+			for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
+			{
+				ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
+				itemPropertyGenerator.CreateTemplate(itemproperty);
+			}
+		}
+		else
+		{
+			itemPropertyGenerator.ClearTemplate();
+
 		}
 
 	}
@@ -234,13 +242,9 @@ public class Bag_Handler : Manager<Bag_Handler>
 			{
 				Equip(itemSlot);
 			}
-			else if (itemSlot.ITEM != null)
+			else if (itemSlot.ITEM != null && itemSlot.ITEM.IsUseable)
 			{
-				Debug.Log("wait implement for item use");
-				//ItemPickUp copy = Instantiate(itemSlot.ITEM);
-				//copy.itemDefinition = itemSlot.ITEM.itemDefinition; 
-				//copy.UseItem();
-				//display_item_container.RemoveItem(itemSlot.ITEM);
+				UseItem(itemSlot);
 			}
 		}
 			
@@ -277,5 +281,12 @@ public class Bag_Handler : Manager<Bag_Handler>
 			inv_container.StoreItem(copy_item_pickup);
 			copy_item_pickup.Unequip();
 		}
+	}
+
+	private void UseItem(BaseItemSlot itemSlot)
+    {
+		int index = itemSlot.INDEX;
+		inv_container.RemoveItem(index);
+		itemSlot.ITEM.UseItem();
 	}
 }

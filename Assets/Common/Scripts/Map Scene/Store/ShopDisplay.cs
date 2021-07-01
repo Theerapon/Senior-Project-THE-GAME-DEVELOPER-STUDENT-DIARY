@@ -49,7 +49,7 @@ public class ShopDisplay : MonoBehaviour
             SetItemDescription(itemShopSlot);
         }
     }
-    protected virtual void SetItemDescription(BaseItemShopSlot itemShopSlot)
+    protected void SetItemDescription(BaseItemShopSlot itemShopSlot)
     {
         item_description_gameobject.SetActive(true);
 
@@ -58,12 +58,18 @@ public class ShopDisplay : MonoBehaviour
         item_icon.sprite = itemShopSlot.ITEMSHOP.ItemIcon;
         item_type.text = itemShopSlot.ITEMSHOP.ItemType;
 
-
-
-        for (int i = 0; i < itemShopSlot.ITEMSHOP.ItemProperties.Count; i++)
+        if (itemShopSlot.ITEMSHOP.ItemProperties.Count > 0)
         {
-            ItemPropertyAmount itemproperty = itemShopSlot.ITEMSHOP.ItemProperties[i];
-            itemPropertyGenerator.CreateTemplate(itemproperty);
+            for (int i = 0; i < itemShopSlot.ITEMSHOP.ItemProperties.Count; i++)
+            {
+                ItemPropertyAmount itemproperty = itemShopSlot.ITEMSHOP.ItemProperties[i];
+                itemPropertyGenerator.CreateTemplate(itemproperty);
+            }
+        }
+        else
+        {
+            itemPropertyGenerator.ClearTemplate();
+
         }
 
     }

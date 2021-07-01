@@ -11,8 +11,8 @@ public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
 public enum ItemDefinitionsType { Food, Treasure, Equipment}; 
 public enum ItemEquipmentType { NONE, Hat, Shirt, Pant, Shoes }
 public enum OnClickSwitchScene { None, UniversityScene, FoodScene, ClothingScene, TeacherScene, MysticScene, SellScene, ParkScene, TreasureScene }
-public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
-public enum BonusCharacter { Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceEffectNegativeEvent, IncreaseEffectPositiveEvent, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate }
+public enum ItemPropertyType { None, Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate, Energy, MaxEnergy, Motivation, Coding, Design, Testing, Art, Sound, StatusPoint, SoftSkillPoint, CharacterExp, HSMathExp, HSProgramingExp, HSEngineExp, HSNetworkExp, HSAiExp, HSDesignExp, HSTesting, HSArtExp, HSSoundExp }
+public enum BonusCharacter { Charm, BonusProject, BonusProjectGoldenTime, BonusMotivation, BonusMotivationGoldenTime, ReduceEnergyConsume, ReduceEnergyConsumeGoldenTime, ReduceChanceBug, ReduceCourseTime, ReduceTransportTime, IncreaseDropRate }
 public enum ClassActivityType { None, Project, Class }
 public enum ScheduleEvent { None, DiscountFoodStore, ClothingFestival101, ClothingFestival202, ClothingFestival303, ClothingFestival404, DiscountCourse, Project, Class, MysticFestival1st, MysticFestival2nd, MysticFestival3rd, MysticFestival4th, Birthday}
 public enum ProjectPhase { Decision, Design, FirstPlayable, Prototype, VerticalSlice, AlphaTest, BetaTest, Master }
@@ -58,7 +58,7 @@ public class ConvertType : MonoBehaviour
         }
         else
         {
-            return itemEquipmentType.ToString();
+            return itemDefinitionsType.ToString();
         }
 
         
@@ -413,8 +413,6 @@ public class ConvertType : MonoBehaviour
     private const string INST_Itemproperty_ReduceEnergyConsume = "ReduceEnergyConsume";
     private const string INST_Itemproperty_ReduceEnergyConsumeGoldenTime = "ReduceEnergyConsumeGoldenTime";
     private const string INST_Itemproperty_ReduceChanceBug = "ReduceChanceBug";
-    private const string INST_Itemproperty_ReduceEffectNegativeEvent = "ReduceEffectNegativeEvent";
-    private const string INST_Itemproperty_IncreaseEffectPositiveEvent = "IncreaseEffectPositiveEvent";
     private const string INST_Itemproperty_ReduceCourseTime = "ReduceCourseTime";
     private const string INST_Itemproperty_ReduceTransportTime = "ReduceTransportTime";
     private const string INST_Itemproperty_IncreaseDropRate = "IncreaseDropRate";
@@ -469,12 +467,6 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Itemproperty_ReduceChanceBug:
                 temp = ItemPropertyType.ReduceChanceBug;
-                break;
-            case INST_Itemproperty_ReduceEffectNegativeEvent:
-                temp = ItemPropertyType.ReduceEffectNegativeEvent;
-                break;
-            case INST_Itemproperty_IncreaseEffectPositiveEvent:
-                temp = ItemPropertyType.IncreaseEffectPositiveEvent;
                 break;
             case INST_Itemproperty_ReduceCourseTime:
                 temp = ItemPropertyType.ReduceCourseTime;

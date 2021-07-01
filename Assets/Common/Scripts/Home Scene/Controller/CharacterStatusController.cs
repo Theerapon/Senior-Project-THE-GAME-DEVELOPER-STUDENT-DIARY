@@ -57,6 +57,16 @@ public class CharacterStatusController : Manager<CharacterStatusController>
     }
 
     #region Stat Increasers
+    public void IncreaseStatusPoints(int amount)
+    {
+        characterStatus.IncreaseStatusPoints(amount);
+        OnStatusPointsUpdated?.Invoke();
+    }
+    public void IncreaseSoftSkillPoints(int amount)
+    {
+        characterStatus.IncreaseSoftSkillPoints(amount);
+        OnSoftSkillPointsUpdated?.Invoke();
+    }
     public void IncreaseMaxEnergy(int newEnergyAmount)
     {
         characterStatus.IncreaseMaxEnergy(newEnergyAmount);

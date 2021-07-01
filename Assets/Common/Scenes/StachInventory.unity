@@ -3417,6 +3417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 2145052639}
+  text_click_color: {r: 0, g: 0, b: 0, a: 0}
   text_highlight_color: {r: 0.24528301, g: 0.24528301, b: 0.19128989, a: 1}
   text_normal_color: {r: 0.9333334, g: 0.9294118, b: 0.86666673, a: 1}
   _defaultNormalColor: 1
@@ -3654,7 +3655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -177}
+  m_AnchoredPosition: {x: -35, y: -177}
   m_SizeDelta: {x: 232, y: 232}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &965403481
@@ -5820,6 +5821,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1837963495}
     m_Modifications:
+    - target: {fileID: 7231121630398402699, guid: 7703bd0457b1af24d82f9e31d4e17ea7,
+        type: 3}
+      propertyPath: _line
+      value: 
+      objectReference: {fileID: 412612292}
+    - target: {fileID: 7231121630398402699, guid: 7703bd0457b1af24d82f9e31d4e17ea7,
+        type: 3}
+      propertyPath: _properties
+      value: 
+      objectReference: {fileID: 1628010153}
     - target: {fileID: 7467887484009841629, guid: 7703bd0457b1af24d82f9e31d4e17ea7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7308,6 +7319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 295486375}
+  text_click_color: {r: 0, g: 0, b: 0, a: 0}
   text_highlight_color: {r: 0.24528301, g: 0.24528301, b: 0.19128989, a: 1}
   text_normal_color: {r: 0.7735849, g: 0.71247536, b: 0.26637593, a: 1}
   _defaultNormalColor: 1

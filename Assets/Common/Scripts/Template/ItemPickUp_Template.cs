@@ -14,8 +14,7 @@ public class ItemPickUp_Template
 
     private bool isEquipped = false;
     private bool isStorable = false;
-    private bool isUnique = false;
-    private bool isDestructible = false;
+    private bool isUseable = false;
     private bool isDestroyOnUse = false;
     private bool isGiftable = false;
 
@@ -31,13 +30,12 @@ public class ItemPickUp_Template
     public Sprite ItemIcon { get => itemIcon; }
     public bool IsEquipped { get => isEquipped; }
     public bool IsStorable { get => isStorable; }
-    public bool IsUnique { get => isUnique; }
-    public bool IsDestructible { get => isDestructible; }
     public bool IsDestroyOnUse { get => isDestroyOnUse; }
     public bool IsGiftable { get => isGiftable; }
     public List<ItemPropertyAmount> ItemProperties { get => itemProperties; }
+    public bool IsUseable { get => isUseable; }
 
-    public ItemPickUp_Template(string id, string itemName, string itemDescription, ItemDefinitionsType itemType, ItemEquipmentType subType, int purchasePrice, int sellingPrice, Sprite itemIcon, bool isEquipped, bool isStorable, bool isUnique, bool isDestructible, bool isDestroyOnUse, bool isGiftable, List<ItemPropertyAmount> itemProperties)
+    public ItemPickUp_Template(string id, string itemName, string itemDescription, ItemDefinitionsType itemType, ItemEquipmentType subType, int purchasePrice, int sellingPrice, Sprite itemIcon, bool isEquipped, bool isStorable, bool isUseable, bool isDestroyOnUse, bool isGiftable, List<ItemPropertyAmount> itemProperties)
     {
         this.id = id;
         this.itemName = itemName;
@@ -49,8 +47,7 @@ public class ItemPickUp_Template
         this.itemIcon = itemIcon;
         this.isEquipped = isEquipped;
         this.isStorable = isStorable;
-        this.isUnique = isUnique;
-        this.isDestructible = isDestructible;
+        this.isUseable = isUseable;
         this.isDestroyOnUse = isDestroyOnUse;
         this.isGiftable = isGiftable;
         this.itemProperties = itemProperties;
@@ -65,21 +62,5 @@ public class ItemPickUp_Template
     {
 
     }
-
-    public void UseItem()
-    {
-
-    }
-
-    public void Equip()
-    {
-        Debug.Log(ItemName + " Equiped");
-    }
-
-    public void Unequip()
-    {
-        Debug.Log(ItemName + " Unequiped");
-    }
-
     
 }

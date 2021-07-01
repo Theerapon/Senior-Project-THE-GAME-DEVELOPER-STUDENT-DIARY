@@ -62,6 +62,14 @@ public class CharacterStatus : MonoBehaviour
     {
         _sleepLate = sleepLate;
     }
+    public void IncreaseStatusPoints(int amount)
+    {
+        currentStatusPoints += amount;
+    }
+    public void IncreaseSoftSkillPoints(int amount)
+    {
+        currentSoftSkillPoints += amount;
+    }
     public void IncreaseMaxEnergy(float newEnergyAmount)
     {
         definition.Default_maxEnergy = newEnergyAmount;

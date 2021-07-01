@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BaseItemSellingSlot : BaseItemShopSlot
@@ -62,5 +63,18 @@ public class BaseItemSellingSlot : BaseItemShopSlot
         {
             _button = _template.transform.GetChild(3).GetChild(1).gameObject;
         }
+    }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        isPointerOver = true;
+        OnPointEnterSellingEvent?.Invoke(this);
+
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        isPointerOver = false;
+        OnPointExitSellingEvent?.Invoke(this);
     }
 }

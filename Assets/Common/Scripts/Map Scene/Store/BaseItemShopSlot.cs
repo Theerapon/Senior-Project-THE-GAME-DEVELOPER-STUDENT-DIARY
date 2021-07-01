@@ -96,14 +96,14 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
             _template.SetActive(active);
         }
     }
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         isPointerOver = true;
         OnPointEnterEvent?.Invoke(this);
 
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         isPointerOver = false;
         OnPointExitEvent?.Invoke(this);

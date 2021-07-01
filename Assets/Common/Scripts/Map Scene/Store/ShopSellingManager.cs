@@ -88,7 +88,7 @@ public class ShopSellingManager : MonoBehaviour
         if (!ReferenceEquals(_inventoryContainer.container_item_entry[index], null))
         {
             _characterStatusController.IncreaseCurrentMoney(baseItemSellingSlot.ITEMSHOP.ItemPrice);
-            _inventoryContainer.RemoveItem(index);
+            _inventoryContainer.SellingItem(index);
             baseItemSellingSlot.Selling();
             _notificationController.SellingItem(baseItemSellingSlot);
             _totalItem--;

@@ -17,12 +17,14 @@ public class ItemReceiveGenerator : MonoBehaviour
         copy.transform.GetChild(2).GetComponent<Image>().sprite = itemPickUp_Template.ItemIcon; //item icon
         copy.transform.GetChild(3).GetComponentInChildren<TMP_Text>().text = itemPickUp_Template.ItemDescription; //description
 
-        for(int i = 0; i < itemPickUp_Template.ItemProperties.Count; i++)
+        if (itemPickUp_Template.ItemProperties.Count > 0)
         {
-            ItemPropertyAmount itemproperty = itemPickUp_Template.ItemProperties[i];
-            copy.transform.GetComponentInChildren<ItemPropertyGenerator>().CreateTemplate(itemproperty);
-        }
-        
+            for (int i = 0; i < itemPickUp_Template.ItemProperties.Count; i++)
+            {
+                ItemPropertyAmount itemproperty = itemPickUp_Template.ItemProperties[i];
+                copy.transform.GetComponentInChildren<ItemPropertyGenerator>().CreateTemplate(itemproperty);
+            }
+        }        
     }
 
     public void CreateTemplate(ItemPickUp_Template itemPickUp_Template)

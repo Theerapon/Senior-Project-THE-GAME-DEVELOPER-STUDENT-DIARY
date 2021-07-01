@@ -8,6 +8,8 @@ public class ItemPropertyGenerator : MonoBehaviour
 {
     private ItemTemplateController itemTemplateController;
     [SerializeField] private GameObject _itemReceivePropertyTemplatePrefab;
+    [SerializeField] private GameObject _line;
+    [SerializeField] private GameObject _properties;
 
     private void Awake()
     {
@@ -16,8 +18,9 @@ public class ItemPropertyGenerator : MonoBehaviour
 
     private void CreateValue(ItemPropertyAmount itemProperty)
     {
+        ActiveProperties(true);
         float amount = itemProperty.Amount;
-        ItemPropertyType type = itemProperty.ItemPropertyType;
+        ItemPropertyType type = itemProperty.PropertyType;
         GameObject copy;
         copy = Instantiate(_itemReceivePropertyTemplatePrefab, transform);
         copy.transform.GetChild(0).GetComponent<Image>().sprite = GetItempropertyIcon(type); //property icon
@@ -25,7 +28,7 @@ public class ItemPropertyGenerator : MonoBehaviour
         TMP_Text value = copy.transform.GetChild(2).GetComponent<TMP_Text>(); //property value
         if (CheckAmountIsFloat(amount))
         {
-            value.text = string.Format("{0:n2}", amount);
+            value.text = string.Format("{0:p2}", amount);
         }
         else
         {
@@ -42,11 +45,28 @@ public class ItemPropertyGenerator : MonoBehaviour
 
     private Sprite GetItempropertyIcon(ItemPropertyType type)
     {
-        return itemTemplateController.ItemPropertyDic[type].Icon;
+        if(type != ItemPropertyType.None)
+        {
+            return itemTemplateController.ItemPropertyDic[type].Icon;
+        }
+        else
+        {
+            return null;
+        }
+
+        
     }
     private string GetItempropertyName(ItemPropertyType type)
     {
-        return itemTemplateController.ItemPropertyDic[type].ItemPropertyName;
+        if (type != ItemPropertyType.None)
+        {
+            return itemTemplateController.ItemPropertyDic[type].ItemPropertyName;
+        }
+        else
+        {
+            return "บางอย่างที่ลึกลับ";
+        }
+        
     }
 
     private bool CheckAmountIsFloat(float amount)
@@ -56,14 +76,29 @@ public class ItemPropertyGenerator : MonoBehaviour
         return result != 0f; 
     }
 
-    private void ClearTemplate()
+    public void ClearTemplate()
     {
-        if(transform.childCount > 0)
+        ActiveProperties(false);
+        if (transform.childCount > 0)
         {
             for(int i = 0; i < transform.childCount; i++)
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
+        }
+    }
+
+    public void ActiveProperties(bool active)
+    {
+        if(_line != null && _line.activeSelf != active)
+        {
+            _line.SetActive(active);
+            
+        }
+
+        if(_properties != null && _properties.activeSelf != active)
+        {
+            _properties.SetActive(active);
         }
     }
 }

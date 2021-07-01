@@ -42,8 +42,8 @@ public class Storage_Handler : Manager<Storage_Handler>
 		storage_container_display.OnLeftClickEvent.AddListener(StorageLeftClick);
 
 		// Right Click
-		inv_container_display.OnRightClickEvent.AddListener(RightClick);
-		storage_container_display.OnRightClickEvent.AddListener(RightClick);
+		inv_container_display.OnRightClickEvent.AddListener(InvRightClick);
+		storage_container_display.OnRightClickEvent.AddListener(StorageRightClick);
 
 
 		// Pointer Enter
@@ -113,11 +113,20 @@ public class Storage_Handler : Manager<Storage_Handler>
 			item_type.text = itemSlot.ITEM.ItemType.ToString();
 		}
 
-		for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
-		{
-			ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
-			itemPropertyGenerator.CreateTemplate(itemproperty);
+		if(itemSlot.ITEM.ItemProperties.Count > 0)
+        {
+			for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
+			{
+				ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
+				itemPropertyGenerator.CreateTemplate(itemproperty);
+			}
+        }
+        else
+        {
+			itemPropertyGenerator.ClearTemplate();
+
 		}
+		
 	}
 
 	private void StorageLeftClick(BaseItemSlot itemSlot)
@@ -136,13 +145,23 @@ public class Storage_Handler : Manager<Storage_Handler>
 		}
 	}
 
-	private void RightClick(BaseItemSlot itemSlot)
+	private void InvRightClick(BaseItemSlot itemSlot)
 	{
 		if (dragItemSlot == null)
 		{
-			if (itemSlot.ITEM != null && !itemSlot.ITEM.itemDefinition.IsEquipped)
+			if (itemSlot.ITEM != null && itemSlot.ITEM.IsUseable)
 			{
-				Debug.Log("wait implement for item use");
+				UseItem(true, itemSlot);
+			}
+		}
+	}
+	private void StorageRightClick(BaseItemSlot itemSlot)
+	{
+		if (dragItemSlot == null)
+		{
+			if (itemSlot.ITEM != null && itemSlot.ITEM.IsUseable)
+			{
+				UseItem(false, itemSlot);
 			}
 		}
 	}
@@ -210,13 +229,11 @@ public class Storage_Handler : Manager<Storage_Handler>
         {
 			if(dragItemSlot is BaseInvSlot && dragItemSlot != null)
             {
-				Debug.Log("BaseInvSlot");
 				inv_container.Swap(dragIndex, tranferIndex);
 			}
             
 			if(dragItemSlot is BaseStorageSlot && dragItemSlot != null)
             {
-				Debug.Log("BaseStorageSlot");
 				storage_container.Swap(dragIndex, tranferIndex);
             }
 
@@ -274,5 +291,19 @@ public class Storage_Handler : Manager<Storage_Handler>
 		}
 
 	}
-    
+	private void UseItem(bool inv, BaseItemSlot itemSlot)
+	{
+		int index = itemSlot.INDEX;
+		if (inv)
+        {
+			inv_container.RemoveItem(index);
+        }
+        else
+        {
+			storage_container.RemoveItem(index);
+        }
+		itemSlot.ITEM.UseItem();
+
+	}
+
 }

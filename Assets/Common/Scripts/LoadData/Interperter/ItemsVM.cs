@@ -13,8 +13,7 @@ public class ItemsVM : MonoBehaviour
     private const string INST_SET_ItemIconPath = "itemIconPath";
     private const string INST_SET_IsEquipped = "isEquipped";
     private const string INST_SET_IsStorable = "isStorable";
-    private const string INST_SET_IsUnique = "isUnique";
-    private const string INST_SET_IsDestructible = "isDestructible";
+    private const string INST_SET_IsUseable = "isUseable";
     private const string INST_SET_IsDestroyOnUse = "isDestroyOnUse"; 
     private const string INST_SET_IsGiftable = "isGiftable";
     private const string INST_SET_ItemProperty = "ItemProperty";
@@ -68,8 +67,7 @@ public class ItemsVM : MonoBehaviour
 
         bool isEquipped = false;
         bool isStorable = false;
-        bool isUnique = false;
-        bool isDestructible = false;
+        bool isUseable = false;
         bool isDestroyOnUse = false;
         bool isGiftable = false;
 
@@ -111,11 +109,8 @@ public class ItemsVM : MonoBehaviour
                 case INST_SET_IsStorable:
                     isStorable = bool.Parse(entries[++i]);
                     break;
-                case INST_SET_IsUnique:
-                    isUnique = bool.Parse(entries[++i]);
-                    break;
-                case INST_SET_IsDestructible:
-                    isDestructible = bool.Parse(entries[++i]);
+                case INST_SET_IsUseable:
+                    isUseable = bool.Parse(entries[++i]);
                     break;
                 case INST_SET_IsDestroyOnUse:
                     isDestroyOnUse = bool.Parse(entries[++i]);
@@ -131,7 +126,7 @@ public class ItemsVM : MonoBehaviour
 
         }
 
-        return new ItemPickUp_Template(id, itemName, itemDescription, itemType, subType, purchasePrice, sellingPrice, itemIcon, isEquipped, isStorable, isUnique, isDestructible, isDestroyOnUse, isGiftable, itemProperties);
+        return new ItemPickUp_Template(id, itemName, itemDescription, itemType, subType, purchasePrice, sellingPrice, itemIcon, isEquipped, isStorable, isUseable, isDestroyOnUse, isGiftable, itemProperties);
     }
 
 }

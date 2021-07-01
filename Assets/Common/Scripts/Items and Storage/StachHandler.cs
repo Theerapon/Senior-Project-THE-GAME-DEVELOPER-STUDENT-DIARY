@@ -38,10 +38,9 @@ public class StachHandler : Manager<StachHandler>
 		inv_container_display.OnLeftClickEvent.AddListener(InventoryLeftClick);
 		storage_container_display.OnLeftClickEvent.AddListener(StachLeftClick);
 
-		// Right Click
-		inv_container_display.OnRightClickEvent.AddListener(RightClick);
-		storage_container_display.OnRightClickEvent.AddListener(RightClick);
-
+		// right click
+		inv_container_display.OnRightClickEvent.AddListener(InventoryLeftClick);
+		storage_container_display.OnRightClickEvent.AddListener(StachLeftClick);
 
 		// Pointer Enter
 		inv_container_display.OnPointEnterEvent.AddListener(ShowTooltip);
@@ -82,17 +81,6 @@ public class StachHandler : Manager<StachHandler>
 		if (dragItemSlot == null)
 		{
 			ReceiveItem(itemSlot);
-		}
-	}
-
-    private void RightClick(BaseItemSlot itemSlot)
-	{
-		if (dragItemSlot == null)
-		{
-			if (itemSlot.ITEM != null && !itemSlot.ITEM.itemDefinition.IsEquipped)
-			{
-				Debug.Log("wait implement for item use");
-			}
 		}
 	}
 
@@ -232,10 +220,18 @@ public class StachHandler : Manager<StachHandler>
 			item_type.text = itemSlot.ITEM.ItemType.ToString();
 		}
 
-		for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
+		if (itemSlot.ITEM.ItemProperties.Count > 0)
 		{
-			ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
-			itemPropertyGenerator.CreateTemplate(itemproperty);
+			for (int i = 0; i < itemSlot.ITEM.ItemProperties.Count; i++)
+			{
+				ItemPropertyAmount itemproperty = itemSlot.ITEM.ItemProperties[i];
+				itemPropertyGenerator.CreateTemplate(itemproperty);
+			}
+		}
+		else
+		{
+			itemPropertyGenerator.ClearTemplate();
+
 		}
 	}
 
@@ -264,4 +260,5 @@ public class StachHandler : Manager<StachHandler>
 			}
 		}
 	}
+
 }

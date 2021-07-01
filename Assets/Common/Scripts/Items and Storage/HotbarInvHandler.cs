@@ -28,6 +28,8 @@ public class HotbarInvHandler : MonoBehaviour
 
 		if (!ReferenceEquals(inv_container, null))
 		{
+
+			inv_container_display.OnRightClickEvent.AddListener(RightClickHandler);
 			inv_container_display.OnBeginDragEvent.AddListener(BeginDrag);
 			inv_container_display.OnEndDragEvent.AddListener(EndDrag);
 			inv_container_display.OnDragEvent.AddListener(Drag);
@@ -36,6 +38,17 @@ public class HotbarInvHandler : MonoBehaviour
 
 		draggableItem.gameObject.SetActive(false);
 
+	}
+
+    private void RightClickHandler(BaseItemSlot itemSlot)
+    {
+		if (dragItemSlot == null)
+		{
+			if (itemSlot.ITEM != null && itemSlot.ITEM.IsUseable)
+			{
+				UseItem(itemSlot);
+			}
+		}
 	}
 
     private void Drop(BaseItemSlot tranferItemSlot)
@@ -74,5 +87,11 @@ public class HotbarInvHandler : MonoBehaviour
 			draggableItem.transform.position = Input.mousePosition;
 			draggableItem.gameObject.SetActive(true);
 		}
+	}
+	private void UseItem(BaseItemSlot itemSlot)
+	{
+		int index = itemSlot.INDEX;
+		itemSlot.ITEM.UseItem();
+		inv_container.RemoveItem(index);
 	}
 }

@@ -56,8 +56,6 @@ public class Bonus_Generator : MonoBehaviour
                 break;
         }
 
-        _template.SetActive(false);
-
     }
 
     private void CreateBonusCopy(Bonus_Template bonus, float currentValue, float nextValue)
@@ -80,7 +78,7 @@ public class Bonus_Generator : MonoBehaviour
     private void ClearTmeplate()
     {
         int count = transform.childCount;
-        for (int i = 1; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
