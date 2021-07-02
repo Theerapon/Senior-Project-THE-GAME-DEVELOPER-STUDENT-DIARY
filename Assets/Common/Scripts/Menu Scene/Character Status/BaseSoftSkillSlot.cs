@@ -16,6 +16,8 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
     [SerializeField] protected Image _image;
     [SerializeField] protected TMP_Text _level;
 
+    private int _index;
+
     protected bool isPointerOver;
     protected bool isSelected;
     protected bool otherSelected;
@@ -63,6 +65,9 @@ public class BaseSoftSkillSlot : MonoBehaviour, IPointerClickHandler, IPointerEn
             }
         }
     }
+
+    public int Index { get => _index; set => _index = value; }
+
     void Start()
     {
         if (_select != null)

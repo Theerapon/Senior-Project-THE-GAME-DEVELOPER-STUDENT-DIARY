@@ -32,6 +32,7 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_StachInventory = 22;
     private const int INST_Display_CourseSummary = 23;
     private const int INST_Display_Sleeplate = 24;
+    private const int INST_Display_Calendar = 25;
     #endregion
 
     #region Animator Parameters
@@ -98,9 +99,15 @@ public class SwitchScene : Manager<SwitchScene>
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
+        else if (currentGameState == GameManager.GameState.CALENDAR)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
     }
 
     [SerializeField] private Animator animator;
+
+    public bool LoadComplete { get => loadComplete; }
 
     public void FadeToLevel(int number, bool active)
     {
@@ -188,6 +195,9 @@ public class SwitchScene : Manager<SwitchScene>
             case INST_Display_Sleeplate:
                 gameManager.DisplaySleeplate(active);
                 break;
+            case INST_Display_Calendar:
+                gameManager.DisplayCalendar(active);
+                break;
         }
         //LoadScene
     }
@@ -238,6 +248,16 @@ public class SwitchScene : Manager<SwitchScene>
             loadComplete = false;
         }
         
+    }
+    public void DispleyCalendar(bool active)
+    {
+        //---Fade Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Calendar, active);
+            loadComplete = false;
+        }
+
     }
 
     public void DisplayCourse(bool active)

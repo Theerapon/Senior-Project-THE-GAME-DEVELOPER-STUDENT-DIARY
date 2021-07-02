@@ -37,6 +37,7 @@ public class GameManager : Manager<GameManager>
         Home_Storage,
         Home_BED,
         Home_COMPUTER,
+        HOME_Calendar,
         Map,
         Saving,
         Diary,
@@ -108,7 +109,8 @@ public class GameManager : Manager<GameManager>
         WORK_PROJECT_SUMMARY,
         TRANSPORTING,
         SLEEPLATE,
-        ONTHEWAY
+        ONTHEWAY,
+        CALENDAR,
     }
 
     public GameState CurrentGameState
@@ -183,6 +185,11 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.Home_Storage || scene == GameScene.Home_COMPUTER || scene == GameScene.Home_BED)
         {
             UpdateState(GameState.HOME_ACTION);
+        }
+        if(scene == GameScene.HOME_Calendar)
+        {
+            UpdateState(GameState.CALENDAR);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
 
@@ -611,6 +618,25 @@ public class GameManager : Manager<GameManager>
                 UpdateScene(GameScene.Home);
             }
             
+        }
+    }
+    public void DisplayCalendar(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.HOME_Calendar.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.HOME_Calendar);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.HOME_Calendar.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.HOME_Calendar);
+                UpdateScene(GameScene.Home);
+            }
+
         }
     }
     public void DisplayWorkProject(bool active)

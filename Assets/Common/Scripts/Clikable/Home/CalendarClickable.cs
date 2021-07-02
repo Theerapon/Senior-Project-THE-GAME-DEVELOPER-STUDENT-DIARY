@@ -6,7 +6,7 @@ public class CalendarClickable : MonoBehaviour, IClickable
 {
     public void OnClick()
     {
-        Debug.Log("Calendar");
+        SwitchScene.Instance.DispleyCalendar(true);
     }
     
 }

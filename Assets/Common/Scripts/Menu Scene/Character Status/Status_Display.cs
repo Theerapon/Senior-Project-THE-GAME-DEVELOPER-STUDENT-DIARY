@@ -17,6 +17,7 @@ public class Status_Display : MonoBehaviour
     public Events.EventOnPointEnterStatusSlot OnPointEnterStatusSlot;
     public Events.EventOnPointExitStatusSlot OnPointExitStatusSlot;
     public Events.EventOnLeftClickStatusSlot OnLeftClickStatusSlot;
+    public Events.EventOnStatusUpLevel OnStatusUpLevel;
     #endregion
 
     protected CharacterStatusController characterStatusController;
@@ -25,7 +26,10 @@ public class Status_Display : MonoBehaviour
     [SerializeField] private Transform itemsParent;
     public List<BaseStatusSlot> statusSlots;
 
+    private int lastIndex;
+
     bool displayed = false;
+
 
     private void Awake()
     {
@@ -33,7 +37,9 @@ public class Status_Display : MonoBehaviour
         statusSlots = new List<BaseStatusSlot>();
         if (itemsParent != null)
             itemsParent.GetComponentsInChildren(includeInactive: true, result: statusSlots);
+
     }
+
 
     private void Start()
     {
@@ -58,6 +64,7 @@ public class Status_Display : MonoBehaviour
     private void OnstatusUpdatedHandler()
     {
         DisplayedStatus();
+        OnStatusUpLevel?.Invoke(statusSlots[lastIndex]);
     }
 
     private void Update()
@@ -100,6 +107,7 @@ public class Status_Display : MonoBehaviour
                     default:
                         break;
                 }
+                statusSlots[i].Index = i;
             }
 
             
@@ -119,6 +127,7 @@ public class Status_Display : MonoBehaviour
     private void OnLeftClickStatusSlotHandler(BaseStatusSlot statusSlot, bool selected)
     {
         OnLeftClickStatusSlot?.Invoke(statusSlot, selected);
+        lastIndex = statusSlot.Index;
     }
     protected virtual void OnValidate()
     {

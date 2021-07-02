@@ -58,6 +58,11 @@ public class MenuController : MonoBehaviour
             ActivedBlur(true);
             hasDisplayed = true;
         }
+        else if (currentState == GameManager.GameState.CALENDAR)
+        {
+            ActivedBlur(false);
+            hasDisplayed = true;
+        }
 
     }
 
@@ -162,6 +167,11 @@ public class MenuController : MonoBehaviour
         else if (gameManager.CurrentGameState == GameManager.GameState.PLACE)
         {
             DisplayPlace(gameScene, false);
+            hasDisplayed = false;
+        }
+        else if (gameManager.CurrentGameState == GameManager.GameState.CALENDAR)
+        {
+            switchScene.DispleyCalendar(false);
             hasDisplayed = false;
         }
 

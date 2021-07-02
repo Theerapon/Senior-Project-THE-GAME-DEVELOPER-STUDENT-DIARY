@@ -24,6 +24,9 @@ public class ScheduleController : Manager<ScheduleController>
     [SerializeField] private StoreContoller _storeContoller;
     [SerializeField] private ClassActivityController _classActivityController;
 
+    public Schedule[] CharacterCalendar { get => _characterCalendar; }
+    public Schedule[] GameCalendar { get => _gameCalendar; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -210,6 +213,11 @@ public class ScheduleController : Manager<ScheduleController>
     {
         //index = (วัน - 1) + (28 * (เดือน - 1))
         return (day - 1) + (Inst_maxDay * (mount - 1));
+    }
+
+    public int GetIndexCurrentDay()
+    {
+        return (_currentDate - 1) + (Inst_maxDay * (_currentMount - 1));
     }
 
     public void TestingGameCalendar()

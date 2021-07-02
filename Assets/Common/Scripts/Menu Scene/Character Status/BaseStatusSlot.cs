@@ -20,7 +20,9 @@ public class BaseStatusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     [SerializeField] protected StatusType _statusType;
     [SerializeField] protected CharactersSubType _characters_type;
-    
+
+    private int _index;
+
     protected string _description;
     protected int _value;
 
@@ -62,6 +64,8 @@ public class BaseStatusSlot : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         get { return _statusType; }
     }
+
+    public int Index { get => _index; set => _index = value; }
 
     public void OnPointerClick(PointerEventData eventData)
     {

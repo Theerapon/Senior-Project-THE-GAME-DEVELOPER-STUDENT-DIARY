@@ -9,11 +9,14 @@ public class Softskills_Display : MonoBehaviour
     public Events.EventOnPointEnterSoftSkillSlot OnPointEnterSoftSkillSlotEvent;
     public Events.EventOnPointExitSoftSkillSlot OnPointExitSoftSkillSlotEvent;
     public Events.EventOnLeftClickSoftSkillSlot OnLeftClickSoftSkillSlotEvent;
+    public Events.EventOnSoftSkillUpLevel OnSoftSkillUpLevel;
     #endregion
 
     [SerializeField] private Transform itemsParent;
     public List<BaseSoftSkillSlot> softSkillSlots;
     private SoftSkillsController softSkillsController;
+
+    private int lastIndex;
 
     bool displayed = false;
 
@@ -31,6 +34,7 @@ public class Softskills_Display : MonoBehaviour
     private void OnSoftSkillUpdateHandler()
     {
         DisplayedSoftSkills();
+        OnSoftSkillUpLevel?.Invoke(softSkillSlots[lastIndex]);
     }
 
     void Start()
@@ -64,6 +68,7 @@ public class Softskills_Display : MonoBehaviour
             {
                 softSkillSlots[i].SOFTSKILL = softskill.Value;
             }
+            softSkillSlots[i].Index = i;
             i++;
         }
     }
@@ -71,6 +76,7 @@ public class Softskills_Display : MonoBehaviour
     private void OnLeftClickSoftSkillSlotHandler(BaseSoftSkillSlot softSkillSlot, bool selected)
     {
         OnLeftClickSoftSkillSlotEvent?.Invoke(softSkillSlot, selected);
+        lastIndex = softSkillSlot.Index;
     }
 
     private void OnPointEnterSoftSkillSlotHandler(BaseSoftSkillSlot softSkillSlot)

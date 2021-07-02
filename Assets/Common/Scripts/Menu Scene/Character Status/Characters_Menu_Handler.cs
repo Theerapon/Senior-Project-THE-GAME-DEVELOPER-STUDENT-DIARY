@@ -120,6 +120,7 @@ public class Characters_Menu_Handler : MonoBehaviour
             status_display.OnLeftClickStatusSlot.AddListener(SelectedStatusDisplayed);
             status_display.OnPointEnterStatusSlot.AddListener(DisplayedStatusDescription);
             status_display.OnPointExitStatusSlot.AddListener(UnDisplayedStatusDescription);
+            status_display.OnStatusUpLevel.AddListener(OnStatusUpLevelHandler);
         }
 
         if (!ReferenceEquals(bonusSlot, null))
@@ -143,9 +144,20 @@ public class Characters_Menu_Handler : MonoBehaviour
             softSkill_display.OnLeftClickSoftSkillSlotEvent.AddListener(SelectedSoftSkillDisplayed);
             softSkill_display.OnPointEnterSoftSkillSlotEvent.AddListener(DisplayedSoftSkillDescription);
             softSkill_display.OnPointExitSoftSkillSlotEvent.AddListener(UnDisplayedSoftSkillDescription);
+            softSkill_display.OnSoftSkillUpLevel.AddListener(OnSoftSkillUpLevelHandler);
         }
 
         Reset();
+    }
+
+    private void OnSoftSkillUpLevelHandler(BaseSoftSkillSlot slot)
+    {
+        DisplayedSoftSkillDescription(slot);
+    }
+
+    private void OnStatusUpLevelHandler(BaseStatusSlot slot)
+    {
+        DisplayedStatusDescription(slot);
     }
 
     private void Reset()

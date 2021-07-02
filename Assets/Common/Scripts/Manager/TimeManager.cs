@@ -51,6 +51,8 @@ public class TimeManager : Manager<TimeManager>
     public readonly int DEFAULT_MAXMONTH = 4;
     #endregion
 
+    private SwitchScene switchScene;
+
     #region Enum
     public enum SetsOfMonth
     {
@@ -84,6 +86,12 @@ public class TimeManager : Manager<TimeManager>
     public Day CurrentDays { get => currentDays; }
     public SetsOfMonth CurrentMonth { get => currentMonth; }
     #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+        switchScene = SwitchScene.Instance;
+    }
 
     protected void Start()
     {
@@ -119,8 +127,8 @@ public class TimeManager : Manager<TimeManager>
 
     void Update()
     {
-        if (GameManager.Instance.CurrentGameState == GameManager.GameState.HOME
-            || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
+        if ((GameManager.Instance.CurrentGameState == GameManager.GameState.HOME
+            || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP) && switchScene.LoadComplete)
         {
             CalculateTime();
         }

@@ -47,6 +47,11 @@ public class Events
     [System.Serializable] public class EventOnHardSkillExpUpdate : UnityEvent<string> { }
     #endregion
 
+    #region Calendar
+    [System.Serializable] public class EventOnPointEnterEventSlot : UnityEvent<BaseEventSlot> { }
+    [System.Serializable] public class EventOnPointExitEventSlot : UnityEvent<BaseEventSlot> { }
+    #endregion
+
     #region Mouse Manager
     [System.Serializable] public class EventGameObjectOnClick : UnityEvent<GameObject> { }
     [System.Serializable] public class EventGameObjectOnTriger : UnityEvent<GameObject> { }
@@ -84,6 +89,7 @@ public class Events
     [System.Serializable] public class EventOnEndDrag : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnDrag : UnityEvent<BaseItemSlot> { }
     [System.Serializable] public class EventOnDrop : UnityEvent<BaseItemSlot> { }
+    [System.Serializable] public class EventOnStatusUpLevel : UnityEvent<BaseStatusSlot> { }
     [System.Serializable] public class EventOnPointEnterStatusSlot : UnityEvent<BaseStatusSlot> { }
     [System.Serializable] public class EventOnPointExitStatusSlot : UnityEvent<BaseStatusSlot> { }
     [System.Serializable] public class EventOnLeftClickStatusSlot : UnityEvent<BaseStatusSlot, bool> { }
@@ -101,6 +107,7 @@ public class Events
     [System.Serializable] public class EventOnPointEnterSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnPointExitSoftSkillSlot : UnityEvent<BaseSoftSkillSlot> { }
     [System.Serializable] public class EventOnLeftClickSoftSkillSlot : UnityEvent<BaseSoftSkillSlot, bool> { }
+    [System.Serializable] public class EventOnSoftSkillUpLevel : UnityEvent<BaseSoftSkillSlot> { }
 
     #endregion
 
