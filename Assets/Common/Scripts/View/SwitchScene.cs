@@ -31,6 +31,7 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_RecieveTrasure = 21;
     private const int INST_Display_StachInventory = 22;
     private const int INST_Display_CourseSummary = 23;
+    private const int INST_Display_Sleeplate = 24;
     #endregion
 
     #region Animator Parameters
@@ -86,6 +87,14 @@ public class SwitchScene : Manager<SwitchScene>
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
         else if (previousGameState == GameManager.GameState.COURSE_NOTIFICATION && currentGameState == GameManager.GameState.COURSE_SUMMARY)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (currentGameState == GameManager.GameState.SLEEPLATE)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (previousGameState == GameManager.GameState.TRANSPORTING && (currentGameState == GameManager.GameState.HOME || currentGameState == GameManager.GameState.MAP))
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -176,6 +185,9 @@ public class SwitchScene : Manager<SwitchScene>
             case INST_Display_CourseSummary:
                 gameManager.DisplayCourseSummary(active);
                 break;
+            case INST_Display_Sleeplate:
+                gameManager.DisplaySleeplate(active);
+                break;
         }
         //LoadScene
     }
@@ -237,6 +249,16 @@ public class SwitchScene : Manager<SwitchScene>
             loadComplete = false;
         }
         
+    }
+    public void DisplaySleeplate(bool active)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_Sleeplate, active);
+            loadComplete = false;
+        }
+
     }
 
     public void DisplayCourseNotification(bool active)

@@ -53,6 +53,8 @@ public class GameManager : Manager<GameManager>
         Place_University,
         ReceiveItems,
         StachInventory,
+        SleepLate,
+        Transport,
 
     }
 
@@ -105,6 +107,8 @@ public class GameManager : Manager<GameManager>
         WORK_PROJECT_DIALOUGE,
         WORK_PROJECT_SUMMARY,
         TRANSPORTING,
+        SLEEPLATE,
+        ONTHEWAY
     }
 
     public GameState CurrentGameState
@@ -188,6 +192,14 @@ public class GameManager : Manager<GameManager>
             UpdateState(GameState.MAP);
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             onHomeDisplay?.Invoke(false);
+        }
+        #endregion
+
+        #region Sleep
+        if(scene == GameScene.SleepLate)
+        {
+            UpdateState(GameState.SLEEPLATE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
 
@@ -540,7 +552,15 @@ public class GameManager : Manager<GameManager>
         {
             if (!SceneManager.GetSceneByName(GameScene.Saving.ToString()).isLoaded)
             {
-                UnLoadLevel(GameScene.Home_BED);
+                if (SceneManager.GetSceneByName(GameScene.Home_BED.ToString()).isLoaded)
+                {
+                    UnLoadLevel(GameScene.Home_BED);
+                }
+                else if (SceneManager.GetSceneByName(GameScene.SleepLate.ToString()).isLoaded)
+                {
+                    UnLoadLevel(GameScene.SleepLate);
+                }
+
                 LoadLevelSceneWithOutLoadingScene(GameScene.Saving);
             }
         }
@@ -552,6 +572,25 @@ public class GameManager : Manager<GameManager>
                 UpdateScene(GameScene.Home);
             }
             
+        }
+    }
+    public void DisplaySleeplate(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.SleepLate.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.SleepLate);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.SleepLate.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.SleepLate);
+                UpdateScene(GameScene.Home);
+            }
+
         }
     }
     public void DisplayDiary(bool actived)
@@ -922,7 +961,16 @@ public class GameManager : Manager<GameManager>
     {
         UpdateState(GameState.OPENINGTREASURE);
     }
+    public void SleepLate()
+    {
+        UpdateState(GameState.SLEEPLATE);
+    }
+    public void HomeToMap()
+    {
+        UpdateState(GameState.ONTHEWAY);
+    }
     #endregion
+
 
     private void InstantiateSystemPrefabs()
     {

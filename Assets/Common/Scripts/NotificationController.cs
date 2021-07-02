@@ -11,6 +11,11 @@ public class NotificationController : Manager<NotificationController>
     [SerializeField] private Color hasSpriteColor;
     [SerializeField] private Color defaultColor;
 
+
+    [Header("Class activity")]
+    private const string classActivityTitle = "ยังนอนไม่ได้";
+    private const string classActivityDescription = "วันนี้มีคลาสที่ต้องเข้า ยังนอนไม่ได้นะ";
+
     [Header("Purchase Item")]
     private const string purchaseTitle = "เงินไม่เพียงพอ";
     private const string purchaseDescription = "เหมือนเงินจะไม่พอ ต้องหาเงินเพิ่มแล้วละ";
@@ -106,5 +111,10 @@ public class NotificationController : Manager<NotificationController>
         string description = string.Format("ได้รับ {0} บาท จากการขาย {1}", itemSellingSlot.ITEMSHOP.ItemPrice, itemName);
         Sprite icon = itemSellingSlot.ITEMSHOP.ItemIcon;
         notificationUpdateGenerator.CreateTemplate(icon, title, description, hasSpriteColor);
+    }
+
+    public void HasEventToFinish()
+    {
+        notificationUpdateGenerator.CreateTemplate(notificationSprite, classActivityTitle, classActivityDescription, defaultColor);
     }
 }

@@ -34,7 +34,9 @@ public class MenuController : MonoBehaviour
 
     private void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
     {
-        if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU || currentState == GameManager.GameState.WORK_PROJECT_SUMMARY)
+        if(currentState == GameManager.GameState.HOME_ACTION || currentState == GameManager.GameState.MENU || currentState == GameManager.GameState.WORK_PROJECT_SUMMARY 
+            || currentState == GameManager.GameState.TRANSPORTING || currentState == GameManager.GameState.OPENINGTREASURE
+            || currentState == GameManager.GameState.Diary || currentState == GameManager.GameState.ONTHEWAY)
         {
             ActivedBlur(true);
         }
@@ -55,10 +57,6 @@ public class MenuController : MonoBehaviour
         {
             ActivedBlur(true);
             hasDisplayed = true;
-        }
-        else if(currentState == GameManager.GameState.TRANSPORTING || currentState == GameManager.GameState.OPENINGTREASURE)
-        {
-            ActivedBlur(true);
         }
 
     }

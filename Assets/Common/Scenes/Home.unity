@@ -2082,6 +2082,7 @@ GameObject:
   - component: {fileID: 2079842010}
   - component: {fileID: 2079842011}
   - component: {fileID: 2079842012}
+  - component: {fileID: 2079842013}
   m_Layer: 0
   m_Name: Character Controller
   m_TagString: Player
@@ -2209,6 +2210,19 @@ MonoBehaviour:
       m_Calls: []
   _placesController: {fileID: 556990571}
   _characterStatusController: {fileID: 1694228983}
+--- !u!114 &2079842013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079842007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dbba294679fc864d97199743f8f9acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeManager: {fileID: 556990568}
 --- !u!1001 &315555996188596329
 PrefabInstance:
   m_ObjectHideFlags: 0

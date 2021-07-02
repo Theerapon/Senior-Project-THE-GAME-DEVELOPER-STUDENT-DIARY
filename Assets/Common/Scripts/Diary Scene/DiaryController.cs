@@ -26,12 +26,10 @@ public class DiaryController : MonoBehaviour
         if(_SleepTimeHour >= 0f && _SleepTimeHour <= 5f)
         {
             characterStatusController.Sleep(true);
-            Debug.Log("late");
         }
         else
         {
             characterStatusController.Sleep(false);
-            Debug.Log("early");
         }
 
         StartCoroutine(UpdateDateTime());

@@ -23,7 +23,7 @@ public class TimeManager : Manager<TimeManager>
     #region Default
     [Header("Time Default")]
     //[SerializeField] private const float DEFAULT_TIMESCALE = 48;
-    [SerializeField] private const float DEFAULT_TIMESCALE = 48 * 4;
+    [SerializeField] private const float DEFAULT_TIMESCALE = 48 * 16;
 
     [Header("Awake and Sleep")]
     [SerializeField] private const int DEFAULT_AWAKE_HOUR_TIME = 6;
@@ -160,6 +160,7 @@ public class TimeManager : Manager<TimeManager>
             minute = minute - DEFAULT_MINUTE;
             setText();
             OnTimeCalendar?.Invoke(onTime);
+            SetTimezone();
             CalGoldenTime();
             PassTenMiniute();
         }
@@ -173,7 +174,6 @@ public class TimeManager : Manager<TimeManager>
             setText();
             OnTimeCalendar?.Invoke(onTime);
             OnDateCalendar?.Invoke(onDate);
-            SetTimezone();
             PassTenMiniute();
         }
 

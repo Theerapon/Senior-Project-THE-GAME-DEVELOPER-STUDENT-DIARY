@@ -30,7 +30,7 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowInfo(true, true, true, false, false, false, false);
         }
-        else if(current_game_state == GameManager.GameState.HOME_ACTION 
+        else if (current_game_state == GameManager.GameState.HOME_ACTION
             && GameManager.Instance.CurrentGameScene == GameManager.GameScene.Home_Storage)
         {
             ShowInfo(true, true, true, false, false, false, false);
@@ -43,10 +43,14 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowInfo(true, true, true, false, false, false, false);
         }
-        else if(current_game_state == GameManager.GameState.Diary 
+        else if (current_game_state == GameManager.GameState.Diary
             || current_game_state == GameManager.GameState.WORK_PROJECT_MINI_GAME)
         {
             ShowInfo(false, false, false, false, false, false, false);
+        }
+        else if (current_game_state == GameManager.GameState.SLEEPLATE)
+        {
+            ShowInfo(true, false, true, false, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.WORK_PROJECT)
         {
@@ -77,6 +81,14 @@ public class HUD_Info_Controller : MonoBehaviour
             ShowInfo(true, true, true, false, false, false, false);
         }
         else if (current_game_state == GameManager.GameState.COURSE_SUMMARY)
+        {
+            ShowInfo(true, false, false, false, false, false, false);
+        }
+        else if (current_game_state == GameManager.GameState.ONTHEWAY && (previouse_game_state == GameManager.GameState.HOME || previouse_game_state == GameManager.GameState.MAP))
+        {
+            ShowInfo(true, true, true, false, false, false, false);
+        }
+        else if (current_game_state == GameManager.GameState.ONTHEWAY)
         {
             ShowInfo(true, false, false, false, false, false, false);
         }

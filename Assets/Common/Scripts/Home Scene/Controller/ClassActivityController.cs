@@ -14,6 +14,7 @@ public class ClassActivityController : Manager<ClassActivityController>
 
     private string _currentActivityId;
     private bool _currentDayHasEvent;
+    private bool _eventFinish;
     private int _startHourEvent;
     private int _startMinuteEvent;
 
@@ -62,6 +63,7 @@ public class ClassActivityController : Manager<ClassActivityController>
                 {
                     _currentActivityId = id;
                     _currentDayHasEvent = true;
+                    _eventFinish = false;
                     _startHourEvent = classActivity.Value.Start_time_hour;
                     _startMinuteEvent = classActivity.Value.Start_time_minute;
                     break;
@@ -74,6 +76,7 @@ public class ClassActivityController : Manager<ClassActivityController>
     {
         _currentActivityId = string.Empty;
         _currentDayHasEvent = false;
+        _eventFinish = false;
         _startHourEvent = 0;
         _startMinuteEvent = 0;
 
@@ -81,6 +84,16 @@ public class ClassActivityController : Manager<ClassActivityController>
         {
             classActivity.Value.DisableClass();
         }
+    }
+
+    public void FinishEvent()
+    {
+        _eventFinish = true;
+    }
+
+    public bool HasFinishEvent()
+    {
+        return _eventFinish;
     }
 
     public bool HasEvent()

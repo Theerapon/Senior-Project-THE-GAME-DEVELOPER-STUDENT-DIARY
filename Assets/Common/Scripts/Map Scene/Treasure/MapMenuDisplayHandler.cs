@@ -73,30 +73,23 @@ public class MapMenuDisplayHandler : MonoBehaviour
 
     private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
     {
-        if(current == GameManager.GameState.TRANSPORTING && previous == GameManager.GameState.MAP)
+        if(current == GameManager.GameState.TRANSPORTING)
         {
             Initializing();
             ActiveTrasportingGameObject(true);
             ActiveTimeSkipAnimationGameObject(true);
         }
-        else if(current == GameManager.GameState.PLACE && (previous == GameManager.GameState.TRANSPORTING || previous == GameManager.GameState.MAP))
+        else if(current == GameManager.GameState.PLACE)
         {
             Initializing();
             ActivePlaceNameGameObject(true);     
             SetNamePlaceMenu();
         }
-        else if(current == GameManager.GameState.MAP && previous == GameManager.GameState.PLACE)
+        else
         {
             Initializing();
         }
-        else if (current == GameManager.GameState.OPENINGTREASURE && previous == GameManager.GameState.TRANSPORTING)
-        {
-            Initializing();
-        }
-        else if (current == GameManager.GameState.MENU)
-        {
-            Initializing();
-        }
+
     }
 
     private void Initializing()
@@ -111,7 +104,7 @@ public class MapMenuDisplayHandler : MonoBehaviour
 
     public void OnPlaceTrigerShowArriver(string placeTargetId)
     {
-        if(!ReferenceEquals(_placesController.PlacesDic, null) && !ReferenceEquals(_placesController, null))
+        if(!ReferenceEquals(_placesController.PlacesDic, null) && !ReferenceEquals(_placesController, null) && GameManager.Instance.CurrentGameState == GameManager.GameState.MAP)
         {
             //show arriver
             if (_placesController.PlacesDic.ContainsKey(placeTargetId))
@@ -122,6 +115,7 @@ public class MapMenuDisplayHandler : MonoBehaviour
                     _arriverGenerator.CreateTemplate(arrivers);
                     _placeNameTMP.text = _placesController.PlacesDic[placeTargetId].PlaceName;
                     ActiveArriverGameObject(true);
+                    
                 }
                 else
                 {

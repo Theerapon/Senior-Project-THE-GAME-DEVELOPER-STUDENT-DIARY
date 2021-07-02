@@ -64,6 +64,7 @@ public class TransportController : MonoBehaviour
         _playerAction.TakeEnergy(_energyToConsume);
         if (_targetPlace == Place.Home)
         {
+            GameManager.Instance.HomeToMap();
             _playerTransport.BackHome();
             _switchScene.DispleyMap(false);
         }

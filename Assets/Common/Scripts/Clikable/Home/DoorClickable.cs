@@ -7,6 +7,7 @@ public class DoorClickable : MonoBehaviour, IClickable
 
     public void OnClick()
     {
+        GameManager.Instance.HomeToMap();
         SwitchScene.Instance.DispleyMap(true);
     }
 
