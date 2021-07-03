@@ -37,6 +37,9 @@ public class Events
 
     #region Map Arriver
     [System.Serializable] public class EventOnHasPlaceArriverUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnPointerEnterNpcSlot : UnityEvent<ArriverSlot> { }
+    [System.Serializable] public class EventOnPointerExitNpcSlot : UnityEvent<ArriverSlot> { }
+    [System.Serializable] public class EventOnPointerLeftClickNpcSlot : UnityEvent<ArriverSlot> { }
     #endregion
 
     #region Soft SKill

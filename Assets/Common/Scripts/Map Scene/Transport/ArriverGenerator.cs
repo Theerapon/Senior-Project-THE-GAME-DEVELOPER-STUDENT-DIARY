@@ -49,4 +49,5 @@ public class ArriverGenerator : MonoBehaviour
             Destroy(transform.GetChild(i).gameObject);
         }
     }
+
 }
