@@ -14,11 +14,16 @@ public class ShopSellingManager : MonoBehaviour
     [Header("Lock Background")]
     [SerializeField] private GameObject _lock;
 
+    [Header("Place")]
+    [SerializeField] private Place _place;
+    private string _placeId;
+
     private StoreContoller _storeContoller;
     private CharacterStatusController _characterStatusController;
     private InventoryContainer _inventoryContainer;
     private ItemTemplateController _itemTemplateController;
     private NotificationController _notificationController;
+    private PlacesController _placesController;
 
     [SerializeField] private Transform itemsParent;
     private List<BaseItemSellingSlot> baseItemShopSlots;
@@ -33,8 +38,10 @@ public class ShopSellingManager : MonoBehaviour
         _characterStatusController = CharacterStatusController.Instance;
         _itemTemplateController = ItemTemplateController.Instance;
         _notificationController = NotificationController.Instance;
-
+        _placesController = PlacesController.Instance;
         _storeContoller = StoreContoller.Instance;
+
+        _placeId = ConvertType.GetPlaceId(_place);
     }
 
     private void Start()
@@ -43,38 +50,42 @@ public class ShopSellingManager : MonoBehaviour
     }
     private void Initializing()
     {
-        ItemEntry[] container_item_entry = new ItemEntry[_inventoryContainer.Container_size];
-        container_item_entry = _inventoryContainer.container_item_entry;
-
-        for (int index = 0; index < container_item_entry.Length; index++)
+        bool isOpen = _placesController.PlacesDic[_placeId].IsOpen;
+        if (isOpen)
         {
-            if (!ReferenceEquals(container_item_entry[index], null))
+            ItemEntry[] container_item_entry = new ItemEntry[_inventoryContainer.Container_size];
+            container_item_entry = _inventoryContainer.container_item_entry;
+
+            for (int index = 0; index < container_item_entry.Length; index++)
             {
-                string itemId = container_item_entry[index].item_pickup.Id;
-                int itemAmount = 1;
-                _totalItem += itemAmount;
+                if (!ReferenceEquals(container_item_entry[index], null))
+                {
+                    string itemId = container_item_entry[index].item_pickup.Id;
+                    int itemAmount = 1;
+                    _totalItem += itemAmount;
 
-                ItemPickUp_Template itemPickUp_Template = _itemTemplateController.ItemTemplateDic[itemId];
-                string itemName = itemPickUp_Template.ItemName;
-                Sprite itemIcon = itemPickUp_Template.ItemIcon;
-                string itemType = ConvertType.GetStringItemType(itemPickUp_Template.ItemType, itemPickUp_Template.SubType);
-                int itemSellingPrice = itemPickUp_Template.SellingPrice;
-                string itemDescription = itemPickUp_Template.ItemDescription;
-                List<ItemPropertyAmount> itemPropertyAmounts = itemPickUp_Template.ItemProperties;
+                    ItemPickUp_Template itemPickUp_Template = _itemTemplateController.ItemTemplateDic[itemId];
+                    string itemName = itemPickUp_Template.ItemName;
+                    Sprite itemIcon = itemPickUp_Template.ItemIcon;
+                    string itemType = ConvertType.GetStringItemType(itemPickUp_Template.ItemType, itemPickUp_Template.SubType);
+                    int itemSellingPrice = itemPickUp_Template.SellingPrice;
+                    string itemDescription = itemPickUp_Template.ItemDescription;
+                    List<ItemPropertyAmount> itemPropertyAmounts = itemPickUp_Template.ItemProperties;
 
-                _itemShopGenerator.CreateTemplate(new ItemShop(itemId, itemAmount, itemName, index, itemIcon, itemType, itemSellingPrice, itemDescription, itemPropertyAmounts));
+                    _itemShopGenerator.CreateTemplate(new ItemShop(itemId, itemAmount, itemName, index, itemIcon, itemType, itemSellingPrice, itemDescription, itemPropertyAmounts));
+                }
+
             }
 
-        }
-
-        if (itemsParent != null && itemsParent.childCount > 0)
-        {
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: baseItemShopSlots);
-
-            for (int index = 0; index < baseItemShopSlots.Count; index++)
+            if (itemsParent != null && itemsParent.childCount > 0)
             {
-                baseItemShopSlots[index].OnPointEnterSellingEvent.AddListener(OnPointEnterHandler);
-                baseItemShopSlots[index].OnPointExitSellingEvent.AddListener(OnPointExitEventHandler);
+                itemsParent.GetComponentsInChildren(includeInactive: true, result: baseItemShopSlots);
+
+                for (int index = 0; index < baseItemShopSlots.Count; index++)
+                {
+                    baseItemShopSlots[index].OnPointEnterSellingEvent.AddListener(OnPointEnterHandler);
+                    baseItemShopSlots[index].OnPointExitSellingEvent.AddListener(OnPointExitEventHandler);
+                }
             }
         }
 
@@ -85,6 +96,7 @@ public class ShopSellingManager : MonoBehaviour
 
     public void Selling(BaseItemSellingSlot baseItemSellingSlot)
     {
+        
         int index = baseItemSellingSlot.ITEMSHOP.ItemSetIdIndex;
         if (!ReferenceEquals(_inventoryContainer.container_item_entry[index], null))
         {

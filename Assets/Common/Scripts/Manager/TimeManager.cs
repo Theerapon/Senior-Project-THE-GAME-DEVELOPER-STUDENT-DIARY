@@ -245,6 +245,28 @@ public class TimeManager : Manager<TimeManager>
                 break;
         }
     }
+    private SetsOfMonth GetTomorrowMont(int month)
+    {
+        SetsOfMonth tomorrowMonth = SetsOfMonth.JANUARY;
+        switch (month)
+        {
+            case 1:
+                tomorrowMonth = SetsOfMonth.JANUARY;
+                break;
+            case 2:
+                tomorrowMonth = SetsOfMonth.FEBRUARY;
+                break;
+            case 3:
+                tomorrowMonth = SetsOfMonth.MARCH;
+                break;
+            case 4:
+                tomorrowMonth = SetsOfMonth.APRIL;
+                break;
+            default:
+                break;
+        }
+        return tomorrowMonth;
+    }
     private void CalculateDay()
     {
         int multiply = (int)(date - 1) / 7;
@@ -274,6 +296,39 @@ public class TimeManager : Manager<TimeManager>
                 break;
         }
     }
+
+    private Day GetTomorowDay(int date)
+    {
+        Day day = Day.Mon;
+        int multiply = (int)(date - 1) / 7;
+        int dayIndex = (int)date - (7 * multiply);
+        switch (dayIndex)
+        {
+            case 1:
+                day = Day.Mon;
+                break;
+            case 2:
+                day = Day.Tue;
+                break;
+            case 3:
+                day = Day.Wed;
+                break;
+            case 4:
+                day = Day.Thu;
+                break;
+            case 5:
+                day = Day.Fri;
+                break;
+            case 6:
+                day = Day.Sat;
+                break;
+            case 7:
+                day = Day.Sun;
+                break;
+        }
+        return day;
+    }
+
     private void SetTimezone()
     {
         if (hour > 5 && hour < 18)
@@ -362,7 +417,10 @@ public class TimeManager : Manager<TimeManager>
             tomorrow_month = tomorrow_month - DEFAULT_MAXMONTH;
         }
 
-        tomorrow_onDate = string.Format("{0:00}/{1:00}/{2:0000}", tomorrow_date, tomorrow_month, tomorrow_year);
+        Day day = GetTomorowDay(tomorrow_date);
+        SetsOfMonth setOfmonth = GetTomorrowMont(tomorrow_month);
+
+        tomorrow_onDate = string.Format("{0} {1:00} {2} {3:0000}", day, tomorrow_date, setOfmonth, tomorrow_year);
         tomorrow_onTime = string.Format("{0:00}:{1:00}", tomorrow_hour, tomorrow_minute);
         
         OnStartNewDayComplete?.Invoke();
@@ -378,7 +436,7 @@ public class TimeManager : Manager<TimeManager>
     }
     private void setText()
     {
-        onDate = string.Format("{0:00}/{1:00}/{2:0000}", date, month, year);
+        onDate = string.Format("{0} {1:00} {2} {3:0000}", currentDays, date, currentMonth, year);
         onTime = string.Format("{0:00}:{1:00}", hour, minute);
     }
     public void ValidationInitializing()

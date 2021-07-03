@@ -107,6 +107,35 @@ public class ConvertType : MonoBehaviour
         }
         return dayTemp;
     }
+    public static int ConvertDayToIne(Day day)
+    {
+        int index = 0;
+        switch (day)
+        {
+            case Day.Mon:
+                index = 0;
+                break;
+            case Day.Tue:
+                index = 1;
+                break;
+            case Day.Wed:
+                index = 2;
+                break;
+            case Day.Thu:
+                index = 3;
+                break;
+            case Day.Fri:
+                index = 4;
+                break;
+            case Day.Sat:
+                index = 5;
+                break;
+            case Day.Sun:
+                index = 6;
+                break;
+        }
+        return index;
+    }
 
     #region Place Instace
     private const string INST_Place_Null = "null";

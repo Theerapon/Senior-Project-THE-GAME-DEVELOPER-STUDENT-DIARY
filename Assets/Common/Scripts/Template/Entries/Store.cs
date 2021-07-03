@@ -47,7 +47,6 @@ public class Store : MonoBehaviour
         if(_isEvent && StoreType == StoreType.FoodStore)
         {
             _discount = _eventDiscount;
-            Debug.Log("discount");
         }
         else
         {

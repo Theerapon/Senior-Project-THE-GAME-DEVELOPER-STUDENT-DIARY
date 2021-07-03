@@ -9,9 +9,15 @@ public class ShopManager : MonoBehaviour
     public Events.EventOnPointEnterItemShop OnPointEnterEvent;
     public Events.EventOnPointExitItemShop OnPointExitEvent;
 
+    [Header("Shop")]
     [SerializeField] private ItemShopGenerator _itemShopGenerator;
     [SerializeField] private StoreType _storeType;
     private string _storeId;
+
+    [Header("Place")]
+    [SerializeField] private Place _place;
+    private string _placeId;
+
 
     [Header("Item Prefab")]
     [SerializeField] private GameObject _itemPrefab;
@@ -25,6 +31,7 @@ public class ShopManager : MonoBehaviour
     private InventoryContainer _inventoryContainer;
     private StoreContoller _storeContoller;
     private ItemTemplateController _itemTemplateController;
+    private PlacesController _placesController;
 
     [SerializeField] private Transform itemsParent;
     private List<BaseItemShopSlot> baseItemShopSlots;
@@ -39,9 +46,11 @@ public class ShopManager : MonoBehaviour
         _notificationController = NotificationController.Instance;
         _inventoryContainer = InventoryContainer.Instance;
         _characterStatusController = CharacterStatusController.Instance;
+        _placesController = PlacesController.Instance;
 
         _storeContoller = StoreContoller.Instance;
         _storeId = ConvertType.GetStoreId(_storeType);
+        _placeId = ConvertType.GetPlaceId(_place);
 
         _itemTemp = _itemPrefab;
     }
@@ -53,36 +62,40 @@ public class ShopManager : MonoBehaviour
 
     private void Initializing()
     {
-        float discount = _storeContoller.StoreDic[_storeId].Discount;
-        List<StoreItemSet> _storeItemSets = new List<StoreItemSet>();
-        _storeItemSets = _storeContoller.StoreDic[_storeId].CurrentItemSet;
-        for(int index = 0; index < _storeItemSets.Count; index++)
+        bool isOpen = _placesController.PlacesDic[_placeId].IsOpen;
+        if (isOpen)
         {
-            string itemId = _storeItemSets[index].ItemId;
-            int itemAmount = _storeItemSets[index].AmountItem;
-            if(itemAmount > 0)
+            float discount = _storeContoller.StoreDic[_storeId].Discount;
+            List<StoreItemSet> _storeItemSets = new List<StoreItemSet>();
+            _storeItemSets = _storeContoller.StoreDic[_storeId].CurrentItemSet;
+            for (int index = 0; index < _storeItemSets.Count; index++)
             {
-                _totalItem += itemAmount;
-                ItemPickUp_Template itemPickUp_Template = _itemTemplateController.ItemTemplateDic[itemId];
-                string itemName = itemPickUp_Template.ItemName;
-                Sprite itemIcon = itemPickUp_Template.ItemIcon;
-                string itemType = ConvertType.GetStringItemType(itemPickUp_Template.ItemType, itemPickUp_Template.SubType);
-                int itemPurchasePrice = (int)(itemPickUp_Template.PurchasePrice * discount);
-                string itemDescription = itemPickUp_Template.ItemDescription;
-                List<ItemPropertyAmount> itemPropertyAmounts = itemPickUp_Template.ItemProperties;
+                string itemId = _storeItemSets[index].ItemId;
+                int itemAmount = _storeItemSets[index].AmountItem;
+                if (itemAmount > 0)
+                {
+                    _totalItem += itemAmount;
+                    ItemPickUp_Template itemPickUp_Template = _itemTemplateController.ItemTemplateDic[itemId];
+                    string itemName = itemPickUp_Template.ItemName;
+                    Sprite itemIcon = itemPickUp_Template.ItemIcon;
+                    string itemType = ConvertType.GetStringItemType(itemPickUp_Template.ItemType, itemPickUp_Template.SubType);
+                    int itemPurchasePrice = (int)(itemPickUp_Template.PurchasePrice * discount);
+                    string itemDescription = itemPickUp_Template.ItemDescription;
+                    List<ItemPropertyAmount> itemPropertyAmounts = itemPickUp_Template.ItemProperties;
 
-                _itemShopGenerator.CreateTemplate(new ItemShop(itemId, itemAmount, itemName, index, itemIcon, itemType, itemPurchasePrice, itemDescription, itemPropertyAmounts));
+                    _itemShopGenerator.CreateTemplate(new ItemShop(itemId, itemAmount, itemName, index, itemIcon, itemType, itemPurchasePrice, itemDescription, itemPropertyAmounts));
+                }
             }
-        }
 
-        if (itemsParent != null && itemsParent.childCount > 0)
-        {
-            itemsParent.GetComponentsInChildren(includeInactive: true, result: baseItemShopSlots);
-
-            for (int index = 0; index < baseItemShopSlots.Count; index++)
+            if (itemsParent != null && itemsParent.childCount > 0)
             {
-                baseItemShopSlots[index].OnPointEnterEvent.AddListener(OnPointEnterHandler);
-                baseItemShopSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
+                itemsParent.GetComponentsInChildren(includeInactive: true, result: baseItemShopSlots);
+
+                for (int index = 0; index < baseItemShopSlots.Count; index++)
+                {
+                    baseItemShopSlots[index].OnPointEnterEvent.AddListener(OnPointEnterHandler);
+                    baseItemShopSlots[index].OnPointExitEvent.AddListener(OnPointExitEventHandler);
+                }
             }
         }
 

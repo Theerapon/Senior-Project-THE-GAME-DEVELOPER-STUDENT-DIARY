@@ -52,6 +52,16 @@ public class PlaceEntry : MonoBehaviour
         Initializing();
     }
 
+    public void Open()
+    {
+        isOpen = true;
+    }
+
+    public void Close()
+    {
+        isOpen = false;
+    }
+
     private void Initializing()
     {
         isOpen = false;
