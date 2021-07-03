@@ -139,7 +139,7 @@ public class DialoguesNpcVM : MonoBehaviour
         Place condition_place = Place.Null;
         List<Dialogue> dialoguesList = new List<Dialogue>();
         CreateEvent condition_event = CreateEvent.Null;
-        List<string> ideasIdList = new List<string>();
+        string ideasIdList = string.Empty;
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -169,7 +169,7 @@ public class DialoguesNpcVM : MonoBehaviour
                     condition_event = ConvertType.CheckCreateEvent(entries[++i]);
                     break;
                 case INST_SET_CreateIdea:
-                    ideasIdList.Add(ConvertType.CheckString(entries[++i]));
+                    ideasIdList = ConvertType.CheckString(entries[++i]);
                     break;
 
             }

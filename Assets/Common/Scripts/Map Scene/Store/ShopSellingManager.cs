@@ -8,6 +8,7 @@ public class ShopSellingManager : MonoBehaviour
 {
     public Events.EventOnPointEnterItemShopSelling OnPointEnterEvent;
     public Events.EventOnPointExitItemShopSelling OnPointExitEvent;
+    public Events.EventOnOutStockItem OnOutStockItem;
 
     [SerializeField] private ItemSellingGenerator _itemShopGenerator;
     [Header("Lock Background")]
@@ -106,6 +107,7 @@ public class ShopSellingManager : MonoBehaviour
         else
         {
             ActiveLockBackground(true);
+            OnOutStockItem?.Invoke();
         }
     }
 

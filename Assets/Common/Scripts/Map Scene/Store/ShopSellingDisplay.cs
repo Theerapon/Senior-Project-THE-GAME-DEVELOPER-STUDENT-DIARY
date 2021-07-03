@@ -23,6 +23,7 @@ public class ShopSellingDisplay : MonoBehaviour
         {
             _shopSellingManager.OnPointEnterEvent.AddListener(EnableItemDescription);
             _shopSellingManager.OnPointExitEvent.AddListener(DisableItemDescription);
+            _shopSellingManager.OnOutStockItem.AddListener(Initializing);
         }
 
         Initializing();

@@ -11,9 +11,9 @@ public class DialoguesNPC_Template : MonoBehaviour
     private Place condition_place = Place.Null;
     private List<Dialogue> dialoguesList = null;
     private CreateEvent condition_event = CreateEvent.Null;
-    private List<string> ideasIdList = null;
+    private string ideaId;
 
-    public DialoguesNPC_Template(string id, string npc_id, int first_relationship, int end_relationship, Place condition_place, List<Dialogue> dialoguesList, CreateEvent condition_event, List<string> ideasIdList)
+    public DialoguesNPC_Template(string id, string npc_id, int first_relationship, int end_relationship, Place condition_place, List<Dialogue> dialoguesList, CreateEvent condition_event, string ideaId)
     {
         this.id = id;
         this.npc_id = npc_id;
@@ -22,7 +22,7 @@ public class DialoguesNPC_Template : MonoBehaviour
         this.condition_place = condition_place;
         this.dialoguesList = dialoguesList;
         this.condition_event = condition_event;
-        this.ideasIdList = ideasIdList;
+        this.ideaId = ideaId;
     }
 
     public string Id { get => id; }
@@ -32,5 +32,5 @@ public class DialoguesNPC_Template : MonoBehaviour
     public Place Condition_place { get => condition_place; }
     public List<Dialogue> DialoguesList { get => dialoguesList; }
     public CreateEvent Condition_event { get => condition_event; }
-    public List<string> IdeasIdList { get => ideasIdList; }
+    public string IdeaId { get => ideaId; }
 }

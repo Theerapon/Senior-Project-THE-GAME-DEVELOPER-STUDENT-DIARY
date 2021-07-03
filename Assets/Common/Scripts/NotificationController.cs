@@ -15,6 +15,10 @@ public class NotificationController : Manager<NotificationController>
     private const string limitChatTitle = "ครบลิมิตการคุยกับ {0} แล้ว";
     private const string limitChatDescription = "ครบลิมิตการคุยต่อวันแล้ว ไว้คุยต่อวันหลังนะ";
 
+    [Header("Idea")]
+    private const string ideaTitle = "ปล็ดล็อค {0}";
+    private const string ideaDescription = "ได้รับไอเดียใหม่ ๆ แล้ว อยากทำงานแล้วสิ";
+
     [Header("Class activity")]
     private const string classActivityTitle = "ยังนอนไม่ได้";
     private const string classActivityDescription = "วันนี้มีคลาสที่ต้องเข้า ยังนอนไม่ได้นะ";
@@ -124,6 +128,12 @@ public class NotificationController : Manager<NotificationController>
     public void LimitChat(Sprite icon, string nameNpc)
     {
         string title = string.Format(limitChatTitle, nameNpc);
+        notificationUpdateGenerator.CreateTemplate(icon, title, limitChatDescription, hasSpriteColor);
+    }
+
+    public void RecieveIdea(string ideaName, Sprite icon)
+    {
+        string title = string.Format(ideaTitle, ideaName);
         notificationUpdateGenerator.CreateTemplate(icon, title, limitChatDescription, hasSpriteColor);
     }
 }

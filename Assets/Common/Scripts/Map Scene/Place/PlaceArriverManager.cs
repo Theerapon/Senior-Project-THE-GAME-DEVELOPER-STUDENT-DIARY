@@ -21,6 +21,7 @@ public class PlaceArriverManager : MonoBehaviour
     [SerializeField] private PlaceArriverDisplay _placeArriverDisplay;
     private PlacesController _placesController;
     private DialougeManager _dialougeManager;
+    
 
     #region Field
     private string _placeId;
@@ -43,24 +44,23 @@ public class PlaceArriverManager : MonoBehaviour
             _residentsId = _placesController.PlacesDic[_placeId].ResidentsID;
         }
 
-        
-
-    }
-
-    private void Start()
-    {
-        ActiveChatandGift(true);
-
         if (!ReferenceEquals(_placeArriverDisplay, null))
         {
             _placeArriverDisplay.OnPointerEnterNpcSlot.AddListener(OnPointerEnterHandler);
             _placeArriverDisplay.OnPointerExitNpcSlot.AddListener(OnPointerExitHandler);
             _placeArriverDisplay.OnPointerLeftClickNpcSlot.AddListener(OnPointerLeftClickHandler);
+            _placeArriverDisplay.OnDisplayFinished.AddListener(Initizlizing);
         }
 
+    }
+
+
+    private void Initizlizing()
+    {
+        ActiveChatandGift(true);
         if (_placesController.PlacesDic.ContainsKey(_placeId))
         {
-            for(int i = 0; i < _residentsId.Count; i++)
+            for (int i = 0; i < _residentsId.Count; i++)
             {
                 if (_placesController.PlacesDic[_placeId].Arrivers.ContainsKey(_residentsId[i]))
                 {
@@ -78,22 +78,36 @@ public class PlaceArriverManager : MonoBehaviour
 
             if (!_currentArriverId.Equals(string.Empty))
             {
-                for(int i = 0; i < arriverSlots.Count; i++)
+                if (arriverSlots.Count > 0)
                 {
-                    if (arriverSlots[i].ARRIVER.arriverId.Equals(_currentArriverId))
+                    for (int i = 0; i < arriverSlots.Count; i++)
                     {
-                        arriverSlots[i].Selected();
-                        ShowArriver(arriverSlots[i]);
-                        _currentSelectedIndex = arriverSlots[i].LastIndex;
-                        _currentName = arriverSlots[i].ARRIVER.arriverName;
-                        _currentSprite = arriverSlots[i].ARRIVER.arriverProfilePicture;
-                        break;
+                        if (arriverSlots[i].ARRIVER.arriverId.Equals(_currentArriverId))
+                        {
+                            arriverSlots[i].Selected();
+                            ShowArriver(arriverSlots[i]);
+                            _currentSelectedIndex = arriverSlots[i].LastIndex;
+                            _currentName = arriverSlots[i].ARRIVER.arriverName;
+                            _currentSprite = arriverSlots[i].ARRIVER.arriverProfilePicture;
+                            break;
+                        }
                     }
                 }
+                else
+                {
+                    ShowArriver();
+                    _currentArriverId = string.Empty;
+                    _currentSelectedIndex = -1;
+                    _currentName = string.Empty;
+                    _currentSprite = null;
+                    ActiveChatandGift(false);
+                }
+
+
             }
             else
             {
-                if(arriverSlots.Count > 0)
+                if (arriverSlots.Count > 0)
                 {
                     arriverSlots[0].Selected();
                     ShowArriver(arriverSlots[0]);
@@ -111,7 +125,7 @@ public class PlaceArriverManager : MonoBehaviour
                     _currentSprite = null;
                     ActiveChatandGift(false);
                 }
-                
+
             }
         }
     }
@@ -157,6 +171,7 @@ public class PlaceArriverManager : MonoBehaviour
     }
     private void ActiveChatandGift(bool active)
     {
+
         if(_chat.activeSelf != active)
         {
             _chat.SetActive(active);

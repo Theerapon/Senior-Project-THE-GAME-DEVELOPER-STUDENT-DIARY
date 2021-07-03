@@ -40,6 +40,7 @@ public class Events
     [System.Serializable] public class EventOnPointerEnterNpcSlot : UnityEvent<ArriverSlot> { }
     [System.Serializable] public class EventOnPointerExitNpcSlot : UnityEvent<ArriverSlot> { }
     [System.Serializable] public class EventOnPointerLeftClickNpcSlot : UnityEvent<ArriverSlot> { }
+    [System.Serializable] public class EventOnDisplayFinished : UnityEvent { }
     #endregion
 
     #region Soft SKill
@@ -81,6 +82,7 @@ public class Events
     [System.Serializable] public class EventOnPointExitItemShopSelling : UnityEvent<BaseItemSellingSlot> { }
     [System.Serializable] public class EventOnPointEnterItemShop : UnityEvent<BaseItemShopSlot> { }
     [System.Serializable] public class EventOnPointExitItemShop : UnityEvent<BaseItemShopSlot> { }
+    [System.Serializable] public class EventOnOutStockItem : UnityEvent { }
     #endregion
 
     #region EventSystem Handler

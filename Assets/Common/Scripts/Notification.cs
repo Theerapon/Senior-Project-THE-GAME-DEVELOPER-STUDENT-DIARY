@@ -10,7 +10,7 @@ public class Notification : MonoBehaviour
     }
     IEnumerator WiatToDestroy()
     {
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(3.6f);
         OnDestroy();
     }
 

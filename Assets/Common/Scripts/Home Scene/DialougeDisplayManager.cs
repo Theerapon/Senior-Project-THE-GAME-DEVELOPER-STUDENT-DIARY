@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class DialougeDisplayManager : MonoBehaviour
 {
+    private NotificationController _notificationController;
     private DialougeManager _dialougeManager;
     private SwitchScene _switchScene;
+    private IdeasController _ideasController;
 
     [SerializeField] private TMP_Text _npcNameTMP;
     [SerializeField] private Image _npcImage;
@@ -21,7 +23,7 @@ public class DialougeDisplayManager : MonoBehaviour
     private Sprite _currentNpcProfile;
     private string _currentNameNpc;
 
-    private List<string> ideasIdList;
+    private string ideasId;
     private CreateEvent condition_event;
 
 
@@ -29,8 +31,9 @@ public class DialougeDisplayManager : MonoBehaviour
     {
         _dialougeManager = DialougeManager.Instance;
         _switchScene = SwitchScene.Instance;
+        _ideasController = IdeasController.Instance;
         dialogues = new List<Dialogue>();
-        ideasIdList = new List<string>();
+        _notificationController = NotificationController.Instance;
     }
 
     private void Start()
@@ -43,7 +46,7 @@ public class DialougeDisplayManager : MonoBehaviour
         maxDialouge = dialogues.Count;
         countDialouge = 0;
         condition_event = _currentDialoguesNPC_Template.Condition_event;
-        ideasIdList = _currentDialoguesNPC_Template.IdeasIdList;
+        
 
         _npcImage.sprite = _currentNpcProfile;
         _npcNameTMP.text = _currentNameNpc;
@@ -59,8 +62,24 @@ public class DialougeDisplayManager : MonoBehaviour
         }
         else
         {
+            if(_currentDialoguesNPC_Template.Condition_event == CreateEvent.CreateIdea)
+            {
+                ideasId = _currentDialoguesNPC_Template.IdeaId;
+                if (_ideasController.ReceiveIdea(ideasId))
+                {
+                    string ideaName = _ideasController.Ideas_DataHandler.GetIdeasDic[ideasId].IdeaName;
+                    Sprite ideaIcon = _ideasController.Ideas_DataHandler.GetIdeasDic[ideasId].Icon;
+                    CreateIdea(ideaName, ideaIcon);
+                }
+            }
+
             _switchScene.DisplayDialouge(false);
         }
+    }
+
+    private void CreateIdea(string ideaName, Sprite icon)
+    {
+        _notificationController.RecieveIdea(ideaName, icon);
     }
 
 }

@@ -21,6 +21,7 @@ public class IdeasController : Manager<IdeasController>
     public int AmountGoalIdeasHasCollected { get => amountGoalIdeasHasCollected; }
     public int AmountMechanicIdeasHasCollected { get => amountMechanicIdeasHasCollected; }
     public int AmountThemeIdeasHasCollected { get => amountThemeIdeasHasCollected; }
+    public Ideas_DataHandler Ideas_DataHandler { get => ideas_DataHandler; }
 
     protected override void Awake()
     {
@@ -71,12 +72,24 @@ public class IdeasController : Manager<IdeasController>
         {
             case IdeaType.Goal:
                 check = goalIdeas[id].ReceiveIdea();
+                if (check)
+                {
+                    amountGoalIdeasHasCollected++;
+                }
                 break;
             case IdeaType.Mechanic:
                 check = mechanicIdeas[id].ReceiveIdea();
+                if (check)
+                {
+                    amountMechanicIdeasHasCollected++;
+                }
                 break;
             case IdeaType.Theme:
                 check = themeIdeas[id].ReceiveIdea();
+                if (check)
+                {
+                    amountThemeIdeasHasCollected++;
+                }
                 break;
             case IdeaType.Platform:
                 check = platformIdeas[id].ReceiveIdea();
