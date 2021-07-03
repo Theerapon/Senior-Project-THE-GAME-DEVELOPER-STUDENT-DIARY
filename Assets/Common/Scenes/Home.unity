@@ -900,6 +900,7 @@ GameObject:
   - component: {fileID: 556990575}
   - component: {fileID: 556990576}
   - component: {fileID: 556990577}
+  - component: {fileID: 556990578}
   m_Layer: 0
   m_Name: MainManager
   m_TagString: MainManager
@@ -1065,6 +1066,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeManager: {fileID: 556990568}
+--- !u!114 &556990578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556990567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0fc1e5df070c24fb28aa83d1f12c6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &621257561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,6 +1302,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &876795369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876795371}
+  - component: {fileID: 876795370}
+  m_Layer: 0
+  m_Name: Dialouge Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &876795370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876795369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e50a77c621a2c143885a04609828a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialougeNpcTemplateController: {fileID: 556990578}
+  _npcsController: {fileID: 556990572}
+  _playerAction: {fileID: 2079842010}
+--- !u!4 &876795371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876795369}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 467.3122, y: 166.45819, z: 2.7553253}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &905491014
 GameObject:
   m_ObjectHideFlags: 0

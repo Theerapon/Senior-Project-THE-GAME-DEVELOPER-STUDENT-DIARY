@@ -5,7 +5,7 @@ using UnityEngine;
 public enum Day { None, Mon, Tue, Wed, Thu, Fri, Sat, Sun }
 public enum PlaceType { None, Place, Home, Treasure }
 public enum Place { Null, NotAtPlace, Home, Food, Clothing, Sell, Mystic, Park, Teacher, University, Treasure1, Treasure2, Treasure3, Treasure4, Treasure5 }
-public enum CreateEvent { Null, CreateIdea, CreateItem }
+public enum CreateEvent { Null, CreateIdea}
 public enum Feel { Normal, Happiness, Sadness, Fear, Disgust, Anger, Surprise }
 public enum IdeaType { None, Goal, Mechanic, Theme, Platform, User }
 public enum ItemDefinitionsType { Food, Treasure, Equipment}; 
@@ -203,7 +203,6 @@ public class ConvertType : MonoBehaviour
     #region Create Event Instace
     private const string INST_Event_Null = "null";
     private const string INST_Event_Idea = "idea";
-    private const string INST_Event_Item = "item";
     #endregion
     public static CreateEvent CheckCreateEvent(string text)
     {
@@ -216,9 +215,6 @@ public class ConvertType : MonoBehaviour
                 break;
             case INST_Event_Idea:
                 temp = CreateEvent.CreateIdea;
-                break;
-            case INST_Event_Item:
-                temp = CreateEvent.CreateItem;
                 break;
         }
         return temp;

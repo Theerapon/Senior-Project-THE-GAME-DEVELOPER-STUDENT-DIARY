@@ -10,26 +10,31 @@ public class PlaceArriverManager : MonoBehaviour
 {
     [Header("Default")]
     [SerializeField] private Place place;
-    
 
     [Header("Display")]
     [SerializeField] private TMP_Text _arriverName;
     [SerializeField] private Image _arriverProfile;
+    [SerializeField] private GameObject _gift;
+    [SerializeField] private GameObject _chat;
 
     [Header("Controller")]
     [SerializeField] private PlaceArriverDisplay _placeArriverDisplay;
     private PlacesController _placesController;
+    private DialougeManager _dialougeManager;
 
     #region Field
     private string _placeId;
     private List<string> _residentsId;
-    private string _currentArriverId;
+    private string _currentArriverId = string.Empty;
     private int _currentSelectedIndex;
+    private string _currentName = string.Empty;
+    private Sprite _currentSprite = null;
     #endregion
 
     private void Awake()
     {
         _placesController = PlacesController.Instance;
+        _dialougeManager = DialougeManager.Instance;
         _placeId = ConvertType.GetPlaceId(place);
 
         _residentsId = new List<string>();
@@ -37,12 +42,16 @@ public class PlaceArriverManager : MonoBehaviour
         {
             _residentsId = _placesController.PlacesDic[_placeId].ResidentsID;
         }
+
         
+
     }
 
     private void Start()
     {
-        if(!ReferenceEquals(_placeArriverDisplay, null))
+        ActiveChatandGift(true);
+
+        if (!ReferenceEquals(_placeArriverDisplay, null))
         {
             _placeArriverDisplay.OnPointerEnterNpcSlot.AddListener(OnPointerEnterHandler);
             _placeArriverDisplay.OnPointerExitNpcSlot.AddListener(OnPointerExitHandler);
@@ -76,6 +85,8 @@ public class PlaceArriverManager : MonoBehaviour
                         arriverSlots[i].Selected();
                         ShowArriver(arriverSlots[i]);
                         _currentSelectedIndex = arriverSlots[i].LastIndex;
+                        _currentName = arriverSlots[i].ARRIVER.arriverName;
+                        _currentSprite = arriverSlots[i].ARRIVER.arriverProfilePicture;
                         break;
                     }
                 }
@@ -88,11 +99,17 @@ public class PlaceArriverManager : MonoBehaviour
                     ShowArriver(arriverSlots[0]);
                     _currentArriverId = arriverSlots[0].ARRIVER.arriverId;
                     _currentSelectedIndex = arriverSlots[0].LastIndex;
+                    _currentName = arriverSlots[0].ARRIVER.arriverName;
+                    _currentSprite = arriverSlots[0].ARRIVER.arriverProfilePicture;
                 }
                 else
                 {
                     ShowArriver();
+                    _currentArriverId = string.Empty;
                     _currentSelectedIndex = -1;
+                    _currentName = string.Empty;
+                    _currentSprite = null;
+                    ActiveChatandGift(false);
                 }
                 
             }
@@ -113,6 +130,8 @@ public class PlaceArriverManager : MonoBehaviour
         ShowArriver(slot);
         _currentSelectedIndex = slot.LastIndex;
         _currentArriverId = slot.ARRIVER.arriverId;
+        _currentName = slot.ARRIVER.arriverName;
+        _currentSprite = slot.ARRIVER.arriverProfilePicture;
     }
 
     private void OnPointerExitHandler(ArriverSlot slot)
@@ -135,5 +154,34 @@ public class PlaceArriverManager : MonoBehaviour
     {
         _arriverName.text = string.Empty;
         _arriverProfile.enabled = false;
+    }
+    private void ActiveChatandGift(bool active)
+    {
+        if(_chat.activeSelf != active)
+        {
+            _chat.SetActive(active);
+        }
+
+        if(_gift.activeSelf != active)
+        {
+            _gift.SetActive(active);
+        }
+    }
+
+    public void Chat()
+    {
+        if (!_currentArriverId.Equals(string.Empty))
+        {
+            _dialougeManager.Dialouge(_currentArriverId, _currentName, _currentSprite, place);
+        }
+        
+    }
+
+    public void Gift()
+    {
+        if (!_currentArriverId.Equals(string.Empty))
+        {
+            
+        }
     }
 }

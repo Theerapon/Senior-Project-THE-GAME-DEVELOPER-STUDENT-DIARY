@@ -16,7 +16,9 @@ public class NpcsController : Manager<NpcsController>
     private Dictionary<string, Npc> npcsDic;
     private ActivitiesNPC_DataHandler activitiesNPC_DataHandler;
     private Dictionary<string, ActivitiesNpc_Template> activitiesDic;
-    
+
+    public Dictionary<string, Npc> NpcsDic { get => npcsDic; }
+
     private static float minute, hour, date, second, month, year;
     private Day currentDay;
 
@@ -28,6 +30,7 @@ public class NpcsController : Manager<NpcsController>
         activitiesNPC_DataHandler = FindObjectOfType<ActivitiesNPC_DataHandler>();
         activitiesDic = new Dictionary<string, ActivitiesNpc_Template>();
         timeManager.OnTenMinute.AddListener(OnTenMinuteHandler);
+        timeManager.OnStartNewDayComplete.AddListener(OnNewDayHandler);
 
         //npcs
         if (!ReferenceEquals(npcs_DataHandler.GetNpcsDic, null))
@@ -48,7 +51,17 @@ public class NpcsController : Manager<NpcsController>
         }
     }
 
-    int a = 0;
+    private void OnNewDayHandler()
+    {
+        if (!ReferenceEquals(npcsDic, null))
+        {
+            foreach (KeyValuePair<string, Npc> npc in npcsDic)
+            {
+                npc.Value.SetOnNewDay();
+            }
+        }
+    }
+
     private void OnTenMinuteHandler()
     {
         second = timeManager.Second;

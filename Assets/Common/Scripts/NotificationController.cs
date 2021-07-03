@@ -11,6 +11,9 @@ public class NotificationController : Manager<NotificationController>
     [SerializeField] private Color hasSpriteColor;
     [SerializeField] private Color defaultColor;
 
+    [Header("Limit Char")]
+    private const string limitChatTitle = "ครบลิมิตการคุยกับ {0} แล้ว";
+    private const string limitChatDescription = "ครบลิมิตการคุยต่อวันแล้ว ไว้คุยต่อวันหลังนะ";
 
     [Header("Class activity")]
     private const string classActivityTitle = "ยังนอนไม่ได้";
@@ -116,5 +119,11 @@ public class NotificationController : Manager<NotificationController>
     public void HasEventToFinish()
     {
         notificationUpdateGenerator.CreateTemplate(notificationSprite, classActivityTitle, classActivityDescription, defaultColor);
+    }
+
+    public void LimitChat(Sprite icon, string nameNpc)
+    {
+        string title = string.Format(limitChatTitle, nameNpc);
+        notificationUpdateGenerator.CreateTemplate(icon, title, limitChatDescription, hasSpriteColor);
     }
 }

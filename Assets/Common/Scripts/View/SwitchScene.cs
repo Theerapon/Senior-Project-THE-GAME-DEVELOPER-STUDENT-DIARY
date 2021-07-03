@@ -286,6 +286,11 @@ public class SwitchScene : Manager<SwitchScene>
         //---Not Fade Out---
         gameManager.DisplayCourseNotification(active);
     }
+    public void DisplayDialouge(bool active)
+    {
+        //---Not Fade Out---
+        gameManager.DisplayDialouge(active);
+    }
 
     public void DisplaySaving(bool active)
     {

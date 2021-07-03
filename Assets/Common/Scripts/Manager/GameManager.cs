@@ -56,6 +56,7 @@ public class GameManager : Manager<GameManager>
         StachInventory,
         SleepLate,
         Transport,
+        HUD_Dialouge,
 
     }
 
@@ -91,14 +92,11 @@ public class GameManager : Manager<GameManager>
         RECEIVE_ITEM,
         STACH,
         PLACE,
-        PLACE_NOTIFICATION,
-        PLACE_DIALOUGE,
+        DIALOUGE,
         PROJECT_DISCUSS,
         PROJECT_DISCUSS_DIALOUGE,
         PROJECT_DISCUSS_ANALYZE,
         CLASS,
-        CLASS_MINIGAME,
-        CLASS_DIALOUGE,
         GIFT,
         MENU,
         WORK_PROJECT,
@@ -190,6 +188,13 @@ public class GameManager : Manager<GameManager>
         {
             UpdateState(GameState.CALENDAR);
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Dialouge
+        if (scene == GameScene.HUD_Dialouge)
+        {
+            UpdateState(GameState.DIALOUGE);
         }
         #endregion
 
@@ -977,6 +982,30 @@ public class GameManager : Manager<GameManager>
                 onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             }
 
+        }
+    }
+
+    private GameState _tempGameStatePreviousDialougeScene;
+    private GameScene _tempGameScene;
+    public void DisplayDialouge(bool active)
+    {
+        if (active)
+        {
+            _tempGameStatePreviousDialougeScene = CurrentGameState;
+            _tempGameScene = CurrentGameScene;
+            if (!SceneManager.GetSceneByName(GameScene.HUD_Dialouge.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Dialouge);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.HUD_Dialouge.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.HUD_Dialouge);
+                UpdateState(_tempGameStatePreviousDialougeScene);
+                _currentGameScene = _tempGameScene;
+            }
         }
     }
     public void Transporting()

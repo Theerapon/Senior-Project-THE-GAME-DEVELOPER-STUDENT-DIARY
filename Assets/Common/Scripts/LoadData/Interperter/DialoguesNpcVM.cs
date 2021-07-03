@@ -9,17 +9,12 @@ public class DialoguesNpcVM : MonoBehaviour
     #region Instance
     private const string INST_SET_ID = "ID";
     private const string INST_SET_NpcID = "NpcID";
-    private const string INST_SET_Loop = "Loop";
     private const string INST_SET_FirstRelationship = "FRelationship";
     private const string INST_SET_EndRelationship = "ERelationship";
-    private const string INST_SET_GiftCondition = "Gift";
-    private const string INST_SET_EquipCondition = "Equip";
-    private const string INST_SET_TimeCondition = "Time";
     private const string INST_SET_PlaceCondition = "Place";
     private const string INST_SET_Dialogue = "Dia";
     private const string INST_SET_Event = "Event";
     private const string INST_SET_CreateIdea = "Cidea";
-    private const string INST_SET_CreateItem = "Citem";
     #endregion
 
 
@@ -139,21 +134,12 @@ public class DialoguesNpcVM : MonoBehaviour
     {
         string id = string.Empty;
         string npc_id = string.Empty;
-        bool loop = false;
         int first_relationship = 0;
         int end_relationship = 0;
-        string condition_gift = string.Empty;
-        string condition_equip = string.Empty;
-        string condition_time = string.Empty;
-        int firstHour = 0;
-        int firstMinute = 0;
-        int endHour = 0;
-        int endMinute = 0;
         Place condition_place = Place.Null;
         List<Dialogue> dialoguesList = new List<Dialogue>();
         CreateEvent condition_event = CreateEvent.Null;
         List<string> ideasIdList = new List<string>();
-        List<string> itemIdList = new List<string>();
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -167,33 +153,11 @@ public class DialoguesNpcVM : MonoBehaviour
                 case INST_SET_NpcID:
                     npc_id = entries[++i];
                     break;
-                case INST_SET_Loop:
-                    loop = bool.Parse(entries[++i]);
-                    break;
                 case INST_SET_FirstRelationship:
                     first_relationship = int.Parse(entries[++i]);
                     break;
                 case INST_SET_EndRelationship:
                     end_relationship = int.Parse(entries[++i]);
-                    break;
-                case INST_SET_GiftCondition:
-                    condition_gift = ConvertType.CheckString(entries[++i]);
-                    break;
-                case INST_SET_EquipCondition:
-                    condition_equip = ConvertType.CheckString(entries[++i]);
-                    break;
-                case INST_SET_TimeCondition:
-                    condition_time = ConvertType.CheckString(entries[++i]);
-                    if (!condition_time.Equals(string.Empty))
-                    {
-                        string[] time_entries = condition_time.Split('-');
-                        string[] firstTime_entries = time_entries[0].Split(':');
-                        string[] endTime_entries = time_entries[1].Split(':');
-                        firstHour = int.Parse(firstTime_entries[0]);
-                        firstMinute = int.Parse(firstTime_entries[1]);
-                        endHour = int.Parse(endTime_entries[0]);
-                        endMinute = int.Parse(endTime_entries[1]);
-                    }
                     break;
                 case INST_SET_PlaceCondition:
                     condition_place = ConvertType.CheckPlace(entries[++i]);
@@ -207,14 +171,10 @@ public class DialoguesNpcVM : MonoBehaviour
                 case INST_SET_CreateIdea:
                     ideasIdList.Add(ConvertType.CheckString(entries[++i]));
                     break;
-                case INST_SET_CreateItem:
-                    itemIdList.Add(ConvertType.CheckString(entries[++i]));
-                    break;
-
 
             }
 
         }
-        return new DialoguesNPC_Template(id, npc_id, loop, first_relationship, end_relationship, condition_gift, condition_equip, condition_time, firstHour, firstMinute, endHour, endMinute, condition_place, dialoguesList, condition_event, ideasIdList, itemIdList);
+        return new DialoguesNPC_Template(id, npc_id, first_relationship, end_relationship, condition_place, dialoguesList, condition_event, ideasIdList);
     }
 }
