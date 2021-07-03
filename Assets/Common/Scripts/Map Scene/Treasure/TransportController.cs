@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class TransportController : MonoBehaviour
 {
-    private const int INST_ENERGY_TRANSPORT_PER_MINUTE = 1;
+    private const float INST_ENERGY_TRANSPORT_PER_MINUTE = 0.5f;
+    private const int INST_MOTIVATION_OUT_TRANSPORT = 20;
 
     [SerializeField] private DijkstrasAlgo _dijkstrasAlgo;
     [SerializeField] private GameObject _treasureAnimation;
@@ -19,6 +20,7 @@ public class TransportController : MonoBehaviour
     private int _totalSecond;
     private Place _targetPlace;
     private string _targetPlaceId;
+    private bool _outOfTimeOrEnergy;
 
     private void Awake()
     {
@@ -51,16 +53,22 @@ public class TransportController : MonoBehaviour
         return _playerAction.CalReduceEnergyToCunsume(minute * INST_ENERGY_TRANSPORT_PER_MINUTE);
     }
 
-    public void Transporting(float energy, int second, Place target, string targetId)
+    public void Transporting(float energy, int second, Place target, string targetId, bool outOfTimeOrEnergy)
     {
         _energyToConsume = energy;
         _totalSecond = second;
         _targetPlace = target;
         _targetPlaceId = targetId;
+        _outOfTimeOrEnergy = outOfTimeOrEnergy;
     }
 
     public void TransportFinished()
     {
+        if (_outOfTimeOrEnergy)
+        {
+            _playerAction.TakeMotivation(INST_MOTIVATION_OUT_TRANSPORT);
+        }
+
         _playerAction.TakeEnergy(_energyToConsume);
         if (_targetPlace == Place.Home)
         {

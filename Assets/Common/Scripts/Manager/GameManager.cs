@@ -620,7 +620,16 @@ public class GameManager : Manager<GameManager>
             if (SceneManager.GetSceneByName(GameScene.Diary.ToString()).isLoaded)
             {
                 UnLoadLevel(GameScene.Diary);
-                UpdateScene(GameScene.Home);
+
+                if (SceneManager.GetSceneByName(GameScene.Map.ToString()).isLoaded)
+                {
+                    UpdateScene(GameScene.Map);
+                }
+                else
+                {
+                    UpdateScene(GameScene.Home);
+                }
+                
             }
             
         }

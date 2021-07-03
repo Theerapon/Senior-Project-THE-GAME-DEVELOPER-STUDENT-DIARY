@@ -35,16 +35,24 @@ public class CharacterStatusController : Manager<CharacterStatusController>
 
     private void OnNewDayHandler()
     {
+        float energy = 0f;
         if (characterStatus.SleepLate)
         {
-            IncreaseCurrentEnergy(characterStatus.Default_maxEnergy * 0.7f);
-            IncreaseCurrentMotivation(characterStatus.Default_maxMotivation * 0.5f);
+            energy = characterStatus.Default_maxEnergy * 0.7f;
+            IncreaseCurrentMotivation(characterStatus.Default_maxMotivation * 0.3f);
+            SetEnergyOnNewDay(energy);
         }
         else
         {
-            IncreaseCurrentEnergy(characterStatus.Default_maxEnergy);
-            IncreaseCurrentMotivation(characterStatus.Default_maxMotivation * 0.7f);
+            energy = characterStatus.Default_maxEnergy;
+            IncreaseCurrentMotivation(characterStatus.Default_maxMotivation * 0.6f);
+            SetEnergyOnNewDay(energy);
         }
+    }
+    private void SetEnergyOnNewDay(float energy)
+    {
+        characterStatus.SetEnergyOnNewDay(energy);
+        OnEnergyUpdated?.Invoke();
     }
 
     public float GetEfficiencyToDo()

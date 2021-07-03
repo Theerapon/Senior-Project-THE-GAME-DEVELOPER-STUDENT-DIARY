@@ -75,6 +75,18 @@ public class CharacterStatus : MonoBehaviour
         definition.Default_maxEnergy = newEnergyAmount;
     }
 
+    public void SetEnergyOnNewDay(float energy)
+    {
+        if(energy > definition.Default_maxEnergy)
+        {
+            currentEnergy = definition.Default_maxEnergy;
+        }
+        else
+        {
+            currentEnergy = energy;
+        }
+
+    }
     public void IncreaseCurrentEnergy(float energyAmount)
     {
         if ((currentEnergy + energyAmount) > definition.Default_maxEnergy)

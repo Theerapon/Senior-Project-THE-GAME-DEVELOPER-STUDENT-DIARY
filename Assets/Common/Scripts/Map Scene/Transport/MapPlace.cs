@@ -55,20 +55,37 @@ public class MapPlace : MonoBehaviour
                      _energyToConsume = _transportController.GetEnergyToTransport(minute);
                     if (_playerAction.EnergyIsEnough(_energyToConsume))
                     {
-                        Transporting();
+                        Transporting(false);
                     }
                     else
                     {
-                        // energy not enough
-                        _notificationController.EnergyNotEnoughForTransport();
-                        return;
+                        if(_targetPlace == Place.Home)
+                        {
+                            Transporting(true);
+                        }
+                        else
+                        {
+                            // energy not enough
+                            _notificationController.EnergyNotEnoughForTransport();
+                            return;
+                        }
+
+                        
                     }
                 }
                 else
                 {
-                    // time not enough
-                    _notificationController.TimeNotEnoughForTransport();
-                    return;
+                    if (_targetPlace == Place.Home)
+                    {
+                        Transporting(true);
+                    }
+                    else
+                    {
+                        // time not enough
+                        _notificationController.TimeNotEnoughForTransport();
+                        return;
+                    }
+
                 }
             }
         }
@@ -91,18 +108,18 @@ public class MapPlace : MonoBehaviour
         _menuHandler.OnExitTriger();
     }
 
-    private void Transporting()
+    private void Transporting(bool outOfControl)
     {
         if (_playerTransport.CurrentPlace == _targetPlace)
         {
-            _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId);
+            _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId, outOfControl);
             _transportController.TransportFinished();
         }
         else
         {
             _gameManager.Transporting();
             _timeManager.SkilpTime(_totalSecond, 3);
-            _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId);
+            _transportController.Transporting(_energyToConsume, _totalSecond, _targetPlace, _targetPlaceId, outOfControl);
         }
         
     }
