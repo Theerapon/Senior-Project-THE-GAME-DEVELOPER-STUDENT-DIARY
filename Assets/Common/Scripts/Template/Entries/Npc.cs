@@ -6,8 +6,8 @@ using static PlaceEntry;
 public class Npc : MonoBehaviour
 {
     private const int INST_MAX_RELATIONSHIOP = 100;
-    private const int INST_MAX_CHAT = 3;
-    private const int INST_MAX_GIFT = 2;
+    private const int INST_MAX_CHAT = 2;
+    private const int INST_MAX_GIFT = 1;
 
     private PlacesController placesController;
     private Arriver arriver;

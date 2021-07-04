@@ -11,17 +11,19 @@ public class GiftManager : MonoBehaviour
     [SerializeField] private Sprite _except;
     [SerializeField] private Sprite _normal;
 
-    private const int INST_VALUE_FAVORITE_LIKE = 6;
+    private const int INST_VALUE_FAVORITE_LIKE = 5;
     private const int INST_VALUE_FAVORITE_UnLIKE = 7;
-    private const int INST_VALUE_FAVORITE_EXCEPT = 12;
+    private const int INST_VALUE_FAVORITE_EXCEPT = 9;
     private const int INST_VALUE_FAVORITE_NORMAL = 3;
 
+    private PlayerAction playerAction;
     private NpcsController _npcsController;
     [SerializeField] private NotificationController _notificationController;
 
     private void Awake()
     {
         _npcsController = NpcsController.Instance;
+        playerAction = PlayerAction.Instance;
     }
 
     public bool Gift(string itemId, string npcId)
@@ -37,6 +39,7 @@ public class GiftManager : MonoBehaviour
                 {
                     FeelNpc feelNpc = FeelNpc.Normal;
                     string favId = npc.FavoriteItemSetId;
+                    float charm = playerAction.GetTotalBonusCharm();
                     if (_npcsController.FavoriteItemsDic.ContainsKey(favId))
                     {
                         FavoriteItems_Template favoriteItems_Template = _npcsController.FavoriteItemsDic[favId];
@@ -50,7 +53,7 @@ public class GiftManager : MonoBehaviour
                         if (ItemLikeId.ContainsKey(itemId))
                         {
                             //like
-                            npc.IncreaseRelationship(INST_VALUE_FAVORITE_LIKE);
+                            npc.IncreaseRelationship((int)(playerAction.GetTotalBonusCharm() * INST_VALUE_FAVORITE_LIKE + 0.5f));
                             feelNpc = FeelNpc.Like;
                         }
                         else if (ItemUnlikeId.ContainsKey(itemId))
@@ -62,20 +65,20 @@ public class GiftManager : MonoBehaviour
                         else if (ItemExceptId.ContainsKey(itemId))
                         {
                             //except
-                            npc.IncreaseRelationship(INST_VALUE_FAVORITE_EXCEPT);
+                            npc.IncreaseRelationship((int)(playerAction.GetTotalBonusCharm() * INST_VALUE_FAVORITE_EXCEPT + 0.5f));
                             feelNpc = FeelNpc.Except;
                         }
                         else
                         {
                             //normal
-                            npc.IncreaseRelationship(INST_VALUE_FAVORITE_NORMAL);
+                            npc.IncreaseRelationship((int)(playerAction.GetTotalBonusCharm() * INST_VALUE_FAVORITE_NORMAL + 0.5f));
                         }
 
                     }
                     else
                     {
                         //normal
-                        npc.IncreaseRelationship(INST_VALUE_FAVORITE_NORMAL);
+                        npc.IncreaseRelationship((int)(playerAction.GetTotalBonusCharm() * INST_VALUE_FAVORITE_NORMAL + 0.5f));
                     }
 
                     npc.CountGift();

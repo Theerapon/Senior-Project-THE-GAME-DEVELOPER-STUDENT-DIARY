@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DialougeManager : Manager<DialougeManager>
 {
-    private const int INST_VALUE_RELATIONSHIP = 2;
+    private const int INST_VALUE_RELATIONSHIP = 1;
 
     [SerializeField] DialougeNpcTemplateController _dialougeNpcTemplateController;
     [SerializeField] NpcsController _npcsController;
@@ -78,7 +78,7 @@ public class DialougeManager : Manager<DialougeManager>
                         _currentNpcId = npcId;
                         _currentNpcProfile = npcProfile;
                         _currentNameNpc = npcName;
-                        int valueRelationship = (int)Mathf.Round((_playerAction.GetTotalBonusCharm() * INST_VALUE_RELATIONSHIP + 0.5f));
+                        int valueRelationship = (int)(_playerAction.GetTotalBonusCharm() * INST_VALUE_RELATIONSHIP);
                         npc.IncreaseRelationship(valueRelationship);
                         npc.CountChat();
                         _switchScene.DisplayDialouge(true);
