@@ -64,13 +64,9 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowInfo(true, false, true, false, false, false, false);
         }
-        else if (current_game_state == GameManager.GameState.PLACE && GameManager.Instance.CurrentGameScene != GameManager.GameScene.Place_Material_Store)
+        else if (current_game_state == GameManager.GameState.PLACE)
         {
             ShowInfo(true, true, true, true, false, true, true);
-        }
-        else if (current_game_state == GameManager.GameState.PLACE && GameManager.Instance.CurrentGameScene == GameManager.GameScene.Place_Material_Store)
-        {
-            ShowInfo(true, true, true, true, false, true, false);
         }
         else if (current_game_state == GameManager.GameState.TRANSPORTING || current_game_state == GameManager.GameState.OPENINGTREASURE)
         {

@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 1572428442728557258}
   - component: {fileID: 1572428442728557259}
   m_Layer: 5
-  m_Name: Item Sellling Template
+  m_Name: Item Selling Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1118,6 +1118,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnPointExitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  _template: {fileID: 1572428442728557256}
+  _itemImage: {fileID: 1572428442876349893}
+  _itemNameTMP: {fileID: 1572428441959905202}
+  _itemTypeTMP: {fileID: 1572428442351122049}
+  _itemAmountTMP: {fileID: 0}
+  _itemPrice: {fileID: 1572428441796506009}
+  _button: {fileID: 1572428441268736683}
+  OnPointEnterSellingEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointExitSellingEvent:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1572428442876349891

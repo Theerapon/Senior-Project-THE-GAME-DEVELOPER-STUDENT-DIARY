@@ -46,9 +46,9 @@ public class FavoriteItemsVM : MonoBehaviour
     private FavoriteItems_Template CreateTemplate(string line)
     {
         string id = string.Empty;
-        List<DialogueFavoriteItem> itemLikeId = new List<DialogueFavoriteItem>();
-        List<DialogueFavoriteItem> itemUnLikeId = new List<DialogueFavoriteItem>();
-        List<DialogueFavoriteItem> itemExceptId = new List<DialogueFavoriteItem>();
+        Dictionary<String, DialogueFavoriteItem> itemLikeIdDictionary = new Dictionary<String, DialogueFavoriteItem>();
+        Dictionary<String, DialogueFavoriteItem> itemUnLikeIdDictionary = new Dictionary<String, DialogueFavoriteItem>();
+        Dictionary<String, DialogueFavoriteItem> itemExceptIdDictionary = new Dictionary<String, DialogueFavoriteItem>();
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -60,19 +60,28 @@ public class FavoriteItemsVM : MonoBehaviour
                     id = entries[++i];
                     break;
                 case INST_SET_Like:
-                    itemLikeId.Add(new DialogueFavoriteItem(entries[++i], entries[++i], ConvertType.CheckFeel(entries[++i])));
+                    string itemId = entries[++i];
+                    string itemDialogue = entries[++i];
+                    Feel itemFeel = ConvertType.CheckFeel(entries[++i]);
+                    itemLikeIdDictionary.Add(itemId, new DialogueFavoriteItem(itemId, itemDialogue, itemFeel));
                     break;
                 case INST_SET_Unlike:
-                    itemUnLikeId.Add(new DialogueFavoriteItem(entries[++i], entries[++i], ConvertType.CheckFeel(entries[++i])));
+                    string itemUnlikeId = entries[++i];
+                    string itemUnlikeDialogue = entries[++i];
+                    Feel itemUnlikeFeel = ConvertType.CheckFeel(entries[++i]);
+                    itemUnLikeIdDictionary.Add(itemUnlikeId, new DialogueFavoriteItem(itemUnlikeId, itemUnlikeDialogue, itemUnlikeFeel));
                     break;
                 case INST_SET_Except:
-                    itemExceptId.Add(new DialogueFavoriteItem(entries[++i], entries[++i], ConvertType.CheckFeel(entries[++i])));
+                    string itemExceptId = entries[++i];
+                    string itemDialogueExceptId = entries[++i];
+                    Feel itemExceptFeel = ConvertType.CheckFeel(entries[++i]);
+                    itemExceptIdDictionary.Add(itemExceptId, new DialogueFavoriteItem(itemExceptId, itemDialogueExceptId, itemExceptFeel));
                     break;
 
             }
 
         }
 
-        return new FavoriteItems_Template(id, itemLikeId, itemUnLikeId, itemExceptId);
+        return new FavoriteItems_Template(id, itemLikeIdDictionary, itemUnLikeIdDictionary, itemExceptIdDictionary);
     }
 }

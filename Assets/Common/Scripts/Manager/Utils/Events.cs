@@ -71,6 +71,7 @@ public class Events
     #endregion
 
     #region Storage 
+    [System.Serializable] public class EventOnDropItemToGiftArea : UnityEvent { }
     [System.Serializable] public class EventOnStachUpdated : UnityEvent { }
     [System.Serializable] public class EventOnInventoryUpdated : UnityEvent { }
     [System.Serializable] public class EventOnEquipmentUpdated : UnityEvent { }
@@ -82,6 +83,7 @@ public class Events
     [System.Serializable] public class EventOnPointExitItemShopSelling : UnityEvent<BaseItemSellingSlot> { }
     [System.Serializable] public class EventOnPointEnterItemShop : UnityEvent<BaseItemShopSlot> { }
     [System.Serializable] public class EventOnPointExitItemShop : UnityEvent<BaseItemShopSlot> { }
+    [System.Serializable] public class EventOnPurchaseOutStock : UnityEvent { }
     [System.Serializable] public class EventOnOutStockItem : UnityEvent { }
     #endregion
 

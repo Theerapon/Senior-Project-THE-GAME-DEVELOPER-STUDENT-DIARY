@@ -14,13 +14,13 @@ public class PlaceArriverManager : MonoBehaviour
     [Header("Display")]
     [SerializeField] private TMP_Text _arriverName;
     [SerializeField] private Image _arriverProfile;
-    [SerializeField] private GameObject _gift;
     [SerializeField] private GameObject _chat;
 
     [Header("Controller")]
     [SerializeField] private PlaceArriverDisplay _placeArriverDisplay;
     private PlacesController _placesController;
     private DialougeManager _dialougeManager;
+    private HotbarInvHandler _hotbarInvHandler;
     
 
     #region Field
@@ -36,6 +36,7 @@ public class PlaceArriverManager : MonoBehaviour
     {
         _placesController = PlacesController.Instance;
         _dialougeManager = DialougeManager.Instance;
+        _hotbarInvHandler = HotbarInvHandler.Instance;
         _placeId = ConvertType.GetPlaceId(place);
 
         _residentsId = new List<string>();
@@ -64,12 +65,12 @@ public class PlaceArriverManager : MonoBehaviour
             {
                 if (_placesController.PlacesDic[_placeId].Arrivers.ContainsKey(_residentsId[i]))
                 {
-                    _currentArriverId = _residentsId[i];
+                    SetCurrentArriverId(_residentsId[i]);
                     break;
                 }
                 else
                 {
-                    _currentArriverId = string.Empty;
+                    SetCurrentArriverId(string.Empty);
                 }
             }
 
@@ -96,7 +97,7 @@ public class PlaceArriverManager : MonoBehaviour
                 else
                 {
                     ShowArriver();
-                    _currentArriverId = string.Empty;
+                    SetCurrentArriverId(string.Empty);
                     _currentSelectedIndex = -1;
                     _currentName = string.Empty;
                     _currentSprite = null;
@@ -111,7 +112,7 @@ public class PlaceArriverManager : MonoBehaviour
                 {
                     arriverSlots[0].Selected();
                     ShowArriver(arriverSlots[0]);
-                    _currentArriverId = arriverSlots[0].ARRIVER.arriverId;
+                    SetCurrentArriverId(arriverSlots[0].ARRIVER.arriverId);
                     _currentSelectedIndex = arriverSlots[0].LastIndex;
                     _currentName = arriverSlots[0].ARRIVER.arriverName;
                     _currentSprite = arriverSlots[0].ARRIVER.arriverProfilePicture;
@@ -119,7 +120,7 @@ public class PlaceArriverManager : MonoBehaviour
                 else
                 {
                     ShowArriver();
-                    _currentArriverId = string.Empty;
+                    SetCurrentArriverId(string.Empty);
                     _currentSelectedIndex = -1;
                     _currentName = string.Empty;
                     _currentSprite = null;
@@ -143,7 +144,7 @@ public class PlaceArriverManager : MonoBehaviour
         slot.Selected();
         ShowArriver(slot);
         _currentSelectedIndex = slot.LastIndex;
-        _currentArriverId = slot.ARRIVER.arriverId;
+        SetCurrentArriverId(slot.ARRIVER.arriverId);
         _currentName = slot.ARRIVER.arriverName;
         _currentSprite = slot.ARRIVER.arriverProfilePicture;
     }
@@ -156,6 +157,12 @@ public class PlaceArriverManager : MonoBehaviour
     private void OnPointerEnterHandler(ArriverSlot slot)
     {
         ShowArriver(slot);
+    }
+
+    private void SetCurrentArriverId(string arriverId)
+    {
+        _currentArriverId = arriverId;
+        _hotbarInvHandler.SetCurrentNpc(_currentArriverId);
     }
 
     private void ShowArriver(ArriverSlot slot)
@@ -175,11 +182,6 @@ public class PlaceArriverManager : MonoBehaviour
         if(_chat.activeSelf != active)
         {
             _chat.SetActive(active);
-        }
-
-        if(_gift.activeSelf != active)
-        {
-            _gift.SetActive(active);
         }
     }
 

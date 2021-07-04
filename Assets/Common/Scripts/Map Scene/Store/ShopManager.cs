@@ -8,6 +8,7 @@ public class ShopManager : MonoBehaviour
 {
     public Events.EventOnPointEnterItemShop OnPointEnterEvent;
     public Events.EventOnPointExitItemShop OnPointExitEvent;
+    public Events.EventOnPurchaseOutStock OnPurchaseOutStock;
 
     [Header("Shop")]
     [SerializeField] private ItemShopGenerator _itemShopGenerator;
@@ -53,6 +54,8 @@ public class ShopManager : MonoBehaviour
         _placeId = ConvertType.GetPlaceId(_place);
 
         _itemTemp = _itemPrefab;
+      
+
     }
 
     private void Start()
@@ -120,7 +123,11 @@ public class ShopManager : MonoBehaviour
             {
                 int index = baseItemShopSlot.ITEMSHOP.ItemSetIdIndex;
                 _storeContoller.StoreDic[_storeId].Purchase(index);
-                baseItemShopSlot.Purchase();
+                bool isEmpty = baseItemShopSlot.Purchase();
+                if (!isEmpty)
+                {
+                    OnPurchaseOutStock?.Invoke();
+                }
                 _characterStatusController.TakeMoney(baseItemShopSlot.ITEMSHOP.ItemPrice);
                 GetItem(baseItemShopSlot);
                 _totalItem--;

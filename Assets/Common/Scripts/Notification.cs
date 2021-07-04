@@ -1,16 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Notification : MonoBehaviour
 {
-    private void Start()
+    GameManager gameManager;
+
+    private void Awake()
     {
-        StartCoroutine("WiatToDestroy");
+        gameManager = GameManager.Instance;
+        gameManager.OnGameStateChanged.AddListener(DestroyHandler);
     }
-    IEnumerator WiatToDestroy()
+
+    private void DestroyHandler(GameManager.GameState current, GameManager.GameState previous)
     {
-        yield return new WaitForSecondsRealtime(3.6f);
         OnDestroy();
     }
 

@@ -17,12 +17,14 @@ public class ShopDisplay : MonoBehaviour
     [SerializeField] protected TMP_Text item_description;
     [SerializeField] protected Image item_icon;
 
+
     protected virtual void Start()
     {
         if(!ReferenceEquals(_shopManager, null))
         {
             _shopManager.OnPointEnterEvent.AddListener(EnableItemDescription);
             _shopManager.OnPointExitEvent.AddListener(DisableItemDescription);
+            _shopManager.OnPurchaseOutStock.AddListener(Initializing);
         }
 
         Initializing();

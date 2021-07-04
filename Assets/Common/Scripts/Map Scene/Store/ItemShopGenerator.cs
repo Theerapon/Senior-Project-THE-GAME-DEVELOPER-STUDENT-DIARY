@@ -20,4 +20,15 @@ public class ItemShopGenerator : MonoBehaviour
         _itemTemplate.SetActive(true);
         CreateItem(itemShop);
     }
+
+    public void ClearTemplate()
+    {
+        if(transform.childCount > 0)
+        {
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+    }
 }

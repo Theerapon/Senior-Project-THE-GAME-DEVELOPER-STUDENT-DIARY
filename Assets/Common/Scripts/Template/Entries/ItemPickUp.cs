@@ -33,6 +33,10 @@ public class ItemPickUp : MonoBehaviour
     }
     #endregion
 
+    public void Gift()
+    {
+        DestroyItemPickUp();
+    }
     public void StoreItem()
     {
         stach_container.StoreItem(this);

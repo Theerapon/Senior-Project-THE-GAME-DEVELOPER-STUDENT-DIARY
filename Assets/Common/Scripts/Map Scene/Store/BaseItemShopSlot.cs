@@ -67,7 +67,7 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
         }
     }
 
-    protected virtual void UpdateInfo()
+    protected virtual bool UpdateInfo()
     {
         if (_itemShop.ItemAmount > 0)
         {
@@ -76,17 +76,19 @@ public class BaseItemShopSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
             _itemTypeTMP.text = _itemShop.ItemType;
             _itemAmountTMP.text = _itemShop.ItemAmount.ToString();
             _itemPrice.text = _itemShop.ItemPrice.ToString();
+            return true;
         }
         else
         {
             ActiveItemTemplate(false);
+            return false;
         }
     }
 
-    public void Purchase()
+    public bool Purchase()
     {
         ITEMSHOP.ItemAmount--;
-        UpdateInfo();
+        return UpdateInfo();
     }
 
     protected virtual void ActiveItemTemplate(bool active)

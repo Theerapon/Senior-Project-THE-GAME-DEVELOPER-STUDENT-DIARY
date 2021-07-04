@@ -32,7 +32,6 @@ public class GameManager : Manager<GameManager>
         Menu_Bag,
         Menu_Characters,
         Menu_Ideas,
-        Menu_Friends,
         Menu_Exit,
         Home_Storage,
         Home_BED,
@@ -172,8 +171,7 @@ public class GameManager : Manager<GameManager>
         #endregion
 
         #region Menu
-        if (scene == GameScene.Menu_Bag || scene == GameScene.Menu_Characters || scene == GameScene.Menu_Ideas 
-            || scene == GameScene.Menu_Friends || scene == GameScene.Menu_Exit)
+        if (scene == GameScene.Menu_Bag || scene == GameScene.Menu_Characters || scene == GameScene.Menu_Ideas || scene == GameScene.Menu_Exit)
         {
             UpdateState(GameState.MENU);
         }
@@ -1061,11 +1059,6 @@ public class GameManager : Manager<GameManager>
         if (SceneManager.GetSceneByName(GameScene.Menu_Ideas.ToString()).isLoaded)
         {
             UnLoadLevel(GameScene.Menu_Ideas);
-        }
-
-        if (SceneManager.GetSceneByName(GameScene.Menu_Friends.ToString()).isLoaded)
-        {
-            UnLoadLevel(GameScene.Menu_Friends);
         }
 
         if (SceneManager.GetSceneByName(GameScene.Menu_Exit.ToString()).isLoaded)

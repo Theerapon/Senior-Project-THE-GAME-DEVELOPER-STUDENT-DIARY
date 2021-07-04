@@ -53,12 +53,6 @@ public class Button_Menu_Controller : MonoBehaviour
         OpenMenu(GameManager.GameScene.Menu_Ideas);
     }
 
-    public void OpenFriendsMenu(Button clickedButton)
-    {
-        OnButtonClicked(clickedButton);
-        OpenMenu(GameManager.GameScene.Menu_Friends);
-    }
-
     public void OpenExitMenu(Button clickedButton)
     {
         OnButtonClicked(clickedButton);

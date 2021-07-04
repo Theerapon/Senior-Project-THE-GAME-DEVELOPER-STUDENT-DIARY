@@ -16,7 +16,7 @@ public class BaseItemSellingSlot : BaseItemShopSlot
         UpdateInfo();
     }
 
-    protected override void UpdateInfo()
+    protected override bool UpdateInfo()
     {
         if (_itemShop.ItemAmount > 0)
         {
@@ -24,10 +24,12 @@ public class BaseItemSellingSlot : BaseItemShopSlot
             _itemNameTMP.text = _itemShop.ItemName;
             _itemTypeTMP.text = _itemShop.ItemType;
             _itemPrice.text = _itemShop.ItemPrice.ToString();
+            return true;
         }
         else
         {
             ActiveItemTemplate(false);
+            return false;
         }
     }
 

@@ -5,16 +5,16 @@ using UnityEngine;
 public class FavoriteItems_Template : MonoBehaviour
 {
     private string id = string.Empty;
-    private List<DialogueFavoriteItem> itemLikeId = null;
-    private List<DialogueFavoriteItem> itemUnLikeId = null;
-    private List<DialogueFavoriteItem> itemExceptId = null;
+    private Dictionary<string, DialogueFavoriteItem> itemLikeId = null;
+    private Dictionary<string, DialogueFavoriteItem> itemUnLikeId = null;
+    private Dictionary<string, DialogueFavoriteItem> itemExceptId = null;
 
     public string Id { get => id; }
-    public List<DialogueFavoriteItem> ItemLikeId { get => itemLikeId; }
-    public List<DialogueFavoriteItem> ItemUnLikeId { get => itemUnLikeId; }
-    public List<DialogueFavoriteItem> ItemExceptId { get => itemExceptId; }
+    public Dictionary<string, DialogueFavoriteItem> ItemLikeId { get => itemLikeId; }
+    public Dictionary<string, DialogueFavoriteItem> ItemUnLikeId { get => itemUnLikeId; }
+    public Dictionary<string, DialogueFavoriteItem> ItemExceptId { get => itemExceptId; }
 
-    public FavoriteItems_Template(string id, List<DialogueFavoriteItem> itemLikeId, List<DialogueFavoriteItem> itemUnLikeId, List<DialogueFavoriteItem> itemExceptId)
+    public FavoriteItems_Template(string id, Dictionary<string, DialogueFavoriteItem> itemLikeId, Dictionary<string, DialogueFavoriteItem> itemUnLikeId, Dictionary<string, DialogueFavoriteItem> itemExceptId)
     {
         this.id = id;
         this.itemLikeId = itemLikeId;

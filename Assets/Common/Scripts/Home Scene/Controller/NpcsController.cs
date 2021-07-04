@@ -12,12 +12,17 @@ public class NpcsController : Manager<NpcsController>
     [SerializeField] private PlacesController placesController;
     [SerializeField] private TimeManager timeManager;
 
+    private FavoriteItems_DataHandler _favoriteItems_DataHandler;
+    private Dictionary<string, FavoriteItems_Template> _favoriteItemsDic;
+
     private Npcs_DataHandler npcs_DataHandler;
     private Dictionary<string, Npc> npcsDic;
+
     private ActivitiesNPC_DataHandler activitiesNPC_DataHandler;
     private Dictionary<string, ActivitiesNpc_Template> activitiesDic;
 
     public Dictionary<string, Npc> NpcsDic { get => npcsDic; }
+    public Dictionary<string, FavoriteItems_Template> FavoriteItemsDic { get => _favoriteItemsDic; }
 
     private static float minute, hour, date, second, month, year;
     private Day currentDay;
@@ -27,8 +32,13 @@ public class NpcsController : Manager<NpcsController>
         base.Awake();
         npcs_DataHandler = FindObjectOfType<Npcs_DataHandler>();
         npcsDic = new Dictionary<string, Npc>();
+
         activitiesNPC_DataHandler = FindObjectOfType<ActivitiesNPC_DataHandler>();
         activitiesDic = new Dictionary<string, ActivitiesNpc_Template>();
+
+        _favoriteItems_DataHandler = FindObjectOfType<FavoriteItems_DataHandler>();
+        _favoriteItemsDic = new Dictionary<string, FavoriteItems_Template>();
+
         timeManager.OnTenMinute.AddListener(OnTenMinuteHandler);
         timeManager.OnStartNewDayComplete.AddListener(OnNewDayHandler);
 
@@ -47,6 +57,15 @@ public class NpcsController : Manager<NpcsController>
             foreach (KeyValuePair<string, ActivitiesNpc_Template> activity in activitiesNPC_DataHandler.GetActivitiesDic)
             {
                 activitiesDic.Add(activity.Key, activity.Value);
+            }
+        }
+
+        //favorite Items
+        if (!ReferenceEquals(_favoriteItems_DataHandler.GetFavoriteItemDic, null))
+        {
+            foreach (KeyValuePair<string, FavoriteItems_Template> item in _favoriteItems_DataHandler.GetFavoriteItemDic)
+            {
+                _favoriteItemsDic.Add(item.Key, item.Value);
             }
         }
     }

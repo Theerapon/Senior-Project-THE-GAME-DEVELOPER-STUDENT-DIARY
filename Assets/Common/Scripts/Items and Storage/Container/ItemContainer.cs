@@ -68,6 +68,21 @@ public class ItemContainer<T> : MonoBehaviour where T : MonoBehaviour
         return true;
     }
 
+    public virtual bool Gift(int index)
+    {
+        if (container_item_entry[index] != null)
+        {
+            container_item_entry[index].item_pickup.Gift();
+            container_item_entry[index] = null;
+            NotificationEvents();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public virtual bool SellingItem(int index)
     {
         if (container_item_entry[index] != null)

@@ -6,14 +6,20 @@ public class NotificationController : Manager<NotificationController>
 {
     [SerializeField] NotificationUpdateGenerator notificationUpdateGenerator;
 
+    [SerializeField] EmotionGenerator _parkGiftEmogenerator;
+    [SerializeField] EmotionGenerator _shopGiftEmofenerator;
 
     [SerializeField] private Sprite notificationSprite;
     [SerializeField] private Color hasSpriteColor;
     [SerializeField] private Color defaultColor;
 
     [Header("Limit Char")]
-    private const string limitChatTitle = "ครบลิมิตการคุยกับ {0} แล้ว";
-    private const string limitChatDescription = "ครบลิมิตการคุยต่อวันแล้ว ไว้คุยต่อวันหลังนะ";
+    private const string limitChatTitle = "ครบลิมิตการคุยแล้ว";
+    private const string limitChatDescription = "ครบลิมิตการคุยต่อกับ {0} แล้ว ไว้คุยต่อวันหลังนะ";
+
+    [Header("Limit Gift")]
+    private const string limitGiftTitle = "ครบลิมิตการให้ของขวัญแล้ว";
+    private const string limitGiftDescription = "ครบลิมิตการให้ของขวัญกับ {0} แล้ว ไว้ให้วันหลังนะ";
 
     [Header("Idea")]
     private const string ideaTitle = "ปล็ดล็อค {0}";
@@ -54,6 +60,13 @@ public class NotificationController : Manager<NotificationController>
     private const string goalIdeaDescription = "กรุณาเลือกเป้าหมายของตัวเกม";
     private const string mechanicIdeaDescription = "กรุณาเลือกกลไกหรือวิธีการเล่นของตัวเกม 2 รูปแบบ";
     private const string themeIdeaDescription = "กรุณาเลือกธีมของตัวเกม";
+
+    private GameManager _gameManager;
+
+    private void Start()
+    {
+        _gameManager = GameManager.Instance;
+    }
 
     public void EnergyNotEnoughForWork()
     {
@@ -127,13 +140,31 @@ public class NotificationController : Manager<NotificationController>
 
     public void LimitChat(Sprite icon, string nameNpc)
     {
-        string title = string.Format(limitChatTitle, nameNpc);
-        notificationUpdateGenerator.CreateTemplate(icon, title, limitChatDescription, hasSpriteColor);
+        string description = string.Format(limitChatDescription, nameNpc);
+        notificationUpdateGenerator.CreateTemplate(icon, limitChatTitle, description, hasSpriteColor);
     }
 
     public void RecieveIdea(string ideaName, Sprite icon)
     {
         string title = string.Format(ideaTitle, ideaName);
         notificationUpdateGenerator.CreateTemplate(icon, title, limitChatDescription, hasSpriteColor);
+    }
+
+    public void Emotion(Sprite icon)
+    {
+        if(_gameManager.CurrentGameState == GameManager.GameState.PLACE && (_gameManager.CurrentGameScene == GameManager.GameScene.Place_Park || _gameManager.CurrentGameScene == GameManager.GameScene.Place_Teacher_Home))
+        {
+            _parkGiftEmogenerator.CreateTemplate(icon);
+        }
+        else
+        {
+            _shopGiftEmofenerator.CreateTemplate(icon);
+        }
+    }
+
+    public void LimitGift(Sprite icon, string nameNpc)
+    {
+        string description = string.Format(limitChatDescription, nameNpc);
+        notificationUpdateGenerator.CreateTemplate(icon, limitGiftTitle, description, hasSpriteColor);
     }
 }

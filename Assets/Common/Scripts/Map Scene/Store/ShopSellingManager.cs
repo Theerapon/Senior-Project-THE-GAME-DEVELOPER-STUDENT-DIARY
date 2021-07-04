@@ -42,6 +42,8 @@ public class ShopSellingManager : MonoBehaviour
         _storeContoller = StoreContoller.Instance;
 
         _placeId = ConvertType.GetPlaceId(_place);
+
+        _inventoryContainer.OnInventoryUpdated.AddListener(Initializing);
     }
 
     private void Start()
@@ -50,11 +52,14 @@ public class ShopSellingManager : MonoBehaviour
     }
     private void Initializing()
     {
+        _totalItem = 0;
         bool isOpen = _placesController.PlacesDic[_placeId].IsOpen;
         if (isOpen)
         {
             ItemEntry[] container_item_entry = new ItemEntry[_inventoryContainer.Container_size];
             container_item_entry = _inventoryContainer.container_item_entry;
+            
+            _itemShopGenerator.ClearTemplate();
 
             for (int index = 0; index < container_item_entry.Length; index++)
             {
@@ -104,7 +109,6 @@ public class ShopSellingManager : MonoBehaviour
             _inventoryContainer.SellingItem(index);
             baseItemSellingSlot.Selling();
             _notificationController.SellingItem(baseItemSellingSlot);
-            _totalItem--;
             CheckInvIsEmpty();
         }
         
