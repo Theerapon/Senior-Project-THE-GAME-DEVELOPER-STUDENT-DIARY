@@ -6,6 +6,8 @@ using UnityEngine;
 public class ProjectController : Manager<ProjectController>
 {
     public Events.EventOnProjectUpdate OnProjectUpdate;
+    public Events.EventOnProjectLastStatusUpdate OnProjectLastStatusUpdate;
+    public Events.EventOnProjectStateUpdate OnProjectStateUpdate;
 
     private Project project;
     private int secondToWork;
@@ -25,11 +27,6 @@ public class ProjectController : Manager<ProjectController>
         base.Awake();
         project = new Project();
 
-    }
-
-    private void OnProjectUpdateHandler()
-    {
-        OnProjectUpdate?.Invoke();
     }
 
 
@@ -166,6 +163,10 @@ public class ProjectController : Manager<ProjectController>
         OnProjectUpdate?.Invoke();
     }
     #region Set
+    public void UpdateProjectState()
+    {
+        OnProjectStateUpdate?.Invoke();
+    }
     public void IncreaseCodingStatus(int status)
     {
         project.IncreaseCodingStatus(status);
@@ -200,6 +201,41 @@ public class ProjectController : Manager<ProjectController>
     {
         project.ReduceBugStatus(status);
         OnProjectUpdate?.Invoke();
+    }
+    public void IncreaseLastCodingStatus(int status)
+    {
+        project.IncreaseCodingStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
+    }
+    public void IncreaseLastDesignStatus(int status)
+    {
+        project.IncreaseDesignStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
+    }
+    public void IncreaseLastTestingStatus(int status)
+    {
+        project.IncreaseTestingStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
+    }
+    public void IncreaseLastArtStatus(int status)
+    {
+        project.IncreaseArtStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
+    }
+    public void IncreaseLastSoundStatus(int status)
+    {
+        project.IncreaseSoundStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
+    }
+    public void IncreaseLastBugStatus(int status)
+    {
+        project.IncreaseBugStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
+    }
+    public void ReduceLastBugStatus(int status)
+    {
+        project.ReduceBugStatus(status);
+        OnProjectLastStatusUpdate?.Invoke();
     }
     #endregion
 }

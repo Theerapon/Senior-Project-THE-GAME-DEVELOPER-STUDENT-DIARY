@@ -28,16 +28,5 @@ public class ItemProperty_DataHandler : DataHandler
             hasFinished = true;
             EventOnInterpretDataComplete?.Invoke();
         }
-        else
-        {
-            Debug.Log("Fail");
-        }
-        //Debug.Log("Item property interpret completed");
-        //foreach (KeyValuePair<ItemPropertyType, ItemProperty_Template> itemProperty in itemPropertyDic)
-        //{
-        //    Debug.Log(string.Format("Type = {0}, Name = {1}, Icon = {2}",
-        //        itemProperty.Value.ItemPropertyType, itemProperty.Value.ItemPropertyName, itemProperty.Value.Icon));
-
-        //}
     }
 }

@@ -33,6 +33,7 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_CourseSummary = 23;
     private const int INST_Display_Sleeplate = 24;
     private const int INST_Display_Calendar = 25;
+    private const int INST_Display_MeetingProject = 26;
     #endregion
 
     #region Animator Parameters
@@ -96,6 +97,10 @@ public class SwitchScene : Manager<SwitchScene>
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
         else if (previousGameState == GameManager.GameState.TRANSPORTING && (currentGameState == GameManager.GameState.HOME || currentGameState == GameManager.GameState.MAP))
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (currentGameState == GameManager.GameState.CALENDAR)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -198,6 +203,9 @@ public class SwitchScene : Manager<SwitchScene>
             case INST_Display_Calendar:
                 gameManager.DisplayCalendar(active);
                 break;
+            case INST_Display_MeetingProject:
+                gameManager.DisplayMeetingProject(active);
+                break;
         }
         //LoadScene
     }
@@ -223,6 +231,16 @@ public class SwitchScene : Manager<SwitchScene>
             loadComplete = false;
         }
        
+    }
+    public void DisplayMeetingProject(bool active)
+    {
+        //---Fade Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_MeetingProject, active);
+            loadComplete = false;
+        }
+
     }
 
     public void DisplayHomeAction(bool actived, GameManager.GameScene scene)

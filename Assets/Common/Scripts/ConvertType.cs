@@ -23,6 +23,50 @@ public enum StoreType { None, FoodStore, ClothingStore, MysticStore }
 
 public class ConvertType : MonoBehaviour
 {
+    #region Instance Project Phase name
+    private const string INST_ProjectPhaseName_Decision = "Decision";
+    private const string INST_ProjectPhaseName_Design = "Design";
+    private const string INST_ProjectPhaseName_FirstPlayable = "First Playable";
+    private const string INST_ProjectPhaseName_Prototype = "Prototype";
+    private const string INST_ProjectPhaseName_VerticalSlice = "Vertical Slice";
+    private const string INST_ProjectPhaseName_Alpha = "Alpha Test";
+    private const string INST_ProjectPhaseName_Beta = "Beta Test";
+    private const string INST_ProjectPhaseName_Master = "Master";
+    #endregion
+    public static string ConvertProjectPhaseToString(ProjectPhase projectPhase)
+    {
+        string str = string.Empty;
+        switch (projectPhase)
+        {
+            case ProjectPhase.Decision:
+                str = INST_ProjectPhaseName_Decision;
+                break;
+            case ProjectPhase.Design:
+                str = INST_ProjectPhaseName_Design;
+                break;
+            case ProjectPhase.FirstPlayable:
+                str = INST_ProjectPhaseName_FirstPlayable;
+                break;
+            case ProjectPhase.Prototype:
+                str = INST_ProjectPhaseName_Prototype;
+                break;
+            case ProjectPhase.VerticalSlice:
+                str = INST_ProjectPhaseName_VerticalSlice;
+                break;
+            case ProjectPhase.AlphaTest:
+                str = INST_ProjectPhaseName_Alpha;
+                break;
+            case ProjectPhase.BetaTest:
+                str = INST_ProjectPhaseName_Beta;
+                break;
+            case ProjectPhase.Master:
+                str = INST_ProjectPhaseName_Master;
+                break;
+
+        }
+        return str;
+    }
+
     #region Instance NPC ID
     public static readonly string INST_SET_NpcId001 = "npc001";
     public static readonly string INST_SET_NpcId002 = "npc002";
@@ -249,6 +293,49 @@ public class ConvertType : MonoBehaviour
         return temp;
     }
 
+
+    #region Create Event Instace
+    private const string INST_ProjectPhase_Decision = "Decision";
+    private const string INST_ProjectPhase_Design = "Design";
+    private const string INST_ProjectPhase_Firstplayable = "Firstplayable";
+    private const string INST_ProjectPhase_Prototype = "Prototype";
+    private const string INST_ProjectPhase_VerticalSlice = "VerticalSlice";
+    private const string INST_ProjectPhase_AlphaTest = "AlphaTest";
+    private const string INST_ProjectPhase_BetaTest = "BetaTest";
+    private const string INST_ProjectPhase_Master = "Master";
+    #endregion
+    public static ProjectPhase ConvertStringToProjectPhase(string str)
+    {
+        ProjectPhase projectPhase = ProjectPhase.Decision;
+        switch (str)
+        {
+            case INST_ProjectPhase_Decision:
+                projectPhase = ProjectPhase.Decision;
+                break;
+            case INST_ProjectPhase_Design:
+                projectPhase = ProjectPhase.Design;
+                break;
+            case INST_ProjectPhase_Firstplayable:
+                projectPhase = ProjectPhase.FirstPlayable;
+                break;
+            case INST_ProjectPhase_Prototype:
+                projectPhase = ProjectPhase.Prototype;
+                break;
+            case INST_ProjectPhase_VerticalSlice:
+                projectPhase = ProjectPhase.VerticalSlice;
+                break;
+            case INST_ProjectPhase_AlphaTest:
+                projectPhase = ProjectPhase.AlphaTest;
+                break;
+            case INST_ProjectPhase_BetaTest:
+                projectPhase = ProjectPhase.BetaTest;
+                break;
+            case INST_ProjectPhase_Master:
+                projectPhase = ProjectPhase.Master;
+                break;
+        }
+        return projectPhase;
+    }
 
     #region Create Event Instace
     private const string INST_Feel_Normal = "Normal";

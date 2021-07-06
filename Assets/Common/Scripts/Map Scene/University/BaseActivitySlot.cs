@@ -14,11 +14,11 @@ public class BaseActivitySlot : MonoBehaviour
         private Day _activityDay;
         private string _activityTime;
         private float _energy;
-        private string _activityType;
+        private ClassActivityType _activityType;
         private Sprite _activityIcon;
         private bool _isOpening;
 
-        public UniversityActivity(string activityId, string activityName, Day activityDay, string activityTime, float energy, string activityType, Sprite activityIcon, bool isOpening)
+        public UniversityActivity(string activityId, string activityName, Day activityDay, string activityTime, float energy, ClassActivityType activityType, Sprite activityIcon, bool isOpening)
         {
             _activityId = activityId;
             _activityName = activityName;
@@ -35,7 +35,7 @@ public class BaseActivitySlot : MonoBehaviour
         public Day ActivityDay { get => _activityDay; }
         public string ActivityTime { get => _activityTime; }
         public float Energy { get => _energy; }
-        public string ActivityType { get => _activityType; }
+        public ClassActivityType ActivityType { get => _activityType; }
         public Sprite ActivityIcon { get => _activityIcon; }
         public bool IsOpening { get => _isOpening; set => _isOpening = value; }
     }
@@ -66,10 +66,10 @@ public class BaseActivitySlot : MonoBehaviour
     private void UpdateInfo()
     {
         _activityImage.sprite = _universityActivity.ActivityIcon;
-        _activityTypeTMP.text = _universityActivity.ActivityType;
+        _activityTypeTMP.text = _universityActivity.ActivityType.ToString();
         _activityNameTMP.text = _universityActivity.ActivityName;
         _activityTimeTMP.text = string.Format("{0} {1}", _universityActivity.ActivityDay, _universityActivity.ActivityTime);
-        _activityEnergyTMP.text = string.Format("{0} หน่วย", _universityActivity.Energy);
+        _activityEnergyTMP.text = string.Format("{0:n0} หน่วย", _universityActivity.Energy);
 
         if (_universityActivity.IsOpening)
         {

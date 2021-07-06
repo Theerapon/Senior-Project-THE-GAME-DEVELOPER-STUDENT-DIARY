@@ -523,6 +523,86 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/Schedule.csv
   SPECIFICATION_ID: ID
+--- !u!1 &341412060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 341412063}
+  - component: {fileID: 341412064}
+  - component: {fileID: 341412061}
+  - component: {fileID: 341412062}
+  m_Layer: 0
+  m_Name: ProjectDialogue loading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &341412061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341412060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281bb73df60cef440bd078511e3336d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _projectDialogueVM: {fileID: 341412062}
+  _interpretHandler: {fileID: 948092574}
+--- !u!114 &341412062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341412060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47035ccc48dd5d4587c9212d807e4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectDialogue_Loading: {fileID: 341412064}
+--- !u!4 &341412063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341412060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 948092573}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &341412064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341412060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aed08146618be0458b213ba4f6041ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLoadDataCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  SPECIFICATION_PATH: /Resources/Files/ProjectDialogue.csv
+  SPECIFICATION_ID: ID
 --- !u!1 &471104953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,6 +1139,7 @@ MonoBehaviour:
   - {fileID: 1173128230}
   - {fileID: 1483880172}
   - {fileID: 266759045}
+  - {fileID: 341412064}
   dataHandlers:
   - {fileID: 212041629}
   - {fileID: 215361637}
@@ -1082,6 +1163,7 @@ MonoBehaviour:
   - {fileID: 1173128232}
   - {fileID: 1483880170}
   - {fileID: 266759043}
+  - {fileID: 341412061}
 --- !u!4 &948092573
 Transform:
   m_ObjectHideFlags: 0
@@ -1115,6 +1197,7 @@ Transform:
   - {fileID: 266759042}
   - {fileID: 1714787873}
   - {fileID: 1801873413}
+  - {fileID: 341412063}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

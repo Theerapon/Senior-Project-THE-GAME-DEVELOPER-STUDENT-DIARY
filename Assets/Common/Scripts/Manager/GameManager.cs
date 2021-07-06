@@ -56,6 +56,7 @@ public class GameManager : Manager<GameManager>
         SleepLate,
         Transport,
         HUD_Dialouge,
+        MeetingProject,
 
     }
 
@@ -92,9 +93,7 @@ public class GameManager : Manager<GameManager>
         STACH,
         PLACE,
         DIALOUGE,
-        PROJECT_DISCUSS,
-        PROJECT_DISCUSS_DIALOUGE,
-        PROJECT_DISCUSS_ANALYZE,
+        MEETING_PROJECT,
         CLASS,
         GIFT,
         MENU,
@@ -193,6 +192,14 @@ public class GameManager : Manager<GameManager>
         if (scene == GameScene.HUD_Dialouge)
         {
             UpdateState(GameState.DIALOUGE);
+        }
+        #endregion
+
+        #region University
+        if(scene == GameScene.MeetingProject)
+        {
+            UpdateState(GameState.MEETING_PROJECT);
+            onLoadComplete?.Invoke(_currentGameState, _previousGameState);
         }
         #endregion
 
@@ -986,6 +993,28 @@ public class GameManager : Manager<GameManager>
             {
                 UnLoadLevel(GameScene.StachInventory);
                 UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
+    public void DisplayMeetingProject(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.MeetingProject.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.MeetingProject);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.MeetingProject.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.MeetingProject);
+                UpdateState(GameState.PLACE);
+                UpdateScene(GameScene.Place_University);
                 onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             }
 

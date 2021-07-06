@@ -151,7 +151,10 @@ public class Events
     #endregion
 
     #region Porject
+    [System.Serializable] public class EventOnProjectStateUpdate : UnityEvent { }
     [System.Serializable] public class EventOnProjectUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnProjectLastStatusUpdate : UnityEvent { }
+    [System.Serializable] public class EventOnProjectAnalyzingCompleted : UnityEvent<float, int, ProjectMeetingManager.ProgressionState> { }
     #endregion
 
     #region Character Status

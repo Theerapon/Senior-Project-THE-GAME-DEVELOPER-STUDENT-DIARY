@@ -122,7 +122,7 @@ public class Project : MonoBehaviour
         levelHardSkillRequired.Add(HardSkillId.ART, 0);
         levelHardSkillRequired.Add(HardSkillId.SOUND, 0);
 
-        projectPhase = ProjectPhase.Design;
+        projectPhase = ProjectPhase.Decision;
         hasDesigned = false;
         startDate = "Unknown";
         deadlineDate = "Unknown";
@@ -209,6 +209,41 @@ public class Project : MonoBehaviour
         else
         {
             currentBugStatus -= status;
+        }
+    }
+    public void IncreaseLastCodingStatus(int status)
+    {
+        lasttimeCodingStatus += status;
+    }
+    public void IncreaseLastDesignStatus(int status)
+    {
+        lasttimeDesignStatus += status;
+    }
+    public void IncreaseLastTestingStatus(int status)
+    {
+        lasttimeTestingStatus += status;
+    }
+    public void IncreaseLastArtStatus(int status)
+    {
+        lasttimeArtStatus += status;
+    }
+    public void IncreaseLastSoundStatus(int status)
+    {
+        lasttimeSoundStatus += status;
+    }
+    public void IncreaseLastBugStatus(int status)
+    {
+        lasttimeBugStatus += status;
+    }
+    public void ReduceLastBugStatus(int status)
+    {
+        if (lasttimeBugStatus - status <= 0)
+        {
+            lasttimeBugStatus = 0;
+        }
+        else
+        {
+            lasttimeBugStatus -= status;
         }
     }
     #endregion
