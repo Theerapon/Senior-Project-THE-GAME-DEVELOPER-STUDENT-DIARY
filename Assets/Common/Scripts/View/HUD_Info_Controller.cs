@@ -88,6 +88,10 @@ public class HUD_Info_Controller : MonoBehaviour
         {
             ShowInfo(true, false, false, false, false, false, false);
         }
+        else if (current_game_state == GameManager.GameState.MEETING_PROJECT)
+        {
+            ShowInfo(true, false, false, false, false, false, false);
+        }
 
     }
     private void Reset()

@@ -23,8 +23,10 @@ public class ProjectMeetingDisplay : MonoBehaviour
     private ProjectController _projectController;
     private CharacterStatusController _characterStatusController;
     private TimeManager _timeManager;
+    private GameManager _gameManager;
 
     [Header("Time")]
+    [SerializeField] GameObject _timeGameObject;
     [SerializeField] TMP_Text _dateTMP;
     [SerializeField] TMP_Text _timeTMP;
     [SerializeField] TMP_Text _goldenTimeTMP;
@@ -55,6 +57,12 @@ public class ProjectMeetingDisplay : MonoBehaviour
         _projectController = ProjectController.Instance;
         _characterStatusController = CharacterStatusController.Instance;
         _timeManager = TimeManager.Instance;
+        _gameManager = GameManager.Instance;
+
+        if(!ReferenceEquals(_gameManager, null))
+        {
+            _gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
+        }
 
         if (!ReferenceEquals(_projectMeetingManager, null))
         {
@@ -78,6 +86,18 @@ public class ProjectMeetingDisplay : MonoBehaviour
             _timeManager.OnTimeCalendar.AddListener(OnTimeUpdateHandler);
             _timeManager.OnGodenTime.AddListener(OnGodenTimeUpdateHandler);
             _timeManager.ValidationInitializing();
+        }
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.MEETING_PROJECT)
+        {
+            ActiveTimeGameObject(true);
+        }
+        else
+        {
+            ActiveTimeGameObject(false);
         }
     }
 
@@ -166,5 +186,13 @@ public class ProjectMeetingDisplay : MonoBehaviour
     private void OnProjectStateHandler()
     {
         _projectPhaseTMP.text = ConvertType.ConvertProjectPhaseToString(_projectController.ProjectPhase);
+    }
+
+    private void ActiveTimeGameObject(bool active)
+    {
+        if(_timeGameObject.activeSelf != active)
+        {
+            _timeGameObject.SetActive(active);
+        }
     }
 }

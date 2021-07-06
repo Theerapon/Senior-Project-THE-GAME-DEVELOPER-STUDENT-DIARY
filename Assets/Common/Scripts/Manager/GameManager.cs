@@ -272,6 +272,7 @@ public class GameManager : Manager<GameManager>
         if(scene == GameScene.COM_WorkProject_Design)
         {
             UpdateState(GameState.WORK_PROJECT_DESIGN);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
 
         if(scene == GameScene.COM_WorkProject_Summary)
@@ -688,7 +689,6 @@ public class GameManager : Manager<GameManager>
             if (!SceneManager.GetSceneByName(GameScene.COM_WorkProject_Design.ToString()).isLoaded)
             {
                 LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject_Design);
-
             }
             
         }
@@ -696,8 +696,17 @@ public class GameManager : Manager<GameManager>
         {
             if (SceneManager.GetSceneByName(GameScene.COM_WorkProject_Design.ToString()).isLoaded)
             {
+                if (SceneManager.GetSceneByName(GameScene.COM_WorkProject.ToString()).isLoaded)
+                {
+                    UpdateState(GameState.WORK_PROJECT);
+                }
+                else if (SceneManager.GetSceneByName(GameScene.MeetingProject.ToString()).isLoaded)
+                {
+                    UpdateState(GameState.MEETING_PROJECT);
+                }
+
                 UnLoadLevel(GameScene.COM_WorkProject_Design);
-                UpdateState(GameState.WORK_PROJECT);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             }
 
             
@@ -1014,7 +1023,7 @@ public class GameManager : Manager<GameManager>
             {
                 UnLoadLevel(GameScene.MeetingProject);
                 UpdateState(GameState.PLACE);
-                UpdateScene(GameScene.Place_University);
+                _currentGameScene = GameScene.Place_University;
                 onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
             }
 

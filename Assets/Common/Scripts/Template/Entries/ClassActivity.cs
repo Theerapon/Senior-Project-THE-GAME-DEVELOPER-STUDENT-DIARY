@@ -34,15 +34,17 @@ public class ClassActivity : MonoBehaviour
     }
 
     public void CheckTimeToOpen(float hour, float minute)
-    {
+    {      
         if (hour >= Start_time_hour && minute >= Start_time_minute)
         {
             _isOpening = true;
-        }
-        else if (hour >= End_time_hour && minute >= End_time_minute && _isOpening)
+        }      
+        if (hour >= End_time_hour && minute >= End_time_minute && _isOpening)
         {
             _isOpening = false;
+
         }
+        Debug.Log(string.Format("{0}:{1:00} isopening {2}", hour, minute, _isOpening));
     }
 
     public bool EnableClass(ScheduleEvent scheduleEvent, Day currentDay)

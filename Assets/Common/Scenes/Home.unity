@@ -1345,6 +1345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e50a77c621a2c143885a04609828a12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectDialogueController: {fileID: 556990579}
   _dialougeNpcTemplateController: {fileID: 556990578}
   _npcsController: {fileID: 556990572}
   _playerAction: {fileID: 2079842010}
@@ -1979,6 +1980,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnProjectUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnProjectLastStatusUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  OnProjectStateUpdate:
     m_PersistentCalls:
       m_Calls: []
   playerAction: {fileID: 2079842010}

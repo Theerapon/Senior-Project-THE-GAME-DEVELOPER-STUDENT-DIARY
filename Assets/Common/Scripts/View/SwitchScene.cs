@@ -34,6 +34,7 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Sleeplate = 24;
     private const int INST_Display_Calendar = 25;
     private const int INST_Display_MeetingProject = 26;
+    private const int INST_Display_WorkProjectDesign = 27;
     #endregion
 
     #region Animator Parameters
@@ -105,6 +106,14 @@ public class SwitchScene : Manager<SwitchScene>
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
         else if (currentGameState == GameManager.GameState.CALENDAR)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (currentGameState == GameManager.GameState.WORK_PROJECT_DESIGN)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (currentGameState == GameManager.GameState.MEETING_PROJECT)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -205,6 +214,9 @@ public class SwitchScene : Manager<SwitchScene>
                 break;
             case INST_Display_MeetingProject:
                 gameManager.DisplayMeetingProject(active);
+                break;
+            case INST_Display_WorkProjectDesign:
+                gameManager.DisplayWorkProjectDesign(active);
                 break;
         }
         //LoadScene
@@ -346,7 +358,11 @@ public class SwitchScene : Manager<SwitchScene>
     public void DisplayWorkProjectDesign(bool active)
     {
         //---Not Fand Out---
-        gameManager.DisplayWorkProjectDesign(active);
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_WorkProjectDesign, active);
+            loadComplete = false;
+        }
     }
     public void DisplayWorkProjectSummary(bool active)
     {

@@ -2659,7 +2659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &599452989
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2741,8 +2741,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CourseSummaryManager, Assembly-CSharp
+      - m_Target: {fileID: 688409381}
+        m_TargetAssemblyTypeName: ProjectMeetingManager, Assembly-CSharp
         m_MethodName: Next
         m_Mode: 1
         m_Arguments:
@@ -3338,6 +3338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectMeetingManager: {fileID: 688409381}
+  _timeGameObject: {fileID: 1507775741}
   _dateTMP: {fileID: 1374169051}
   _timeTMP: {fileID: 1182422430}
   _goldenTimeTMP: {fileID: 247050178}
@@ -3379,6 +3380,7 @@ MonoBehaviour:
   _soundGenerator: {fileID: 281657126}
   _bugGenerator: {fileID: 1485768488}
   _expGenerator: {fileID: 205867203}
+  _button: {fileID: 599452988}
 --- !u!4 &688409382
 Transform:
   m_ObjectHideFlags: 0
@@ -3605,7 +3607,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!224 &730235454
 RectTransform:

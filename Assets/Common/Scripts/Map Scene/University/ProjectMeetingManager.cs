@@ -21,6 +21,9 @@ public class ProjectMeetingManager : MonoBehaviour
     private UniversityManager _universityManager;
     private CharacterStatusController _characterStatusController;
     private TimeManager _timeManager;
+    private GameManager _gameManager;
+    private SwitchScene _switchScene;
+    private DialougeManager _dialougeManager;
 
     [Header("Display")]
     [SerializeField] ProjectMeetingDisplay _projectMeetingDisplay;
@@ -33,6 +36,9 @@ public class ProjectMeetingManager : MonoBehaviour
     [SerializeField] ValueUpdateGenerator _soundGenerator;
     [SerializeField] ValueUpdateGenerator _bugGenerator;
     [SerializeField] ValueUpdateGenerator _expGenerator;
+
+    [Header("Button")]
+    [SerializeField] GameObject _button;
 
     #region Time
     private float _currentTimeHour;
@@ -83,6 +89,12 @@ public class ProjectMeetingManager : MonoBehaviour
         _universityManager = FindObjectOfType<UniversityManager>();
         _projectController = ProjectController.Instance;
         _characterStatusController = CharacterStatusController.Instance;
+        _switchScene = SwitchScene.Instance;
+        _gameManager = GameManager.Instance;
+        _dialougeManager = DialougeManager.Instance;
+
+        _gameManager.OnGameStateChanged.AddListener(OnGamestateChangedHandler);
+
         _timeManager = TimeManager.Instance;
         _timeManager.OnOneMiniuteTimePassed.AddListener(OnOneMinuteTimePassed);
         _timeManager.OnTimeSkip.AddListener(OnTimeSkipCompleted);
@@ -90,6 +102,23 @@ public class ProjectMeetingManager : MonoBehaviour
         _progress = 0f;
         _score = 0;
         _progressionState = ProgressionState.Analyzing;
+        ActiveButton(false);
+    }
+
+    private void OnGamestateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.MEETING_PROJECT && previous == GameManager.GameState.WORK_PROJECT_DESIGN)
+        {
+            if (_projectController.HasDesigned)
+            {
+                StartCoroutine("WaitTime");
+            }
+        }   
+        else if (current == GameManager.GameState.MEETING_PROJECT && previous == GameManager.GameState.DIALOUGE)
+        {
+            UpdateProjectPhase();
+            ActiveButton(true);
+        }
     }
 
     private void Start()
@@ -142,7 +171,16 @@ public class ProjectMeetingManager : MonoBehaviour
         }
 
         OnProjectAnalyzingCompleted?.Invoke(_progress, _score, _progressionState);
-        StartCoroutine("WaitTime");
+
+        if (_projectController.HasDesigned || _projectController.ProjectPhase == ProjectPhase.Decision)
+        {
+            StartCoroutine("WaitTime");
+        }
+        else
+        {
+            _switchScene.DisplayWorkProjectDesign(true);
+        }
+        
     }
 
     private void OnOneMinuteTimePassed(GameManager.GameState current)
@@ -292,5 +330,30 @@ public class ProjectMeetingManager : MonoBehaviour
         _score = 234924;
         _progressionState = ProgressionState.Completed;
         OnProjectAnalyzingCompleted?.Invoke(_progress, _score, _progressionState);
+        StartCoroutine("Dialogue");
+    }
+
+    IEnumerator Dialogue()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        _dialougeManager.ProjectDialouge(_projectController.ProjectPhase);
+    }
+
+    private void ActiveButton(bool active)
+    {
+        if(_button.activeSelf != active)
+        {
+            _button.SetActive(active);
+        }
+    }
+
+    private void UpdateProjectPhase()
+    {
+        _projectController.UpdateProjectState();
+    }
+
+    public void Next()
+    {
+        _switchScene.DisplayMeetingProject(false);
     }
 }

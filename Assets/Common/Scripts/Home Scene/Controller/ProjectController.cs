@@ -165,6 +165,32 @@ public class ProjectController : Manager<ProjectController>
     #region Set
     public void UpdateProjectState()
     {
+        ProjectPhase projectPhase = ProjectPhase;
+        switch (projectPhase)
+        {
+            case ProjectPhase.Decision:
+                project.UpdateProjectPhase(ProjectPhase.Design);
+                break;
+            case ProjectPhase.Design:
+                project.UpdateProjectPhase(ProjectPhase.FirstPlayable);
+                break;
+            case ProjectPhase.FirstPlayable:
+                project.UpdateProjectPhase(ProjectPhase.Prototype);
+                break;
+            case ProjectPhase.Prototype:
+                project.UpdateProjectPhase(ProjectPhase.VerticalSlice);
+                break;
+            case ProjectPhase.VerticalSlice:
+                project.UpdateProjectPhase(ProjectPhase.AlphaTest);
+                break;
+            case ProjectPhase.AlphaTest:
+                project.UpdateProjectPhase(ProjectPhase.BetaTest);
+                break;
+            case ProjectPhase.BetaTest:
+                project.UpdateProjectPhase(ProjectPhase.Master);
+                break;
+        }
+
         OnProjectStateUpdate?.Invoke();
     }
     public void IncreaseCodingStatus(int status)

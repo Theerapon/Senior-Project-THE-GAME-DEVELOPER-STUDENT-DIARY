@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static BaseActivitySlot;
@@ -11,6 +12,7 @@ public class UniversityManager : MonoBehaviour
     private SwitchScene _switchScene;
     private TimeManager _timeManager;
     private PlayerAction _playerAction;
+    private GameManager _gameManager;
 
     private float _currentTimeHour;
     private float _currentTimeMinute;
@@ -35,6 +37,20 @@ public class UniversityManager : MonoBehaviour
         _switchScene = SwitchScene.Instance;
         _timeManager = TimeManager.Instance;
         _playerAction = PlayerAction.Instance;
+        _gameManager = GameManager.Instance;
+        
+        if(!ReferenceEquals(_gameManager, null))
+        {
+            _gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
+        }
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.PLACE && previous == GameManager.GameState.MEETING_PROJECT)
+        {
+            Initializing();
+        }
     }
 
     private void Start()
@@ -47,6 +63,7 @@ public class UniversityManager : MonoBehaviour
         Dictionary<string, ClassActivity> classActivity = new Dictionary<string, ClassActivity>();
         classActivity = _classActivityController.ClassActivitiesDic;
 
+        _activityTemplateGenerator.Clear();
         foreach (KeyValuePair<string, ClassActivity> activity in classActivity)
         {
             ClassActivity copy = activity.Value;
@@ -81,6 +98,7 @@ public class UniversityManager : MonoBehaviour
 
             if (baseActivitySlot.ACTIVITY.ActivityType == ClassActivityType.Project)
             {
+                _classActivityController.FinishEvent();
                 _switchScene.DisplayMeetingProject(true);
             }
         }

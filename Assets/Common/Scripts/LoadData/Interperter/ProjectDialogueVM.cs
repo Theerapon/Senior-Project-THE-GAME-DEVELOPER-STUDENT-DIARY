@@ -46,7 +46,7 @@ public class ProjectDialogueVM : MonoBehaviour
     {
         ProjectPhase _projectPhase = ProjectPhase.Decision;
         string _npcId = string.Empty;
-        Dictionary<string, Dialogue> _dialogues = new Dictionary<string, Dialogue>();
+        List<Dialogue> _dialogues = new List<Dialogue>();
 
         string[] entries = line.Split(',');
         for (int i = 0; i < entries.Length; i++)
@@ -61,10 +61,9 @@ public class ProjectDialogueVM : MonoBehaviour
                     _npcId = entries[++i];
                     break;
                 case INST_SET_Dia:
-                    string id = entries[++i];
                     string text = entries[++i];
                     Feel feel = ConvertType.CheckFeel(entries[++i]);
-                    _dialogues.Add(id, new Dialogue(text, feel));
+                    _dialogues.Add(new Dialogue(text, feel));
                     break;
 
             }

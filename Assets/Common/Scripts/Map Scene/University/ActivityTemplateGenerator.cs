@@ -15,7 +15,18 @@ public class ActivityTemplateGenerator : MonoBehaviour
 
     public virtual void CreateTemplate(UniversityActivity activity)
     {
-        _itemTemplate.SetActive(true);
         CreateActivityTemplate(activity);
+    }
+
+    public void Clear()
+    {
+        int count = transform.childCount;
+        if(count > 0)
+        {
+            for(int i = 0; i < count; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
     }
 }

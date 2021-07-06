@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
@@ -40,6 +41,11 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
     private CharacterStatusController characterStatusController;
     private IdeasController ideasController;
     private NotificationController notificationController;
+    private GameManager gameManager;
+
+    [Header("Confirm button")]
+    [SerializeField] private GameObject _confirmButton;
+    [SerializeField] private GameObject _cancelButton;
 
 
     #region Temp Question
@@ -62,9 +68,13 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
         projectController = ProjectController.Instance;
         characterStatusController = CharacterStatusController.Instance;
         ideasController = IdeasController.Instance;
+        gameManager = GameManager.Instance;
+        gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
+
         notificationController = GameObject.FindGameObjectWithTag("NotificationController").GetComponentInChildren<NotificationController>();
         platformNameIdeas = new List<string>();
         playerNameIdeas = new List<string>();
+
 
         #region Select temp
         goalSlot = new BaseWorkingProjectIdeaSlot();
@@ -78,6 +88,20 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
         #endregion
 
         Initializing();
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.WORK_PROJECT_DESIGN && previous == GameManager.GameState.MEETING_PROJECT)
+        {
+            ActiveConfrimButton(true);
+            ActiveCancelButton(false);
+        }
+        else
+        {
+            ActiveConfrimButton(true);
+            ActiveCancelButton(true);
+        }
     }
 
     void Start()
@@ -481,7 +505,18 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
             string[] mechanicsSlotsId = { mechanicSlots[0].IDEASLOT.Id, mechanicSlots[1].IDEASLOT.Id };
 
             projectController.DesignGameDucument(projectName, goalSlot.IDEASLOT.Id, mechanicsSlotsId, themeSlots.IDEASLOT.Id, platformNameIdeas[platformDropdownIndex], playerNameIdeas[playerDropdownIndex]);
-            SwitchScene.Instance.DisplayWorkProjectSummary(true);
+
+            if (projectController.HasDesigned)
+            {
+                if (SceneManager.GetSceneByName(GameManager.GameScene.COM_WorkProject.ToString()).isLoaded)
+                {
+                    SwitchScene.Instance.DisplayWorkProjectSummary(true);
+                }
+                {
+                    SwitchScene.Instance.DisplayWorkProjectDesign(false);
+                }
+            }
+
         }
 
         
@@ -517,5 +552,21 @@ public class WorkProjectDesignIdeasDisplayController : MonoBehaviour
             return;
 
         SetAllButtonsInteractable(index);
+    }
+
+    private void ActiveCancelButton(bool active)
+    {
+        if(_cancelButton.activeSelf != active)
+        {
+            _cancelButton.SetActive(active);
+        }
+    }
+
+    private void ActiveConfrimButton(bool active)
+    {
+        if(_confirmButton.activeSelf != active)
+        {
+            _confirmButton.SetActive(active);
+        }
     }
 }

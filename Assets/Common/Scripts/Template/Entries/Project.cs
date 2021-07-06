@@ -246,5 +246,9 @@ public class Project : MonoBehaviour
             lasttimeBugStatus -= status;
         }
     }
+    public void UpdateProjectPhase(ProjectPhase projectPhase)
+    {
+        this.projectPhase = projectPhase;
+    }
     #endregion
 }

@@ -138,6 +138,7 @@ public class MenuController : MonoBehaviour
 
     public void Close(GameManager.GameScene gameScene)
     {
+
         //close menu
         if (gameManager.CurrentGameState == GameManager.GameState.MENU)
         {
