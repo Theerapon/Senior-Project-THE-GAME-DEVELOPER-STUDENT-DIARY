@@ -57,7 +57,7 @@ public class GameManager : Manager<GameManager>
         Transport,
         HUD_Dialouge,
         MeetingProject,
-
+        EndGame,
     }
 
 
@@ -107,6 +107,7 @@ public class GameManager : Manager<GameManager>
         SLEEPLATE,
         ONTHEWAY,
         CALENDAR,
+        EndGame,
     }
 
     public GameState CurrentGameState
@@ -281,6 +282,12 @@ public class GameManager : Manager<GameManager>
             onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
         }
         #endregion
+
+        if(scene == GameScene.EndGame)
+        {
+            UpdateState(GameState.EndGame);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
 
         #region mini Game
         if (scene == GameScene.TypingWork)
@@ -1053,6 +1060,48 @@ public class GameManager : Manager<GameManager>
             }
         }
     }
+    public void DisplayEndGame(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.EndGame.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.EndGame);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.EndGame.ToString()).isLoaded)
+            {
+                ExitGameToMenu(!active);
+            }
+        }
+    }
+    public void ExitGameToMenu(bool active)
+    {
+        if (active)
+        {
+            int count = SceneManager.sceneCount;
+            for(int i = 0; i < count; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (!scene.name.Equals(GameScene.Boot.ToString()))
+                {
+                    SceneManager.UnloadSceneAsync(scene.name);
+                }
+            }
+            _currentGameScene = GameScene.Boot;
+            UpdateState(GameState.PREGAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+
     public void Transporting()
     {
         UpdateState(GameState.TRANSPORTING);

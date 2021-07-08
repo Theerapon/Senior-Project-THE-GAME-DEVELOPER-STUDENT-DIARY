@@ -7,6 +7,8 @@ using TMPro;
 
 public class UIManager : Manager<UIManager>
 {
+    [SerializeField] GameManager gameManager;
+
     [Header("Camera")]
     [SerializeField] private Camera _uiCamera;
 
@@ -14,12 +16,25 @@ public class UIManager : Manager<UIManager>
     [Header("Main Menu")]
     [SerializeField] private GameObject mainMenuDisplayHandler;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        gameManager.onHomeDisplay.AddListener(HandleLoadGameComplete);
+        gameManager.OnGameStateChanged.AddListener(HandleGameStateChanged);
+    }
+
+    private void HandleGameStateChanged(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.PREGAME)
+        {
+            SetCameraActive(true);
+            mainMenuDisplayHandler.gameObject.SetActive(true);
+        }   
+    }
 
     void Start()
     {
-        GameManager.Instance.onHomeDisplay.AddListener(HandleLoadGameComplete);
-        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-
+       
         _uiCamera.gameObject.SetActive(true);
         mainMenuDisplayHandler.gameObject.SetActive(true);
 
@@ -27,18 +42,12 @@ public class UIManager : Manager<UIManager>
 
     private void HandleLoadGameComplete(bool loadGame)
     {
-        if(GameManager.Instance.CurrentGameState != GameManager.GameState.MAP)
+        if(GameManager.Instance.CurrentGameState != GameManager.GameState.MAP && GameManager.Instance.CurrentGameState != GameManager.GameState.PREGAME)
         {
             mainMenuDisplayHandler.gameObject.SetActive(!loadGame);
             SetCameraActive(!loadGame);
         }
 
-    }
-
-
-    void HandleGameStateChanged(GameManager.GameState currentState, GameManager.GameState previousState)
-    {
-        
     }
 
 

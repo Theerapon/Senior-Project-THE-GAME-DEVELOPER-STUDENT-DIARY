@@ -15,6 +15,14 @@ public class ProjectMeetingManager : MonoBehaviour
     private ProgressionState _progressionState;
 
     private const int INST_30MINUTE_SECOND = 1800;
+    private const int INST_TOTALSECOND_DISCUSS = 5400;
+
+    private const float INST_CODING_MULTIPLY = 2.3f;
+    private const float INST_DESIGN_MULTIPLY = 2f;
+    private const float INST_TESTING_MULTIPLY = 1.8f;
+    private const float INST_ART_MULTIPLY = 1.7f;
+    private const float INST_SOUND_MULTIPLY = 1.5f;
+    private const float INST_BUG_MULTIPLY = 3f;
 
     [Header("Manager")]
     private ProjectController _projectController;
@@ -41,13 +49,6 @@ public class ProjectMeetingManager : MonoBehaviour
     [SerializeField] GameObject _button;
 
     #region Time
-    private float _currentTimeHour;
-    private float _currentTimeMinute;
-    private float _curretnTimeSecond;
-    private float _endTimeHour;
-    private float _endTimeMinute;
-    private float _endTimeSecond;
-    private int _diffTimeSecond;
     private int _timePer30Minute;
     #endregion
 
@@ -78,12 +79,14 @@ public class ProjectMeetingManager : MonoBehaviour
     #endregion
 
     #region Analyzing
-    private float _progress;
-    private int _score;
+    private float _tempProgress;
+    private int _tempScore;
+    private float _currentProgress;
+    private int _currentScore;
     private int countTime;
     #endregion
-    public float Progress { get => _progress; }
-    public int Score { get => _score; }
+    public float Progress { get => _currentProgress; }
+    public int Score { get => _currentScore; }
     private void Awake()
     {
         _universityManager = FindObjectOfType<UniversityManager>();
@@ -99,8 +102,8 @@ public class ProjectMeetingManager : MonoBehaviour
         _timeManager.OnOneMiniuteTimePassed.AddListener(OnOneMinuteTimePassed);
         _timeManager.OnTimeSkip.AddListener(OnTimeSkipCompleted);
         countTime = 0;
-        _progress = 0f;
-        _score = 0;
+        _currentProgress = 0f;
+        _currentScore = 0;
         _progressionState = ProgressionState.Analyzing;
         ActiveButton(false);
     }
@@ -123,16 +126,6 @@ public class ProjectMeetingManager : MonoBehaviour
 
     private void Start()
     {
-        _currentTimeHour = _universityManager.CurrentTimeHour;
-        _currentTimeMinute = _universityManager.CurrentTimeMinute;
-        _curretnTimeSecond = _universityManager.CurrentTimeSecond;
-
-        _endTimeHour = _universityManager.EndTimeHour;
-        _endTimeMinute = _universityManager.EndTimeMinute;
-        _endTimeSecond = _universityManager.EndTimeSecond;
-
-        _diffTimeSecond = DiffTimeSecond(_currentTimeHour, _currentTimeMinute, _curretnTimeSecond, _endTimeHour, _endTimeMinute, _endTimeSecond);
-        
         _energy = _universityManager.Energy;
 
         _lastCodingStatus = _projectController.LasttimeCodingStatus;
@@ -149,8 +142,13 @@ public class ProjectMeetingManager : MonoBehaviour
         _currentSoundStatus = _projectController.CurrentSoundStatus;      
         _currentBugStatus = _projectController.CurrentBugStatus;
 
+        _tempProgress = CalProgress(_currentCodingStatus, _currentDesignStatus, _currentTestingStatus, _currentArtStatus, _currentSoundStatus, _currentBugStatus, _lastCodingStatus, _lastDesignStatus, _lastTestingStatus, _lastArtStatus, _lastSoundStatus, _lastBugStatus);
+        _tempScore = CalScore(_currentCodingStatus, _currentDesignStatus, _currentTestingStatus, _currentArtStatus, _currentSoundStatus, _currentBugStatus, _tempProgress);
+
+        Debug.Log(string.Format("{0} score {1}", _tempProgress, _tempScore));
+
         //count time to update value
-        _timePer30Minute = (int) _diffTimeSecond / INST_30MINUTE_SECOND;
+        _timePer30Minute = (int)INST_TOTALSECOND_DISCUSS / INST_30MINUTE_SECOND;
         if(_timePer30Minute > 0)
         {
             _updateCodingStatusPerTime = ((_currentCodingStatus - _lastCodingStatus) / _timePer30Minute);
@@ -170,7 +168,7 @@ public class ProjectMeetingManager : MonoBehaviour
             _updateBugStatusPerTime = ((_currentBugStatus - _lastBugStatus));
         }
 
-        OnProjectAnalyzingCompleted?.Invoke(_progress, _score, _progressionState);
+        OnProjectAnalyzingCompleted?.Invoke(_currentProgress, _currentScore, _progressionState);
 
         if (_projectController.HasDesigned || _projectController.ProjectPhase == ProjectPhase.Decision)
         {
@@ -309,27 +307,19 @@ public class ProjectMeetingManager : MonoBehaviour
         }
     }
 
-    private int DiffTimeSecond(float startHour, float startMinute, float startSecond, float endHour, float endMimute, float endSecond)
-    {
-        int totalStartSecond = (int)((startHour * 60 * 60) + (startMinute * 60) + startSecond);
-        int totalEndSecond = (int)((endHour * 60 * 60) + (endMimute * 60) + endSecond);
-
-        return totalEndSecond - totalStartSecond;
-    }
-
     IEnumerator WaitTime()
     {
         yield return new WaitForSecondsRealtime(1f);
-        _timeManager.SkilpTime(_diffTimeSecond, 4);
+        _timeManager.SkilpTime(INST_TOTALSECOND_DISCUSS, 4);
     }
 
 
     private void Analyzing()
     {
-        _progress = 50f;
-        _score = 234924;
+        _currentProgress = _tempProgress;
+        _currentScore = _tempScore;
         _progressionState = ProgressionState.Completed;
-        OnProjectAnalyzingCompleted?.Invoke(_progress, _score, _progressionState);
+        OnProjectAnalyzingCompleted?.Invoke(_currentProgress, _currentScore, _progressionState);
         StartCoroutine("Dialogue");
     }
 
@@ -354,6 +344,38 @@ public class ProjectMeetingManager : MonoBehaviour
 
     public void Next()
     {
+        ActiveButton(false);
+        _projectController.EnterClass(_currentProgress, _currentScore);
         _switchScene.DisplayMeetingProject(false);
+    }
+
+    private float CalProgress(int coding, int design, int testing, int art, int sound, int bug, int lastCoding, int lastDesign, int lastTesting, int lastArt, int lastSound, int lastBug)
+    {
+        //current 5 6 0 1 3 7
+        //last 0 0 0 0 0 0
+        int diffCoding = coding - lastCoding; // 5
+        int diffDesign = design - lastDesign; // 6
+        int diffTesting = testing - lastTesting; // 0
+        int diffArt = art - lastArt; // 1
+        int diffSound = sound - lastSound; // 3
+        int diffBug = lastBug - bug; // -7
+
+        float sumCurrent = coding + design + testing + art + sound + bug; //22
+        float sumDiff = diffCoding + diffDesign + diffTesting + diffArt + diffSound + diffBug; //8
+
+        if(sumCurrent > 0)
+        {
+            return sumDiff / sumCurrent;
+        }
+        else
+        {
+            return 0f;
+        }
+
+    }
+    private int CalScore(int coding, int design, int testing, int art, int sound, int bug, float progress)
+    {
+        float score = (coding * INST_CODING_MULTIPLY) + (design * INST_DESIGN_MULTIPLY) + (testing * INST_TESTING_MULTIPLY) + (art * INST_ART_MULTIPLY) + (sound * INST_SOUND_MULTIPLY) - (bug * INST_BUG_MULTIPLY);
+        return (int)(score *  (1 + (progress / 100)));
     }
 }

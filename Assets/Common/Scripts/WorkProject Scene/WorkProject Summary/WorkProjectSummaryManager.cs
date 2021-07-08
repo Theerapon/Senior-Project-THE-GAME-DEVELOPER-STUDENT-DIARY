@@ -9,25 +9,26 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
     private const int INST_TimeScalelessThanEqual_4Hour = 5;
     private const int INST_TimeScalelessThanEqual_2Hour = 3;
     private const int INST_30miniute = 30;
+    private const int INST_60miniute = 60;
     private const float INST_BugChance = 0.6f;
 
     //ProjectPhase { Decision 0, Design 1, FirstPlayable 2, Prototype 3, VerticalSlice 4, AlphaTest 5, BetaTest 6, Master 7}
-    private int[] minCodingStatusUpgradePerPhase = { 0, 0 , 20, 40, 80, 60, 20, 0 };
+    private int[] minCodingStatusUpgradePerPhase = { 0, 3 , 20, 40, 80, 60, 20, 2 };
     private int[] maxCodingStatusUpgradePerPhase = { 0, 20, 60, 80, 100, 100, 80, 20 };
 
     private int[] minDesignStatusUpgradePerPhase = { 0, 80, 60, 60, 60, 20, 10, 0 };
     private int[] maxDesignStatusUpgradePerPhase = { 0, 100, 100, 80, 80, 100, 40, 20 };
 
-    private int[] minTestingStatusUpgradePerPhase = { 0, 0, 20, 20, 40, 80, 80, 60 };
-    private int[] maxTestingStatusUpgradePerPhase = { 0, 0, 60, 60, 80, 100, 100, 80 };
+    private int[] minTestingStatusUpgradePerPhase = { 0, 3, 20, 20, 40, 80, 80, 60 };
+    private int[] maxTestingStatusUpgradePerPhase = { 0, 5, 60, 60, 80, 100, 100, 80 };
 
-    private int[] minArtStatusUpgradePerPhase = { 0, 0, 20, 40, 80, 80, 60, 0 };
+    private int[] minArtStatusUpgradePerPhase = { 0, 3, 20, 40, 80, 80, 60, 3 };
     private int[] maxArtStatusUpgradePerPhase = { 0, 20, 60, 100, 100, 80, 80, 40 };
 
-    private int[] minSoundStatusUpgradePerPhase = { 0, 0, 20, 40, 80, 60, 60, 0 };
+    private int[] minSoundStatusUpgradePerPhase = { 0, 3, 20, 40, 80, 60, 60, 3 };
     private int[] maxSoundStatusUpgradePerPhase = { 0, 20, 60, 80, 100, 100, 80, 40 };
 
-    private float[] reduceBug = { 0, 0, 0.01f, 0.02f, 0.05f, 0.2f, 0.3f , 0.3f };
+    private float[] reduceBug = { 0, 0.05f, 0.1f, 0.25f, 0.35f, 0.7f, 0.7f , 0.5f };
     //bonus
     //โบนัสจากการทำโปรเจค
     //โบนัสจากการทำโปนเจคในเวลาทอง
@@ -118,6 +119,11 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
             {
                 UpdateProjectStatusSummary();
                 UpdateEnergyAndMotivationConsume();
+
+                if(countMinute % INST_60miniute == 0)
+                {
+                    UpdateProjectBug();
+                }
             }
 
         }
@@ -131,6 +137,25 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
         }
     }
     
+    private void UpdateProjectBug()
+    {
+        float motivation = characterStatusController.GetEfficiencyToDo();
+        int bug = CalBug(motivation);
+        if (bug > 0)
+        {
+            projectController.IncreaseBugStatus(bug);
+        }
+        else
+        {
+            projectController.ReduceBugStatus(Mathf.Abs(bug));
+        }
+
+        if (!(projectController.CurrentBugStatus <= 0 && bug < 0))
+        {
+            bugStatusGenerator.CreateTemplate(bug.ToString());
+        }
+    }
+
     private void UpdateProjectStatusSummary()
     {
         float motivation = characterStatusController.GetEfficiencyToDo();
@@ -175,21 +200,6 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
         int exp = CalExp(sumEfficiency);
         characterStatusController.IncreaseEXP(exp);
         expGenerator.CreateTemplate(string.Format("+ {0}", exp.ToString()));
-
-        int bug = CalBug(motivation);
-        if (bug > 0)
-        {
-            projectController.IncreaseBugStatus(bug);
-        }
-        else
-        {
-            projectController.ReduceBugStatus(Mathf.Abs(bug));
-        }
-
-        if(!(projectController.CurrentBugStatus <= 0 && bug < 0))
-        {
-            bugStatusGenerator.CreateTemplate(bug.ToString());
-        }
         
     }
     private void UpdateEnergyAndMotivationConsume()

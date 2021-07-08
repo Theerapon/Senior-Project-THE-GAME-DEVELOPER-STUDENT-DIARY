@@ -33,18 +33,30 @@ public class ClassActivity : MonoBehaviour
         _scheduleEvent = ScheduleEvent.None;
     }
 
+
     public void CheckTimeToOpen(float hour, float minute)
     {      
         if (hour >= Start_time_hour && minute >= Start_time_minute)
         {
-            _isOpening = true;
+            Open();
         }      
+
         if (hour >= End_time_hour && minute >= End_time_minute && _isOpening)
         {
-            _isOpening = false;
-
+            Close();
+            _hasClass = false;
         }
-        Debug.Log(string.Format("{0}:{1:00} isopening {2}", hour, minute, _isOpening));
+
+    }
+
+    public void Close()
+    {
+        _isOpening = false;
+    }
+
+    private void Open()
+    {
+        _isOpening = true;
     }
 
     public bool EnableClass(ScheduleEvent scheduleEvent, Day currentDay)

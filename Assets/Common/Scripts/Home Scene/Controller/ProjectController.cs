@@ -17,6 +17,12 @@ public class ProjectController : Manager<ProjectController>
     private const float INST_Energy_Reduce = 0.09f;
     private const float INST_Min_EnergyMultiply = 1f;
 
+    private bool[] enterClass;
+    private float[] progress;
+    private int[] score;
+
+    private int countEnterClass;
+
     [SerializeField] PlayerAction playerAction;
     [SerializeField] CharacterStatusController characterStatusController;
     [SerializeField] IdeasController ideasController;
@@ -26,7 +32,10 @@ public class ProjectController : Manager<ProjectController>
     {
         base.Awake();
         project = new Project();
-
+        countEnterClass = 0;
+        enterClass = new bool[8];
+        progress = new float[8];
+        score = new int[8];
     }
 
 
@@ -73,6 +82,9 @@ public class ProjectController : Manager<ProjectController>
 
     public int SecondToWork { get => secondToWork; set => secondToWork = value; }
     public float MiniGameBonusEfficiency { get => minigameBonusEfficiency; set => minigameBonusEfficiency = value; }
+    public bool[] GetEnterClass { get => enterClass; }
+    public float[] GetProgress { get => progress; }
+    public int[] GetScore { get => score; }
     #endregion
 
     public float CalTotalEnergyToConsumeByTime(int seccond)
@@ -230,38 +242,60 @@ public class ProjectController : Manager<ProjectController>
     }
     public void IncreaseLastCodingStatus(int status)
     {
-        project.IncreaseCodingStatus(status);
+        project.IncreaseLastCodingStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     public void IncreaseLastDesignStatus(int status)
     {
-        project.IncreaseDesignStatus(status);
+        project.IncreaseLastDesignStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     public void IncreaseLastTestingStatus(int status)
     {
-        project.IncreaseTestingStatus(status);
+        project.IncreaseLastTestingStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     public void IncreaseLastArtStatus(int status)
     {
-        project.IncreaseArtStatus(status);
+        project.IncreaseLastArtStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     public void IncreaseLastSoundStatus(int status)
     {
-        project.IncreaseSoundStatus(status);
+        project.IncreaseLastSoundStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     public void IncreaseLastBugStatus(int status)
     {
-        project.IncreaseBugStatus(status);
+        project.IncreaseLastBugStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     public void ReduceLastBugStatus(int status)
     {
-        project.ReduceBugStatus(status);
+        project.ReduceLastBugStatus(status);
         OnProjectLastStatusUpdate?.Invoke();
     }
     #endregion
+
+    public void EnterClass(float progress, int score)
+    {
+        if(countEnterClass + 1 < 8)
+        {
+            enterClass[countEnterClass] = true;
+            this.progress[countEnterClass] = progress;
+            this.score[countEnterClass] = score;
+            countEnterClass++;
+        }
+    }
+
+    public void MissingClass()
+    {
+        if (countEnterClass + 1 < 8)
+        {
+            enterClass[countEnterClass] = false;
+            this.progress[countEnterClass] = 0f;
+            this.score[countEnterClass] = 0;
+            countEnterClass++;
+        }
+    }
 }

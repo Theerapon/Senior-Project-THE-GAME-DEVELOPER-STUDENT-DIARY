@@ -22,8 +22,7 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    //[SerializeField] private const float DEFAULT_TIMESCALE = 48;
-    [SerializeField] private const float DEFAULT_TIMESCALE = 48 * 16;
+    [SerializeField] private const float DEFAULT_TIMESCALE = 192;
 
     [Header("Awake and Sleep")]
     [SerializeField] private const int DEFAULT_AWAKE_HOUR_TIME = 6;
@@ -128,7 +127,8 @@ public class TimeManager : Manager<TimeManager>
     void Update()
     {
         if ((GameManager.Instance.CurrentGameState == GameManager.GameState.HOME
-            || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP) && switchScene.LoadComplete)
+            || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP) && switchScene.LoadComplete
+            && GameManager.Instance.CurrentGameState != GameManager.GameState.EndGame)
         {
             CalculateTime();
         }

@@ -174,7 +174,7 @@ public class CharacterStatus : MonoBehaviour
         }
         else
         {
-            currentStatusPoints--;
+            currentStatusPoints -= amount;
         }
     }
 

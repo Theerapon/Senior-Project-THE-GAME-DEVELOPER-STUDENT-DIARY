@@ -6,11 +6,13 @@ using UnityEngine;
 public class DialougeManager : Manager<DialougeManager>
 {
     private const int INST_VALUE_RELATIONSHIP = 1;
+    private const int INST_VALUE_MOTIVATION = 2;
 
     [SerializeField] ProjectDialogueController _projectDialogueController;
     [SerializeField] DialougeNpcTemplateController _dialougeNpcTemplateController;
     [SerializeField] NpcsController _npcsController;
     [SerializeField] PlayerAction _playerAction;
+    [SerializeField] CharacterStatusController _characterStatusController;
 
     private NotificationController _notificationController;
     private SwitchScene _switchScene;
@@ -84,6 +86,7 @@ public class DialougeManager : Manager<DialougeManager>
                         int valueRelationship = (int)(_playerAction.GetTotalBonusCharm() * INST_VALUE_RELATIONSHIP);
                         npc.IncreaseRelationship(valueRelationship);
                         npc.CountChat();
+                        _characterStatusController.IncreaseCurrentMotivation(INST_VALUE_MOTIVATION);
                         _switchScene.DisplayDialouge(true);
                     }
                     else

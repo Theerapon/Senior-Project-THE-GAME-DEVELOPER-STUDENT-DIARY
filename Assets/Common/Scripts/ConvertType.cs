@@ -294,6 +294,30 @@ public class ConvertType : MonoBehaviour
     }
 
 
+    public static Grade ConvertStringToGrade(string str)
+    {
+        Grade grade = Grade.A;
+        switch (str)
+        {
+            case "A":
+                grade = Grade.A;
+                break;
+            case "B":
+                grade = Grade.B;
+                break;
+            case "C":
+                grade = Grade.C;
+                break;
+            case "D":
+                grade = Grade.D;
+                break;
+            case "F":
+                grade = Grade.F;
+                break;
+        }
+        return grade;
+    }
+
     #region Create Event Instace
     private const string INST_ProjectPhase_Decision = "Decision";
     private const string INST_ProjectPhase_Design = "Design";

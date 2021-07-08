@@ -22,7 +22,6 @@ public class SoftSkillsController : Manager<SoftSkillsController>
             {
                 softskills.Add(softskill.Key, softskill.Value);
             }
-            Debug.Log("wait implementation for load save data");
         }
     }
 

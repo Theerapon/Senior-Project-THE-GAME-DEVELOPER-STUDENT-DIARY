@@ -8,9 +8,11 @@ public class ClassActivityController : Manager<ClassActivityController>
     private ClassActivities_DataHandler _classActivities_DataHandler;
     private Dictionary<string, ClassActivity> _classActivitiesDic;
 
+
     public Dictionary<string, ClassActivity> ClassActivitiesDic { get => _classActivitiesDic; }
 
     [SerializeField] private TimeManager _timeManager;
+    [SerializeField] private ProjectController _projectController;
 
     private string _currentActivityId;
     private bool _currentDayHasEvent;
@@ -44,9 +46,19 @@ public class ClassActivityController : Manager<ClassActivityController>
 
         foreach (KeyValuePair<string, ClassActivity> classActivity in _classActivitiesDic)
         {
-            if (classActivity.Value.HasClass)
+            ClassActivity activity = classActivity.Value;
+            if (activity.HasClass)
             {
-                classActivity.Value.CheckTimeToOpen(hour, minute);
+                activity.CheckTimeToOpen(hour, minute);
+            }
+            else
+            {
+                activity.Close();
+                if (_currentDayHasEvent && !_eventFinish)
+                {
+                    FinishEvent();
+                    _projectController.MissingClass();
+                }
             }
         }
     }

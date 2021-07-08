@@ -35,6 +35,8 @@ public class SwitchScene : Manager<SwitchScene>
     private const int INST_Display_Calendar = 25;
     private const int INST_Display_MeetingProject = 26;
     private const int INST_Display_WorkProjectDesign = 27;
+    private const int INST_Display_ExitBootMenu = 28;
+    private const int INST_Display_EndGame = 29;
     #endregion
 
     #region Animator Parameters
@@ -114,6 +116,14 @@ public class SwitchScene : Manager<SwitchScene>
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
         else if (currentGameState == GameManager.GameState.MEETING_PROJECT)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (currentGameState == GameManager.GameState.PREGAME)
+        {
+            animator.SetTrigger(INST_Triggr_FadeIn);
+        }
+        else if (currentGameState == GameManager.GameState.EndGame)
         {
             animator.SetTrigger(INST_Triggr_FadeIn);
         }
@@ -217,6 +227,12 @@ public class SwitchScene : Manager<SwitchScene>
                 break;
             case INST_Display_WorkProjectDesign:
                 gameManager.DisplayWorkProjectDesign(active);
+                break;
+            case INST_Display_ExitBootMenu:
+                gameManager.ExitGameToMenu(active);
+                break;
+            case INST_Display_EndGame:
+                gameManager.DisplayEndGame(active);
                 break;
         }
         //LoadScene
@@ -505,6 +521,28 @@ public class SwitchScene : Manager<SwitchScene>
             FadeToLevel(INST_Display_CourseSummary, active);
             loadComplete = false;
         }
+    }
+    public void ExitToBootMenu(bool active)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_ExitBootMenu, active);
+            loadComplete = false;
+        }
+    }
+    public void DisplayEndGame(bool active)
+    {
+        //---Fand Out---
+        if (loadComplete)
+        {
+            FadeToLevel(INST_Display_EndGame, active);
+            loadComplete = false;
+        }
+    }
+    public void ExitGame()
+    {
+        gameManager.ExitGame();
     }
     #endregion
 }

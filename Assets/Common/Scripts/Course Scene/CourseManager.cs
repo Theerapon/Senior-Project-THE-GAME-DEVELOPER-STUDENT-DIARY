@@ -155,7 +155,7 @@ public class CourseManager : Manager<CourseManager>
     }
     private bool CheckTimeForProjectDay(int totalSecond)
     {
-        if (!_classActivityController.HasEvent())
+        if (!_classActivityController.HasEvent() || _classActivityController.HasFinishEvent())
         {
             return true;
         }

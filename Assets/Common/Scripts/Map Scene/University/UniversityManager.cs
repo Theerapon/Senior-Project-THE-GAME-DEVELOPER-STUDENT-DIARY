@@ -14,21 +14,7 @@ public class UniversityManager : MonoBehaviour
     private PlayerAction _playerAction;
     private GameManager _gameManager;
 
-    private float _currentTimeHour;
-    private float _currentTimeMinute;
-    private float _currentTimeSecond;
-    private float _endTimeHour;
-    private float _endTimeMinute;
-    private float _endTimeSecond;
-
     private float _energy;
-
-    public float CurrentTimeHour { get => _currentTimeHour; }
-    public float CurrentTimeMinute { get => _currentTimeMinute; }
-    public float EndTimeHour { get => _endTimeHour; }
-    public float EndTimeMinute { get => _endTimeMinute; }
-    public float CurrentTimeSecond { get => _currentTimeSecond; }
-    public float EndTimeSecond { get => _endTimeSecond; }
     public float Energy { get => _energy; }
 
     private void Awake()
@@ -74,7 +60,11 @@ public class UniversityManager : MonoBehaviour
             float energy = _playerAction.CalReduceEnergyToCunsume(copy.Energy);
             ClassActivityType activityType = copy.ActivityType;
             Sprite activityIcon = copy.Icon;
-            bool isOpen = copy.IsOpening;
+            bool isOpen = false;
+            if (!_classActivityController.HasFinishEvent())
+            {
+                isOpen = copy.IsOpening;
+            }
             UniversityActivity universityActivity = new UniversityActivity(activityId, activityName, activityDay, activityTime, energy, activityType, activityIcon, isOpen);
             _activityTemplateGenerator.CreateTemplate(universityActivity);
         }
@@ -86,13 +76,6 @@ public class UniversityManager : MonoBehaviour
         if (_classActivityController.ClassActivitiesDic.ContainsKey(id))
         {
             ClassActivity classActivity = _classActivityController.ClassActivitiesDic[id];
-            _currentTimeHour = _timeManager.Hour;
-            _currentTimeMinute = _timeManager.Minute;
-            _currentTimeSecond = _timeManager.Second;
-
-            _endTimeHour = classActivity.End_time_hour;
-            _endTimeMinute = classActivity.End_time_minute;
-            _endTimeSecond = 0;
 
             _energy = baseActivitySlot.ACTIVITY.Energy;
 

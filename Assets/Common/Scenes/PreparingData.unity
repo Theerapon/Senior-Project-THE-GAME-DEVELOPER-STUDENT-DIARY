@@ -1140,6 +1140,7 @@ MonoBehaviour:
   - {fileID: 1483880172}
   - {fileID: 266759045}
   - {fileID: 341412064}
+  - {fileID: 1612711254}
   dataHandlers:
   - {fileID: 212041629}
   - {fileID: 215361637}
@@ -1164,6 +1165,7 @@ MonoBehaviour:
   - {fileID: 1483880170}
   - {fileID: 266759043}
   - {fileID: 341412061}
+  - {fileID: 1612711255}
 --- !u!4 &948092573
 Transform:
   m_ObjectHideFlags: 0
@@ -1198,6 +1200,7 @@ Transform:
   - {fileID: 1714787873}
   - {fileID: 1801873413}
   - {fileID: 341412063}
+  - {fileID: 1612711253}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1617,6 +1620,86 @@ MonoBehaviour:
       m_Calls: []
   SPECIFICATION_PATH: /Resources/Files/ItemProperty.csv
   SPECIFICATION_ID: Type
+--- !u!1 &1612711252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1612711253}
+  - component: {fileID: 1612711256}
+  - component: {fileID: 1612711255}
+  - component: {fileID: 1612711254}
+  m_Layer: 0
+  m_Name: EndGame loading
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612711253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612711252}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 948092573}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612711254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612711252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ea6be3fcf9d4f43bc12acaf883bd5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLoadDataCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  SPECIFICATION_PATH: /Resources/Files/EndGameDialogues.csv
+  SPECIFICATION_ID: ID
+--- !u!114 &1612711255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612711252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13851410fc5ee7a48a3587f225189ac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventOnInterpretDataComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  _endGameDialogueVM: {fileID: 1612711256}
+  _interpretHandler: {fileID: 948092574}
+--- !u!114 &1612711256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612711252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd200b27690a72647b585fe56fae66fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _endGameDialogues_Loading: {fileID: 1612711254}
 --- !u!1 &1658250809
 GameObject:
   m_ObjectHideFlags: 0

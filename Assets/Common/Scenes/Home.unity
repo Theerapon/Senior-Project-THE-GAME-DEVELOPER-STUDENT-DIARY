@@ -902,6 +902,7 @@ GameObject:
   - component: {fileID: 556990577}
   - component: {fileID: 556990578}
   - component: {fileID: 556990579}
+  - component: {fileID: 556990580}
   m_Layer: 0
   m_Name: MainManager
   m_TagString: MainManager
@@ -1068,6 +1069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeManager: {fileID: 556990568}
+  _projectController: {fileID: 1803865496}
 --- !u!114 &556990578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,6 +1092,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17666fc80fec12542b54663bab5f9774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &556990580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556990567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b915862aa823f4cab17fb00ff3d094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &621257561
@@ -1349,6 +1363,7 @@ MonoBehaviour:
   _dialougeNpcTemplateController: {fileID: 556990578}
   _npcsController: {fileID: 556990572}
   _playerAction: {fileID: 2079842010}
+  _characterStatusController: {fileID: 1694228983}
 --- !u!4 &876795371
 Transform:
   m_ObjectHideFlags: 0

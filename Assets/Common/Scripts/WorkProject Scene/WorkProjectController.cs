@@ -241,7 +241,7 @@ public class WorkProjectController : MonoBehaviour
 
     private bool CheckTimeForProjectDay(int totalSecond)
     {
-        if (!classActivityController.HasEvent())
+        if (!classActivityController.HasEvent() || classActivityController.HasFinishEvent())
         {
             return true;
         }

@@ -16,14 +16,18 @@ public class GiftManager : MonoBehaviour
     private const int INST_VALUE_FAVORITE_EXCEPT = 9;
     private const int INST_VALUE_FAVORITE_NORMAL = 3;
 
+    private const int INST_VALUE_MOTIVATION = 5;
+
     private PlayerAction playerAction;
     private NpcsController _npcsController;
     [SerializeField] private NotificationController _notificationController;
+    private CharacterStatusController _characterStatusController;
 
     private void Awake()
     {
         _npcsController = NpcsController.Instance;
         playerAction = PlayerAction.Instance;
+        _characterStatusController = CharacterStatusController.Instance;
     }
 
     public bool Gift(string itemId, string npcId)
@@ -99,7 +103,7 @@ public class GiftManager : MonoBehaviour
                             _notificationController.Emotion(_except);
                             break;
                     }
-
+                    _characterStatusController.IncreaseCurrentMotivation(INST_VALUE_MOTIVATION);
                     return true;
 
                 }

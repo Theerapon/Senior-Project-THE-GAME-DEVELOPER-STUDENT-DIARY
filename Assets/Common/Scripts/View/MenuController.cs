@@ -63,6 +63,11 @@ public class MenuController : MonoBehaviour
             ActivedBlur(false);
             hasDisplayed = true;
         }
+        else if (currentState == GameManager.GameState.WORK_PROJECT)
+        {
+            ActivedBlur(true);
+            hasDisplayed = true;
+        }
 
     }
 

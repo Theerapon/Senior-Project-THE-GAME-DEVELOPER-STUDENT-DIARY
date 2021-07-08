@@ -281,13 +281,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 488785592, guid: 381421a27331d714b93ef361b5ccdf87, type: 3}
+      propertyPath: m_Name
+      value: Exit
+      objectReference: {fileID: 0}
     - target: {fileID: 488785594, guid: 381421a27331d714b93ef361b5ccdf87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1083030464}
     - target: {fileID: 488785594, guid: 381421a27331d714b93ef361b5ccdf87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartGameWithContiniueGame
+      value: ExitGame
       objectReference: {fileID: 0}
     - target: {fileID: 488785594, guid: 381421a27331d714b93ef361b5ccdf87, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -305,6 +309,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SwitchScene, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 2112110369, guid: 381421a27331d714b93ef361b5ccdf87, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2112110371, guid: 381421a27331d714b93ef361b5ccdf87, type: 3}
+      propertyPath: m_text
+      value: Exit
+      objectReference: {fileID: 0}
     - target: {fileID: 681987309051258196, guid: 381421a27331d714b93ef361b5ccdf87,
         type: 3}
       propertyPath: m_IsActive
@@ -320,6 +332,11 @@ PrefabInstance:
       propertyPath: mainMenuDisplayHandler
       value: 
       objectReference: {fileID: 1933999310}
+    - target: {fileID: 3147246672774956906, guid: 381421a27331d714b93ef361b5ccdf87,
+        type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 8390300808547740086}
     - target: {fileID: 5074619252830953607, guid: 381421a27331d714b93ef361b5ccdf87,
         type: 3}
       propertyPath: m_Name

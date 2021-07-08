@@ -286,7 +286,8 @@ public class Bag_Handler : Manager<Bag_Handler>
 	private void UseItem(BaseItemSlot itemSlot)
     {
 		int index = itemSlot.INDEX;
-		inv_container.RemoveItem(index);
 		itemSlot.ITEM.UseItem();
+		inv_container.RemoveItem(index);
+		
 	}
 }

@@ -20,6 +20,7 @@ public class ScheduleController : Manager<ScheduleController>
     private int _currentYear;
     private Day _currentDay;
 
+    private SwitchScene _switchScene;
     private TimeManager _timeManager;
     [SerializeField] private StoreContoller _storeContoller;
     [SerializeField] private ClassActivityController _classActivityController;
@@ -30,6 +31,7 @@ public class ScheduleController : Manager<ScheduleController>
     protected override void Awake()
     {
         base.Awake();
+        _switchScene = SwitchScene.Instance;
         _timeManager = TimeManager.Instance;
         _timeManager.OnStartNewDayComplete.AddListener(OnStartNewDayCompleteHandler);
 
@@ -140,7 +142,7 @@ public class ScheduleController : Manager<ScheduleController>
         //get schedules to day
         List<Schedule_Template> schedulesToday = new List<Schedule_Template>();
         int indexToday = CalIndexCalendar(_currentDate, _currentMount);
-        if(indexToday < _gameCalendar.Length - 1)
+        if (indexToday < _gameCalendar.Length - 1)
         {
             schedulesToday = _gameCalendar[indexToday].Schedules;
         }
@@ -162,8 +164,8 @@ public class ScheduleController : Manager<ScheduleController>
             {
                 _storeContoller.RegisterEvent(StoreType.FoodStore, scheduleEvents);
             }
-            else if (scheduleEvents == ScheduleEvent.MysticFestival1st 
-                || scheduleEvents == ScheduleEvent.MysticFestival2nd 
+            else if (scheduleEvents == ScheduleEvent.MysticFestival1st
+                || scheduleEvents == ScheduleEvent.MysticFestival2nd
                 || scheduleEvents == ScheduleEvent.MysticFestival3rd
                 || scheduleEvents == ScheduleEvent.MysticFestival4th)
             {
@@ -181,6 +183,7 @@ public class ScheduleController : Manager<ScheduleController>
 
         //item store set id
         _storeContoller.SetItemSetOnNewDay(_currentDay);
+
     }
 
     private void RegisterGameCalendar(Schedule_Template schedule)

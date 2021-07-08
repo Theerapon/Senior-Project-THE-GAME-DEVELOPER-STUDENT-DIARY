@@ -43,6 +43,17 @@ public class DiaryController : MonoBehaviour
         timeManager.SetNewDay();
 
         yield return new WaitForSecondsRealtime(2f);
-        SwitchScene.Instance.DisplayDiary(false);
+        float _currentDate = timeManager.Date;
+        float _currentMount = timeManager.Month;
+        float _currentYear = timeManager.Year;
+
+        if(_currentDate == 28 && _currentMount == 4 && _currentYear == 2021)
+        {
+            SwitchScene.Instance.DisplayEndGame(true);
+        }
+        else
+        {
+            SwitchScene.Instance.DisplayDiary(false);
+        }
     }
 }

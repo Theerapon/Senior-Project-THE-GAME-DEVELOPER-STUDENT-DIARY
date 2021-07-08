@@ -294,6 +294,7 @@ public class Storage_Handler : Manager<Storage_Handler>
 	private void UseItem(bool inv, BaseItemSlot itemSlot)
 	{
 		int index = itemSlot.INDEX;
+		itemSlot.ITEM.UseItem();
 		if (inv)
         {
 			inv_container.RemoveItem(index);
@@ -302,8 +303,6 @@ public class Storage_Handler : Manager<Storage_Handler>
         {
 			storage_container.RemoveItem(index);
         }
-		itemSlot.ITEM.UseItem();
-
 	}
 
 }
