@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6672060545212934454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6672060545212934453}
+  - component: {fileID: 6672060545212934452}
+  - component: {fileID: 6672060545212934455}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6672060545212934453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672060545212934454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &6672060545212934452
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672060545212934454}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &6672060545212934455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6672060545212934454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e670b1641cecd4db6f021d7bade075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 0}
+  _mainSceneClip: {fileID: 8300000, guid: 878bf4fe999361c45b607349d6ce4038, type: 3}
+  _sleepSceneClip: {fileID: 8300000, guid: aa916d730d176f141867f6c6b68f247f, type: 3}
+  _homeSceneClip: {fileID: 8300000, guid: e2789f07543230b4d9c90b53221117f7, type: 3}
+  _mapSceneClip: {fileID: 8300000, guid: d288f651b0bb92c499f4be684973d961, type: 3}
+  _storeSceneClip: {fileID: 8300000, guid: eda11055ca716fc4db09d022912f578f, type: 3}
+  _mysticSceneClip: {fileID: 8300000, guid: c26ce129550188d4bab40c13f32d9fb0, type: 3}
+  _universitySceneClip: {fileID: 8300000, guid: 8c61d6f8ef6313d4b9636cc10988d258,
+    type: 3}
+  _teacherSecneClip: {fileID: 8300000, guid: dc66ff03e457756418a4e90e1d38e27c, type: 3}
+  _parkSceneClip: {fileID: 8300000, guid: 3be94f540dca9ad4686b882ce3828857, type: 3}
+  _workingSceneClip: {fileID: 8300000, guid: 398a947532a103141a1a65af6f2b3aa3, type: 3}
+  _courseSceneClip: {fileID: 8300000, guid: 49875491437a72c4aa53a9e7501f01f3, type: 3}
+  _workTypingGameSceneClip: {fileID: 8300000, guid: caba6c88571c5664d9fa78449fac4a02,
+    type: 3}
+  _alphaTypingGameSceneClip: {fileID: 8300000, guid: dd1169b883eab054791f956fd09f4239,
+    type: 3}
+  _betaTypingGameSceneClip: {fileID: 8300000, guid: 6c8e50ecadfc4b2488a024eac2fde61d,
+    type: 3}
+  _endgameSceneClip: {fileID: 8300000, guid: e2789f07543230b4d9c90b53221117f7, type: 3}
+  _summarySceneClip: {fileID: 8300000, guid: c907e540e85b066438c5f6b61bcf7cc2, type: 3}
+  _audioSource: {fileID: 6672060545212934452}

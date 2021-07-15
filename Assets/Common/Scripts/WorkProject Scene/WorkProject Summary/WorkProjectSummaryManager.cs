@@ -204,7 +204,14 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
     }
     private void UpdateEnergyAndMotivationConsume()
     {
-        playerAction.TakeEnergy(energy[countMinute / INST_30miniute - 1]);
+        int countEnergy = energy.Count;
+        int index = countMinute / INST_30miniute - 1;
+        if(index >= countEnergy)
+        {
+            index = countEnergy;
+        }
+
+        playerAction.TakeEnergy(energy[index]);
         playerAction.TakeMotivation(projectController.GetMotivationToConsumeByHalfHour());
     }
 
