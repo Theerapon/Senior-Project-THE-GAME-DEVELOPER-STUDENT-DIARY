@@ -57,6 +57,7 @@ public class Events
     #endregion
 
     #region Mouse Manager
+    [System.Serializable] public class EventOnButtonChange : UnityEvent<ButtonHover, bool> { }
     [System.Serializable] public class EventGameObjectOnClick : UnityEvent<GameObject> { }
     [System.Serializable] public class EventGameObjectOnTriger : UnityEvent<GameObject> { }
     [System.Serializable] public class EventGameObjectOnExitTriger : UnityEvent<GameObject> { }
