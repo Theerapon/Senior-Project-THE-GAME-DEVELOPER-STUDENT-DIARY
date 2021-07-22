@@ -22,7 +22,7 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    [SerializeField] private const float DEFAULT_TIMESCALE = 192 * 2;
+    [SerializeField] private const float DEFAULT_TIMESCALE = 48;
 
     [Header("Awake and Sleep")]
     [SerializeField] private const int DEFAULT_AWAKE_HOUR_TIME = 6;
@@ -31,8 +31,10 @@ public class TimeManager : Manager<TimeManager>
     [SerializeField] private const  int DEFAULT_SLEEP_LIMIT_TIME = 2;
 
     [Header("GoldenTIme")]
-    [SerializeField] private const int DEFAULT_STARTGOLDENTIME = 9;
-    [SerializeField] private const int DEFAULT_ENDGOLDENTIME = 17;
+    [SerializeField] private const int DEFAULT_STARTGOLDENTIME = 8;
+    [SerializeField] private const int DEFAULT_ENDGOLDENTIME = 12;
+    [SerializeField] private const int DEFAULT_STARTGOLDENTIME_2 = 20;
+    [SerializeField] private const int DEFAULT_ENDGOLDENTIME_2 = 23;
 
 
     public readonly int DEFAULT_Origin_Date = 1;
@@ -213,7 +215,8 @@ public class TimeManager : Manager<TimeManager>
     }
     private void CalGoldenTime()
     {
-        if (hour >= DEFAULT_STARTGOLDENTIME && hour <= DEFAULT_ENDGOLDENTIME)
+        if ((hour >= DEFAULT_STARTGOLDENTIME && hour <= DEFAULT_ENDGOLDENTIME)
+            || (hour >= DEFAULT_STARTGOLDENTIME_2 && hour <= DEFAULT_ENDGOLDENTIME_2))
         {
             goldenTime = true;
             OnGodenTime?.Invoke(true);

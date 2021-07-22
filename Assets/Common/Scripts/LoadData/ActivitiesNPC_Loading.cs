@@ -5,7 +5,7 @@ using UnityEngine;
 public class ActivitiesNPC_Loading : DataLoading
 {
     public static ActivitiesNPC_Loading instance;
-    [SerializeField] private string SPECIFICATION_PATH = "/Resources/Files/ActivitiesNPC.csv";
+    [SerializeField] private string SPECIFICATION_PATH = "/Resources/Files/ActivitiesNPC.txt";
     [SerializeField] private string SPECIFICATION_ID = "ID";
 
     public static ActivitiesNPC_Loading Instance

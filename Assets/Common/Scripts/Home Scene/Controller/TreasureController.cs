@@ -46,6 +46,7 @@ public class TreasureController : Manager<TreasureController>
                 _randomboxDic.Add(id, treasure.Value);
                 _randomTrasureIds.Add(id);
             }
+            Debug.Log("ssssssssssssssssssssss");
             
         }
     }
@@ -63,6 +64,7 @@ public class TreasureController : Manager<TreasureController>
         //spawn
         string spawnId = _randomboxDic[_currentRandomTreasureId].SpawnItemId;
         _currentSpawnItems.Clear();
+        Debug.Log(spawnId);
         _currentSpawnItems = _spawnItemsController.SpawnsItemsDic[spawnId].SpawnItems;
 
         _exploration = false;

@@ -60,7 +60,7 @@ public class PreparingData : MonoBehaviour
             }
         }
 
-        //Debug.Log(string.Format("Downloading {0}/{1}", countLoadComplete, dataLoadings.Length));
+        Debug.Log(string.Format("Downloading {0}/{1}", countLoadComplete, dataLoadings.Length));
         
         if(countLoadComplete >= dataLoadings.Length)
         {

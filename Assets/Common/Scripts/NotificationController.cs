@@ -147,7 +147,7 @@ public class NotificationController : Manager<NotificationController>
     public void RecieveIdea(string ideaName, Sprite icon)
     {
         string title = string.Format(ideaTitle, ideaName);
-        notificationUpdateGenerator.CreateTemplate(icon, title, limitChatDescription, hasSpriteColor);
+        notificationUpdateGenerator.CreateTemplate(icon, title, ideaDescription, hasSpriteColor);
     }
 
     public void Emotion(Sprite icon)
@@ -164,7 +164,7 @@ public class NotificationController : Manager<NotificationController>
 
     public void LimitGift(Sprite icon, string nameNpc)
     {
-        string description = string.Format(limitChatDescription, nameNpc);
+        string description = string.Format(limitGiftDescription, nameNpc);
         notificationUpdateGenerator.CreateTemplate(icon, limitGiftTitle, description, hasSpriteColor);
     }
 }

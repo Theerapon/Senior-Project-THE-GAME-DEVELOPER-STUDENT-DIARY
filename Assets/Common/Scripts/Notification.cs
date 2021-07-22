@@ -13,9 +13,26 @@ public class Notification : MonoBehaviour
         gameManager.OnGameStateChanged.AddListener(DestroyHandler);
     }
 
+
+    IEnumerator WaitToDestroy()
+    {
+        yield return new WaitForSecondsRealtime(3.5f);
+        OnDestroy();
+        
+
+    }
+
     private void DestroyHandler(GameManager.GameState current, GameManager.GameState previous)
     {
-        OnDestroy();
+        if(current == GameManager.GameState.PLACE && previous == GameManager.GameState.DIALOUGE)
+        {
+            StartCoroutine("WaitToDestroy");
+        }
+        else
+        {
+            OnDestroy();
+        }
+        
     }
 
     private void OnDestroy()

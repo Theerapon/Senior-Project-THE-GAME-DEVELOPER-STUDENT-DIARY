@@ -7,6 +7,14 @@ using TMPro;
 
 public class HUD_Info_Display : MonoBehaviour
 {
+    private const string _bagName = "กระเป๋า";
+    private const string _status = "สถานะตัวละคร";
+    private const string _ideas = "ไอเดีย";
+    private const string _exit = "ออกจากเกม";
+
+    [Header("Name")]
+    [SerializeField] private TMP_Text _menuName;
+
     [Header("Time")]
     [SerializeField] private TMP_Text dateCalendar;
     [SerializeField] private TMP_Text timeCalendar;
@@ -27,10 +35,23 @@ public class HUD_Info_Display : MonoBehaviour
 
     private CharacterStatusController characterStatusController;
     private TimeManager timeManager;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        timeManager = TimeManager.Instance;
+        gameManager = GameManager.Instance;
+        characterStatusController = CharacterStatusController.Instance;
+    }
 
     protected void Start()
     {
-        timeManager = TimeManager.Instance;
+        
+        if (!ReferenceEquals(gameManager, null))
+        {
+            gameManager.OnGameStateChanged.AddListener(OnGameStateChangedHandler);
+        }
+
         if (!ReferenceEquals(timeManager, null))
         {
             timeManager.OnDateCalendar.AddListener(HandleOnDateCalendar);
@@ -39,7 +60,7 @@ public class HUD_Info_Display : MonoBehaviour
             timeManager.NotificationAll();
         }
 
-        characterStatusController = CharacterStatusController.Instance;
+        
         
         if(!ReferenceEquals(characterStatusController, null))
         {
@@ -49,6 +70,32 @@ public class HUD_Info_Display : MonoBehaviour
             characterStatusController.ValidateDisplay();
         }
 
+    }
+
+    private void OnGameStateChangedHandler(GameManager.GameState current, GameManager.GameState previous)
+    {
+        if(current == GameManager.GameState.MENU && gameManager.CurrentGameScene == GameManager.GameScene.Menu_Bag)
+        {
+            SetName(_bagName);
+        }
+        else if (current == GameManager.GameState.MENU && gameManager.CurrentGameScene == GameManager.GameScene.Menu_Characters)
+        {
+            SetName(_status);
+        }
+        else if (current == GameManager.GameState.MENU && gameManager.CurrentGameScene == GameManager.GameScene.Menu_Ideas)
+        {
+            SetName(_ideas);
+        }
+        else if (current == GameManager.GameState.MENU && gameManager.CurrentGameScene == GameManager.GameScene.Menu_Exit)
+        {
+            SetName(_exit);
+        }
+    }
+
+
+    private void SetName(string name)
+    {
+        _menuName.text = name;
     }
 
     private void MoneyHandler()

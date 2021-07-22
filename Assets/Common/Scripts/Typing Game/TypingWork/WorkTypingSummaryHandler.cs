@@ -7,7 +7,7 @@ using static WorkTypingManager;
 
 public class WorkTypingSummaryHandler : MonoBehaviour
 {
-    private readonly float[] bonusEfficiency = { -0.5f, -0.1f, 0.1f, 0.15f, 0.2f, 0.35f, 0.5f, 0.7f, 1f, 1.5f, 2f, 3f};
+    private readonly float[] bonusEfficiency = { -0.3f, -0.1f, 0.1f, 0.15f, 0.2f, 0.35f, 0.5f, 0.7f, 1f, 1.5f, 2f, 3f};
     private readonly int[] scoreStandard = { 0,  0, 0, 0, 25000, 45000, 80000, 156000, 450000, 600000, 1000000, 2000000, };
     private int indexOfEfficiency;
 
@@ -68,7 +68,7 @@ public class WorkTypingSummaryHandler : MonoBehaviour
         int badIdea = playerManager.WordBadIdea;
         int maxCombo = playerManager.MaxCombo;
         int standardScore = (((correct + incorrect) + (goodIdea + badIdea)) + playerManager.CountCombo[playerManager.MaxComboPhase - 1]);
-        int recieveScore = ((correct + goodIdea + maxCombo)  - ((incorrect + badIdea) * 5));
+        int recieveScore = ((correct + goodIdea + maxCombo)  - ((incorrect + badIdea) * 2));
         float avgScore = (float) recieveScore / standardScore;
         if(avgScore <= 0.5f)
         {
