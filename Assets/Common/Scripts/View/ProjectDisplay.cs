@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class ProjectDisplay : MonoBehaviour
 {
-    [SerializeField] private Projects projects;
+    //[SerializeField] private Projects projects;
     [SerializeField] private GameObject ProjectDisplayHolder;
     [SerializeField] private TMP_Text textCoding;
     [SerializeField] private TMP_Text textDesign;
@@ -22,7 +22,7 @@ public class ProjectDisplay : MonoBehaviour
     {
         SetDisplayProject();
         GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
-        Projects.Instance.OnProjectUpdated.AddListener(HandleProjectUpdated);
+        //Projects.Instance.OnProjectUpdated.AddListener(HandleProjectUpdated);
     }
 
     private void HandleProjectUpdated()
@@ -38,19 +38,6 @@ public class ProjectDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (GameManager.Instance.CurrentGameState)
-        {
-            case GameManager.GameState.PREGAME:
-                break;
-            case GameManager.GameState.RUNNING:
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    DisplayProject();
-                }
-                break;
-            case GameManager.GameState.DISPLAYMENU:
-                break;
-        }
 
     }
 
@@ -69,18 +56,18 @@ public class ProjectDisplay : MonoBehaviour
 
     private void SetDisplayProject()
     {
-        textCoding.text = projects.GetCodingQuality().ToString();
-        textDesign.text = projects.GetDesignQuality().ToString();
-        textTesting.text = projects.GetTestingQuality().ToString();
-        textArt.text = projects.GetArtQuality().ToString();
-        textAudio.text = projects.GetAudioQuality().ToString();
-        textBug.text = projects.GetBugValue().ToString();
-        textNameProject.text = projects.GetNameProject().ToString(); //wait for name project phase
-        imageFillProject.fillAmount = CalculateFillAmountProject(projects.GetCurrentXpProject());
+        //textCoding.text = projects.GetCodingQuality().ToString();
+        //textDesign.text = projects.GetDesignQuality().ToString();
+        //textTesting.text = projects.GetTestingQuality().ToString();
+        //textArt.text = projects.GetArtQuality().ToString();
+        //textAudio.text = projects.GetAudioQuality().ToString();
+        //textBug.text = projects.GetBugValue().ToString();
+        //textNameProject.text = projects.GetNameProject().ToString(); //wait for name project phase
+        //imageFillProject.fillAmount = CalculateFillAmountProject(projects.GetCurrentXpProject());
     }
 
-    private float CalculateFillAmountProject(int xp)
-    {
-        return (float) xp / projects.project_Current.GetRequireXpProject(0);
-    }
+    //private float CalculateFillAmountProject(int xp)
+    //{
+    //    //return (float) xp / projects.project_Current.GetRequireXpProject(0);
+    //}
 }

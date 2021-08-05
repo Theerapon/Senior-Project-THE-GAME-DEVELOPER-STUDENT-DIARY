@@ -160,8 +160,8 @@ GameObject:
   - component: {fileID: 3403235437017963941}
   - component: {fileID: 3403235437017963942}
   - component: {fileID: 3403235437017963943}
-  - component: {fileID: 579553624}
   - component: {fileID: 4557887727192884908}
+  - component: {fileID: 9007055415272575750}
   m_Layer: 5
   m_Name: RandomWordTypingWork
   m_TagString: Untagged
@@ -230,21 +230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &579553624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3403235437017963938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba4024a4d6032647b919f9e376ab02a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tmp_Text: {fileID: 3403235436612420026}
-  canvas: {fileID: 4557887727192884908}
-  speed: 200
 --- !u!223 &4557887727192884908
 Canvas:
   m_ObjectHideFlags: 0
@@ -264,8 +249,25 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!114 &9007055415272575750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403235437017963938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1130d8801938664a86e13d9e1d12582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tmp_Text: {fileID: 3403235436612420026}
+  canvas: {fileID: 4557887727192884908}
+  normal: {r: 0.9333334, g: 0.9294118, b: 0.86666673, a: 1}
+  highlight: {r: 0.7735849, g: 0.71247536, b: 0.26637593, a: 1}
+  speed: 130
 --- !u!1 &3403235437653785690
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,19 +5,18 @@ using UnityEngine;
 
 public class BedDialogue : MonoBehaviour, IDialogue
 {
-    [SerializeField] private TMP_Text dialogueOne;
-    [SerializeField] private TMP_Text dialogueTwo;
-    
-    private CharacterStats characterStats;
-    private GameObject foundPlayerAction;
-    private PlayerAction playerAction;
+
+    private GameObject found_home_controller;
+    private MenuController menuController;
+    private ClassActivityController classActivityController;
+    private NotificationController notificationController;
 
     private void Start()
     {
-        characterStats = CharacterStats.Instance;
-        foundPlayerAction = GameObject.FindGameObjectWithTag("Player");
-        playerAction = foundPlayerAction.GetComponent<PlayerAction>();
-        setTextDialogue();
+        found_home_controller = GameObject.FindGameObjectWithTag("HomeController");
+        menuController = found_home_controller.GetComponent<MenuController>();
+        classActivityController = ClassActivityController.Instance;
+        notificationController = NotificationController.Instance;
     }
 
     public void SelectedDialogue(int choice)
@@ -25,20 +24,21 @@ public class BedDialogue : MonoBehaviour, IDialogue
         switch (choice)
         {
             case 1:
-                characterStats.ApplySleepFullTimeSelected(true);
-                GameManager.Instance.GotoSummaryDiary();
+                if (!classActivityController.HasEvent() || (classActivityController.HasEvent() && classActivityController.HasFinishEvent()))
+                {
+                    SwitchScene.Instance.DisplaySaving(true);
+                }
+                else
+                {
+                    menuController.Close(GameManager.Instance.CurrentGameScene);
+                    notificationController.HasEventToFinish();
+                }
+                
                 break;
             case 2:
-                characterStats.ApplySleepFullTimeSelected(false);
-                GameManager.Instance.GotoSummaryDiary();
+                menuController.Close(GameManager.Instance.CurrentGameScene);
                 break;
         }
-    }
-
-    private void setTextDialogue()
-    {
-        dialogueOne.text = "Full time to sleep = " +  TimeManager.Instance.GetSecondText(playerAction.GetCalculateSleepTimeSecond(true));
-        dialogueTwo.text = "Two third time to sleep = " + TimeManager.Instance.GetSecondText(playerAction.GetCalculateSleepTimeSecond(false));
     }
 
 }

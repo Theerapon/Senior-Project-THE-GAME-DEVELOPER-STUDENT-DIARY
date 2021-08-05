@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 {
-    [SerializeField] ItemDatabase itemDatabase;
+   //[SerializeField] ItemDatabase itemDatabase;
 
-    private Player player;
+    private Bag_Handler player;
     private const string InventoryFileName = "Inventory";
     private const string EquipmentFileName = "Equipment";
 
     protected void Start()
     {
-        player = Player.Instance;
+        //player = BagHandler.Instance;
         SaveManager.Instance.OnSaveInitiated.AddListener(HandleOnSave);
         //OnLoaded();
         
@@ -38,31 +38,31 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
 
     private void SaveInventory()
     {
-        SaveItems(Player.Instance.ItemContainer.ItemSlots, InventoryFileName);
+        //SaveItems(BagHandler.Instance.inv_container_handler.InvItemSlots, InventoryFileName);
     }
 
     private void SaveEquipment()
     {
-        SaveItems(Player.Instance.Equipment.EquipmentSlots, EquipmentFileName);
+        //SaveItems(BagHandler.Instance.Equipment.EquipmentSlots, EquipmentFileName);
     }
 
     private void LoadInventory()
-    {
+    {   /*
         if (SaveLoad.SaveExists(InventoryFileName))
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(InventoryFileName);
             if (savedSlots == null) return;
-            player.ItemContainer.ClearItemSlots();
+            player.display_item_container.ClearItemSlots();
 
             for (int i = 0; i < savedSlots.SavedSlots.Length; i++)
             {
-                ItemSlot itemSlot = player.ItemContainer.ItemSlots[i];
+                BaseInvSlot itemSlot = player.display_item_container.ItemSlots[i];
                 ItemSlotSaveData savedSlot = savedSlots.SavedSlots[i];
 
                 if (savedSlot == null)
                 {
                     itemSlot.ITEM = null;
-                    itemSlot.Amount = 0;
+                    //itemSlot.Amount = 0;
                 }
                 else
                 {
@@ -80,17 +80,17 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                     itemType.itemDefinition = itemsSO;
 
                     itemSlot.ITEM = itemType;
-                    itemSlot.Amount = savedSlot.Amount;
+                    //itemSlot.Amount = savedSlot.Amount;
                     itemSlot.ITEM.SetGameObjectToFalse();
                 }
             }
 
-        }
+        }*/
 
     }
 
     public void LoadEquipment()
-    {
+    {   /*
         if (SaveLoad.SaveExists(InventoryFileName))
         {
             ItemContainerSaveData savedSlots = SaveLoad.Load<ItemContainerSaveData>(EquipmentFileName);
@@ -115,19 +115,19 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
                 itemType = itemSpawned.GetComponent<ItemPickUp>();
                 itemType.itemDefinition = itemsSO;
 
-                player.ItemContainer.AddItem(itemType);
+                player.display_item_container.AddItem(itemType);
                 player.Equip(itemType);
             }
-        }       
+        }*/       
     }
 
-    private void SaveItems(IList<ItemSlot> itemSlots, string fileName)
+    private void SaveItems(IList<BaseInvSlot> itemSlots, string fileName)
     {
         var saveData = new ItemContainerSaveData(itemSlots.Count);
 
         for (int i = 0; i < saveData.SavedSlots.Length; i++)
         {
-            ItemSlot itemSlot = itemSlots[i];
+            BaseInvSlot itemSlot = itemSlots[i];
 
             if (itemSlot.ITEM == null)
             {
@@ -135,7 +135,7 @@ public class ItemSaveManager : Manager<ItemSaveManager>, ISaveable
             }
             else
             {
-                saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID(), itemSlot.Amount);
+                //saveData.SavedSlots[i] = new ItemSlotSaveData(itemSlot.ITEM.itemDefinition.ID(), itemSlot.Amount);
             }
         }
         SaveData(saveData, fileName);

@@ -4,33 +4,18 @@ using UnityEngine;
 
 public class CloseDialogue : MonoBehaviour
 {
-    [SerializeField] GameManager.Scene areaScene;
+    private GameObject found_home_controller;
+    private MenuController menuController;
 
-    private void Update()
+    private void Start()
     {
-        if(GameManager.Instance.CurrentGameState != GameManager.GameState.DIALOGUE)
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnCloseDialogue();
-        }
+        found_home_controller = GameObject.FindGameObjectWithTag("HomeController");
+        menuController = found_home_controller.GetComponent<MenuController>();
     }
 
     public void OnClick()
     {
-        OnCloseDialogue();
+        menuController.Close(GameManager.Instance.CurrentGameScene);
     }
 
-    private void OnCloseDialogue()
-    {
-        GameManager.Instance.CloseDialogue(areaScene);
-    }
-
-    public void OnFinishedDialogue()
-    {
-        GameManager.Instance.FinishedDialogue(areaScene);
-    }
 }

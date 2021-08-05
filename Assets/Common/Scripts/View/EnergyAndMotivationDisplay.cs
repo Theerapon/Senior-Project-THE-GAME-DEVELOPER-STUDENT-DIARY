@@ -15,13 +15,15 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     [SerializeField] private Image imageMotivation;
     [SerializeField] private TMP_Text textMotivation;
 
-    private CharacterStats characterStats;
+    private GameObject found_Player;
+    private CharacterStatusController characterStatusController;
 
     private void Start()
     {
-        characterStats = CharacterStats.Instance;
-        characterStats.OnEnergyUpdated.AddListener(OnEnergyHandler);
-        characterStats.OnMotivationUpdated.AddListener(OnMotivationHandler);
+        found_Player = GameObject.FindGameObjectWithTag("Player");
+        characterStatusController = CharacterStatusController.Instance;
+        characterStatusController.OnEnergyUpdated.AddListener(OnEnergyHandler);
+        characterStatusController.OnMotivationUpdated.AddListener(OnMotivationHandler);
         Reset();
     }
 
@@ -34,22 +36,22 @@ public class EnergyAndMotivationDisplay : MonoBehaviour
     private void OnMotivationHandler()
     {
         imageMotivation.fillAmount = CalculateFillAmountMotivation();
-        textMotivation.text = characterStats.GetCurrentMotivation() + " / " + characterStats.GetDEFAULT_MaxMotivation();
+        textMotivation.text = characterStatusController.CurrentMotivation + " / " + characterStatusController.Default_maxMotivation;
     }
 
     private void OnEnergyHandler()
     {
         imageEnergy.fillAmount = CalculateFillAmountEnergy();
-        textEnergy.text = characterStats.GetCurrentEnergy() + " / " + characterStats.GetMaxEnergy();
+        textEnergy.text = characterStatusController.CurrentEnergy + " / " + characterStatusController.Default_maxEnergy;
     }
 
     private float CalculateFillAmountEnergy()
     {
-        return (float)characterStats.GetCurrentEnergy()  / characterStats.GetMaxEnergy();
+        return (float)characterStatusController.CurrentEnergy  / characterStatusController.Default_maxEnergy;
     }
 
     private float CalculateFillAmountMotivation()
     {
-        return (float)characterStats.GetCurrentMotivation() / characterStats.GetDEFAULT_MaxMotivation();
+        return (float)characterStatusController.CurrentMotivation / characterStatusController.Default_maxMotivation;
     }
 }

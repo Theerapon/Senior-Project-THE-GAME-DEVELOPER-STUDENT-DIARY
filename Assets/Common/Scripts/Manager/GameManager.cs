@@ -6,36 +6,105 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Manager<GameManager>
 {
+    #region Events Action and AsyncOperation 
+    public Events.EventGameState OnGameStateChanged;
+    public Events.EventOnLoadComplete onLoadComplete;
+    public Events.EventOnHomeDisplay onHomeDisplay;
+    private static Action onLoaderCallback;
+
+    private static AsyncOperation ao;
+    #endregion
+
     private class LoadingMonoBehaviour : MonoBehaviour { }
 
     #region Enums
-    public enum Scene
+    public enum GameScene
     {
         Boot,
-        Loading,
-        Main,
+        Home,
         Summary,
-        Level1,
-        UI_BED,
-        UI_COMPUTER,
-        Course,
-        WorkProject,
-        CourseAnimation,
-
+        COM_Course,
+        COM_Course_Summary,
+        COM_WorkProject,
+        COM_WorkProject_Design,
+        COM_WorkProject_Summary,
+        HUD_Info,
+        Menu_Bag,
+        Menu_Characters,
+        Menu_Ideas,
+        Menu_Exit,
+        Home_Storage,
+        Home_BED,
+        Home_COMPUTER,
+        HOME_Calendar,
+        Map,
+        Saving,
+        Diary,
+        PreparingData,
+        TypingAlphaTest,
+        TypingBetaTest,
+        TypingWork,
+        Place_Clothing_Store,
+        Place_Food_Store,
+        Place_Material_Store,
+        Place_Mystic_Store,
+        Place_Park,
+        Place_Teacher_Home,
+        Place_University,
+        ReceiveItems,
+        StachInventory,
+        SleepLate,
+        Transport,
+        HUD_Dialouge,
+        MeetingProject,
+        EndGame,
     }
-    public static Scene _currentLevelScene;
+
+
+    public static GameScene _currentGameScene;
+
+    public GameScene CurrentGameScene
+    {
+        get { return _currentGameScene; }
+        set { _currentGameScene = value; }
+    }
+
 
     public enum GameState
     {
         PREGAME,
-        LOADING,
-        RUNNING,
-        DISPLAYMENU,
-        DIALOGUE,
-        SUMMARY,
+        PREPARINGDATA,
+        FIRST_SCENE,
+        HOME,
+        HOME_ACTION,
         COURSE,
-        WORKPROJECT,
-        COURSEANIMATION,
+        COURSE_NOTIFICATION,
+        COURSE_SUMMARY,
+        SAVEING,
+        Diary,
+        CARD,
+        HOME_DIALOUGE,
+        MAP,
+        OPENINGTREASURE,
+        RECEIVE_ITEM,
+        STACH,
+        PLACE,
+        DIALOUGE,
+        MEETING_PROJECT,
+        CLASS,
+        GIFT,
+        MENU,
+        WORK_PROJECT,
+        WORK_PROJECT_DESIGN,
+        WORK_PROJECT_MINI_GAME,
+        WORK_PROJECT_ANIMATION,
+        WORK_PROJECT_DIALOUGE,
+        WORK_PROJECT_SUMMARY,
+        TRANSPORTING,
+        SLEEPLATE,
+        ONTHEWAY,
+        CALENDAR,
+        EndGame,
     }
 
     public GameState CurrentGameState
@@ -53,12 +122,6 @@ public class GameManager : Manager<GameManager>
     List<GameObject> _instancedSystemPrefabs;
     #endregion
 
-    #region Events Action and AsyncOperation 
-    public Events.EventGameState OnGameStateChanged;
-    private static Action onLoaderCallback;
-
-    private static AsyncOperation ao;
-    #endregion
 
     protected override void Awake()
     {
@@ -67,114 +130,243 @@ public class GameManager : Manager<GameManager>
         InstantiateSystemPrefabs();
     }
 
-
-    private void Update()
-    {
-        if (_currentGameState == GameState.PREGAME)
-        {
-            return;
-        }
-    }
-
-
     void UpdateState(GameState state)
     {
         _previousGameState = _currentGameState;
         _currentGameState = state;
-
-        switch (_currentGameState)
-        {
-            case GameState.PREGAME:
-                Time.timeScale = 1.0f;
-                break;
-            case GameState.LOADING:
-                Time.timeScale = 0f;
-                break;
-            case GameState.RUNNING:
-                Time.timeScale = 1.0f;
-                break;
-            case GameState.DISPLAYMENU:
-                Time.timeScale = 0f;
-                break;
-            case GameState.DIALOGUE:
-                Time.timeScale = 0f;
-                break;
-            case GameState.SUMMARY:
-                Time.timeScale = 1f;
-                break;
-            case GameState.COURSE:
-                Time.timeScale = 1f;
-                break;
-            case GameState.COURSEANIMATION:
-                Time.timeScale = 1f;
-                break;
-            default:
-                Time.timeScale = 1f;
-                break;
-        }
-
+ 
         OnGameStateChanged?.Invoke(_currentGameState, _previousGameState);
     }
+    void UpdateScene(GameScene scene)
+    {
+        #region Boot
+        if (scene == GameScene.Boot)
+        {
+            UpdateState(GameState.PREGAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        if(scene == GameScene.PreparingData)
+        {
+            UpdateState(GameState.PREPARINGDATA);
+        }
+
+        #region Home
+        if (scene == GameScene.Home && !SceneManager.GetSceneByName(GameScene.HUD_Info.ToString()).isLoaded)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Info);
+            UpdateState(GameState.HOME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            onHomeDisplay?.Invoke(true);
+        } else if (scene == GameScene.Home)
+        {
+            UpdateState(GameState.HOME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            onHomeDisplay?.Invoke(true);
+        }
+        #endregion
+
+        #region Menu
+        if (scene == GameScene.Menu_Bag || scene == GameScene.Menu_Characters || scene == GameScene.Menu_Ideas || scene == GameScene.Menu_Exit)
+        {
+            UpdateState(GameState.MENU);
+        }
+        #endregion
+
+        #region Home Action
+        if (scene == GameScene.Home_Storage || scene == GameScene.Home_COMPUTER || scene == GameScene.Home_BED)
+        {
+            UpdateState(GameState.HOME_ACTION);
+        }
+        if(scene == GameScene.HOME_Calendar)
+        {
+            UpdateState(GameState.CALENDAR);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Dialouge
+        if (scene == GameScene.HUD_Dialouge)
+        {
+            UpdateState(GameState.DIALOUGE);
+        }
+        #endregion
+
+        #region University
+        if(scene == GameScene.MeetingProject)
+        {
+            UpdateState(GameState.MEETING_PROJECT);
+            onLoadComplete?.Invoke(_currentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Map
+        if (scene == GameScene.Map)
+        {
+            UpdateState(GameState.MAP);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            onHomeDisplay?.Invoke(false);
+        }
+        #endregion
+
+        #region Sleep
+        if(scene == GameScene.SleepLate)
+        {
+            UpdateState(GameState.SLEEPLATE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Course
+        if (scene == GameScene.COM_Course)
+        {
+            UpdateState(GameState.COURSE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if(scene == GameScene.COM_Course_Summary)
+        {
+            UpdateState(GameState.COURSE_SUMMARY);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Saving
+        if(scene == GameScene.Saving)
+        {
+            UpdateState(GameState.SAVEING);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Diary
+        if(scene == GameScene.Diary)
+        {
+            UpdateState(GameState.Diary);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Recieve Item
+        if (scene == GameScene.ReceiveItems)
+        {
+            UpdateState(GameState.RECEIVE_ITEM);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if(scene == GameScene.StachInventory)
+        {
+            UpdateState(GameState.STACH);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region WorkProject
+        if (scene == GameScene.COM_WorkProject)
+        {
+            UpdateState(GameState.WORK_PROJECT);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+
+        if(scene == GameScene.COM_WorkProject_Design)
+        {
+            UpdateState(GameState.WORK_PROJECT_DESIGN);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+
+        if(scene == GameScene.COM_WorkProject_Summary)
+        {
+            UpdateState(GameState.WORK_PROJECT_SUMMARY);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        if(scene == GameScene.EndGame)
+        {
+            UpdateState(GameState.EndGame);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+
+        #region mini Game
+        if (scene == GameScene.TypingWork)
+        {
+            UpdateState(GameState.WORK_PROJECT_MINI_GAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.TypingAlphaTest)
+        {
+            UpdateState(GameState.WORK_PROJECT_MINI_GAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.TypingBetaTest)
+        {
+            UpdateState(GameState.WORK_PROJECT_MINI_GAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+        #region Place
+        if (scene == GameScene.Place_Clothing_Store)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.Place_Food_Store)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.Place_Material_Store)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.Place_Mystic_Store)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.Place_Park)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.Place_Teacher_Home)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        if (scene == GameScene.Place_University)
+        {
+            UpdateState(GameState.PLACE);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+        #endregion
+
+
+    }
+
+    
 
     private void OnLoadOperationComplete(AsyncOperation ao)
     {
-        if (_currentLevelScene == Scene.Boot)
-        {
-            UpdateState(GameState.PREGAME);
-        }
-
-        if (_currentLevelScene == Scene.Loading)
-        {
-            UpdateState(GameState.LOADING);
-        }
-
-        if (_currentLevelScene == Scene.Main)
-        {
-            //
-            LoadLevelSceneWithOutLoadingScene(Scene.Level1);
-        }
-
-        if (_currentLevelScene == Scene.Level1)
-        {
-            UpdateState(GameState.RUNNING);
-        }
-
-        if (_currentLevelScene == Scene.Summary)
-        {
-            UpdateState(GameState.SUMMARY);
-        }
-
-        if (_currentLevelScene == Scene.CourseAnimation)
-        {
-            UpdateState(GameState.COURSEANIMATION);
-        }
-
+        UpdateScene(_currentGameScene);
     }
 
     #region Loading
-    public void LoadLevelSceneWithOutLoadingScene(Scene sceneName)
+    public bool LoadLevelSceneWithOutLoadingScene(GameScene sceneName)
     {
         ao = SceneManager.LoadSceneAsync(sceneName.ToString(), LoadSceneMode.Additive);
         if (ao == null)
         {
             Debug.LogError("[GameManager] Unable to load level " + sceneName.ToString());
+            return false;
         }
-        _currentLevelScene = sceneName;
+        _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
+        return true;
     }
 
-    public void LoadLevelWithLoadingScene(Scene sceneName)
-    {
-        onLoaderCallback = () => {
-            StartCoroutine(LoadingScene(sceneName));
-        };
-
-        // Load the loading scene
-        UpdateState(GameState.LOADING);
-        SceneManager.LoadSceneAsync(Scene.Loading.ToString(), LoadSceneMode.Additive);
-    }
-
-    IEnumerator LoadingScene(Scene sceneName)
+    IEnumerator LoadingScene(GameScene sceneName)
     {
         yield return null;
 
@@ -191,23 +383,22 @@ public class GameManager : Manager<GameManager>
             yield return null;
         }
 
-        //after loading scene finished then unload loading scene
-        UnLoadLevel(Scene.Loading);
 
-        _currentLevelScene = sceneName;
+        _currentGameScene = sceneName;
         ao.completed += OnLoadOperationComplete;
 
 
     }
 
-    public void UnLoadLevel(Scene sceneName)
+    public bool UnLoadLevel(GameScene sceneName)
     {
         SceneManager.UnloadSceneAsync(sceneName.ToString());
         if (ao == null)
         {
             Debug.LogError("[GameManager] Unable to unload level " + sceneName.ToString());
-            return;
+            return false;
         }
+        return true;
     }
 
     public static float GetLoadingProgress()
@@ -254,108 +445,675 @@ public class GameManager : Manager<GameManager>
     #region Scenes
     public void StartGameWithNewGame()
     {
-        SwitchSceneToMain(true);
+        if (!SceneManager.GetSceneByName(GameScene.PreparingData.ToString()).isLoaded)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.PreparingData);
+        }
+        
     }
-
     public void StartGameWithContiniueGame()
     {
-        SwitchSceneToMain(true);
-    }
-
-    public void GotoSummaryDiary()
-    {
-        LoadLevelSceneWithOutLoadingScene(Scene.Summary);
-        UpdateState(GameState.SUMMARY);
-    }
-    public void GotoCourse()
-    {
-        LoadLevelSceneWithOutLoadingScene(Scene.Course);
-        UpdateState(GameState.COURSE);
-    }
-
-    public void GotoCourseAnimation()
-    {
-        LoadLevelWithLoadingScene(Scene.CourseAnimation);
-    }
-
-    public void GotoWorkProject()
-    {
-        LoadLevelSceneWithOutLoadingScene(Scene.WorkProject);
-        UpdateState(GameState.WORKPROJECT);
-    }
-
-    public void GotoMainWithContiniueGameInNextDays()
-    {
-        UnLoadLevel(Scene.Summary);
-        CloseToMain();
-        if (SaveManager.Instance != null)
+        if (!SceneManager.GetSceneByName(GameScene.PreparingData.ToString()).isLoaded)
         {
-            SaveManager.Instance.OnSave();
+            LoadLevelSceneWithOutLoadingScene(GameScene.PreparingData);
+        }
+    }
+    public void DisplayHome()
+    {
+        if (!SceneManager.GetSceneByName(GameScene.Home.ToString()).isLoaded)
+        {
+            LoadLevelSceneWithOutLoadingScene(GameScene.Home);
+        }
+
+    }
+    public void DisplayHomeAction(bool actived, GameScene scene)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(scene.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(scene);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(scene.ToString()).isLoaded)
+            {
+                UnLoadLevel(scene);
+                UpdateScene(GameScene.Home);
+            }
+
         }
     }
 
-    public void BackFromCourseToMain()
+    private GameManager.GameScene present_menu;
+    private bool menu_hasDisplayed = false;
+    public void DisplayMenu(bool actived, GameScene currentScene, GameState toState)
     {
-        UnLoadLevel(Scene.Course);
-        CloseToMain();
 
-    }
-
-    public void BackFromCourseAnimationToCourse()
-    {
-        UnLoadLevel(Scene.CourseAnimation);
-        UpdateState(GameState.COURSE);
-    }
-
-    public void OpenDialogue(Scene scene)
-    {
-        LoadLevelSceneWithOutLoadingScene(scene);
-        UpdateState(GameState.DIALOGUE);
-    }
-
-
-    public void FinishedDialogue(Scene nameScene)
-    {
-        UnLoadLevel(nameScene);
-    }
-
-    public void CloseDialogue(Scene nameScene)
-    {
-        UnLoadLevel(nameScene);
-        CloseToMain();
-    }
-
-    private void CloseToMain()
-    {
-        _currentLevelScene = Scene.Main;
-        UpdateState(GameState.RUNNING);
-    }
-
-    private void SwitchSceneToMain(bool loadingScene)
-    {
-        if (loadingScene)
+        if (actived)
         {
-            LoadLevelWithLoadingScene(Scene.Main);
-        } else
+            if (present_menu == currentScene && menu_hasDisplayed == true)
+                return;
+
+            UnLoadMenuSceneHasActived();
+            if (LoadLevelSceneWithOutLoadingScene(currentScene))
+            {
+                present_menu = currentScene;
+                menu_hasDisplayed = true;
+            }
+        }
+        else
         {
-            LoadLevelSceneWithOutLoadingScene(Scene.Main);
+            if (SceneManager.GetSceneByName(currentScene.ToString()).isLoaded)
+            {
+                UnLoadLevel(currentScene);
+                UpdateState(toState);
+                menu_hasDisplayed = false;
+            }
+            
+        }
+    }
+    public void DispleyMap(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Map.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Map);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Map.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Map);
+                UpdateScene(GameScene.Home);
+            }
+            
+        }
+    }
+    public void DisplayCourse(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.COM_Course.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Home_COMPUTER);
+                LoadLevelSceneWithOutLoadingScene(GameScene.COM_Course);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.COM_Course.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.COM_Course);
+                UpdateScene(GameScene.Home);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayCourseNotification(bool actived)
+    {
+        if (actived)
+        {
+            UpdateState(GameState.COURSE_NOTIFICATION);
+        }
+        else
+        {
+            UpdateState(GameState.COURSE);
+        }
+    }
+    public void DisplaySaving(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Saving.ToString()).isLoaded)
+            {
+                if (SceneManager.GetSceneByName(GameScene.Home_BED.ToString()).isLoaded)
+                {
+                    UnLoadLevel(GameScene.Home_BED);
+                }
+                else if (SceneManager.GetSceneByName(GameScene.SleepLate.ToString()).isLoaded)
+                {
+                    UnLoadLevel(GameScene.SleepLate);
+                }
+
+                LoadLevelSceneWithOutLoadingScene(GameScene.Saving);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Saving.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Saving);
+                UpdateScene(GameScene.Home);
+            }
+            
+        }
+    }
+    public void DisplaySleeplate(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.SleepLate.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.SleepLate);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.SleepLate.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.SleepLate);
+                UpdateScene(GameScene.Home);
+            }
+
+        }
+    }
+    public void DisplayDiary(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Diary.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Saving);
+                LoadLevelSceneWithOutLoadingScene(GameScene.Diary);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Diary.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Diary);
+
+                if (SceneManager.GetSceneByName(GameScene.Map.ToString()).isLoaded)
+                {
+                    UpdateScene(GameScene.Map);
+                }
+                else
+                {
+                    UpdateScene(GameScene.Home);
+                }
+                
+            }
+            
+        }
+    }
+    public void DisplayCalendar(bool actived)
+    {
+        if (actived)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.HOME_Calendar.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.HOME_Calendar);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.HOME_Calendar.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.HOME_Calendar);
+                UpdateScene(GameScene.Home);
+            }
+
+        }
+    }
+    public void DisplayWorkProject(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.COM_WorkProject.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Home_COMPUTER);
+                LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject);
+            }
+
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.COM_WorkProject.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.COM_WorkProject);
+                UpdateState(GameState.HOME);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayWorkProjectDesign(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.COM_WorkProject_Design.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject_Design);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.COM_WorkProject_Design.ToString()).isLoaded)
+            {
+                if (SceneManager.GetSceneByName(GameScene.COM_WorkProject.ToString()).isLoaded)
+                {
+                    UpdateState(GameState.WORK_PROJECT);
+                }
+                else if (SceneManager.GetSceneByName(GameScene.MeetingProject.ToString()).isLoaded)
+                {
+                    UpdateState(GameState.MEETING_PROJECT);
+                }
+
+                UnLoadLevel(GameScene.COM_WorkProject_Design);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+            
+        }
+    }
+    public void DisplayWorkProjectSummary(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.COM_WorkProject_Summary.ToString()).isLoaded)
+            {
+                UnLoadLevel(CurrentGameScene);
+                LoadLevelSceneWithOutLoadingScene(GameScene.COM_WorkProject_Summary);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.COM_WorkProject_Summary.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.COM_WorkProject_Summary);
+                UpdateState(GameState.WORK_PROJECT);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayCourseSummary(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.COM_Course_Summary.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.COM_Course_Summary);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.COM_Course_Summary.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.COM_Course_Summary);
+                UpdateState(GameState.COURSE);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
+    public void DisplayWorkTypingGame(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.TypingWork.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.TypingWork);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.TypingWork.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.TypingWork);
+            }
+            
+        }
+    }
+    public void DisplayAlphaTypingGame(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.TypingAlphaTest.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.TypingAlphaTest);
+
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.TypingAlphaTest.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.TypingAlphaTest);
+            }
+            
+        }
+    }
+    public void DisplayBetaTypingGame(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.TypingBetaTest.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.TypingBetaTest);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.TypingBetaTest.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.TypingBetaTest);
+            }
+            
+        }
+    }
+    public void DisplayPlaceClothing(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_Clothing_Store.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_Clothing_Store);
+            }
+
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_Clothing_Store.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_Clothing_Store);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }          
+        }
+    }
+    public void DisplayPlaceFood(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_Food_Store.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_Food_Store);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_Food_Store.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_Food_Store);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+            
+        }
+    }
+    public void DisplayPlaceMaterial(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_Material_Store.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_Material_Store);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_Material_Store.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_Material_Store);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayPlaceMystic(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_Mystic_Store.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_Mystic_Store);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_Mystic_Store.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_Mystic_Store);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
+    public void DisplayPlacePark(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_Park.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_Park);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_Park.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_Park);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayPlaceTeacher(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_Teacher_Home.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_Teacher_Home);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_Teacher_Home.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_Teacher_Home);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayPlaceUniversity(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.Place_University.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.Place_University);
+            }
+            
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.Place_University.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.Place_University);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+            
+        }
+    }
+    public void DisplayReceiveTreasure(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.ReceiveItems.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.ReceiveItems);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.ReceiveItems.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.ReceiveItems);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
+    public void DisplayStachInventory(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.StachInventory.ToString()).isLoaded)
+            {
+                if (SceneManager.GetSceneByName(GameScene.ReceiveItems.ToString()).isLoaded)
+                {
+                    UnLoadLevel(GameScene.ReceiveItems);
+                }
+                LoadLevelSceneWithOutLoadingScene(GameScene.StachInventory);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.StachInventory.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.StachInventory);
+                UpdateState(GameState.MAP);
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
+        }
+    }
+    public void DisplayMeetingProject(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.MeetingProject.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.MeetingProject);
+            }
+
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.MeetingProject.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.MeetingProject);
+                UpdateState(GameState.PLACE);
+                _currentGameScene = GameScene.Place_University;
+                onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+            }
+
         }
     }
 
-    #endregion
-
-    #region Game State
-    public void DisplayMenuUpdatedState()
+    private GameState _tempGameStatePreviousDialougeScene;
+    private GameScene _tempGameScene;
+    public void DisplayDialouge(bool active)
     {
-        if (_currentGameState == GameState.RUNNING)
+        if (active)
         {
-            UpdateState(GameState.DISPLAYMENU);
+            _tempGameStatePreviousDialougeScene = CurrentGameState;
+            _tempGameScene = CurrentGameScene;
+            if (!SceneManager.GetSceneByName(GameScene.HUD_Dialouge.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.HUD_Dialouge);
+            }
         }
-        else if(_currentGameState == GameState.DISPLAYMENU && _previousGameState == GameState.RUNNING)
+        else
         {
-            UpdateState(GameState.RUNNING);
+            if (SceneManager.GetSceneByName(GameScene.HUD_Dialouge.ToString()).isLoaded)
+            {
+                UnLoadLevel(GameScene.HUD_Dialouge);
+                UpdateState(_tempGameStatePreviousDialougeScene);
+                _currentGameScene = _tempGameScene;
+            }
         }
+    }
+    public void DisplayEndGame(bool active)
+    {
+        if (active)
+        {
+            if (!SceneManager.GetSceneByName(GameScene.EndGame.ToString()).isLoaded)
+            {
+                LoadLevelSceneWithOutLoadingScene(GameScene.EndGame);
+            }
+        }
+        else
+        {
+            if (SceneManager.GetSceneByName(GameScene.EndGame.ToString()).isLoaded)
+            {
+                ExitGameToMenu(!active);
+            }
+        }
+    }
+    public void ExitGameToMenu(bool active)
+    {
+        if (active)
+        {
+            int count = SceneManager.sceneCount;
+            for(int i = 0; i < count; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+                if (!scene.name.Equals(GameScene.Boot.ToString()))
+                {
+                    SceneManager.UnloadSceneAsync(scene.name);
+                }
+            }
+            _currentGameScene = GameScene.Boot;
+            UpdateState(GameState.PREGAME);
+            onLoadComplete?.Invoke(CurrentGameState, _previousGameState);
+        }
+    }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+
+    public void Transporting()
+    {
+        UpdateState(GameState.TRANSPORTING);
+    }
+    public void OpeningTreasure()
+    {
+        UpdateState(GameState.OPENINGTREASURE);
+    }
+    public void SleepLate()
+    {
+        UpdateState(GameState.SLEEPLATE);
+    }
+    public void HomeToMap()
+    {
+        UpdateState(GameState.ONTHEWAY);
     }
     #endregion
 
@@ -369,4 +1127,28 @@ public class GameManager : Manager<GameManager>
             _instancedSystemPrefabs.Add(prefabInstance);
         }
     }
+
+    private void UnLoadMenuSceneHasActived()
+    {
+        if (SceneManager.GetSceneByName(GameScene.Menu_Bag.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Bag);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Characters.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Characters);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Ideas.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Ideas);
+        }
+
+        if (SceneManager.GetSceneByName(GameScene.Menu_Exit.ToString()).isLoaded)
+        {
+            UnLoadLevel(GameScene.Menu_Exit);
+        }
+    }
+
 }

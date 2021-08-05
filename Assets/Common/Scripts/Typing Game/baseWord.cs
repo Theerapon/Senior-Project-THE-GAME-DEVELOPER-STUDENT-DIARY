@@ -28,12 +28,18 @@ public class baseWord
         bool wordTypeCheck = (typeIndex >= _word.Length);
         if (wordTypeCheck)
         {
+            TypedCompleted();
             RemoveWord();
         }
         return wordTypeCheck;
     }
 
     public virtual void RemoveWord()
+    {
+
+    }
+
+    public virtual void TypedCompleted()
     {
 
     }
@@ -46,5 +52,15 @@ public class baseWord
     public virtual void UpdatedOrderLayer()
     {
 
+    }
+
+    public virtual Vector3 GetPositionParent()
+    {
+        return Vector3.zero;
+    }
+
+    public virtual int GetTypeIndex()
+    {
+        return typeIndex;
     }
 }
