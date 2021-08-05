@@ -1,2 +1,4 @@
-# GDSG-Game-Developer-Simulating-Game
-The senior project is about Game Developer Simulating Game
+<<<<<<< HEAD
+Senior Project : 2D Game about game developer
+State : Developing
+>>>>>>> main
