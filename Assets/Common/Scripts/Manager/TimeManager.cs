@@ -22,7 +22,7 @@ public class TimeManager : Manager<TimeManager>
 
     #region Default
     [Header("Time Default")]
-    [SerializeField] private const float DEFAULT_TIMESCALE = 48;
+    [SerializeField] private const float DEFAULT_TIMESCALE = 48 * 4;
 
     [Header("Awake and Sleep")]
     [SerializeField] private const int DEFAULT_AWAKE_HOUR_TIME = 6;
@@ -53,6 +53,7 @@ public class TimeManager : Manager<TimeManager>
     #endregion
 
     private SwitchScene switchScene;
+    private GameManager gameManager;
 
     #region Enum
     public enum SetsOfMonth
@@ -92,11 +93,13 @@ public class TimeManager : Manager<TimeManager>
     {
         base.Awake();
         switchScene = SwitchScene.Instance;
+        gameManager = GameManager.Instance;
+        
     }
 
     protected void Start()
     {
-        GameManager.Instance.OnGameStateChanged.AddListener(HandleGameStateChanged);
+        gameManager.OnGameStateChanged.AddListener(HandleGameStateChanged);
         Initialized();
         ValidateCalculateTime();
         ValidationInitializing();
@@ -128,9 +131,9 @@ public class TimeManager : Manager<TimeManager>
 
     void Update()
     {
-        if ((GameManager.Instance.CurrentGameState == GameManager.GameState.HOME
-            || GameManager.Instance.CurrentGameState == GameManager.GameState.MAP) && switchScene.LoadComplete
-            && GameManager.Instance.CurrentGameState != GameManager.GameState.EndGame)
+        if ((gameManager.CurrentGameState == GameManager.GameState.HOME
+            || gameManager.CurrentGameState == GameManager.GameState.MAP) && switchScene.LoadComplete
+            && gameManager.CurrentGameState != GameManager.GameState.EndGame)
         {
             CalculateTime();
         }

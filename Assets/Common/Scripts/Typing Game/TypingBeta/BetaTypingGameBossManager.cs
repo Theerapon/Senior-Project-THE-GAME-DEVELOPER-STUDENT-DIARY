@@ -122,7 +122,7 @@ public class BetaTypingGameBossManager : Manager<BetaTypingGameBossManager>
             {
                 currentHp += heal;
             }
-            Debug.Log("headl = " + heal);
+
             canHeal = false;
             healCooldown = INST_TimeHealCooldown;
             onBetaTypingBossUpdate?.Invoke();

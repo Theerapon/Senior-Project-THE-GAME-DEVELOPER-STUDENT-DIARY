@@ -27,8 +27,8 @@ public class Project : MonoBehaviour
     private const int Inst_MaxPhase = 4;
     private const int Inst_MaxLevelRequire = 4;
     private int[] tempLevelRequire = { 1, 1, 1, 2, 2, 2, 3, 3, 4 };
-    private const float Inst_BaseEnergy = 5;
-    private const float Inst_BaseMotivation = 3;
+    private const float Inst_BaseEnergy = 3;
+    private const float Inst_BaseMotivation = 2;
     private const int Inst_BaseExp = 50;
     #endregion
 

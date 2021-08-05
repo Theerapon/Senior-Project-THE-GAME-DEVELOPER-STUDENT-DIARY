@@ -263,7 +263,7 @@ public class WorkProjectSummaryManager : Manager<WorkProjectSummaryManager>
 
     private int CalExp(float sumEfficiency)
     {
-        return Mathf.RoundToInt(projectController.BaseExp * sumEfficiency + 0.5f) * characterStatusController.CurrentLevel;
+        return Mathf.RoundToInt(projectController.BaseExp * (sumEfficiency + 0.5f));
     }
 
     private void SetButtonActive(bool active)

@@ -63,7 +63,6 @@ public class AlphaTypingTimer : MonoBehaviour
 
                 if (playerManager.PlayerState == AlphaTypingPlayerManager.AlphaPlayerState.Alive)
                 {
-                    
                     timeCountGenerator += Time.deltaTime * Time.timeScale;
                     if (timeCountGenerator >= cooldown[wordManager.CurrentLevel] && amountGenerator > 0)
                     {

@@ -46,7 +46,6 @@ public class TreasureController : Manager<TreasureController>
                 _randomboxDic.Add(id, treasure.Value);
                 _randomTrasureIds.Add(id);
             }
-            Debug.Log("ssssssssssssssssssssss");
             
         }
     }

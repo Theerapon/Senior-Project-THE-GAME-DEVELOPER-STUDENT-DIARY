@@ -124,6 +124,11 @@ public class NpcsController : Manager<NpcsController>
                         }
                     }
 
+                    if(indexCurrentDay >= activities.Count)
+                    {
+                        indexCurrentDay = activities.Count;
+                    }
+
                     Place currentPlaceActivity = activities[indexCurrentDay].Place;
                     Place currentPlaceNpc = npc.Value.CurrentPlace;
                     if(currentPlaceActivity != Place.Null)
